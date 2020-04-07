@@ -4,10 +4,11 @@ import {
   Text,
   Image,
   ScrollView,
-  StyleSheet
+  StyleSheet,
+  TouchableOpacity
 } from 'react-native';
 
-import { Button } from 'react-native-material-ui';
+import { Button, Icon } from 'react-native-material-ui';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -21,23 +22,59 @@ export default class Home extends React.Component {
     this.props.navigation.navigate(screenName);
   }
 
+  _button(title, icon, screenName, audio) {
+    return (
+      <View style={{flexDirection: 'row', marginBottom: 16}}>
+        <TouchableOpacity
+          onPress={() => this.goTo(screenName)}
+          style={{flexDirection: 'row', flex: 1, padding: 16,marginRight: 10, backgroundColor: '#fff', borderRadius: 10}}
+        >
+          <Icon name={icon} size={24} />
+          <Text style={{marginLeft: 10}}>{title}</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => {alert(1)}}
+          style={{backgroundColor: '#fff', borderRadius: 10, padding: 14, flexDirection: 'row', alignItems: 'center'}}
+        >
+          <View style={{backgroundColor: 'blue', borderRadius: 15, width: 30, height: 30, flexDirection: 'row', alignItems: 'center'}}>
+            <Icon name="volume-up" color='#fff' size={24} />
+          </View>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
+  _btnAbout() {
+    return (
+      <TouchableOpacity
+        onPress={() => this.goTo('AboutScreen')}
+        style={{flexDirection: 'row', flex: 1, padding: 16,marginRight: 10, justifyContent: 'center'}}
+      >
+        <Icon name='info' size={24} />
+        <Text style={{marginLeft: 10}}>អំពីកម្មវិធី</Text>
+      </TouchableOpacity>
+    )
+  }
+
   render() {
     return (
       <ScrollView style={{flex: 1}}>
+        <View style={{height: 180, backgroundColor: '#e2561f'}}>
+        </View>
+
         <View style={styles.container}>
           <Text style={styles.title}>ចំណាកស្រុកឆ្លាតវៃ</Text>
-          <View style={styles.imgWrapper}>
-            <Image
-              style={{maxHeight: 200, marginBottom: 30}}
-              resizeMode="contain"
-              source={require('../assets/images/logo.jpg')}/>
-          </View>
 
-          <View>
-            <Button raised primary text="ទាក់ទងទៅលេខ ១២៨០" onPress={() => {this.goTo('ChcScreen')}} style={{container: styles.btn}} />
-            <Button raised primary text="ព័ត៌មានផ្សេងៗ" onPress={() => {this.goTo('OtherInfoScreen')}} style={{container: styles.btn}} />
-            <Button raised primary text="ចុះឈ្មោះ" onPress={() => {this.goTo('RegisterScreen')}} style={{container: styles.btn}} />
-            <Button primary text="អំពីកម្មវិធី" onPress={() => {this.goTo('AboutScreen')}} style={{container: styles.btn}} />
+          <Text>កម្មវិធីចំណាកស្រុកឆ្លាតវៃ</Text>
+          <Text>ជាកម្មវិធីទូរស័ព្ទបង្កើតឡើងក្នុងគោលបំណងជំនួយ</Text>
+
+          <View style={{marginTop: 30}}>
+            { this._button('ចំណាកស្រុកឆ្លាតវៃ', 'info-outline', 'OtherInfoScreen') }
+            { this._button('ទាក់ទងទៅលេខ ១២៨០', 'phone', 'ChcScreen') }
+            { this._button('ចុះឈ្មោះ', 'person', 'RegisterScreen') }
+
+            { this._btnAbout() }
           </View>
         </View>
 
@@ -49,27 +86,11 @@ export default class Home extends React.Component {
 const styles = StyleSheet.create({
   container: {
     margin: 24,
-    alignItems: 'center',
     flexDirection: 'column'
   },
   title: {
-    fontSize: 20,
+    fontSize: 30,
     textAlign: 'center',
   },
-  imgWrapper: {
-    marginTop: 24,
-    marginBottom: 24,
-    textAlign: 'center'
-  },
-  footer: {
-    marginTop: 20,
-    padding: 10,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-    backgroundColor: 'green'
-  },
-  btn: {
-    marginBottom: 16
-  }
+
 });

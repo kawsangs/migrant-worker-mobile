@@ -13,7 +13,8 @@ import AppNavigator from './app/navigators/app_navigator';
 const customTextProps = {
   style: {
     fontFamily: 'KhSiemreap',
-    color: 'rgba(0,0,0,.87)'
+    color: 'rgba(0,0,0,.87)',
+    fontSize: 16
   }
 };
 
