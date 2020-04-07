@@ -1,53 +1,41 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
 import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
   View,
   Text,
   StatusBar,
 } from 'react-native';
 
-import {
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
-
+import { ThemeContext, getTheme } from 'react-native-material-ui';
+import { setCustomText} from 'react-native-global-props';
 import SplashScreen from 'react-native-splash-screen';
+import AppNavigator from './app/navigators/app_navigator';
 
-class App extends React.Component {
+const customTextProps = {
+  style: {
+    fontFamily: 'KhSiemreap',
+    color: 'rgba(0,0,0,.87)'
+  }
+};
+
+const uiTheme = {
+  fontFamily: 'KhSiemreap',
+  palette: {
+    // primaryColor: '#f55b1f',
+  },
+};
+
+setCustomText(customTextProps);
+
+export default class App extends React.Component {
   componentDidMount() {
     SplashScreen.hide();
   }
 
   render() {
     return (
-      <>
-        <StatusBar barStyle="dark-content" />
-        <SafeAreaView>
-          <ScrollView
-            contentInsetAdjustmentBehavior="automatic"
-            style={styles.scrollView}>
-            <Text>hello</Text>
-
-          </ScrollView>
-        </SafeAreaView>
-      </>
-    );
+      <ThemeContext.Provider value={getTheme(uiTheme)}>
+        <AppNavigator ref="app"/>
+      </ThemeContext.Provider>
+    )
   }
 };
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  }
-});
-
-export default App;
