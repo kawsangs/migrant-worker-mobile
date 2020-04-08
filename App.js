@@ -10,18 +10,20 @@ import { setCustomText} from 'react-native-global-props';
 import SplashScreen from 'react-native-splash-screen';
 import AppNavigator from './app/navigators/app_navigator';
 
+import { Color, FontFamily, FontSize } from './app/assets/stylesheets/base_style';
+
 const customTextProps = {
   style: {
-    fontFamily: 'KhSiemreap',
+    fontFamily: FontFamily.body,
     color: 'rgba(0,0,0,.87)',
-    fontSize: 16
+    fontSize: FontSize.body
   }
 };
 
 const uiTheme = {
-  fontFamily: 'KhSiemreap',
+  fontFamily: FontFamily.body,
   palette: {
-    // primaryColor: '#f55b1f',
+    primaryColor: Color.primary
   },
 };
 

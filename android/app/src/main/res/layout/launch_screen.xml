@@ -16,4 +16,14 @@
       android:layout_height="wrap_content"
       android:src="@drawable/logo" />
   </LinearLayout>
+
+  <TextView
+    android:id="@+id/text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="28dp"
+    android:textColor="#009e69"
+    android:fontFamily="KhSiemreap"
+    android:text="ចំណាកស្រុកឆ្លាតវៃ" />
+
 </LinearLayout>

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar, View, Text } from 'react-native';
+import { Color } from '../assets/stylesheets/base_style';
 
 // screens
 import HomeScreen from '../screens/home';
@@ -17,7 +18,7 @@ export default class AppNavigator extends Component {
   render() {
     return (
       <NavigationContainer>
-        <StatusBar backgroundColor={'#e2561f'} />
+        <StatusBar backgroundColor={Color.primary} translucent={true} />
         <Stack.Navigator>
           <Stack.Screen
             name="HomeScreen"
