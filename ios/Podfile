@@ -58,6 +58,10 @@ target 'MigrantWorkerMobile' do
 
   pod 'RNSoundPlayer', :path => '../node_modules/react-native-sound-player'
 
+  pod 'RNAudio', :path => '../node_modules/react-native-audio'
+
+  pod 'RNSound', :path => '../node_modules/react-native-sound'
+
   target 'MigrantWorkerMobileTests' do
     inherit! :complete
     # Pods for testing

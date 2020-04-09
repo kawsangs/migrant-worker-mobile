@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar, View, Text } from 'react-native';
-import { Color } from '../assets/stylesheets/base_style';
+import { Color, FontFamily, FontSize } from '../assets/stylesheets/base_style';
 
 // screens
 import HomeScreen from '../screens/home';
@@ -19,7 +19,7 @@ export default class AppNavigator extends Component {
     return (
       <NavigationContainer>
         <StatusBar backgroundColor={Color.primary} translucent={true} />
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="RegisterScreen">
           <Stack.Screen
             name="HomeScreen"
             component={HomeScreen}
@@ -30,7 +30,20 @@ export default class AppNavigator extends Component {
 
           <Stack.Screen name="ChcScreen" component={ChcScreen} />
           <Stack.Screen name="OtherInfoScreen" component={OtherInfoScreen} />
-          <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+          <Stack.Screen
+            name="RegisterScreen"
+            component={RegisterScreen}
+            options={{
+              title: "ចុះឈ្មោះ",
+              headerStyle: {
+                backgroundColor: Color.primary,
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontFamily: FontFamily.title,
+              },
+            }}
+          />
           <Stack.Screen name="AboutScreen" component={AboutScreen} />
         </Stack.Navigator>
       </NavigationContainer>

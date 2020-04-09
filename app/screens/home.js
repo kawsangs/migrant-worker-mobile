@@ -13,13 +13,9 @@ import SoundPlayer from 'react-native-sound-player';
 import { Color, FontFamily, FontSize } from '../assets/stylesheets/base_style';
 
 export default class Home extends React.Component {
-  _onFinishedPlayingSubscription = null;
+  state = {}
   audioFileNames = ['safe_migration', 'contact_1280', 'register'];
-
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+  _onFinishedPlayingSubscription = null;
 
   componentDidMount() {
     this._onFinishedPlayingSubscription = SoundPlayer.addEventListener('FinishedPlaying', ({ success }) => {
