@@ -18,10 +18,12 @@ import SoundPlayer from 'react-native-sound-player';
 import Images from '../utils/images';
 import Audio from '../components/audio';
 import Toast, { DURATION } from 'react-native-easy-toast';
-
+import realm from '../schemas/schema';
+import uuidv4 from '../utils/uuidv4';
 
 export default class Register extends React.Component {
   state = {
+    uuid: uuidv4(),
     name: '',
     sex: '',
     age: '',
@@ -136,7 +138,6 @@ export default class Register extends React.Component {
         </View>
 
         { !!this.state.errors.sex && <Text style={styles.errorText}>{this.state.errors.sex}</Text> }
-
      </View>
     )
   }
@@ -159,14 +160,25 @@ export default class Register extends React.Component {
     }
 
     try {
-      // realm.write(() => {
-      //   // user = realm.create('User', this._buildData(), true);
-      //   // Sidekiq.create(this.state.user.uuid, 'User');
-      //   // this.props.navigation.navigate('AboutScreen');
-      // });
+      realm.write(() => {
+        realm.create('User', this._buildData(), true);
+        // Sidekiq.create(this.state.uuid, 'User');
+        // this.props.navigation.navigate('AboutScreen');
+      });
     } catch (e) {
       alert(e);
     }
+  }
+
+  _buildData() {
+    let fields = ['uuid', 'name', 'sex', 'age', 'phoneNumber'];
+    let obj = {};
+
+    for(let i=0; i<fields.length; i++) {
+      obj[fields[i]] = this.state[fields[i]];
+    }
+
+    return obj;
   }
 
   _checkRequire(field) {
