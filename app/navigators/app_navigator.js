@@ -11,6 +11,7 @@ import OtherInfoScreen from '../screens/other_info';
 import RegisterScreen from '../screens/register';
 import ChcScreen from '../screens/chc';
 import AboutScreen from '../screens/about';
+import ProfileListScreen from '../screens/profile_list';
 
 const Stack = createStackNavigator();
 
@@ -19,32 +20,24 @@ export default class AppNavigator extends Component {
     return (
       <NavigationContainer>
         <StatusBar backgroundColor={Color.primary} translucent={true} />
-        <Stack.Navigator initialRouteName="RegisterScreen">
-          <Stack.Screen
-            name="HomeScreen"
-            component={HomeScreen}
-            options={{
-              headerShown: false
-            }}
-          />
+        <Stack.Navigator
+          initialRouteName="ProfileListScreen"
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: Color.primary,
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontFamily: FontFamily.title,
+            }
+          }}>
 
-          <Stack.Screen name="ChcScreen" component={ChcScreen} />
-          <Stack.Screen name="OtherInfoScreen" component={OtherInfoScreen} />
-          <Stack.Screen
-            name="RegisterScreen"
-            component={RegisterScreen}
-            options={{
-              title: "ចុះឈ្មោះ",
-              headerStyle: {
-                backgroundColor: Color.primary,
-              },
-              headerTintColor: '#fff',
-              headerTitleStyle: {
-                fontFamily: FontFamily.title,
-              },
-            }}
-          />
-          <Stack.Screen name="AboutScreen" component={AboutScreen} />
+          <Stack.Screen name="HomeScreen" component={HomeScreen} options={{headerShown: false}}/>
+          <Stack.Screen name="ProfileListScreen" component={ProfileListScreen} options={{title: "ប្រវត្តិចុះឈ្មោះ"}}/>
+          <Stack.Screen name="ChcScreen" component={ChcScreen} options={{title: "ទាក់ទងទៅលេខ១២៨០"}} />
+          <Stack.Screen name="OtherInfoScreen" component={OtherInfoScreen} options={{title: "ចំណាកស្រុកសុវត្ថិភាព"}} />
+          <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={{title: "ចុះឈ្មោះ"}} />
+          <Stack.Screen name="AboutScreen" component={AboutScreen} options={{title: "អំពីកម្មវិធី"}} />
         </Stack.Navigator>
       </NavigationContainer>
     );

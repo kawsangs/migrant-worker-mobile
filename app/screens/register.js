@@ -20,6 +20,7 @@ import Audio from '../components/audio';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import realm from '../schemas/schema';
 import uuidv4 from '../utils/uuidv4';
+import UserWorker from '../workers/user_worker';
 
 export default class Register extends React.Component {
   state = {
@@ -110,13 +111,16 @@ export default class Register extends React.Component {
 
   _buildOption(title, value, imageName) {
     let borderStyle = this.state.sex == value ? { borderColor: Color.primary } : {};
+    let textFont = this.state.sex == value ? FontFamily.title : FontFamily.body;
+    let textColor = this.state.sex == value ? Color.primary : Color.textBlack;
+
     return (
       <TouchableOpacity
         onPress={() => this.setState({sex: value}) }
         style={[styles.card, Style.boxShadow, borderStyle]}>
 
         <Image source={Images[imageName]} style={{width: 52, height: 52}} />
-        <Text>{title}</Text>
+        <Text style={{fontFamily: textFont, color: textColor}}>{title}</Text>
       </TouchableOpacity>
     )
   }
@@ -162,8 +166,8 @@ export default class Register extends React.Component {
     try {
       realm.write(() => {
         realm.create('User', this._buildData(), true);
-        // Sidekiq.create(this.state.uuid, 'User');
-        // this.props.navigation.navigate('AboutScreen');
+        UserWorker.performAsync(this.state.uuid);
+        this.props.navigation.navigate('ChcScreen');
       });
     } catch (e) {
       alert(e);
@@ -171,7 +175,7 @@ export default class Register extends React.Component {
   }
 
   _buildData() {
-    let fields = ['uuid', 'name', 'sex', 'age', 'phoneNumber'];
+    let fields = ['uuid', 'name', 'sex', 'age', 'phoneNumber', 'voiceRecord'];
     let obj = {};
 
     for(let i=0; i<fields.length; i++) {

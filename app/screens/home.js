@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   },
   imageWrapper: {
     height: 210,
-    backgroundColor: '#009e69',
+    backgroundColor: Color.primary,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'flex-start'

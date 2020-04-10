@@ -104,8 +104,8 @@ export default class Audio extends Component {
     }
 
     const rationale = {
-      'title': 'Microphone Permission',
-      'message': 'AudioExample needs access to your microphone so you can record audio.'
+      'title': 'ការអនុញ្ញាតប្ើរមីក្រូហ្វូន',
+      'message': 'កម្មវិធីនេះ សុំសិទ្ធិចូលប្រើមីក្រូហ្វូនរបស់អ្នក ដូច្នេះទើបអ្នកអាចថតសំលេង។'
     };
 
     return PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.RECORD_AUDIO, rationale)
@@ -247,8 +247,8 @@ export default class Audio extends Component {
   _renderButtonSave() {
     return (
       <TouchableOpacity style={{flex: 1, alignItems: 'center'}} onPress={() => this._onSaveRecord()}>
-        <AwesomeIcon name='check' size={30} color={Color.primary} />
-        <Text style={{color: Color.primary}}>រក្សាទុក</Text>
+        <AwesomeIcon name='check' size={30} color={Color.green} />
+        <Text style={{color: Color.green}}>រក្សាទុក</Text>
       </TouchableOpacity>
     );
   }
