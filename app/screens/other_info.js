@@ -4,27 +4,71 @@ import {
   Text,
   Image,
   ScrollView,
-  StyleSheet
+  StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 
-import { ThemeContext, getTheme } from 'react-native-material-ui';
-import { StatusBar } from 'react-native';
-
+import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_style';
+import PlaySound from '../components/play_sound';
+import Images from '../utils/images';
 
 export default class OtherInfo extends React.Component {
   state = {};
 
-  constructor(props) {
-    super(props);
+  _renderCard(title, image, screenName, fileName='register') {
+    return (
+      <TouchableOpacity
+        onPress={() => this.props.navigation.navigate(screenName)}
+        style={[Style.card, {flex: 1, marginBottom: 0}]}
+        >
+        <View style={{alignItems: 'flex-end'}}>
+          <PlaySound
+            fileName={fileName}
+            activePlaying={this.state.activePlaying}
+            onPress={(fileName) => this.setState({activePlaying: fileName})}/>
+        </View>
+
+        <View style={{justifyContent: 'center', flex: 1, alignItems: 'center'}}>
+          <Image source={Images[image]} style={{width: '80%', height: '60%'}} />
+        </View>
+
+        <View style={{height: 54}}>
+          <Text>{title}</Text>
+        </View>
+      </TouchableOpacity>
+    );
   }
 
-  componentDidMount() {
+  _renderCards() {
+    return (
+      <View style={{flex: 1}}>
+        <View style={{flexDirection: 'row', flex: 1}}>
+          {this._renderCard('ចំណាកស្រុកសុវត្ថិភាព ត្រូវមានអ្វីខ្លះ?', 'safe_migrant', 'SafeMigrationScreen')}
 
+          <View style={{width: 16}}></View>
+
+          {this._renderCard('ព័ត៌មានជាអក្សរ', 'text_info', 'TextInfoScreen')}
+        </View>
+
+        <View style={{height: 16}}></View>
+
+        <View style={{flexDirection: 'row', flex: 1}}>
+          {this._renderCard('សៀវភៅអំពីសេវា', 'service_directory', 'ServiceDirectoryScreen')}
+
+          <View style={{width: 16}}></View>
+
+          {this._renderCard('ព័ត៌មានជាវីដេអូ', 'video', 'VideosScreen')}
+        </View>
+      </View>
+
+    );
   }
 
   render() {
     return (
-      <Text>Other information</Text>
+        <View style={[Style.container, {flex: 1}]}>
+          { this._renderCards() }
+        </View>
     );
   }
 }

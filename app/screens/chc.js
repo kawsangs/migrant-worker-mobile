@@ -12,6 +12,7 @@ import {
 import { Icon } from 'react-native-material-ui';
 import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_style';
 import PlaySound from '../components/play_sound';
+import Images from '../utils/images';
 
 export default class Chc extends React.Component {
   state = {};
