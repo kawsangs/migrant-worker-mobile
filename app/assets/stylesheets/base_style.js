@@ -34,6 +34,10 @@ export const Style = StyleSheet.create({
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
     elevation: 3
+  },
+  container: {
+    margin: 16,
+    flexDirection: 'column'
   }
 });
 

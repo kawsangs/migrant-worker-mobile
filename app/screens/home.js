@@ -9,8 +9,7 @@ import {
 } from 'react-native';
 
 import { Icon } from 'react-native-material-ui';
-import { Color, FontFamily, FontSize } from '../assets/stylesheets/base_style';
-import PlaySound from '../components/play_sound';
+import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_style';
 import ButtonNav from '../components/button_nav';
 
 export default class Home extends React.Component {
@@ -79,7 +78,7 @@ export default class Home extends React.Component {
       <ScrollView style={{flex: 1}}>
         { this._renderHeader() }
 
-        <View style={styles.container}>
+        <View style={Style.container}>
           <Text style={styles.title}>ចំណាកស្រុកឆ្លាតវៃ</Text>
           <Text>កម្មវិធីចំណាកស្រុកឆ្លាតវៃ</Text>
           <Text>ជាកម្មវិធីទូរស័ព្ទបង្កើតឡើងក្នុងគោលបំណងជំនួយ</Text>
@@ -94,10 +93,6 @@ export default class Home extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    margin: 24,
-    flexDirection: 'column'
-  },
   imageWrapper: {
     height: 210,
     backgroundColor: Color.primary,

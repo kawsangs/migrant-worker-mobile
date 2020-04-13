@@ -37,6 +37,8 @@ export default class PlaySound extends Component {
 
   render() {
     let isActive = (this.props.activePlaying == this.state.fileName);
+    let iconName = this.props.iconName || 'volume-up';
+    let playIconName = this.props.playIconName || 'play-circle-outline';
 
     return (
       <TouchableOpacity
@@ -44,8 +46,8 @@ export default class PlaySound extends Component {
         style={this.props.style}
       >
         <View style={styles.buttonAudio}>
-          { (!isActive) && <Icon name="volume-up" color='#fff' size={24} />}
-          { isActive && <Icon name="play-circle-outline" color='#fff' size={24} />}
+          { (!isActive) && <Icon name={iconName} color='#fff' size={24} />}
+          { isActive && <Icon name={playIconName} color='#fff' size={24} />}
         </View>
       </TouchableOpacity>
     )
