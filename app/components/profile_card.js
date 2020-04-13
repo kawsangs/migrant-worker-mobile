@@ -121,9 +121,9 @@ export default class ProfileCard extends React.Component {
 
     return (
       <View>
-        <View style={styles.card}>
-          <View style={styles.profileWrapper}>
-            <View style={styles.avata}>
+        <View style={Style.card}>
+          <View style={Style.cardContent}>
+            <View style={Style.avata}>
               <Image source={Images[image]} style={{width: 52, height: 52}} />
             </View>
 
@@ -139,27 +139,6 @@ export default class ProfileCard extends React.Component {
 }
 
 var styles = StyleSheet.create({
-  card: {
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 14,
-    marginBottom: 16
-  },
-  profileWrapper: {
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderColor: '#efefef',
-    marginBottom: 14,
-    paddingBottom: 14
-  },
-  avata: {
-    width: 72,
-    height: 72,
-    backgroundColor: '#edeff8',
-    borderRadius: 36,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
   buttonPlay: {
     flexDirection: 'row',
     alignItems: 'center',
