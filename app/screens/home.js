@@ -9,48 +9,14 @@ import {
 } from 'react-native';
 
 import { Button, Icon } from 'react-native-material-ui';
-import SoundPlayer from 'react-native-sound-player';
 import { Color, FontFamily, FontSize } from '../assets/stylesheets/base_style';
+import PlaySound from '../components/play_sound';
 
 export default class Home extends React.Component {
-  state = {}
-  audioFileNames = ['safe_migration', 'contact_1280', 'register'];
-  _onFinishedPlayingSubscription = null;
-
-  componentDidMount() {
-    this._onFinishedPlayingSubscription = SoundPlayer.addEventListener('FinishedPlaying', ({ success }) => {
-      this._setStateStopPlaying();
-    })
-  }
-
-  componentWillUnmount() {
-    this._onFinishedPlayingSubscription.remove()
-  }
+  state = {};
 
   _goTo(screenName) {
     this.props.navigation.navigate(screenName);
-  }
-
-  _playAudio(audioFileName) {
-    if(!audioFileName) {
-      return;
-    }
-    this._setStateStopPlaying();
-    let obj = {};
-    obj['playing' + audioFileName] = true;
-
-    this.setState(obj);
-    SoundPlayer.playSoundFile(audioFileName, 'mp3')
-  }
-
-  _setStateStopPlaying() {
-    let obj = {}
-
-    for(let i=0; i < this.audioFileNames.length; i++) {
-      obj['playing' + this.audioFileNames[i]] = false;
-    }
-
-    this.setState(obj);
   }
 
   _renderButton(title, icon, option={}) {
@@ -67,15 +33,11 @@ export default class Home extends React.Component {
           <Text style={[styles.buttonText, {color: textColor}]}>{title}</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => this._playAudio(option.audioFileName) }
+        <PlaySound
           style={styles.buttonAudioWrapper}
-        >
-          <View style={styles.buttonAudio}>
-            { !this.state['playing' + option.audioFileName] && <Icon name="volume-up" color='#fff' size={24} />}
-            { this.state['playing' + option.audioFileName] && <Icon name="play-circle-outline" color='#fff' size={24} />}
-          </View>
-        </TouchableOpacity>
+          fileName={option.audioFileName}
+          activePlaying={this.state.activePlaying}
+          onPress={(fileName) => this.setState({activePlaying: fileName})}/>
       </View>
     )
   }
@@ -162,15 +124,6 @@ const styles = StyleSheet.create({
     padding: 14,
     flexDirection: 'row',
     alignItems: 'center'
-  },
-  buttonAudio: {
-    backgroundColor: Color.primary,
-    borderRadius: 15,
-    width: 30,
-    height: 30,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center'
   },
   buttonAboutWrapper: {
     flexDirection: 'row',

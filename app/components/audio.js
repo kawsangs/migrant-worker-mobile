@@ -30,7 +30,6 @@ export default class Audio extends Component {
       isPlaying: false,
       hasPermission: undefined,
       audioPath: audioPath,
-      visibleBtnAction: false,
       visiblePlayButton: false,
       visibleProgressBar: false,
     }
@@ -123,17 +122,18 @@ export default class Audio extends Component {
 
     this.setState({
       isPlaying: false,
-      recording: false,
-      visibleBtnAction: true
+      recording: false
     });
+
 
     try {
       const filePath = await AudioRecorder.stopRecording();
 
       if (Platform.OS === 'android') {
         this._finishRecording(true, filePath);
+        this._onSaveRecord();
       }
-      return filePath;
+
     } catch (error) {
       console.error(error);
     }
@@ -235,43 +235,13 @@ export default class Audio extends Component {
     );
   }
 
-  _renderButtonCancel() {
-    return (
-      <TouchableOpacity style={{flex: 1, alignItems: 'center'}} onPress={() => this._onCancelRecord()}>
-        <AwesomeIcon name='close' size={30} color={Color.cancel} />
-        <Text style={{color: Color.cancel}}>បោះបង់</Text>
-      </TouchableOpacity>
-    );
-  }
-
-  _renderButtonSave() {
-    return (
-      <TouchableOpacity style={{flex: 1, alignItems: 'center'}} onPress={() => this._onSaveRecord()}>
-        <AwesomeIcon name='check' size={30} color={Color.green} />
-        <Text style={{color: Color.green}}>រក្សាទុក</Text>
-      </TouchableOpacity>
-    );
-  }
-
   _onSaveRecord() {
     this.setState({
-      visibleBtnAction: false,
       visibleProgressBar: false,
       visiblePlayButton: true
     });
 
     this.props.callback(this.state.audioPath);
-  }
-
-  _onCancelRecord() {
-    this.setState({
-      currentTime: 0.0,
-      visibleBtnAction: false,
-      visibleProgressBar: false,
-      visiblePlayButton: false
-    })
-
-    this.props.callback('');
   }
 
   _onDeleteRecord() {
@@ -339,9 +309,7 @@ export default class Audio extends Component {
 
         <View style={{flex: 1}}></View>
         <View style={styles.controls}>
-          { this.state.visibleBtnAction && this._renderButtonCancel()}
           { this._renderButtonMicrophone() }
-          { this.state.visibleBtnAction && this._renderButtonSave()}
         </View>
       </View>
     )

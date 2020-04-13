@@ -6,7 +6,7 @@ import { environment } from '../config/environment';
 
 export default class UploadServices  {
   static async uploadUser(uuid) {
-    alert('upload')
+    // alert('upload')
     // NetInfo.isConnected.fetch().then(isConnected => {
     //   api.post('/migrants', this._buildData(uuid)).then((res) => {
     //     if(res.data && res.data.success){

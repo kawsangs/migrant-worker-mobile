@@ -14,13 +14,13 @@ import { ThemeContext, getTheme } from 'react-native-material-ui';
 import { StatusBar } from 'react-native';
 import { Icon } from 'react-native-material-ui';
 import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_style';
-import SoundPlayer from 'react-native-sound-player';
-import Images from '../utils/images';
 import Audio from '../components/audio';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import realm from '../schemas/schema';
 import uuidv4 from '../utils/uuidv4';
 import UserWorker from '../workers/user_worker';
+import PlaySound from '../components/play_sound';
+import SexOption from '../components/sex_option';
 
 export default class Register extends React.Component {
   state = {
@@ -33,41 +33,7 @@ export default class Register extends React.Component {
     errors: {}
   };
 
-  audioFileNames = ['register'];
-  _onFinishedPlayingSubscription = null;
   formError = {};
-
-  componentDidMount() {
-    this._onFinishedPlayingSubscription = SoundPlayer.addEventListener('FinishedPlaying', ({ success }) => {
-      this._setStateStopPlaying();
-    })
-  }
-
-  componentWillUnmount() {
-    this._onFinishedPlayingSubscription.remove()
-  }
-
-  _playAudio(audioFileName) {
-    if(!audioFileName) {
-      return;
-    }
-    this._setStateStopPlaying();
-    let obj = {};
-    obj['playing' + audioFileName] = true;
-
-    this.setState(obj);
-    SoundPlayer.playSoundFile(audioFileName, 'mp3')
-  }
-
-  _setStateStopPlaying() {
-    let obj = {}
-
-    for(let i=0; i < this.audioFileNames.length; i++) {
-      obj['playing' + this.audioFileNames[i]] = false;
-    }
-
-    this.setState(obj);
-  }
 
   _setState(stateName, value) {
     let obj = {};
@@ -95,33 +61,13 @@ export default class Register extends React.Component {
     )
   }
 
-  _buildButtonAudio(audioFileName) {
+  _buildButtonAudio(fileName) {
     return (
-      <TouchableOpacity
-        onPress={() => this._playAudio(audioFileName) }
+      <PlaySound
         style={styles.buttonAudioWrapper}
-      >
-        <View style={styles.buttonAudio}>
-          { !this.state['playing' + 'register'] && <Icon name="volume-up" color='#fff' size={24} />}
-          { this.state['playing' + 'register'] && <Icon name="play-circle-outline" color='#fff' size={24} />}
-        </View>
-      </TouchableOpacity>
-    )
-  }
-
-  _buildOption(title, value, imageName) {
-    let borderStyle = this.state.sex == value ? { borderColor: Color.primary } : {};
-    let textFont = this.state.sex == value ? FontFamily.title : FontFamily.body;
-    let textColor = this.state.sex == value ? Color.primary : Color.textBlack;
-
-    return (
-      <TouchableOpacity
-        onPress={() => this.setState({sex: value}) }
-        style={[styles.card, Style.boxShadow, borderStyle]}>
-
-        <Image source={Images[imageName]} style={{width: 52, height: 52}} />
-        <Text style={{fontFamily: textFont, color: textColor}}>{title}</Text>
-      </TouchableOpacity>
+        fileName={fileName}
+        activePlaying={this.state.activePlaying}
+        onPress={(fileName) => this.setState({activePlaying: fileName})}/>
     )
   }
 
@@ -133,13 +79,10 @@ export default class Register extends React.Component {
           { this._buildButtonAudio('register') }
         </View>
 
-        <View style={styles.cardWrapper}>
-          { this._buildOption('ប្រុស', 'male', 'male') }
-          <View style={{width: 24}}></View>
-          { this._buildOption('ស្រី', 'female', 'female') }
-          <View style={{width: 24}}></View>
-          { this._buildOption('ផ្សេងៗ', 'other', 'other') }
-        </View>
+        <SexOption
+          sex={this.state.sex}
+          onPress={(value) => this.setState({sex: value})}
+        />
 
         { !!this.state.errors.sex && <Text style={styles.errorText}>{this.state.errors.sex}</Text> }
      </View>
@@ -262,15 +205,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     width: 58
   },
-  buttonAudio: {
-    backgroundColor: Color.primary,
-    borderRadius: 18,
-    width: 36,
-    height: 36,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
   textInputWrapper: {
     flexDirection: 'row'
   },
@@ -283,22 +217,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     fontFamily: FontFamily.body
-  },
-  cardWrapper: {
-    flexDirection: 'row',
-  },
-  card: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    margin: 0,
-    backgroundColor: '#fff',
-    borderWidth: 3,
-    borderColor: '#fff',
-    paddingTop: 10,
-    paddingBottom: 10,
-    height: 110,
-    borderRadius: 8,
   },
   buttonNext: {
     height: 48,
