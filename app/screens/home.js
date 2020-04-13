@@ -8,38 +8,16 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-import { Button, Icon } from 'react-native-material-ui';
+import { Icon } from 'react-native-material-ui';
 import { Color, FontFamily, FontSize } from '../assets/stylesheets/base_style';
 import PlaySound from '../components/play_sound';
+import ButtonNav from '../components/button_nav';
 
 export default class Home extends React.Component {
   state = {};
 
   _goTo(screenName) {
     this.props.navigation.navigate(screenName);
-  }
-
-  _renderButton(title, icon, option={}) {
-    let textColor = option.active ? '#fff' : Color.primary;
-    let buttonColor = option.active ? Color.primary : '#fff';
-
-    return (
-      <View style={styles.buttonWrapper}>
-        <TouchableOpacity
-          onPress={() => this._goTo(option.screenName)}
-          style={[styles.buttonTextWrapper, {backgroundColor: buttonColor}]}
-        >
-          <Icon name={icon} color={textColor} size={24} />
-          <Text style={[styles.buttonText, {color: textColor}]}>{title}</Text>
-        </TouchableOpacity>
-
-        <PlaySound
-          style={styles.buttonAudioWrapper}
-          fileName={option.audioFileName}
-          activePlaying={this.state.activePlaying}
-          onPress={(fileName) => this.setState({activePlaying: fileName})}/>
-      </View>
-    )
   }
 
   _renderButtonAbout() {
@@ -62,6 +40,40 @@ export default class Home extends React.Component {
     )
   }
 
+  _renderButtonNavs() {
+    return (
+      <View style={{marginTop: 30}}>
+        <ButtonNav
+          active={true}
+          title='ចំណាកស្រុកឆ្លាតវៃ'
+          icon='info-outline'
+          audioFileName='safe_migration'
+          onPress={() => this._goTo('OtherInfoScreen')}
+          activePlaying={this.state.activePlaying}
+          onPressPlaySound={(fileName) => this.setState({activePlaying: fileName})}
+        />
+
+        <ButtonNav
+          title='ទាក់ទងទៅលេខ ១២៨០'
+          icon='phone'
+          audioFileName='contact_1280'
+          onPress={() => this._goTo('ChcScreen')}
+          activePlaying={this.state.activePlaying}
+          onPressPlaySound={(fileName) => this.setState({activePlaying: fileName})}
+        />
+
+        <ButtonNav
+          title='ចុះឈ្មោះ'
+          icon='person'
+          audioFileName='register'
+          onPress={() => this._goTo('RegisterScreen')}
+          activePlaying={this.state.activePlaying}
+          onPressPlaySound={(fileName) => this.setState({activePlaying: fileName})}
+        />
+      </View>
+    )
+  }
+
   render() {
     return (
       <ScrollView style={{flex: 1}}>
@@ -72,13 +84,8 @@ export default class Home extends React.Component {
           <Text>កម្មវិធីចំណាកស្រុកឆ្លាតវៃ</Text>
           <Text>ជាកម្មវិធីទូរស័ព្ទបង្កើតឡើងក្នុងគោលបំណងជំនួយ</Text>
 
-          <View style={{marginTop: 30}}>
-            { this._renderButton('ចំណាកស្រុកឆ្លាតវៃ', 'info-outline', {screenName: 'OtherInfoScreen', audioFileName: 'safe_migration', active: true}) }
-            { this._renderButton('ទាក់ទងទៅលេខ ១២៨០', 'phone', {screenName: 'ChcScreen', audioFileName: 'contact_1280'}) }
-            { this._renderButton('ចុះឈ្មោះ', 'person', {screenName: 'RegisterScreen', audioFileName: 'register'}) }
-
-            { this._renderButtonAbout() }
-          </View>
+          { this._renderButtonNavs() }
+          { this._renderButtonAbout() }
         </View>
 
       </ScrollView>
@@ -102,28 +109,6 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.title,
     fontSize: FontSize.title,
     textAlign: 'center',
-  },
-  buttonWrapper: {
-    flexDirection: 'row',
-    marginBottom: 16
-  },
-  buttonTextWrapper: {
-    flexDirection: 'row',
-    flex: 1,
-    padding: 16,
-    marginRight: 10,
-    borderRadius: 10
-  },
-  buttonText: {
-    marginLeft: 10,
-    fontFamily: FontFamily.title
-  },
-  buttonAudioWrapper: {
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 14,
-    flexDirection: 'row',
-    alignItems: 'center'
   },
   buttonAboutWrapper: {
     flexDirection: 'row',
