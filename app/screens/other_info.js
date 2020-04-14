@@ -29,11 +29,11 @@ export default class OtherInfo extends React.Component {
         </View>
 
         <View style={{justifyContent: 'center', flex: 1, alignItems: 'center'}}>
-          <Image source={Images[image]} style={{width: '80%', height: '60%'}} />
+          <Image source={Images[image]} style={{width: '80%', height: '63%'}} />
         </View>
 
         <View style={{height: 54}}>
-          <Text>{title}</Text>
+          <Text style={{fontFamily: FontFamily.title}}>{title}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -67,6 +67,7 @@ export default class OtherInfo extends React.Component {
   render() {
     return (
         <View style={[Style.container, {flex: 1}]}>
+          <Text style={{marginBottom: 12}}>ស្វែងរកព័ត៌មានខាងក្រោម</Text>
           { this._renderCards() }
         </View>
     );

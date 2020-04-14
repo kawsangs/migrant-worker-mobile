@@ -25,7 +25,7 @@ export default class AppNavigator extends Component {
       <NavigationContainer>
         <StatusBar backgroundColor={Color.primary} translucent={true} />
         <Stack.Navigator
-          initialRouteName="OtherInfoScreen"
+          initialRouteName="VideosScreen"
           screenOptions={{
             headerStyle: {
               backgroundColor: Color.primary,
@@ -45,7 +45,7 @@ export default class AppNavigator extends Component {
           <Stack.Screen name="SafeMigrationScreen" component={SafeMigrationScreen} options={{title: "ចំណាកស្រុកសុវត្ថិភាព ត្រូវមានអ្វីខ្លះ?"}} />
           <Stack.Screen name="TextInfoScreen" component={TextInfoScreen} options={{title: "ព័ត៌មានជាអក្សរ"}} />
           <Stack.Screen name="ServiceDirectoryScreen" component={ServiceDirectoryScreen} options={{title: "សៀវភៅអំពីសេវា"}} />
-          <Stack.Screen name="VideosScreen" component={VideosScreen} options={{title: "ព័ត៌មានជាវីដេអូ"}} />
+          <Stack.Screen name="VideosScreen" component={VideosScreen} options={{title: "វីដេអូ និងករណីចំណាកស្រុក"}} />
         </Stack.Navigator>
       </NavigationContainer>
     );
