@@ -42,6 +42,7 @@ export default class Thumbnail extends React.Component {
     return (
       <TouchableOpacity
         onPress={() => this.props.onPress()}
+        style={containerStyle}
         >
         <ImageBackground
           source={{ uri: imageURL }}

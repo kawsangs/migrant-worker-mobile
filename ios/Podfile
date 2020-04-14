@@ -64,6 +64,8 @@ target 'MigrantWorkerMobile' do
 
   pod 'RealmJS', :path => '../node_modules/realm'
 
+  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+
   target 'MigrantWorkerMobileTests' do
     inherit! :complete
     # Pods for testing

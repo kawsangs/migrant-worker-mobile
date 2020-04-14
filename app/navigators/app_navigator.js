@@ -16,6 +16,7 @@ import SafeMigrationScreen from '../screens/safe_migration';
 import TextInfoScreen from '../screens/text_info';
 import ServiceDirectoryScreen from '../screens/service_directory';
 import VideosScreen from '../screens/videos';
+import ViewVideoScreen from '../screens/view_video';
 
 const Stack = createStackNavigator();
 
@@ -46,6 +47,7 @@ export default class AppNavigator extends Component {
           <Stack.Screen name="TextInfoScreen" component={TextInfoScreen} options={{title: "ព័ត៌មានជាអក្សរ"}} />
           <Stack.Screen name="ServiceDirectoryScreen" component={ServiceDirectoryScreen} options={{title: "សៀវភៅអំពីសេវា"}} />
           <Stack.Screen name="VideosScreen" component={VideosScreen} options={{title: "វីដេអូ និងករណីចំណាកស្រុក"}} />
+          <Stack.Screen name="ViewVideoScreen" component={ViewVideoScreen} options={{title: "វីដេអូ"}} />
         </Stack.Navigator>
       </NavigationContainer>
     );

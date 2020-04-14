@@ -12,6 +12,7 @@ import Thumbnail from '../components/thumbnail';
 import videos from '../data/videos';
 import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_style';
 import PlaySound from '../components/play_sound';
+import { getVideoId } from '../utils/youtube';
 
 export default class Videos extends React.Component {
   state = {
@@ -24,9 +25,9 @@ export default class Videos extends React.Component {
     let fileName = video.fileName || 'register';
 
     return (
-      <View style={styles.cardWrapper}>
+      <View style={[styles.cardWrapper, Style.boxShadow]}>
         <Thumbnail
-          onPress={() => alert(0)}
+          onPress={() => this.props.navigation.navigate('ViewVideoScreen', { videoId: getVideoId(video.url) })}
           imageWidth={imageWidth}
           imageHeight={150}
           url={video.url} />
