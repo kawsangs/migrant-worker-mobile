@@ -2,29 +2,77 @@ import React from 'react';
 import {
   View,
   Text,
-  Image,
-  ScrollView,
-  StyleSheet
+  StyleSheet,
+  SafeAreaView,
+  FlatList,
+  Dimensions
 } from 'react-native';
 
-import { ThemeContext, getTheme } from 'react-native-material-ui';
-import { StatusBar } from 'react-native';
-
+import Thumbnail from '../components/thumbnail';
+import videos from '../data/videos';
+import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_style';
+import PlaySound from '../components/play_sound';
 
 export default class Videos extends React.Component {
-  state = {};
+  state = {
+    videos: videos
+  };
 
-  constructor(props) {
-    super(props);
-  }
+  _renderItem(video) {
+    let { width } = Dimensions.get('window');
+    let imageWidth = width/2 - 58;
+    let fileName = video.fileName || 'register';
 
-  componentDidMount() {
+    return (
+      <View style={styles.cardWrapper}>
+        <Thumbnail
+          onPress={() => alert(0)}
+          imageWidth={imageWidth}
+          imageHeight={150}
+          url={video.url} />
 
+        <View style={styles.textContainer}>
+          <Text style={{fontFamily: FontFamily.title}}>{video.title}</Text>
+          <View style={{flex: 1, alignItems: 'flex-end', justifyContent: 'flex-end'}}>
+            <PlaySound
+              fileName={fileName}
+              activePlaying={this.state.activePlaying}
+              onPress={(fileName) => this.setState({activePlaying: fileName})}/>
+          </View>
+        </View>
+      </View>
+
+    )
   }
 
   render() {
     return (
-      <Text>Videos</Text>
+      <SafeAreaView style={{flex: 1}}>
+        <FlatList
+          contentContainerStyle={{paddingBottom: 16}}
+          data={this.state.videos}
+          renderItem={({ item }) => this._renderItem(item)}
+          keyExtractor={item => item.code}
+        />
+      </SafeAreaView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  cardWrapper: {
+    flexDirection: 'row',
+    margin: 16,
+    marginBottom: 0,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    overflow: 'hidden'
+  },
+  textContainer: {
+    flex: 1,
+    marginLeft: 12,
+    marginRight: 12,
+    marginTop: 10,
+    marginBottom: 12
+  },
+});
