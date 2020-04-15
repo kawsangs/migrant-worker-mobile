@@ -56,7 +56,7 @@ export default class Home extends React.Component {
           title='ទាក់ទងទៅលេខ ១២៨០'
           icon='phone'
           audioFileName='contact_1280'
-          onPress={() => this._goTo('ChcScreen')}
+          onPress={() => this._goTo('Contact1280Screen')}
           activePlaying={this.state.activePlaying}
           onPressPlaySound={(fileName) => this.setState({activePlaying: fileName})}
         />

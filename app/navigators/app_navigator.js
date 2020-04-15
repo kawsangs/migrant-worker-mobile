@@ -9,12 +9,13 @@ import { Color, FontFamily, FontSize } from '../assets/stylesheets/base_style';
 import HomeScreen from '../screens/home';
 import OtherInfoScreen from '../screens/other_info';
 import RegisterScreen from '../screens/register';
-import ChcScreen from '../screens/chc';
+import Contact1280Screen from '../screens/contact1280';
 import AboutScreen from '../screens/about';
 import ProfileListScreen from '../screens/profile_list';
 import SafeMigrationScreen from '../screens/safe_migration';
 import TextInfoScreen from '../screens/text_info';
 import ServiceDirectoryScreen from '../screens/service_directory';
+import ServiceDirectoryDetailScreen from '../screens/service_directory_detail';
 import VideosScreen from '../screens/videos';
 import ViewVideoScreen from '../screens/view_video';
 
@@ -26,7 +27,7 @@ export default class AppNavigator extends Component {
       <NavigationContainer>
         <StatusBar backgroundColor={Color.primary} translucent={true} />
         <Stack.Navigator
-          initialRouteName="VideosScreen"
+          initialRouteName="ServiceDirectoryScreen"
           screenOptions={{
             headerStyle: {
               backgroundColor: Color.primary,
@@ -39,13 +40,14 @@ export default class AppNavigator extends Component {
 
           <Stack.Screen name="HomeScreen" component={HomeScreen} options={{headerShown: false}}/>
           <Stack.Screen name="ProfileListScreen" component={ProfileListScreen} options={{title: "ប្រវត្តិចុះឈ្មោះ"}}/>
-          <Stack.Screen name="ChcScreen" component={ChcScreen} options={{title: "ទាក់ទងទៅលេខ១២៨០"}} />
+          <Stack.Screen name="Contact1280Screen" component={Contact1280Screen} options={{title: "ទាក់ទងទៅលេខ១២៨០"}} />
           <Stack.Screen name="OtherInfoScreen" component={OtherInfoScreen} options={{title: "ចំណាកស្រុកសុវត្ថិភាព"}} />
           <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={{title: "ចុះឈ្មោះ"}} />
           <Stack.Screen name="AboutScreen" component={AboutScreen} options={{title: "អំពីកម្មវិធី"}} />
           <Stack.Screen name="SafeMigrationScreen" component={SafeMigrationScreen} options={{title: "ចំណាកស្រុកសុវត្ថិភាព ត្រូវមានអ្វីខ្លះ?"}} />
           <Stack.Screen name="TextInfoScreen" component={TextInfoScreen} options={{title: "ព័ត៌មានជាអក្សរ"}} />
           <Stack.Screen name="ServiceDirectoryScreen" component={ServiceDirectoryScreen} options={{title: "សៀវភៅអំពីសេវា"}} />
+          <Stack.Screen name="ServiceDirectoryDetailScreen" component={ServiceDirectoryDetailScreen} options={{title: "សៀវភៅអំពីសេវាលម្អិត"}} />
           <Stack.Screen name="VideosScreen" component={VideosScreen} options={{title: "វីដេអូ និងករណីចំណាកស្រុក"}} />
           <Stack.Screen name="ViewVideoScreen" component={ViewVideoScreen} options={{title: "វីដេអូ"}} />
         </Stack.Navigator>

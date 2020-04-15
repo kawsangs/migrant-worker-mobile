@@ -19,7 +19,7 @@ export default class SexOption extends React.Component {
     return (
       <TouchableOpacity
         onPress={() => this.props.onPress(value) }
-        style={[styles.card, Style.boxShadow, borderStyle]}>
+        style={[styles.card, borderStyle]}>
 
         <Image source={Images[imageName]} style={{width: 52, height: 52}} />
         <Text style={{fontFamily: textFont, color: textColor}}>{title}</Text>

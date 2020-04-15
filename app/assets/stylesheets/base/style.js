@@ -19,7 +19,16 @@ export default Style = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 8,
     padding: 14,
-    marginBottom: 16
+    marginBottom: 16,
+    shadowColor: "#000",
+    overflow: 'hidden',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3
   },
   cardContent: {
     flexDirection: 'row',

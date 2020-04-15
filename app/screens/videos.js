@@ -49,7 +49,7 @@ export default class Videos extends React.Component {
     let fileName = video.fileName || 'register';
 
     return (
-      <View style={[styles.cardWrapper, Style.boxShadow]}>
+      <View style={[Style.card, {flexDirection: 'row'}]}>
         <Thumbnail
           onPress={() => this._onPressItem(video.url)}
           imageWidth={imageWidth}
@@ -73,7 +73,7 @@ export default class Videos extends React.Component {
     return (
       <SafeAreaView style={{flex: 1}}>
         <FlatList
-          contentContainerStyle={{paddingBottom: 16}}
+          contentContainerStyle={styles.flatList}
           data={this.state.videos}
           renderItem={({ item }) => this._renderItem(item)}
           keyExtractor={item => item.code}
@@ -85,13 +85,10 @@ export default class Videos extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  cardWrapper: {
-    flexDirection: 'row',
-    margin: 16,
-    marginBottom: 0,
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    overflow: 'hidden'
+  flatList: {
+    paddingTop: 16,
+    paddingLeft: 16,
+    paddingRight: 16
   },
   textContainer: {
     flex: 1,

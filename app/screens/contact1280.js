@@ -14,7 +14,7 @@ import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_s
 import PlaySound from '../components/play_sound';
 import Images from '../utils/images';
 
-export default class Chc extends React.Component {
+export default class Contact1280 extends React.Component {
   state = {};
 
   _onPress(url) {
