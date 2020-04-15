@@ -9,4 +9,9 @@ export default Images = {
   text_info: require('../assets/images/text_info.png'),
   service_directory: require('../assets/images/service_directory.png'),
   video: require('../assets/images/video.png'),
+  logo: require('../assets/images/logo.png'),
+  instedd_logo: require('../assets/images/instedd_logo.png'),
+  chc_logo: require('../assets/images/chc_logo.png'),
+  spotlight: require('../assets/images/spotlight.png'),
+  unwomen: require('../assets/images/unwomen.gif')
 };
