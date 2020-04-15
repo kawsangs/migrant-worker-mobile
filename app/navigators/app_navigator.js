@@ -19,6 +19,12 @@ import ServiceDirectoryDetailScreen from '../screens/service_directory_detail';
 import VideosScreen from '../screens/videos';
 import ViewVideoScreen from '../screens/view_video';
 
+import AgreementScreen from '../screens/other_info/agreement';
+import ChecklistScreen from '../screens/other_info/checklist';
+import OtherDocScreen from '../screens/other_info/other_doc';
+import PassportScreen from '../screens/other_info/passport';
+import WorkbookScreen from '../screens/other_info/workbook';
+
 const Stack = createStackNavigator();
 
 export default class AppNavigator extends Component {
@@ -27,7 +33,7 @@ export default class AppNavigator extends Component {
       <NavigationContainer>
         <StatusBar backgroundColor={Color.primary} translucent={true} />
         <Stack.Navigator
-          initialRouteName="ServiceDirectoryScreen"
+          initialRouteName="SafeMigrationScreen"
           screenOptions={{
             headerStyle: {
               backgroundColor: Color.primary,
@@ -50,6 +56,12 @@ export default class AppNavigator extends Component {
           <Stack.Screen name="ServiceDirectoryDetailScreen" component={ServiceDirectoryDetailScreen} options={{title: "សៀវភៅអំពីសេវាលម្អិត"}} />
           <Stack.Screen name="VideosScreen" component={VideosScreen} options={{title: "វីដេអូ និងករណីចំណាកស្រុក"}} />
           <Stack.Screen name="ViewVideoScreen" component={ViewVideoScreen} options={{title: "វីដេអូ"}} />
+
+          <Stack.Screen name="AgreementScreen" component={AgreementScreen} options={{title: "កុងត្រាស្វែករកការងារក្នុងប្រទេសគោលដៅ"}} />
+          <Stack.Screen name="ChecklistScreen" component={ChecklistScreen} options={{title: "បញ្ជីត្រួតពិនិត្យមុនចេញដំណើរ"}} />
+          <Stack.Screen name="OtherDocScreen" component={OtherDocScreen} options={{title: "ឯកសារផ្សេងៗ"}} />
+          <Stack.Screen name="PassportScreen" component={PassportScreen} options={{title: "លិខិតឆ្លងដែន"}} />
+          <Stack.Screen name="WorkbookScreen" component={WorkbookScreen} options={{title: "សៀវភៅការងារ"}} />
         </Stack.Navigator>
       </NavigationContainer>
     );

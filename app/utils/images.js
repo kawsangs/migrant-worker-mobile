@@ -13,5 +13,9 @@ export default Images = {
   instedd_logo: require('../assets/images/instedd_logo.png'),
   chc_logo: require('../assets/images/chc_logo.png'),
   spotlight: require('../assets/images/spotlight.png'),
-  unwomen: require('../assets/images/unwomen.gif')
+  unwomen: require('../assets/images/unwomen.gif'),
+  agreement: require('../assets/images/agreement.png'),
+  workbook: require('../assets/images/workbook.png'),
+  passport: require('../assets/images/passport.png'),
+  other_doc: require('../assets/images/other_doc.png'),
 };
