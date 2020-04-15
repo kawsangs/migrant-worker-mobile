@@ -13,11 +13,35 @@ import videos from '../data/videos';
 import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_style';
 import PlaySound from '../components/play_sound';
 import { getVideoId } from '../utils/youtube';
+import NetInfo from "@react-native-community/netinfo";
+import Toast, { DURATION } from 'react-native-easy-toast';
 
 export default class Videos extends React.Component {
   state = {
     videos: videos
   };
+
+  componentDidMount() {
+    NetInfo.fetch().then(state => {
+      this.setState({isConnected: state.isConnected});
+    });
+
+    this.unsubscribe = NetInfo.addEventListener(state => {
+      this.setState({isConnected: state.isConnected});
+    });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  _onPressItem(url) {
+    if (!this.state.isConnected) {
+      return this.refs.toast.show('សូមភ្ជាប់បណ្តាញអ៊ិនធឺណេតជាមុនសិន!', DURATION.SHORT);
+    }
+
+    this.props.navigation.navigate('ViewVideoScreen', { videoId: getVideoId(url) })
+  }
 
   _renderItem(video) {
     let { width } = Dimensions.get('window');
@@ -27,7 +51,7 @@ export default class Videos extends React.Component {
     return (
       <View style={[styles.cardWrapper, Style.boxShadow]}>
         <Thumbnail
-          onPress={() => this.props.navigation.navigate('ViewVideoScreen', { videoId: getVideoId(video.url) })}
+          onPress={() => this._onPressItem(video.url)}
           imageWidth={imageWidth}
           imageHeight={150}
           url={video.url} />
@@ -42,7 +66,6 @@ export default class Videos extends React.Component {
           </View>
         </View>
       </View>
-
     )
   }
 
@@ -55,6 +78,7 @@ export default class Videos extends React.Component {
           renderItem={({ item }) => this._renderItem(item)}
           keyExtractor={item => item.code}
         />
+        <Toast ref='toast' position='top' positionValue={ Platform.OS == 'ios' ? 120 : 140 }/>
       </SafeAreaView>
     );
   }

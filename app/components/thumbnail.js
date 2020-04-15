@@ -11,7 +11,6 @@ import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_s
 import { Icon } from 'react-native-material-ui';
 import { getVideoId } from '../utils/youtube.js';
 
-
 export default class Thumbnail extends React.Component {
   static defaultProps = {
     imageHeight: 200,
@@ -25,7 +24,6 @@ export default class Thumbnail extends React.Component {
     this.state = {
       videoId: getVideoId(props.url)
     };
-
   }
 
   render() {
