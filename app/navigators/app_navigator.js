@@ -19,11 +19,16 @@ import ServiceDirectoryDetailScreen from '../screens/service_directory_detail';
 import VideosScreen from '../screens/videos';
 import ViewVideoScreen from '../screens/view_video';
 
-import AgreementScreen from '../screens/other_info/agreement';
-import ChecklistScreen from '../screens/other_info/checklist';
-import OtherDocScreen from '../screens/other_info/other_doc';
-import PassportScreen from '../screens/other_info/passport';
-import WorkbookScreen from '../screens/other_info/workbook';
+import AgreementScreen from '../screens/safe_migration/agreement';
+import ChecklistScreen from '../screens/safe_migration/checklist';
+import OtherDocScreen from '../screens/safe_migration/other_doc';
+import PassportScreen from '../screens/safe_migration/passport';
+import WorkbookScreen from '../screens/safe_migration/workbook';
+
+import SavingScreen from '../screens/text_info/saving';
+import CommunicationCultureScreen from '../screens/text_info/communication_culture';
+import ContactRelativeScreen from '../screens/text_info/contact_relative';
+import UnsafeMigrationScreen from '../screens/text_info/unsafe_migration';
 
 const Stack = createStackNavigator();
 
@@ -33,7 +38,7 @@ export default class AppNavigator extends Component {
       <NavigationContainer>
         <StatusBar backgroundColor={Color.primary} translucent={true} />
         <Stack.Navigator
-          initialRouteName="SafeMigrationScreen"
+          initialRouteName="TextInfoScreen"
           screenOptions={{
             headerStyle: {
               backgroundColor: Color.primary,
@@ -62,6 +67,11 @@ export default class AppNavigator extends Component {
           <Stack.Screen name="OtherDocScreen" component={OtherDocScreen} options={{title: "ឯកសារផ្សេងៗ"}} />
           <Stack.Screen name="PassportScreen" component={PassportScreen} options={{title: "លិខិតឆ្លងដែន"}} />
           <Stack.Screen name="WorkbookScreen" component={WorkbookScreen} options={{title: "សៀវភៅការងារ"}} />
+
+          <Stack.Screen name="SavingScreen" component={SavingScreen} options={{title: "របៀបសន្សំ និងផ្ញើរប្រាក់"}} />
+          <Stack.Screen name="CommunicationCultureScreen" component={CommunicationCultureScreen} options={{title: "វប្បធម៌ទំនាក់ទំនង"}} />
+          <Stack.Screen name="ContactRelativeScreen" component={ContactRelativeScreen} options={{title: "វិធីទំនាក់ទំនងសាច់ញាតិ"}} />
+          <Stack.Screen name="UnsafeMigrationScreen" component={UnsafeMigrationScreen} options={{title: "ចំណាកស្រុកអសុវត្ថិភាព"}} />
         </Stack.Navigator>
       </NavigationContainer>
     );
