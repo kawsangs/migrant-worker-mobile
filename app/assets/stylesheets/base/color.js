@@ -7,6 +7,7 @@ export default Color = {
   errorText: '#e44a4a',
   btnDisabled: '#8a8a8e',
   textBlack: '#1b1d1d',
+  red: '#e44a4a',
 
   gray: '#9a9a9a',
   green: '#009e69'
