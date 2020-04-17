@@ -26,9 +26,7 @@ import PassportScreen from '../screens/safe_migration/passport';
 import WorkbookScreen from '../screens/safe_migration/workbook';
 
 import SavingScreen from '../screens/text_info/saving';
-import CommunicationCultureScreen from '../screens/text_info/communication_culture';
 import ContactRelativeScreen from '../screens/text_info/contact_relative';
-import UnsafeMigrationScreen from '../screens/text_info/unsafe_migration';
 
 const Stack = createStackNavigator();
 
@@ -36,9 +34,9 @@ export default class AppNavigator extends Component {
   render() {
     return (
       <NavigationContainer>
-        <StatusBar backgroundColor={Color.primary} translucent={true} />
+        <StatusBar backgroundColor={Color.primary} translucent={false} />
         <Stack.Navigator
-          initialRouteName="TextInfoScreen"
+          initialRouteName="HomeScreen"
           screenOptions={{
             headerStyle: {
               backgroundColor: Color.primary,
@@ -59,7 +57,7 @@ export default class AppNavigator extends Component {
           <Stack.Screen name="TextInfoScreen" component={TextInfoScreen} options={{title: "ព័ត៌មានជាអក្សរ"}} />
           <Stack.Screen name="ServiceDirectoryScreen" component={ServiceDirectoryScreen} options={{title: "សៀវភៅអំពីសេវា"}} />
           <Stack.Screen name="ServiceDirectoryDetailScreen" component={ServiceDirectoryDetailScreen} options={{title: "សៀវភៅអំពីសេវាលម្អិត"}} />
-          <Stack.Screen name="VideosScreen" component={VideosScreen} options={{title: "វីដេអូ និងករណីចំណាកស្រុក"}} />
+          <Stack.Screen name="VideosScreen" component={VideosScreen} options={{title: "វីដេអូ និងករណីចំណាកស្រុក", headerShown: false}} />
           <Stack.Screen name="ViewVideoScreen" component={ViewVideoScreen} options={{title: "វីដេអូ"}} />
 
           <Stack.Screen name="AgreementScreen" component={AgreementScreen} options={{title: "កុងត្រាស្វែករកការងារក្នុងប្រទេសគោលដៅ"}} />
@@ -69,9 +67,7 @@ export default class AppNavigator extends Component {
           <Stack.Screen name="WorkbookScreen" component={WorkbookScreen} options={{title: "សៀវភៅការងារ"}} />
 
           <Stack.Screen name="SavingScreen" component={SavingScreen} options={{title: "របៀបសន្សំ និងផ្ញើរប្រាក់"}} />
-          <Stack.Screen name="CommunicationCultureScreen" component={CommunicationCultureScreen} options={{title: "វប្បធម៌ទំនាក់ទំនង"}} />
           <Stack.Screen name="ContactRelativeScreen" component={ContactRelativeScreen} options={{title: "វិធីទំនាក់ទំនងសាច់ញាតិ"}} />
-          <Stack.Screen name="UnsafeMigrationScreen" component={UnsafeMigrationScreen} options={{title: "ចំណាកស្រុកអសុវត្ថិភាព"}} />
         </Stack.Navigator>
       </NavigationContainer>
     );

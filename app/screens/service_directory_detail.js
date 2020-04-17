@@ -11,7 +11,7 @@ import {
 import { Icon } from 'react-native-material-ui';
 import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_style';
 import PlaySound from '../components/play_sound';
-import listData from '../data/service_directories';
+import listData from '../data/json/service_directories';
 import uuidv4 from '../utils/uuidv4';
 
 export default class ServiceDirectoryDetail extends React.Component {

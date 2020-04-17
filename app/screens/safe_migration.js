@@ -6,7 +6,7 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
-  Linking
+  Linking,
 } from 'react-native';
 
 import { Icon } from 'react-native-material-ui';
@@ -59,6 +59,7 @@ export default class SafeMigration extends React.Component {
       { title: 'សៀវភៅការងារ', image: 'workbook', screenName: 'WorkbookScreen', fileName: '', w: 34, h: 44 },
       { title: 'លិខិតឆ្លងដែន', image: 'passport', screenName: 'PassportScreen', fileName: '', w: 34, h: 45 },
       { title: 'ឯកសារផ្សេងៗ', image: 'other_doc', screenName: 'OtherDocScreen', fileName: '', w: 34, h: 41 },
+      { title: 'Migration Agency', image: 'other_doc', screenName: 'OtherDocScreen', fileName: '', w: 34, h: 41 },
     ]
 
     return list.map(l => this._renderCard(l));

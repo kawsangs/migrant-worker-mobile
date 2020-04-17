@@ -52,9 +52,15 @@ export default class TextInfo extends React.Component {
   _renderCardList() {
     let list = [
       { title: 'របៀបសន្សំ និងផ្ញើរប្រាក់', screenName: 'SavingScreen', fileName: '' },
-      { title: 'វប្បធម៌ទំនាក់ទំនង ជាមួយមិត្តភក្តិ និងថៅកែ', screenName: 'CommunicationCultureScreen', fileName: '' },
       { title: 'វិធីទំនាក់ទំនងសាច់ញាតិ', screenName: 'ContactRelativeScreen', fileName: '' },
-      { title: 'គុណសម្បតិ្ត​​​ និងគុណវិបត្តិ ចំណាកស្រុកអសុវត្ថិភាព', screenName: 'UnsafeMigrationScreen', fileName: '' },
+      { title: 'ការធ្វើចំណាកស្រុកប្រកបដោយសុវត្ថិភាព(ផ្នែកទី ១)', screenName: 'SavingScreen', fileName: '' },
+      { title: 'ការធ្វើចំណាកស្រុកប្រកបដោយសុវត្ថិភាព(ផ្នែកទី ២)', screenName: 'SavingScreen', fileName: '' },
+      { title: 'កូនសៀវភៅនាវិកវៃឆ្លាត', screenName: 'SavingScreen', fileName: '' },
+      { title: 'ឧបករណ៍នាវិកវៃឆ្លាត', screenName: 'SavingScreen', fileName: '' },
+      { title: 'ព័ត៌មានអំពីការជួញដូរមនុស្សនិងការធ្វើចំណាកស្រុក', screenName: 'SavingScreen', fileName: '' },
+      { title: 'បំនិនជីវិតដែលអាចកសាងលទ្ធភាពស្តារឡើងវិញរបស់បុគ្គល', screenName: 'SavingScreen', fileName: '' },
+      { title: 'ការធ្វើផែនការចំណាកស្រុកប្រកបដោយសុវត្ថិភាព', screenName: 'SavingScreen', fileName: '' },
+      { title: 'ការធ្វើសកម្មភាព', screenName: 'SavingScreen', fileName: '' },
     ]
 
     return list.map(l => this._renderCard(l));

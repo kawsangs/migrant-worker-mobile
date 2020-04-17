@@ -5,20 +5,24 @@ import {
   StyleSheet,
   SafeAreaView,
   FlatList,
-  Dimensions
+  Dimensions,
+  Button,
+  StatusBar,
+  ActivityIndicator,
 } from 'react-native';
 
 import Thumbnail from '../components/thumbnail';
-import videos from '../data/videos';
+import videoList from '../data/json/videos';
 import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_style';
 import PlaySound from '../components/play_sound';
 import { getVideoId } from '../utils/youtube';
 import NetInfo from "@react-native-community/netinfo";
 import Toast, { DURATION } from 'react-native-easy-toast';
+import { Icon, Toolbar } from 'react-native-material-ui';
 
 export default class Videos extends React.Component {
   state = {
-    videos: videos
+    videos: videoList
   };
 
   componentDidMount() {
@@ -33,6 +37,32 @@ export default class Videos extends React.Component {
 
   componentWillUnmount() {
     this.unsubscribe();
+  }
+
+  _renderNoInternetConnection() {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{flexDirection: 'row'}}>
+          <Icon name='info-outline' color='#111' size={24} style={{marginRight: 8}} iconSet='MaterialIcons'/>
+          <Text>មិនមានការតភ្ជាប់បណ្តាញទេឥឡូវនេះ។</Text>
+        </View>
+        <Text>សូមព្យាយាម​ម្តង​ទៀត​</Text>
+
+        { this.state.showLoading && <ActivityIndicator size="small" /> }
+
+        <View style={{marginTop: 20}}>
+          <Button title='ព្យាយាមម្តងទៀត' onPress={() => this._retryConnection()}/>
+        </View>
+      </View>
+    )
+  }
+
+  _retryConnection() {
+    this.setState({showLoading: true})
+
+    NetInfo.fetch().then(state => {
+      this.setState({isConnected: state.isConnected, showLoading: false});
+    });
   }
 
   _onPressItem(url) {
@@ -69,15 +99,63 @@ export default class Videos extends React.Component {
     )
   }
 
+  _renderContent() {
+    return (
+      <FlatList
+        contentContainerStyle={styles.flatList}
+        data={this.state.videos}
+        renderItem={({ item }) => this._renderItem(item)}
+        keyExtractor={item => item.code}
+      />
+    );
+  }
+
+  _onChangeText(val) {
+    if (!val) {
+      this._onRefresh();
+    }
+
+    if (val.length > 1) {
+      let list = videoList.filter((video) => {
+        return video.title.toLowerCase().indexOf(val.toLowerCase()) > -1
+      })
+      this.setState({videos: list});
+    }
+  }
+
+  _onSearchClosed() {
+    this._onRefresh();
+  }
+
+  _onRefresh() {
+    this.setState({videos: videoList});
+  }
+
+  _renderToolbar() {
+    return (
+      <Toolbar
+        leftElement={ 'arrow-back' }
+        centerElement={'វីដេអូ និងករណីចំណាកស្រុក'}
+        searchable={{
+          autoFocus: true,
+          placeholder: 'ស្វែងរក',
+          onChangeText: this._onChangeText.bind(this),
+          onSearchClosed: this._onSearchClosed.bind(this)
+        }}
+        onLeftElementPress={() => this.props.navigation.goBack()}
+        style={{titleText: {fontFamily: FontFamily.title}}}
+      />
+    );
+  }
+
   render() {
     return (
       <SafeAreaView style={{flex: 1}}>
-        <FlatList
-          contentContainerStyle={styles.flatList}
-          data={this.state.videos}
-          renderItem={({ item }) => this._renderItem(item)}
-          keyExtractor={item => item.code}
-        />
+        <StatusBar backgroundColor={Color.primary} translucent={false} />
+        { this._renderToolbar() }
+        { this.state.isConnected && this._renderContent() }
+        { !this.state.isConnected && this._renderNoInternetConnection() }
+
         <Toast ref='toast' position='top' positionValue={ Platform.OS == 'ios' ? 120 : 140 }/>
       </SafeAreaView>
     );
