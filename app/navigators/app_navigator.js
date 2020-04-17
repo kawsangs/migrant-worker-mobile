@@ -34,7 +34,7 @@ export default class AppNavigator extends Component {
   render() {
     return (
       <NavigationContainer>
-        <StatusBar backgroundColor={Color.primary} translucent={false} />
+        <StatusBar backgroundColor={Color.primary} />
         <Stack.Navigator
           initialRouteName="HomeScreen"
           screenOptions={{

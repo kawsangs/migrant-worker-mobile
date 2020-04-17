@@ -123,10 +123,6 @@ export default class Videos extends React.Component {
     }
   }
 
-  _onSearchClosed() {
-    this._onRefresh();
-  }
-
   _onRefresh() {
     this.setState({videos: videoList});
   }
@@ -140,7 +136,7 @@ export default class Videos extends React.Component {
           autoFocus: true,
           placeholder: 'ស្វែងរក',
           onChangeText: this._onChangeText.bind(this),
-          onSearchClosed: this._onSearchClosed.bind(this)
+          onSearchClosed: this._onRefresh.bind(this)
         }}
         onLeftElementPress={() => this.props.navigation.goBack()}
         style={{titleText: {fontFamily: FontFamily.title}}}
@@ -151,7 +147,6 @@ export default class Videos extends React.Component {
   render() {
     return (
       <SafeAreaView style={{flex: 1}}>
-        <StatusBar backgroundColor={Color.primary} translucent={false} />
         { this._renderToolbar() }
         { this.state.isConnected && this._renderContent() }
         { !this.state.isConnected && this._renderNoInternetConnection() }

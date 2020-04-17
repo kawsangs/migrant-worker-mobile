@@ -6,7 +6,6 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
-  StatusBar,
 } from 'react-native';
 
 import { Icon } from 'react-native-material-ui';
@@ -77,8 +76,6 @@ export default class Home extends React.Component {
   render() {
     return (
       <ScrollView style={{flex: 1}}>
-        <StatusBar backgroundColor={Color.primary} translucent={true} />
-
         { this._renderHeader() }
 
         <View style={Style.container}>
@@ -97,7 +94,7 @@ export default class Home extends React.Component {
 
 const styles = StyleSheet.create({
   imageWrapper: {
-    height: 210,
+    height: 196,
     backgroundColor: Color.primary,
     flexDirection: 'row',
     justifyContent: 'center',
