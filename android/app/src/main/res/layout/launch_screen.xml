@@ -24,6 +24,6 @@
     android:textSize="28dp"
     android:textColor="#1a496b"
     android:fontFamily="KhSiemreap"
-    android:text="ចំណាកស្រុកឆ្លាតវៃ" />
+    android:text="ចំណាកស្រុកសុវត្ថិភាព" />
 
 </LinearLayout>

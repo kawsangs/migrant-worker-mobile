@@ -28,6 +28,9 @@ import WorkbookScreen from '../screens/safe_migration/workbook';
 import SavingScreen from '../screens/text_info/saving';
 import ContactRelativeScreen from '../screens/text_info/contact_relative';
 
+
+import PdfViewScreen from '../screens/pdf_view';
+
 const Stack = createStackNavigator();
 
 export default class AppNavigator extends Component {
@@ -68,6 +71,7 @@ export default class AppNavigator extends Component {
 
           <Stack.Screen name="SavingScreen" component={SavingScreen} options={{title: "របៀបសន្សំ និងផ្ញើរប្រាក់"}} />
           <Stack.Screen name="ContactRelativeScreen" component={ContactRelativeScreen} options={{title: "វិធីទំនាក់ទំនងសាច់ញាតិ"}} />
+          <Stack.Screen name="PdfViewScreen" component={PdfViewScreen} options={{title: "PdfView"}} />
         </Stack.Navigator>
       </NavigationContainer>
     );
