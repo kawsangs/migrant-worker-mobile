@@ -34,7 +34,7 @@ export default class Home extends React.Component {
   _renderHeader() {
     return (
       <View style={styles.imageWrapper}>
-        <Image style={{width: 301, height: 198}} source={require('../assets/images/travel.png')} />
+        <Image style={{width: 301, height: 198}} source={require('../assets/images/icons/travel.png')} />
       </View>
     )
   }
