@@ -51,6 +51,7 @@ export default class TextInfo extends React.Component {
 
   _renderCardList() {
     let list = [
+      { title: 'ភ្នាក់ងារចំណាកស្រុក', routeName: 'MigrationAgencyScreen', pdfFile: '', fileName: '' },
       { title: 'របៀបសន្សំ និងផ្ញើរប្រាក់', routeName: 'PdfViewScreen', pdfFile: 'smart_money', fileName: '' },
       { title: 'វិធីទំនាក់ទំនងសាច់ញាតិ', routeName: 'ContactRelativeScreen', pdfFile: '', fileName: '' },
       { title: 'ការធ្វើចំណាកស្រុកប្រកបដោយសុវត្ថិភាព(ផ្នែកទី ១)', routeName: 'PdfViewScreen', pdfFile: 'safe_migration_part1', fileName: '' },

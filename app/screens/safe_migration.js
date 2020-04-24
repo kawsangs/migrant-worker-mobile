@@ -55,15 +55,16 @@ export default class SafeMigration extends React.Component {
 
   _renderCardList() {
     let list = [
-      // { title: 'កុងត្រាស្វែករកការងារក្នុងប្រទេសគោលដៅ', image: 'agreement', screenName: 'AgreementScreen', fileName: '', w: 34, h: 43},
-      // { title: 'សៀវភៅការងារ', image: 'workbook', screenName: 'WorkbookScreen', imageList: 'worker_cards', fileName: '', w: 34, h: 44 },
       { title: 'កាតពលករកម្ពុជាធ្វើការក្រៅប្រទេស', image: '', screenName: 'ImageViewScreen', imageList: 'worker_cards', fileName: '', w: 34, h: 45 },
       { title: 'លិខិតឆ្លងដែន', image: 'passport', screenName: 'ImageViewScreen', imageList: 'passports', fileName: '', w: 34, h: 45 },
       { title: 'ទិដ្ឋាការការងារ', image: '', screenName: 'ImageViewScreen', imageList: 'visas', fileName: '', w: 34, h: 45 },
-      { title: 'ឯកសារបែបបទសំរាប់ស្នើរសុំធ្វើលិខិតឆ្លងដែន', image: '', screenName: 'ImageViewScreen', imageList: 'passport_preparation', fileName: '', w: 34, h: 41 },
-      { title: 'ឯកសារការងារពេលទៅដល់ប្រទេសថៃ', image: '', screenName: 'ImageViewScreen', imageList: 'thai_working_card', fileName: '', w: 34, h: 41 },
-      // { title: 'ឯកសារផ្សេងៗ', image: 'other_doc', screenName: 'OtherDocScreen', fileName: '', w: 34, h: 41 },
-      { title: 'ភ្នាក់ងារចំណាកស្រុក', image: '', screenName: 'MigrationAgencyScreen', fileName: '', w: 34, h: 41 },
+      // { title: 'កិច្ចសន្យារការងារ', image: '', screenName: 'ImageViewScreen', imageList: '', fileName: '', w: 34, h: 45 },
+      // { title: 'កិច្ចសន្យាររកការងារឱ្យធ្វើ', image: '', screenName: 'ImageViewScreen', imageList: '', fileName: '', w: 34, h: 45 },
+      // { title: 'លិខិតអនុញ្ញាតឱ្យស្នាក់នៅក្នុងប្រទេសទទួល', image: '', screenName: 'ImageViewScreen', imageList: '', fileName: '', w: 34, h: 45 },
+
+      { title: 'ឯកសារផ្សេងៗ', image: 'other_doc', screenName: 'OtherDocScreen', fileName: '', w: 34, h: 41 },
+        // { title: 'ឯកសារបែបបទសំរាប់ស្នើរសុំធ្វើលិខិតឆ្លងដែន', image: '', screenName: 'ImageViewScreen', imageList: 'passport_preparation', fileName: '', w: 34, h: 41 },
+        // { title: 'ឯកសារការងារពេលទៅដល់ប្រទេសថៃ', image: '', screenName: 'ImageViewScreen', imageList: 'thai_working_card', fileName: '', w: 34, h: 41 },
     ]
 
     return list.map(l => this._renderCard(l));
@@ -71,10 +72,7 @@ export default class SafeMigration extends React.Component {
 
   _renderCheckListCard() {
     return (
-      <TouchableOpacity
-        style={Style.card}
-        onPress={() => this._onPress({screenName: 'ChecklistScreen'})}
-        >
+      <View style={Style.card}>
         <View style={[Style.cardContent, {borderBottomWidth: 0}]}>
           <Icon name='info' size={24} />
 
@@ -89,8 +87,8 @@ export default class SafeMigration extends React.Component {
             onPress={(fileName) => this.setState({activePlaying: fileName})}/>
         </View>
 
-        <Text>ចូលគូសធីច នៅការងារ រឺឯកសារដែលអ្នក រឺភ្នាក់ងារនាំពលករធ្វើការនៅក្រៅប្រទេសបានបំពេញរួច</Text>
-      </TouchableOpacity>
+        <Text>សូមពិនិត្យមើលឯកសារដែលអ្នក ឬភ្នាក់ងារនាំពលករធ្វើការនៅក្រៅប្រទេសបានបំពេញ</Text>
+      </View>
     );
   }
 
@@ -99,7 +97,7 @@ export default class SafeMigration extends React.Component {
       <ScrollView style={{flex: 1}}>
         <View style={Style.container}>
           { this._renderCheckListCard() }
-          <Text>ស្វែងរកពត័មានខាងក្រាម</Text>
+          <Text>ឯកសារដែលអ្នកត្រូវមានដូចជា៖</Text>
           { this._renderCardList() }
         </View>
       </ScrollView>
