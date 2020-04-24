@@ -18,8 +18,8 @@ import uuidv4 from '../utils/uuidv4';
 export default class SafeMigration extends React.Component {
   state = {};
 
-  _onPress(screenName) {
-    this.props.navigation.navigate(screenName);
+  _onPress(screen) {
+    this.props.navigation.navigate(screen.screenName, {title: screen.title, imageList: screen.imageList});
   }
 
   _renderCard(screen) {
@@ -27,11 +27,11 @@ export default class SafeMigration extends React.Component {
       <TouchableOpacity
         key={ uuidv4() }
         style={Style.card}
-        onPress={() => this._onPress(screen.screenName)}
+        onPress={() => this._onPress(screen)}
         >
         <View style={Style.cardContent}>
           <View style={Style.avata}>
-            <Image source={Images[screen.image]} style={{width: screen.w, height: screen.h}} />
+            {!!screen.image && <Image source={Images[screen.image]} style={{width: screen.w, height: screen.h}} /> }
           </View>
 
           <View style={{flex: 1, marginLeft: 16, marginRight: 16, justifyContent: 'center'}}>
@@ -55,11 +55,15 @@ export default class SafeMigration extends React.Component {
 
   _renderCardList() {
     let list = [
-      { title: 'កុងត្រាស្វែករកការងារក្នុងប្រទេសគោលដៅ', image: 'agreement', screenName: 'AgreementScreen', fileName: '', w: 34, h: 43},
-      { title: 'សៀវភៅការងារ', image: 'workbook', screenName: 'WorkbookScreen', fileName: '', w: 34, h: 44 },
-      { title: 'លិខិតឆ្លងដែន', image: 'passport', screenName: 'PassportScreen', fileName: '', w: 34, h: 45 },
-      { title: 'ឯកសារផ្សេងៗ', image: 'other_doc', screenName: 'OtherDocScreen', fileName: '', w: 34, h: 41 },
-      { title: 'Migration Agency', image: 'other_doc', screenName: 'OtherDocScreen', fileName: '', w: 34, h: 41 },
+      // { title: 'កុងត្រាស្វែករកការងារក្នុងប្រទេសគោលដៅ', image: 'agreement', screenName: 'AgreementScreen', fileName: '', w: 34, h: 43},
+      // { title: 'សៀវភៅការងារ', image: 'workbook', screenName: 'WorkbookScreen', imageList: 'worker_cards', fileName: '', w: 34, h: 44 },
+      { title: 'កាតពលករកម្ពុជាធ្វើការក្រៅប្រទេស', image: '', screenName: 'ImageViewScreen', imageList: 'worker_cards', fileName: '', w: 34, h: 45 },
+      { title: 'លិខិតឆ្លងដែន', image: 'passport', screenName: 'ImageViewScreen', imageList: 'passports', fileName: '', w: 34, h: 45 },
+      { title: 'ទិដ្ឋាការការងារ', image: '', screenName: 'ImageViewScreen', imageList: 'visas', fileName: '', w: 34, h: 45 },
+      { title: 'ឯកសារបែបបទសំរាប់ស្នើរសុំធ្វើលិខិតឆ្លងដែន', image: '', screenName: 'ImageViewScreen', imageList: 'passport_preparation', fileName: '', w: 34, h: 41 },
+      { title: 'ឯកសារការងារពេលទៅដល់ប្រទេសថៃ', image: '', screenName: 'ImageViewScreen', imageList: 'thai_working_card', fileName: '', w: 34, h: 41 },
+      // { title: 'ឯកសារផ្សេងៗ', image: 'other_doc', screenName: 'OtherDocScreen', fileName: '', w: 34, h: 41 },
+      { title: 'ភ្នាក់ងារចំណាកស្រុក', image: '', screenName: 'MigrationAgencyScreen', fileName: '', w: 34, h: 41 },
     ]
 
     return list.map(l => this._renderCard(l));
@@ -69,7 +73,7 @@ export default class SafeMigration extends React.Component {
     return (
       <TouchableOpacity
         style={Style.card}
-        onPress={() => this._onPress('ChecklistScreen')}
+        onPress={() => this._onPress({screenName: 'ChecklistScreen'})}
         >
         <View style={[Style.cardContent, {borderBottomWidth: 0}]}>
           <Icon name='info' size={24} />

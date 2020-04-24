@@ -23,8 +23,4 @@ export default Images = {
   logo: require('../assets/images/logos/logo.png'),
   instedd_logo: require('../assets/images/logos/instedd_logo.png'),
   spotlight_long: require('../assets/images/logos/spotlight_long.png'),
-
-  // Data
-  diploma_passport: require('../assets/images/data/passports/diploma_passport.png'),
-  simple_passport: require('../assets/images/data/passports/simple_passport.png'),
 };

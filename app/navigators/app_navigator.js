@@ -22,12 +22,13 @@ import ViewVideoScreen from '../screens/view_video';
 import AgreementScreen from '../screens/safe_migration/agreement';
 import ChecklistScreen from '../screens/safe_migration/checklist';
 import OtherDocScreen from '../screens/safe_migration/other_doc';
-import PassportScreen from '../screens/safe_migration/passport';
 import WorkbookScreen from '../screens/safe_migration/workbook';
+import MigrationAgencyScreen from '../screens/safe_migration/migration_agency';
 
 import ContactRelativeScreen from '../screens/text_info/contact_relative';
 
 import PdfViewScreen from '../screens/pdf_view';
+import ImageViewScreen from '../screens/image_view';
 
 const Stack = createStackNavigator();
 
@@ -37,7 +38,7 @@ export default class AppNavigator extends Component {
       <NavigationContainer>
         <StatusBar backgroundColor={Color.primary} />
         <Stack.Navigator
-          initialRouteName="HomeScreen"
+          initialRouteName="SafeMigrationScreen"
           screenOptions={{
             headerStyle: {
               backgroundColor: Color.primary,
@@ -64,11 +65,12 @@ export default class AppNavigator extends Component {
           <Stack.Screen name="AgreementScreen" component={AgreementScreen} options={{title: "កុងត្រាស្វែករកការងារក្នុងប្រទេសគោលដៅ"}} />
           <Stack.Screen name="ChecklistScreen" component={ChecklistScreen} options={{title: "បញ្ជីត្រួតពិនិត្យមុនចេញដំណើរ"}} />
           <Stack.Screen name="OtherDocScreen" component={OtherDocScreen} options={{title: "ឯកសារផ្សេងៗ"}} />
-          <Stack.Screen name="PassportScreen" component={PassportScreen} options={{title: "លិខិតឆ្លងដែន"}} />
           <Stack.Screen name="WorkbookScreen" component={WorkbookScreen} options={{title: "សៀវភៅការងារ"}} />
+          <Stack.Screen name="MigrationAgencyScreen" component={MigrationAgencyScreen} options={{title: "ភ្នាក់ងារចំណាកស្រុក"}} />
 
           <Stack.Screen name="ContactRelativeScreen" component={ContactRelativeScreen} options={{title: "វិធីទំនាក់ទំនងសាច់ញាតិ"}} />
           <Stack.Screen name="PdfViewScreen" component={PdfViewScreen} options={({ route }) => ({ title: route.params.title })} />
+          <Stack.Screen name="ImageViewScreen" component={ImageViewScreen} options={({ route }) => ({ title: route.params.title })} />
         </Stack.Navigator>
       </NavigationContainer>
     );

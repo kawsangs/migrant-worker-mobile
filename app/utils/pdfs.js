@@ -10,4 +10,13 @@ export default {
   safe_migration_part1: 'bundle-assets://pdf/safe_migration_part1.pdf',
   safe_migration_part2: 'bundle-assets://pdf/safe_migration_part2.pdf',
 
+  // migration_agency
+  agency_thai: 'bundle-assets://pdf/thai.pdf',
+  agency_malaysia: 'bundle-assets://pdf/malaysia.pdf',
+  agency_singapore: 'bundle-assets://pdf/singapore.pdf',
+  agency_japan: 'bundle-assets://pdf/japan.pdf',
+  agency_hongkong: 'bundle-assets://pdf/hongkong.pdf',
+  agency_arab_emirate: 'bundle-assets://pdf/arab_emirate.pdf',
+  agency_kuwait: 'bundle-assets://pdf/kuwait.pdf',
+  agency_cata: 'bundle-assets://pdf/cata.pdf',
 };
