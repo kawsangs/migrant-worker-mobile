@@ -37,7 +37,7 @@ export default class AppNavigator extends Component {
       <NavigationContainer>
         <StatusBar backgroundColor={Color.primary} />
         <Stack.Navigator
-          initialRouteName="OtherInfoScreen"
+          initialRouteName="HomeScreen"
           screenOptions={{
             headerStyle: {
               backgroundColor: Color.primary,

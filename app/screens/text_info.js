@@ -19,7 +19,7 @@ export default class TextInfo extends React.Component {
   state = {};
 
   _onPress(screen) {
-    this.props.navigation.navigate(screen.routeName, {title: screen.title});
+    this.props.navigation.navigate(screen.routeName, {title: screen.title, pdfFilename: screen.pdfFile});
   }
 
   _renderCard(screen) {
@@ -51,16 +51,16 @@ export default class TextInfo extends React.Component {
 
   _renderCardList() {
     let list = [
-      { title: 'របៀបសន្សំ និងផ្ញើរប្រាក់', routeName: 'PdfViewScreen', fileName: '' },
-      { title: 'វិធីទំនាក់ទំនងសាច់ញាតិ', routeName: 'ContactRelativeScreen', fileName: '' },
-      { title: 'ការធ្វើចំណាកស្រុកប្រកបដោយសុវត្ថិភាព(ផ្នែកទី ១)', routeName: 'SavingScreen', fileName: '' },
-      { title: 'ការធ្វើចំណាកស្រុកប្រកបដោយសុវត្ថិភាព(ផ្នែកទី ២)', routeName: 'SavingScreen', fileName: '' },
-      { title: 'កូនសៀវភៅនាវិកវៃឆ្លាត', routeName: 'SavingScreen', fileName: '' },
-      { title: 'ឧបករណ៍នាវិកវៃឆ្លាត', routeName: 'SavingScreen', fileName: '' },
-      { title: 'ព័ត៌មានអំពីការជួញដូរមនុស្សនិងការធ្វើចំណាកស្រុក', routeName: 'SavingScreen', fileName: '' },
-      { title: 'បំនិនជីវិតដែលអាចកសាងលទ្ធភាពស្តារឡើងវិញរបស់បុគ្គល', routeName: 'SavingScreen', fileName: '' },
-      { title: 'ការធ្វើផែនការចំណាកស្រុកប្រកបដោយសុវត្ថិភាព', routeName: 'SavingScreen', fileName: '' },
-      { title: 'ការធ្វើសកម្មភាព', routeName: 'SavingScreen', fileName: '' },
+      { title: 'របៀបសន្សំ និងផ្ញើរប្រាក់', routeName: 'PdfViewScreen', pdfFile: 'smart_money', fileName: '' },
+      { title: 'វិធីទំនាក់ទំនងសាច់ញាតិ', routeName: 'ContactRelativeScreen', pdfFile: '', fileName: '' },
+      { title: 'ការធ្វើចំណាកស្រុកប្រកបដោយសុវត្ថិភាព(ផ្នែកទី ១)', routeName: 'PdfViewScreen', pdfFile: 'safe_migration_part1', fileName: '' },
+      { title: 'ការធ្វើចំណាកស្រុកប្រកបដោយសុវត្ថិភាព(ផ្នែកទី ២)', routeName: 'PdfViewScreen', pdfFile: 'safe_migration_part2', fileName: '' },
+      { title: 'កូនសៀវភៅនាវិកវៃឆ្លាត', routeName: 'PdfViewScreen', pdfFile: 'smart_navigator_book', fileName: '' },
+      { title: 'ឧបករណ៍នាវិកវៃឆ្លាត', routeName: 'PdfViewScreen', pdfFile: 'smart_navigator_toolkit_part_a', fileName: '' },
+      { title: 'ព័ត៌មានអំពីការជួញដូរមនុស្សនិងការធ្វើចំណាកស្រុក', routeName: 'PdfViewScreen', pdfFile: 'smart_navigator_toolkit_part_b', fileName: '' },
+      { title: 'បំនិនជីវិតដែលអាចកសាងលទ្ធភាពស្តារឡើងវិញរបស់បុគ្គល', routeName: 'PdfViewScreen', pdfFile: 'smart_navigator_toolkit_part_c', fileName: '' },
+      { title: 'ការធ្វើផែនការចំណាកស្រុកប្រកបដោយសុវត្ថិភាព', routeName: 'PdfViewScreen', pdfFile: 'smart_navigator_toolkit_part_d', fileName: '' },
+      { title: 'ការធ្វើសកម្មភាព', routeName: 'PdfViewScreen', pdfFile: 'smart_navigator_toolkit_part_e', fileName: '' },
     ]
 
     return list.map(l => this._renderCard(l));
