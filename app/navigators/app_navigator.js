@@ -25,9 +25,7 @@ import OtherDocScreen from '../screens/safe_migration/other_doc';
 import PassportScreen from '../screens/safe_migration/passport';
 import WorkbookScreen from '../screens/safe_migration/workbook';
 
-import SavingScreen from '../screens/text_info/saving';
 import ContactRelativeScreen from '../screens/text_info/contact_relative';
-
 
 import PdfViewScreen from '../screens/pdf_view';
 
@@ -39,7 +37,7 @@ export default class AppNavigator extends Component {
       <NavigationContainer>
         <StatusBar backgroundColor={Color.primary} />
         <Stack.Navigator
-          initialRouteName="HomeScreen"
+          initialRouteName="OtherInfoScreen"
           screenOptions={{
             headerStyle: {
               backgroundColor: Color.primary,
@@ -69,9 +67,8 @@ export default class AppNavigator extends Component {
           <Stack.Screen name="PassportScreen" component={PassportScreen} options={{title: "លិខិតឆ្លងដែន"}} />
           <Stack.Screen name="WorkbookScreen" component={WorkbookScreen} options={{title: "សៀវភៅការងារ"}} />
 
-          <Stack.Screen name="SavingScreen" component={SavingScreen} options={{title: "របៀបសន្សំ និងផ្ញើរប្រាក់"}} />
           <Stack.Screen name="ContactRelativeScreen" component={ContactRelativeScreen} options={{title: "វិធីទំនាក់ទំនងសាច់ញាតិ"}} />
-          <Stack.Screen name="PdfViewScreen" component={PdfViewScreen} options={{title: "PdfView"}} />
+          <Stack.Screen name="PdfViewScreen" component={PdfViewScreen} options={({ route }) => ({ title: route.params.title })} />
         </Stack.Navigator>
       </NavigationContainer>
     );

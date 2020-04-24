@@ -18,8 +18,8 @@ import uuidv4 from '../utils/uuidv4';
 export default class TextInfo extends React.Component {
   state = {};
 
-  _onPress(screenName) {
-    this.props.navigation.navigate(screenName);
+  _onPress(screen) {
+    this.props.navigation.navigate(screen.routeName, {title: screen.title});
   }
 
   _renderCard(screen) {
@@ -27,7 +27,7 @@ export default class TextInfo extends React.Component {
       <TouchableOpacity
         key={ uuidv4() }
         style={Style.card}
-        onPress={() => this._onPress(screen.screenName)}
+        onPress={() => this._onPress(screen)}
         >
         <View style={Style.cardContent}>
           <View style={{flex: 1, marginRight: 16, justifyContent: 'center'}}>
@@ -51,16 +51,16 @@ export default class TextInfo extends React.Component {
 
   _renderCardList() {
     let list = [
-      { title: 'របៀបសន្សំ និងផ្ញើរប្រាក់', screenName: 'SavingScreen', fileName: '' },
-      { title: 'វិធីទំនាក់ទំនងសាច់ញាតិ', screenName: 'ContactRelativeScreen', fileName: '' },
-      { title: 'ការធ្វើចំណាកស្រុកប្រកបដោយសុវត្ថិភាព(ផ្នែកទី ១)', screenName: 'SavingScreen', fileName: '' },
-      { title: 'ការធ្វើចំណាកស្រុកប្រកបដោយសុវត្ថិភាព(ផ្នែកទី ២)', screenName: 'SavingScreen', fileName: '' },
-      { title: 'កូនសៀវភៅនាវិកវៃឆ្លាត', screenName: 'SavingScreen', fileName: '' },
-      { title: 'ឧបករណ៍នាវិកវៃឆ្លាត', screenName: 'SavingScreen', fileName: '' },
-      { title: 'ព័ត៌មានអំពីការជួញដូរមនុស្សនិងការធ្វើចំណាកស្រុក', screenName: 'SavingScreen', fileName: '' },
-      { title: 'បំនិនជីវិតដែលអាចកសាងលទ្ធភាពស្តារឡើងវិញរបស់បុគ្គល', screenName: 'SavingScreen', fileName: '' },
-      { title: 'ការធ្វើផែនការចំណាកស្រុកប្រកបដោយសុវត្ថិភាព', screenName: 'SavingScreen', fileName: '' },
-      { title: 'ការធ្វើសកម្មភាព', screenName: 'SavingScreen', fileName: '' },
+      { title: 'របៀបសន្សំ និងផ្ញើរប្រាក់', routeName: 'PdfViewScreen', fileName: '' },
+      { title: 'វិធីទំនាក់ទំនងសាច់ញាតិ', routeName: 'ContactRelativeScreen', fileName: '' },
+      { title: 'ការធ្វើចំណាកស្រុកប្រកបដោយសុវត្ថិភាព(ផ្នែកទី ១)', routeName: 'SavingScreen', fileName: '' },
+      { title: 'ការធ្វើចំណាកស្រុកប្រកបដោយសុវត្ថិភាព(ផ្នែកទី ២)', routeName: 'SavingScreen', fileName: '' },
+      { title: 'កូនសៀវភៅនាវិកវៃឆ្លាត', routeName: 'SavingScreen', fileName: '' },
+      { title: 'ឧបករណ៍នាវិកវៃឆ្លាត', routeName: 'SavingScreen', fileName: '' },
+      { title: 'ព័ត៌មានអំពីការជួញដូរមនុស្សនិងការធ្វើចំណាកស្រុក', routeName: 'SavingScreen', fileName: '' },
+      { title: 'បំនិនជីវិតដែលអាចកសាងលទ្ធភាពស្តារឡើងវិញរបស់បុគ្គល', routeName: 'SavingScreen', fileName: '' },
+      { title: 'ការធ្វើផែនការចំណាកស្រុកប្រកបដោយសុវត្ថិភាព', routeName: 'SavingScreen', fileName: '' },
+      { title: 'ការធ្វើសកម្មភាព', routeName: 'SavingScreen', fileName: '' },
     ]
 
     return list.map(l => this._renderCard(l));
