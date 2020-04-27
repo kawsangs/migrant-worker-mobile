@@ -18,30 +18,34 @@ export default class Contact1280 extends React.Component {
   state = {};
 
   _onPress(url) {
-    // let whatsappNo = '';
-    // let whatsappMsg = 'test';
-    // Linking.openURL(`whatsapp://send?phone=${whatsappNo}&text=${whatsappMsg}`);
-    alert('press me')
+    Linking.canOpenURL(url).then(supported => {
+      if (supported) {
+        Linking.openURL(url);
+      } else {
+        alert("Don't know how to open URI: " + url);
+      }
+    });
   }
 
-  _renderCard(title, image, fileName) {
+  _renderCard(item, index) {
     return (
       <TouchableOpacity
+        key={index}
         style={Style.card}
-        onPress={() => this._onPress()}
+        onPress={() => this._onPress(item.url)}
         >
         <View style={Style.cardContent}>
           <View style={Style.avata}>
-            <Image source={Images[image]} style={{width: 72, height: 72}} />
+            <Image source={Images[item.iconName]} style={{width: 72, height: 72}} />
           </View>
 
           <View style={{flex: 1, marginLeft: 16, mraginRight: 16, justifyContent: 'center'}}>
-            <Text>{title}</Text>
+            <Text>{item.title}</Text>
           </View>
 
           <PlaySound
             style={{paddingLeft: 10}}
-            fileName={fileName}
+            fileName={item.audioFileName || 'register'}
             activePlaying={this.state.activePlaying}
             onPress={(fileName) => this.setState({activePlaying: fileName})}/>
         </View>
@@ -54,13 +58,22 @@ export default class Contact1280 extends React.Component {
     );
   }
 
+  _renderCardList() {
+    let list = [
+      { title: 'ភ្ជាប់ទៅ១២៨០ តាមរយៈហ្វេសប៊ុក', iconName: 'facebook', audioFileName: '', url: 'https://www.messenger.com/t/limborey' },
+      { title: 'ភ្ជាប់ទៅ១២៨០ តាមរយៈ Whatsapp', iconName: 'whatsapp', audioFileName: '', url: 'whatsapp://send?phone=+85517866681&text=' },
+      { title: 'ភ្ជាប់ទៅ១២៨០ តាមរយៈ Telegram', iconName: 'telegram', audioFileName: '', url: 'tg://resolve?domain=limborey' },
+    ]
+
+    return list.map((item, index) => this._renderCard(item, index))
+  }
+
   render() {
+
     return (
       <ScrollView style={{flex: 1}}>
         <View style={Style.container}>
-          { this._renderCard('ភ្ជាប់ទៅ១២៨០ តាមរយៈហ្វេសប៊ុក', 'facebook', 'register') }
-          { this._renderCard('ភ្ជាប់ទៅ១២៨០ តាមរយៈ Whatsapp', 'whatsapp', 'register') }
-          { this._renderCard('ភ្ជាប់ទៅ១២៨០ តាមរយៈ Telegram', 'telegram', 'register') }
+          { this._renderCardList() }
         </View>
       </ScrollView>
     );
