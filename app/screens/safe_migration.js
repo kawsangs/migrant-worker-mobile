@@ -63,8 +63,6 @@ export default class SafeMigration extends React.Component {
       // { title: 'លិខិតអនុញ្ញាតឱ្យស្នាក់នៅក្នុងប្រទេសទទួល', image: '', screenName: 'ImageViewScreen', imageList: '', fileName: '', w: 34, h: 45 },
 
       { title: 'ឯកសារផ្សេងៗ', image: 'other_doc', screenName: 'OtherDocScreen', fileName: '', w: 34, h: 41 },
-        // { title: 'ឯកសារបែបបទសំរាប់ស្នើរសុំធ្វើលិខិតឆ្លងដែន', image: '', screenName: 'ImageViewScreen', imageList: 'passport_preparation', fileName: '', w: 34, h: 41 },
-        // { title: 'ឯកសារការងារពេលទៅដល់ប្រទេសថៃ', image: '', screenName: 'ImageViewScreen', imageList: 'thai_working_card', fileName: '', w: 34, h: 41 },
     ]
 
     return list.map(l => this._renderCard(l));

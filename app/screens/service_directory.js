@@ -5,7 +5,8 @@ import {
   Image,
   ScrollView,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  Linking
 } from 'react-native';
 
 import { Icon } from 'react-native-material-ui';
@@ -13,28 +14,39 @@ import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_s
 import PlaySound from '../components/play_sound';
 import listData from '../data/json/service_directories';
 import uuidv4 from '../utils/uuidv4';
+import { InjectArray } from '../utils/math';
 
 export default class ServiceDirectory extends React.Component {
   state = {};
 
-  _onPress(contact) {
-    this.props.navigation.navigate('ServiceDirectoryDetailScreen', {contact: contact})
+  _onPress(phoneNumber) {
+    Linking.openURL(`tel:${phoneNumber}`)
+  }
+
+  _renderPhoneList(phones) {
+    let doms = phones.map ( (phone, index) => (
+      <TouchableOpacity
+        onPress={() => this._onPress(phone)}
+        style={{flexDirection: 'row', paddingBottom: 10, paddingTop: 10, borderBottomWidth: 1, borderColor: Color.border}} key={index}>
+        <Icon name='phone' size={24} color={'#111'} />
+        <Text style={{marginLeft: 10}}>{phone}</Text>
+      </TouchableOpacity>
+    ))
+
+    return (doms);
   }
 
   _renderCard(contact) {
     return (
-      <TouchableOpacity
+      <View
         key={uuidv4()}
         style={Style.card}
-        onPress={() => this._onPress(contact)}
         >
-        <View style={Style.cardContent}>
+        <View style={{flexDirection: 'row'}}>
           <View style={{flex: 1, mraginRight: 16, justifyContent: 'center'}}>
             <Text style={{fontFamily: FontFamily.title}}>{contact.name}</Text>
-            <View style={{flexDirection: 'row'}}>
-              <Icon name='phone' size={24} />
-              <Text style={{marginLeft: 10}}>{contact.phone}</Text>
-            </View>
+            { this._renderPhoneList(contact.phones) }
+
           </View>
 
           <PlaySound
@@ -44,11 +56,8 @@ export default class ServiceDirectory extends React.Component {
             onPress={(fileName) => this.setState({activePlaying: fileName})}/>
         </View>
 
-        <View style={{flexDirection: 'row'}}>
-          <Text style={{flex: 1, fontFamily: FontFamily.title, color: Color.primary}}>ចូលមើល</Text>
-          <Icon name='keyboard-arrow-right' size={24} />
-        </View>
-      </TouchableOpacity>
+
+      </View>
     );
   }
 
