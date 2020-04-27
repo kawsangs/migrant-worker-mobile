@@ -56,12 +56,18 @@ export default class TextInfo extends React.Component {
       { title: 'វិធីទំនាក់ទំនងសាច់ញាតិ', routeName: 'ContactRelativeScreen', pdfFile: '', fileName: '' },
       { title: 'ការធ្វើចំណាកស្រុកប្រកបដោយសុវត្ថិភាព(ផ្នែកទី ១)', routeName: 'PdfViewScreen', pdfFile: 'safe_migration_part1', fileName: '' },
       { title: 'ការធ្វើចំណាកស្រុកប្រកបដោយសុវត្ថិភាព(ផ្នែកទី ២)', routeName: 'PdfViewScreen', pdfFile: 'safe_migration_part2', fileName: '' },
+
       { title: 'កូនសៀវភៅនាវិកវៃឆ្លាត', routeName: 'PdfViewScreen', pdfFile: 'smart_navigator_book', fileName: '' },
       { title: 'ឧបករណ៍នាវិកវៃឆ្លាត', routeName: 'PdfViewScreen', pdfFile: 'smart_navigator_toolkit_part_a', fileName: '' },
       { title: 'ព័ត៌មានអំពីការជួញដូរមនុស្សនិងការធ្វើចំណាកស្រុក', routeName: 'PdfViewScreen', pdfFile: 'smart_navigator_toolkit_part_b', fileName: '' },
       { title: 'បំនិនជីវិតដែលអាចកសាងលទ្ធភាពស្តារឡើងវិញរបស់បុគ្គល', routeName: 'PdfViewScreen', pdfFile: 'smart_navigator_toolkit_part_c', fileName: '' },
       { title: 'ការធ្វើផែនការចំណាកស្រុកប្រកបដោយសុវត្ថិភាព', routeName: 'PdfViewScreen', pdfFile: 'smart_navigator_toolkit_part_d', fileName: '' },
       { title: 'ការធ្វើសកម្មភាព', routeName: 'PdfViewScreen', pdfFile: 'smart_navigator_toolkit_part_e', fileName: '' },
+
+      { title: 'ឯកសារបណ្តុះបណ្តាលមុនពេលចេញដំណើរសម្រាប់ពលករទេសន្តរប្រវេសន៍កម្ពុជាទៅធ្វើការនៅប្រទេសថៃឡង់ដ៍', routeName: 'PdfViewScreen', pdfFile: 'predeparture_guide_for_worker_cam_to_thai', fileName: '' },
+      { title: 'ឯកសារបណ្តុះបណ្តាលមុនពេលចេញដំណើរសម្រាប់ពលករទេសន្តរប្រវេសន៍កម្ពុជាទៅធ្វើការនៅប្រទេសម៉ាឡេស៊ី', routeName: 'PdfViewScreen', pdfFile: 'predeparture_guide_for_worker_cam_to_malaysia', fileName: '' },
+      { title: 'ឯកសារបណ្តុះបណ្តាលមុនពេលចេញដំណើរសម្រាប់អ្នកសម្របសម្រួលពលករទេសន្តរប្រវេសន៍កម្ពុជាទៅធ្វើការនៅប្រទេសថៃឡង់ដ៍', routeName: 'PdfViewScreen', pdfFile: 'predeparture_guide_for_facilitator_cam_to_thai', fileName: '' },
+      { title: 'ឯកសារបណ្តុះបណ្តាលមុនពេលចេញដំណើរសម្រាប់អ្នកសម្របសម្រួលពលករទេសន្តរប្រវេសន៍កម្ពុជាទៅធ្វើការនៅប្រទេសម៉ាឡេស៊ី', routeName: 'PdfViewScreen', pdfFile: 'predeparture_guide_for_facilitator_cam_to_malaysia', fileName: '' },
     ]
 
     return list.map(l => this._renderCard(l));
