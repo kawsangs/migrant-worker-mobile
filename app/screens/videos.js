@@ -19,15 +19,17 @@ import { getVideoId } from '../utils/youtube';
 import NetInfo from "@react-native-community/netinfo";
 import Toast, { DURATION } from 'react-native-easy-toast';
 import { Icon, Toolbar } from 'react-native-material-ui';
+import LoadingIndicator from '../components/loading_indicator';
 
 export default class Videos extends React.Component {
   state = {
-    videos: videoList
+    videos: videoList,
+    loading: true
   };
 
   componentDidMount() {
     NetInfo.fetch().then(state => {
-      this.setState({isConnected: state.isConnected});
+      this.setState({isConnected: state.isConnected, loading: false});
     });
 
     this.unsubscribe = NetInfo.addEventListener(state => {
@@ -148,8 +150,11 @@ export default class Videos extends React.Component {
     return (
       <SafeAreaView style={{flex: 1}}>
         { this._renderToolbar() }
-        { this.state.isConnected && this._renderContent() }
-        { !this.state.isConnected && this._renderNoInternetConnection() }
+
+        <LoadingIndicator loading={this.state.loading}/>
+
+        { !this.state.loading && this.state.isConnected && this._renderContent() }
+        { !this.state.loading && !this.state.isConnected && this._renderNoInternetConnection() }
 
         <Toast ref='toast' position='top' positionValue={ Platform.OS == 'ios' ? 120 : 140 }/>
       </SafeAreaView>
