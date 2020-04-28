@@ -110,7 +110,7 @@ export default class Register extends React.Component {
       realm.write(() => {
         realm.create('User', this._buildData(), true);
         this._clearStates();
-        // UserWorker.performAsync(this.state.uuid);
+        UserWorker.performAsync(this.state.uuid);
         this.props.navigation.navigate('ProfileListScreen');
       });
     } catch (e) {
