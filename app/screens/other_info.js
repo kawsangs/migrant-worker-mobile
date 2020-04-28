@@ -32,7 +32,7 @@ export default class OtherInfo extends React.Component {
           <Image source={Images[image]} style={{width: '80%', height: '63%'}} />
         </View>
 
-        <View style={{height: 54}}>
+        <View style={{minHeight: 54}}>
           <Text style={{fontFamily: FontFamily.title}}>{title}</Text>
         </View>
       </TouchableOpacity>

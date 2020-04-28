@@ -58,9 +58,9 @@ export default class SafeMigration extends React.Component {
       { title: 'កាតពលករកម្ពុជាធ្វើការក្រៅប្រទេស', image: '', screenName: 'ImageViewScreen', imageList: 'worker_cards', fileName: '', w: 34, h: 45 },
       { title: 'លិខិតឆ្លងដែន', image: 'passport', screenName: 'ImageViewScreen', imageList: 'passports', fileName: '', w: 34, h: 45 },
       { title: 'ទិដ្ឋាការការងារ', image: '', screenName: 'ImageViewScreen', imageList: 'visas', fileName: '', w: 34, h: 45 },
-      // { title: 'កិច្ចសន្យារការងារ', image: '', screenName: 'ImageViewScreen', imageList: '', fileName: '', w: 34, h: 45 },
-      // { title: 'កិច្ចសន្យាររកការងារឱ្យធ្វើ', image: '', screenName: 'ImageViewScreen', imageList: '', fileName: '', w: 34, h: 45 },
-      // { title: 'លិខិតអនុញ្ញាតឱ្យស្នាក់នៅក្នុងប្រទេសទទួល', image: '', screenName: 'ImageViewScreen', imageList: '', fileName: '', w: 34, h: 45 },
+      { title: 'កិច្ចសន្យារការងារ', image: '', screenName: 'ImageViewScreen', imageList: '', fileName: '', w: 34, h: 45 },
+      { title: 'កិច្ចសន្យាររកការងារឱ្យធ្វើ', image: '', screenName: 'ImageViewScreen', imageList: '', fileName: '', w: 34, h: 45 },
+      { title: 'លិខិតអនុញ្ញាតឱ្យស្នាក់នៅក្នុងប្រទេសទទួល', image: '', screenName: 'ImageViewScreen', imageList: '', fileName: '', w: 34, h: 45 },
 
       { title: 'ឯកសារផ្សេងៗ', image: 'other_doc', screenName: 'OtherDocScreen', fileName: '', w: 34, h: 41 },
     ]
