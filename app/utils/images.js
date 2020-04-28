@@ -22,5 +22,8 @@ export default Images = {
   unwomen: require('../assets/images/logos/unwomen.gif'),
   logo: require('../assets/images/logos/logo.png'),
   instedd_logo: require('../assets/images/logos/instedd_logo.png'),
-  spotlight_long: require('../assets/images/logos/spotlight_long.png'),
+  eu: require('../assets/images/logos/eu.png'),
+  undp: require('../assets/images/logos/undp.png'),
+  global_support: require('../assets/images/logos/global_support.png'),
+  gender_equality: require('../assets/images/logos/gender_equality.jpg'),
 };
