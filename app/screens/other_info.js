@@ -14,6 +14,7 @@ import PlaySound from '../components/play_sound';
 import Images from '../utils/images';
 import { InjectArray } from '../utils/math';
 import uuidv4 from '../utils/uuidv4';
+import { autoImageHeight } from '../utils/image_style';
 
 const win = Dimensions.get('window');
 
@@ -22,11 +23,7 @@ export default class OtherInfo extends React.Component {
 
   _renderCard(item) {
     let containerWdith = (win.width - 48) / 2 - 50;
-    let ratio = containerWdith / parseInt(item.imageWidth);
-    let imageStyle = {
-      width: containerWdith,
-      height: parseInt(item.imageHeight) * ratio,
-    }
+    let imageStyle = autoImageHeight(containerWdith, item.imageWidth, item.imageHeight);
 
     return (
       <TouchableOpacity

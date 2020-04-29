@@ -12,6 +12,7 @@ import {
 import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_style';
 import Images from '../utils/images';
 import uuidv4 from '../utils/uuidv4';
+import { autoImageHeight } from '../utils/image_style';
 
 export default class About extends React.Component {
   state = {};
@@ -29,12 +30,7 @@ export default class About extends React.Component {
   }
 
   _renderLogo(logo) {
-    let containerWidth = parseInt(logo.containerWidth);
-    let ratio = containerWidth / parseInt(logo.width);
-    let imageStyle = {
-      width: containerWidth,
-      height: parseInt(logo.height) * ratio,
-    }
+    let imageStyle = autoImageHeight(logo.containerWidth, logo.width, logo.height);
 
     return (
       <TouchableOpacity

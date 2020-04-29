@@ -14,6 +14,7 @@ import PlaySound from '../components/play_sound';
 import Images from '../utils/images';
 import uuidv4 from '../utils/uuidv4';
 import ImageData from '../data/json/image_list';
+import { autoImageHeight } from '../utils/image_style';
 
 const win = Dimensions.get('window');
 
@@ -21,12 +22,8 @@ export default class ImageView extends React.Component {
   state = {};
 
   _renderImage(image) {
-    let containerWdith = win.width - 60;
-    let ratio = containerWdith / parseInt(image.width);
-    let imageStyle = {
-      width: containerWdith,
-      height: parseInt(image.height) * ratio,
-    }
+    let containerWidth = win.width - 60;
+    let imageStyle = autoImageHeight(containerWidth, image.width, image.height);
 
     return (
       <View style={Style.card} key={uuidv4()}>
