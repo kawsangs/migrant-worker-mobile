@@ -66,6 +66,7 @@ export default class ServiceDirectory extends React.Component {
 
     return (
       <View>
+        <Text style={{fontSize: FontSize.title, fontFamily: FontFamily.title}}>កម្ពុជា</Text>
         <Text style={{marginBottom: 16}}>លេខទូរស័ព្ទជួយសង្គោះបន្ទាន់នៅក្នុងប្រទេសកម្ពុជា៖</Text>
         { this._renderList(cambodia) }
       </View>
@@ -81,7 +82,7 @@ export default class ServiceDirectory extends React.Component {
     let doms = [];
 
     for(let i=0; i<countries.length; i++) {
-      doms.push(<Text key={i} style={{fontFamily: FontFamily.title, marginBottom: 8, marginTop: 8}}>{i+1}) ប្រទេស{countries[i].country}</Text>);
+      doms.push(<Text key={i} style={{fontFamily: FontFamily.title, fontSize: FontSize.title, marginBottom: 8, marginTop: 8}}>ប្រទេស{countries[i].country}</Text>);
       doms.push(this._renderList(countries[i]));
     }
 
