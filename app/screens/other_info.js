@@ -60,7 +60,7 @@ export default class OtherInfo extends React.Component {
     let row1 = list.slice(0, 2).map((item) => this._renderCard(item));
     let row2 = list.slice(2, 4).map((item) => this._renderCard(item));
 
-    let space = <View style={{width: 16}}></View>;
+    let space = <View key={uuidv4()} style={{width: 16}}></View>;
     row1 = InjectArray(row1, space);
     row2 = InjectArray(row2, space);
 
