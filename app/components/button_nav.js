@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import { Button, Icon } from 'react-native-material-ui';
-import { Color, FontFamily, FontSize } from '../assets/stylesheets/base_style';
+import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_style';
 import PlaySound from '../components/play_sound';
 
 export default class Home extends React.Component {
@@ -21,14 +21,14 @@ export default class Home extends React.Component {
       <View style={styles.buttonWrapper}>
         <TouchableOpacity
           onPress={() => this.props.onPress()}
-          style={[styles.buttonTextWrapper, { backgroundColor: buttonColor }]}
+          style={[styles.buttonTextWrapper, Style.boxShadow, { backgroundColor: buttonColor }]}
         >
           <Icon name={this.props.icon} color={textColor} size={24} />
           <Text style={[styles.buttonText, {color: textColor}]}>{this.props.title}</Text>
         </TouchableOpacity>
 
         <PlaySound
-          style={styles.buttonAudioWrapper}
+          style={[styles.buttonAudioWrapper, Style.boxShadow]}
           fileName={this.props.audioFileName}
           activePlaying={this.props.activePlaying}
           onPress={(fileName) => this.props.onPressPlaySound(fileName)}/>

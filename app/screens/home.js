@@ -44,7 +44,7 @@ export default class Home extends React.Component {
       <View style={{marginTop: 30}}>
         <ButtonNav
           active={true}
-          title='ចំណាកស្រុកឆ្លាតវៃ'
+          title='ចំណាកស្រុកសុវត្ថិភាព'
           icon='info-outline'
           audioFileName='safe_migration'
           onPress={() => this._goTo('OtherInfoScreen')}
@@ -79,8 +79,8 @@ export default class Home extends React.Component {
         { this._renderHeader() }
 
         <View style={Style.container}>
-          <Text style={styles.title}>ចំណាកស្រុកឆ្លាតវៃ</Text>
-          <Text>កម្មវិធីចំណាកស្រុកឆ្លាតវៃ</Text>
+          <Text style={styles.title}>ចំណាកស្រុកសុវត្ថិភាព</Text>
+          <Text>កម្មវិធីចំណាកស្រុកសុវត្ថិភាព</Text>
           <Text>ជាកម្មវិធីទូរស័ព្ទបង្កើតឡើងក្នុងគោលបំណងជំនួយ</Text>
 
           { this._renderButtonNavs() }

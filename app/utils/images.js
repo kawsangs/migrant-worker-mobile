@@ -19,7 +19,7 @@ export default Images = {
   // Logo
   chc_logo: require('../assets/images/logos/chc_logo.png'),
   spotlight: require('../assets/images/logos/spotlight.png'),
-  unwomen: require('../assets/images/logos/unwomen.gif'),
+  unwomen: require('../assets/images/logos/unwomen.png'),
   logo: require('../assets/images/logos/logo.png'),
   instedd_logo: require('../assets/images/logos/instedd_logo.png'),
   eu: require('../assets/images/logos/eu.png'),
