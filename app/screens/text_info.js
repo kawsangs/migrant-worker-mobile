@@ -2,71 +2,59 @@ import React from 'react';
 import {
   View,
   Text,
-  Image,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
-  Linking
 } from 'react-native';
 
+import NetInfo from "@react-native-community/netinfo";
 import { Icon } from 'react-native-material-ui';
 import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_style';
 import PlaySound from '../components/play_sound';
-import Images from '../utils/images';
 import uuidv4 from '../utils/uuidv4';
 import realm from '../schemas/schema';
 import pdfList from '../data/json/pdf_list';
 import LoadingIndicator from '../components/loading_indicator';
-
-import { environment } from '../config/environment';
-import RNFetchBlob from 'rn-fetch-blob'
-import NetInfo from "@react-native-community/netinfo";
+import { ApiBlob } from '../utils/api';
 
 export default class TextInfo extends React.Component {
   state = {};
 
   _onPress(item) {
     if (item.routeName != 'PdfViewScreen' ) {
-      return this.props.navigation.navigate(item.routeName, {title: item.title, hint: item.hint, list: item.subList});
+      return this.props.navigation.navigate(item.routeName, { title: item.title, hint: item.hint, list: item.subList });
     }
 
-    if ( item.routeName == 'PdfViewScreen' ) {
-      let pdf = realm.objects('Pdf').filtered('name="' + item.pdfFile + '"')[0];
+    let pdf = realm.objects('Pdf').filtered('name="' + item.pdfFile + '"')[0];
+    if (!!pdf) {
+      return this.props.navigation.navigate(item.routeName, {title: item.title, pdfFilepath: pdf.uri});
+    }
 
-      if (!!pdf) {
-        return this.props.navigation.navigate(item.routeName, {title: item.title, pdfFilepath: pdf.uri});
+    NetInfo.fetch().then(state => {
+      if(!state.isConnected) {
+        return alert('សូមភ្ជាប់បណ្តាញអ៊ីនធឺណេតជាមុនសិន!');
       }
 
-      NetInfo.fetch().then(state => {
-        if(!state.isConnected) {
-          return alert('សូមភ្ជាប់បណ្តាញអ៊ីនធឺណេតជាមុនសិន!');
-        }
-
-        this._downloadFile(item);
-      });
-    }
+      this._downloadFile(item);
+    });
   }
 
   _downloadFile(item) {
     this.setState({loading: true});
 
-    let dirs = RNFetchBlob.fs.dirs;
+    ApiBlob.downloadPdf(item.pdfFile).then((res) => {
+      if (res.respInfo.status != 200) {
+        this.setState({loading: false});
+        return alert('ការទាញយកមិនជោគជ័យ');
+      }
 
-    RNFetchBlob
-      .config({
-        path : `${dirs.DocumentDir}/${item.pdfFile}.pdf`
-      })
-      .fetch('GET', `${environment.apiUrl}/pdfs/download?filename=${item.pdfFile}.pdf`, {
-        Authorization : `Bearer ${environment.access_token}`
-      })
-      .then((res) => {
-        realm.write(() => {
-          realm.create('Pdf', {code: uuidv4(), name: item.pdfFile, uri: res.data}, true);
-          this.setState({loading: false});
-        });
+      realm.write(() => {
+        realm.create('Pdf', {code: uuidv4(), name: item.pdfFile, uri: res.data}, true);
+        this.setState({loading: false});
+      });
 
-        this.props.navigation.navigate(item.routeName, {title: item.title, pdfFilepath: res.data});
-      })
+      this.props.navigation.navigate(item.routeName, {title: item.title, pdfFilepath: res.data});
+    });
   }
 
   _isPdfExist(pdfFile) {
@@ -119,24 +107,20 @@ export default class TextInfo extends React.Component {
     let { route } = this.props;
     let hint = (!!route && !!route.params && route.params.hint);
 
-    if(!hint) {
-      return(null);
-    }
+    if(!hint) { return(null); }
 
     return(<Text>{hint}</Text>);
   }
 
   _renderLoading() {
     return (
-      <View style={{position: 'absolute', left: 0, right: 0, bottom: 0, top: 0, zIndex: 1}}>
+      <View style={styles.loadingLayer}>
         <LoadingIndicator loading={true}/>
       </View>
-    )
+    );
   }
 
   render() {
-    let { route } = this.props;
-
     return (
       <View style={{flex: 1}}>
         { this.state.loading && this._renderLoading() }
@@ -157,5 +141,14 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: FontFamily.title,
     color: Color.primary
+  },
+  loadingLayer: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    top: 0,
+    zIndex: 1,
+    backgroundColor: 'rgba(0,0,0,0.4)'
   }
 });

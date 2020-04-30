@@ -36,8 +36,8 @@ export default class ImageView extends React.Component {
   }
 
   _renderImageList() {
-    let imageList = this.props.route.params.imageList || 'passports';
-    let images = ImageData[imageList];
+    let imageList = this.props.route.params.imageList;
+    let images = ImageData[imageList] || [];
 
     return (
       images.map (img => this._renderImage(img))
