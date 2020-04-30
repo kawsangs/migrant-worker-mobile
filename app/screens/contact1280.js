@@ -17,12 +17,12 @@ import Images from '../utils/images';
 export default class Contact1280 extends React.Component {
   state = {};
 
-  _onPress(url) {
-    Linking.canOpenURL(url).then(supported => {
+  _onPress(item) {
+    Linking.canOpenURL(item.url).then(supported => {
       if (supported) {
-        Linking.openURL(url);
+        Linking.openURL(item.url);
       } else {
-        alert("Don't know how to open URI: " + url);
+        alert(`សូមដំឡើងកម្មវិធី ${item.iconName}!`);
       }
     });
   }
@@ -32,7 +32,7 @@ export default class Contact1280 extends React.Component {
       <TouchableOpacity
         key={index}
         style={Style.card}
-        onPress={() => this._onPress(item.url)}
+        onPress={() => this._onPress(item)}
         >
         <View style={Style.cardContent}>
           <View style={Style.avata}>

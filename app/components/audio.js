@@ -125,7 +125,6 @@ export default class Audio extends Component {
       recording: false
     });
 
-
     try {
       const filePath = await AudioRecorder.stopRecording();
 

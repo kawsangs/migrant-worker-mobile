@@ -16,8 +16,11 @@ import realm from '../schemas/schema';
 export default class ProfileList extends React.Component {
   state = {};
 
-  constructor(props) {
-    super(props);
+  _goToRegisterScreen() {
+    this.props.navigation.reset({
+      index: 1,
+      routes: [{ name: 'HomeScreen' }, { name: 'RegisterScreen' }],
+    });
   }
 
   _renderButtonNav() {
@@ -26,7 +29,7 @@ export default class ProfileList extends React.Component {
         title='ចុះឈ្មោះ'
         icon='person'
         audioFileName='register'
-        onPress={() => this.props.navigation.goBack()}
+        onPress={() => this._goToRegisterScreen()}
         activePlaying={this.state.activePlaying}
         onPressPlaySound={(fileName) => this.setState({activePlaying: fileName})}
       />

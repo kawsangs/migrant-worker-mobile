@@ -22,6 +22,8 @@ import UserWorker from '../workers/user_worker';
 import PlaySound from '../components/play_sound';
 import SexOption from '../components/sex_option';
 
+const requiredFields = ['uuid', 'name', 'sex', 'age', 'phoneNumber'];
+
 export default class Register extends React.Component {
   state = {
     uuid: uuidv4(),
@@ -41,31 +43,32 @@ export default class Register extends React.Component {
     this.setState(obj);
   }
 
-  _renderTextInput(stateName, iconName, option={}) {
+  _renderTextInput(item) {
     return (
       <View style={{marginBottom: 24}}>
         <View style={styles.textInputWrapper}>
-          <Icon name={iconName} size={24} style={{position: 'absolute', top: 14, left: 10}} />
+          <Icon name={item.iconName} size={24} style={{position: 'absolute', top: 14, left: 10}} />
           <TextInput
-            placeholder={option.placeholder}
+            placeholder={item.placeholder}
             style={styles.textInput}
-            onChangeText={value => this._setState(stateName, value)}
-            value={ this.state[stateName] }
+            keyboardType={item.keyboardType || 'default'}
+            onChangeText={value => this._setState(item.stateName, value)}
+            value={ this.state[item.stateName] }
           />
 
-          { this._buildButtonAudio(option.audioFileName) }
+          { this._buildButtonAudio(item.audioFilename) }
         </View>
 
-        { !!this.state.errors[stateName] && <Text style={styles.errorText}>{this.state.errors[stateName]}</Text> }
+        { !!this.state.errors[item.stateName] && <Text style={styles.errorText}>{this.state.errors[item.stateName]}</Text> }
       </View>
     )
   }
 
-  _buildButtonAudio(fileName) {
+  _buildButtonAudio(audioFilename) {
     return (
       <PlaySound
         style={styles.buttonAudioWrapper}
-        fileName={fileName}
+        fileName={audioFilename || 'register'}
         activePlaying={this.state.activePlaying}
         onPress={(fileName) => this.setState({activePlaying: fileName})}/>
     )
@@ -93,7 +96,6 @@ export default class Register extends React.Component {
     return (
       <View style={{minHeight: 155, borderWidth: 1, borderColor: Color.border, borderRadius: 8, padding: 8, marginBottom: 34}}>
         <Text>ចុះឈ្មោះជាសំលេង</Text>
-
         <Audio
           callback={(path) => this.setState({voiceRecord: path})}
           audioPath={ this.state.voiceRecord }/>
@@ -109,7 +111,6 @@ export default class Register extends React.Component {
     try {
       realm.write(() => {
         realm.create('User', this._buildData(), true);
-        this._clearStates();
         UserWorker.performAsync(this.state.uuid);
         this.props.navigation.navigate('ProfileListScreen');
       });
@@ -118,19 +119,8 @@ export default class Register extends React.Component {
     }
   }
 
-  _clearStates() {
-    let fields = ['uuid', 'name', 'sex', 'age', 'phoneNumber', 'voiceRecord'];
-    let obj = {};
-
-    for(let i=0; i<fields.length; i++) {
-      obj[fields[i]] = '';
-    }
-
-    this.setState(obj);
-  }
-
   _buildData() {
-    let fields = ['uuid', 'name', 'sex', 'age', 'phoneNumber', 'voiceRecord'];
+    let fields = requiredFields.concat(['voiceRecord']);
     let obj = {};
 
     for(let i=0; i<fields.length; i++) {
@@ -153,10 +143,8 @@ export default class Register extends React.Component {
   }
 
   _removeAllErrors() {
-    let fields = ['name', 'sex', 'age', 'phoneNumber'];
-
-    for (let i = 0; i < fields.length; i++) {
-      delete this.formError[fields[i]];
+    for (let i = 0; i < requiredFields.length; i++) {
+      delete this.formError[requiredFields[i]];
     }
   }
 
@@ -166,10 +154,8 @@ export default class Register extends React.Component {
       return true;
     }
 
-    let fields = ['name', 'sex', 'age', 'phoneNumber'];
-
-    for (let i = 0; i < fields.length; i++) {
-      this._checkRequire(fields[i]);
+    for (let i = 0; i < requiredFields.length; i++) {
+      this._checkRequire(requiredFields[i]);
     }
 
     return Object.keys(this.formError).length == 0;
@@ -187,14 +173,20 @@ export default class Register extends React.Component {
   }
 
   render() {
+    let list = [
+      { stateName: 'name', iconName: 'person', placeholder: 'បំពេញឈ្មោះ', audioFilename: '' },
+      { stateName: 'age', iconName: 'person', placeholder: 'បំពេញអាយុ', audioFilename: '', keyboardType: 'number-pad' },
+      { stateName: 'phoneNumber', iconName: 'phone', placeholder: 'លេខទូរស័ព្ទ', audioFilename: '', keyboardType: 'phone-pad' },
+    ]
+
     return (
       <View style={{flex: 1}}>
         <ScrollView style={{flex: 1}}>
           <View style={styles.container}>
-            { this._renderTextInput('name', 'person', { placeholder: 'បំពេញឈ្មោះ', audioFileName: 'register' }) }
+            { this._renderTextInput(list[0]) }
             { this._renderSexOption() }
-            { this._renderTextInput('age', 'person', { placeholder: 'បំពេញអាយុ', audioFileName: 'register' }) }
-            { this._renderTextInput('phoneNumber', 'phone', { placeholder: 'លេខទូរស័ព្ទ', audioFileName: 'register' }) }
+            { this._renderTextInput(list[1]) }
+            { this._renderTextInput(list[2]) }
             { this._renderVoiceRecord() }
             { this._renderButtonNext() }
           </View>
