@@ -21,7 +21,6 @@ import ViewVideoScreen from '../screens/view_video';
 
 import OtherDocScreen from '../screens/safe_migration/other_doc';
 
-import MigrationAgencyScreen from '../screens/text_info/migration_agency';
 import ContactRelativeScreen from '../screens/text_info/contact_relative';
 
 import PdfViewScreen from '../screens/pdf_view';
@@ -69,7 +68,7 @@ export default class AppNavigator extends Component {
           <Stack.Screen name="OtherDocScreen" component={OtherDocScreen} options={{title: "ឯកសារផ្សេងៗ"}} />
 
           <Stack.Screen name="ContactRelativeScreen" component={ContactRelativeScreen} options={{title: "វិធីទំនាក់ទំនងសាច់ញាតិ"}} />
-          <Stack.Screen name="MigrationAgencyScreen" component={MigrationAgencyScreen} options={{title: "ភ្នាក់ងារចំណាកស្រុក"}} />
+          <Stack.Screen name="MigrationAgencyScreen" component={TextInfoScreen} options={{title: "ភ្នាក់ងារចំណាកស្រុក"}} />
 
           <Stack.Screen name="PdfViewScreen" component={PdfViewScreen} options={({ route }) => ({ title: route.params.title })} />
           <Stack.Screen name="ImageViewScreen" component={ImageViewScreen} options={({ route }) => ({ title: route.params.title })} />

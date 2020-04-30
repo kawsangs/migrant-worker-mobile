@@ -5,9 +5,11 @@
 
 import Realm from 'realm';
 import UserSchema from './user';
+import PdfSchema from './pdf';
 
 const schema = [
-  UserSchema
+  UserSchema,
+  PdfSchema
 ];
 
 const schemas = [

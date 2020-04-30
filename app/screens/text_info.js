@@ -14,15 +14,74 @@ import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_s
 import PlaySound from '../components/play_sound';
 import Images from '../utils/images';
 import uuidv4 from '../utils/uuidv4';
+import realm from '../schemas/schema';
+import pdfList from '../data/json/pdf_list';
+import LoadingIndicator from '../components/loading_indicator';
+
+import { environment } from '../config/environment';
+import RNFetchBlob from 'rn-fetch-blob'
+import NetInfo from "@react-native-community/netinfo";
 
 export default class TextInfo extends React.Component {
   state = {};
 
-  _onPress(screen) {
-    this.props.navigation.navigate(screen.routeName, {title: screen.title, pdfFilename: screen.pdfFile});
+  _onPress(item) {
+    if (item.routeName != 'PdfViewScreen' ) {
+      return this.props.navigation.navigate(item.routeName, {title: item.title, hint: item.hint, list: item.subList});
+    }
+
+    if ( item.routeName == 'PdfViewScreen' ) {
+      let pdf = realm.objects('Pdf').filtered('name="' + item.pdfFile + '"')[0];
+
+      if (!!pdf) {
+        return this.props.navigation.navigate(item.routeName, {title: item.title, pdfFilepath: pdf.uri});
+      }
+
+      NetInfo.fetch().then(state => {
+        if(!state.isConnected) {
+          return alert('សូមភ្ជាប់បណ្តាញអ៊ីនធឺណេតជាមុនសិន!');
+        }
+
+        this._downloadFile(item);
+      });
+    }
+  }
+
+  _downloadFile(item) {
+    this.setState({loading: true});
+
+    let dirs = RNFetchBlob.fs.dirs;
+
+    RNFetchBlob
+      .config({
+        path : `${dirs.DocumentDir}/${item.pdfFile}.pdf`
+      })
+      .fetch('GET', `${environment.apiUrl}/pdfs/download?filename=${item.pdfFile}.pdf`, {
+        Authorization : `Bearer ${environment.access_token}`
+      })
+      .then((res) => {
+        realm.write(() => {
+          realm.create('Pdf', {code: uuidv4(), name: item.pdfFile, uri: res.data}, true);
+          this.setState({loading: false});
+        });
+
+        this.props.navigation.navigate(item.routeName, {title: item.title, pdfFilepath: res.data});
+      })
+  }
+
+  _isPdfExist(pdfFile) {
+    return !!realm.objects('Pdf').filtered('name="' + pdfFile + '"').length;
   }
 
   _renderCard(screen) {
+    let label = 'ចូលមើល';
+    let textStyle = {};
+
+    if (screen.routeName == 'PdfViewScreen' && !this._isPdfExist(screen.pdfFile)) {
+      label = 'ទាញយក';
+      textStyle = { color: Color.red };
+    }
+
     return (
       <TouchableOpacity
         key={ uuidv4() }
@@ -36,13 +95,13 @@ export default class TextInfo extends React.Component {
 
           <PlaySound
             style={{paddingLeft: 10}}
-            fileName={screen.fileName || 'register'}
+            fileName={screen.audioFilename || 'register'}
             activePlaying={this.state.activePlaying}
             onPress={(fileName) => this.setState({activePlaying: fileName})}/>
         </View>
 
         <View style={{flexDirection: 'row'}}>
-          <Text style={{flex: 1, fontFamily: FontFamily.title, color: Color.primary}}>ចូលមើល</Text>
+          <Text style={[styles.goDetailText, textStyle]}>{label}</Text>
           <Icon name='keyboard-arrow-right' size={24} />
         </View>
       </TouchableOpacity>
@@ -50,36 +109,53 @@ export default class TextInfo extends React.Component {
   }
 
   _renderCardList() {
-    let list = [
-      { title: 'ភ្នាក់ងារចំណាកស្រុក', routeName: 'MigrationAgencyScreen', pdfFile: '', fileName: '' },
-      { title: 'របៀបសន្សំ និងផ្ញើរប្រាក់', routeName: 'PdfViewScreen', pdfFile: 'smart_money', fileName: '' },
-      { title: 'វិធីទំនាក់ទំនងសាច់ញាតិ', routeName: 'ContactRelativeScreen', pdfFile: '', fileName: '' },
-      { title: 'ការធ្វើចំណាកស្រុកប្រកបដោយសុវត្ថិភាព(ផ្នែកទី ១)', routeName: 'PdfViewScreen', pdfFile: 'safe_migration_part1', fileName: '' },
-      { title: 'ការធ្វើចំណាកស្រុកប្រកបដោយសុវត្ថិភាព(ផ្នែកទី ២)', routeName: 'PdfViewScreen', pdfFile: 'safe_migration_part2', fileName: '' },
+    let { route } = this.props;
+    let list = (!!route && !!route.params && route.params.list) || pdfList;
 
-      { title: 'កូនសៀវភៅនាវិកវៃឆ្លាត', routeName: 'PdfViewScreen', pdfFile: 'smart_navigator_book', fileName: '' },
-      { title: 'ឧបករណ៍នាវិកវៃឆ្លាត', routeName: 'PdfViewScreen', pdfFile: 'smart_navigator_toolkit_part_a', fileName: '' },
-      { title: 'ព័ត៌មានអំពីការជួញដូរមនុស្សនិងការធ្វើចំណាកស្រុក', routeName: 'PdfViewScreen', pdfFile: 'smart_navigator_toolkit_part_b', fileName: '' },
-      { title: 'បំនិនជីវិតដែលអាចកសាងលទ្ធភាពស្តារឡើងវិញរបស់បុគ្គល', routeName: 'PdfViewScreen', pdfFile: 'smart_navigator_toolkit_part_c', fileName: '' },
-      { title: 'ការធ្វើផែនការចំណាកស្រុកប្រកបដោយសុវត្ថិភាព', routeName: 'PdfViewScreen', pdfFile: 'smart_navigator_toolkit_part_d', fileName: '' },
-      { title: 'ការធ្វើសកម្មភាព', routeName: 'PdfViewScreen', pdfFile: 'smart_navigator_toolkit_part_e', fileName: '' },
+    return list.map(item => this._renderCard(item));
+  }
 
-      { title: 'ឯកសារបណ្តុះបណ្តាលមុនពេលចេញដំណើរសម្រាប់ពលករទេសន្តរប្រវេសន៍កម្ពុជាទៅធ្វើការនៅប្រទេសថៃឡង់ដ៍', routeName: 'PdfViewScreen', pdfFile: 'predeparture_guide_for_worker_cam_to_thai', fileName: '' },
-      { title: 'ឯកសារបណ្តុះបណ្តាលមុនពេលចេញដំណើរសម្រាប់ពលករទេសន្តរប្រវេសន៍កម្ពុជាទៅធ្វើការនៅប្រទេសម៉ាឡេស៊ី', routeName: 'PdfViewScreen', pdfFile: 'predeparture_guide_for_worker_cam_to_malaysia', fileName: '' },
-      { title: 'ឯកសារបណ្តុះបណ្តាលមុនពេលចេញដំណើរសម្រាប់អ្នកសម្របសម្រួលពលករទេសន្តរប្រវេសន៍កម្ពុជាទៅធ្វើការនៅប្រទេសថៃឡង់ដ៍', routeName: 'PdfViewScreen', pdfFile: 'predeparture_guide_for_facilitator_cam_to_thai', fileName: '' },
-      { title: 'ឯកសារបណ្តុះបណ្តាលមុនពេលចេញដំណើរសម្រាប់អ្នកសម្របសម្រួលពលករទេសន្តរប្រវេសន៍កម្ពុជាទៅធ្វើការនៅប្រទេសម៉ាឡេស៊ី', routeName: 'PdfViewScreen', pdfFile: 'predeparture_guide_for_facilitator_cam_to_malaysia', fileName: '' },
-    ]
+  _renderHint() {
+    let { route } = this.props;
+    let hint = (!!route && !!route.params && route.params.hint);
 
-    return list.map(l => this._renderCard(l));
+    if(!hint) {
+      return(null);
+    }
+
+    return(<Text>{hint}</Text>);
+  }
+
+  _renderLoading() {
+    return (
+      <View style={{position: 'absolute', left: 0, right: 0, bottom: 0, top: 0, zIndex: 1}}>
+        <LoadingIndicator loading={true}/>
+      </View>
+    )
   }
 
   render() {
+    let { route } = this.props;
+
     return (
-      <ScrollView style={{flex: 1}}>
-        <View style={Style.container}>
-          { this._renderCardList() }
-        </View>
-      </ScrollView>
+      <View style={{flex: 1}}>
+        { this.state.loading && this._renderLoading() }
+
+        <ScrollView style={{flex: 1}}>
+          <View style={Style.container}>
+            { this._renderHint() }
+            { this._renderCardList() }
+          </View>
+        </ScrollView>
+      </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  goDetailText: {
+    flex: 1,
+    fontFamily: FontFamily.title,
+    color: Color.primary
+  }
+});

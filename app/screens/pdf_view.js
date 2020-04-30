@@ -1,13 +1,10 @@
 import React from 'react';
 import { StyleSheet, Dimensions, View } from 'react-native';
-
 import Pdf from 'react-native-pdf';
-import Pdfs from '../utils/pdfs';
 
 export default class PdfView extends React.Component {
   render() {
-    let fileName = this.props.route.params.pdfFilename || 'smart_money';
-    let source = { uri: Pdfs[fileName]};
+    let source = { uri: this.props.route.params.pdfFilepath };
 
     return (
       <View style={styles.container}>

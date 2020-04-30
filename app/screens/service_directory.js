@@ -67,7 +67,7 @@ export default class ServiceDirectory extends React.Component {
     return (
       <View>
         <Text style={{fontSize: FontSize.title, fontFamily: FontFamily.title}}>កម្ពុជា</Text>
-        <Text style={{marginBottom: 16}}>លេខទូរស័ព្ទជួយសង្គោះបន្ទាន់នៅក្នុងប្រទេសកម្ពុជា៖</Text>
+        <Text style={{marginBottom: 16}}>លេខទូរស័ព្ទជួយសង្គ្រោះបន្ទាន់នៅក្នុងប្រទេសកម្ពុជា៖</Text>
         { this._renderList(cambodia) }
       </View>
     );
