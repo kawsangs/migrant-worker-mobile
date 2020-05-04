@@ -60,7 +60,7 @@ export default class Contact1280 extends React.Component {
 
   _renderCardList() {
     let list = [
-      { title: 'ភ្ជាប់ទៅ១២៨០ តាមរយៈហ្វេសប៊ុក', iconName: 'facebook', audioFileName: '', url: 'https://www.messenger.com/t/limborey' },
+      { title: 'ភ្ជាប់ទៅ១២៨០ តាមរយៈហ្វេសប៊ុក', iconName: 'facebook', audioFileName: '', url: 'https://www.messenger.com/t/184586518283135' },
       { title: 'ភ្ជាប់ទៅ១២៨០ តាមរយៈ Whatsapp', iconName: 'whatsapp', audioFileName: '', url: 'whatsapp://send?phone=+85517866681&text=' },
       { title: 'ភ្ជាប់ទៅ១២៨០ តាមរយៈ Telegram', iconName: 'telegram', audioFileName: '', url: 'tg://resolve?domain=limborey' },
     ]

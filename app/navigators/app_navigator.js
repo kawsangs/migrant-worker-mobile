@@ -42,6 +42,9 @@ export default class AppNavigator extends Component {
             headerTintColor: '#fff',
             headerTitleStyle: {
               fontFamily: FontFamily.title,
+            },
+            headerTitleContainerStyle: {
+              width: '75%'
             }
           }}>
 
