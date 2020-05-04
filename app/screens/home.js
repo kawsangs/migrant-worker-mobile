@@ -21,13 +21,15 @@ export default class Home extends React.Component {
 
   _renderButtonAbout() {
     return (
-      <TouchableOpacity
-        onPress={() => this._goTo('AboutScreen')}
-        style={styles.buttonAboutWrapper}
-      >
-        <Icon name='info' size={24} />
-        <Text style={{marginLeft: 10}}>អំពីកម្មវិធី</Text>
-      </TouchableOpacity>
+      <View style={{flexGrow: 1, justifyContent: 'flex-end'}}>
+        <TouchableOpacity
+          onPress={() => this._goTo('AboutScreen')}
+          style={styles.buttonAboutWrapper}
+        >
+          <Icon name='info' size={24} />
+          <Text style={{marginLeft: 10}}>អំពីកម្មវិធី</Text>
+        </TouchableOpacity>
+      </View>
     )
   }
 
@@ -75,18 +77,17 @@ export default class Home extends React.Component {
 
   render() {
     return (
-      <ScrollView style={{flex: 1}}>
+      <ScrollView style={{flex: 1}} contentContainerStyle={{flexGrow: 1}}>
         { this._renderHeader() }
 
         <View style={Style.container}>
           <Text style={styles.title}>ចំណាកស្រុកសុវត្ថិភាព</Text>
           <Text>កម្មវិធីចំណាកស្រុកសុវត្ថិភាព</Text>
           <Text>ជាកម្មវិធីទូរស័ព្ទបង្កើតឡើងក្នុងគោលបំណងជំនួយ</Text>
-
           { this._renderButtonNavs() }
-          { this._renderButtonAbout() }
         </View>
 
+        { this._renderButtonAbout() }
       </ScrollView>
     );
   }
@@ -107,9 +108,7 @@ const styles = StyleSheet.create({
   },
   buttonAboutWrapper: {
     flexDirection: 'row',
-    flex: 1,
     padding: 16,
-    marginRight: 10,
-    justifyContent: 'center'
+    justifyContent: 'center',
   }
 });
