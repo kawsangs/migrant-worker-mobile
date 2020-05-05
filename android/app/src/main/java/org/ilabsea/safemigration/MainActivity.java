@@ -1,4 +1,4 @@
-package com.migrantworkermobile;
+package org.ilabsea.safemigration;
 
 import android.os.Bundle; // here
 import com.facebook.react.ReactActivity;

@@ -129,7 +129,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.migrantworkermobile"
+        applicationId "org.ilabsea.safemigration"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
