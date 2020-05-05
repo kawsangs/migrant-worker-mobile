@@ -10,11 +10,13 @@ import {
 
 import YoutubePlayer from 'react-native-youtube-iframe';
 import { WebView } from 'react-native-webview';
+import LoadingIndicator from '../components/loading_indicator';
 
 const ViewVideo = ({route, navigation}) => {
   const { videoId } = route.params;
   const playerRef = useRef(null);
   const [playing, setPlaying] = useState(true);
+  const [loading, setLoading] = useState(true);
   const { width, height } = Dimensions.get('window');
 
   return (
@@ -25,7 +27,14 @@ const ViewVideo = ({route, navigation}) => {
         ref={playerRef}
         play={playing}
         videoId={videoId}
+        onReady={() => setLoading(false)}
       />
+
+      { loading &&
+        <View style={{position: 'absolute'}}>
+          <LoadingIndicator loading={true}/>
+        </View>
+      }
     </View>
   );
 };
