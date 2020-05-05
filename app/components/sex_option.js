@@ -9,32 +9,39 @@ import {
 
 import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_style';
 import Images from '../utils/images';
+import { InjectArray } from '../utils/math';
 
 export default class SexOption extends React.Component {
-  _buildOption(title, value, imageName) {
-    let borderStyle = this.props.sex == value ? { borderColor: Color.primary } : {};
-    let textFont = this.props.sex == value ? FontFamily.title : FontFamily.body;
-    let textColor = this.props.sex == value ? Color.primary : Color.textBlack;
+  _buildOption(item, index) {
+    let borderStyle = this.props.sex == item.value ? { borderColor: Color.primary } : {};
+    let textFont = this.props.sex == item.value ? FontFamily.title : FontFamily.body;
+    let textColor = this.props.sex == item.value ? Color.primary : Color.textBlack;
 
     return (
       <TouchableOpacity
-        onPress={() => this.props.onPress(value) }
+        key={index}
+        onPress={() => this.props.onPress(item.value) }
         style={[styles.card, Style.boxShadow, borderStyle]}>
 
-        <Image source={Images[imageName]} style={{width: 52, height: 52}} />
-        <Text style={{fontFamily: textFont, color: textColor}}>{title}</Text>
+        <Image source={Images[item.iconName]} style={{width: 52, height: 52}} />
+        <Text style={{fontFamily: textFont, color: textColor}}>{item.title}</Text>
       </TouchableOpacity>
     )
   }
 
   _renderSexOption() {
+    let list = [
+      { title: 'ប្រុស', value: 'male', iconName: 'male' },
+      { title: 'ស្រី', value: 'female', iconName: 'female' },
+      { title: 'ផ្សេងៗ', value: 'other', iconName: 'other' },
+    ];
+    let space = <View style={{width: 24}} />;
+    let doms = list.map((item, index) => this._buildOption(item, index))
+    doms = InjectArray(doms, space);
+
     return (
       <View style={styles.cardWrapper}>
-        { this._buildOption('ប្រុស', 'male', 'male') }
-        <View style={{width: 24}}></View>
-        { this._buildOption('ស្រី', 'female', 'female') }
-        <View style={{width: 24}}></View>
-        { this._buildOption('ផ្សេងៗ', 'other', 'other') }
+        { doms }
       </View>
     )
   }

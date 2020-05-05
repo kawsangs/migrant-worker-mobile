@@ -7,7 +7,6 @@ import {
   FlatList,
   Dimensions,
   Button,
-  StatusBar,
   ActivityIndicator,
 } from 'react-native';
 

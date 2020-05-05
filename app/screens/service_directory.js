@@ -14,7 +14,6 @@ import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_s
 import PlaySound from '../components/play_sound';
 import listData from '../data/json/service_directories';
 import uuidv4 from '../utils/uuidv4';
-import { InjectArray } from '../utils/math';
 
 export default class ServiceDirectory extends React.Component {
   state = {};
@@ -40,8 +39,8 @@ export default class ServiceDirectory extends React.Component {
     return (
       <View
         key={uuidv4()}
-        style={Style.card}
-        >
+        style={Style.card}>
+
         <View style={{flexDirection: 'row'}}>
           <View style={{flex: 1, mraginRight: 16, justifyContent: 'center'}}>
             <Text style={{fontFamily: FontFamily.title}}>{contact.name}</Text>
@@ -55,8 +54,6 @@ export default class ServiceDirectory extends React.Component {
             activePlaying={this.state.activePlaying}
             onPress={(fileName) => this.setState({activePlaying: fileName})}/>
         </View>
-
-
       </View>
     );
   }
