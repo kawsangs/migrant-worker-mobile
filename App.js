@@ -10,6 +10,7 @@ import { setCustomText} from 'react-native-global-props';
 import SplashScreen from 'react-native-splash-screen';
 import AppNavigator from './app/navigators/app_navigator';
 import UserWorker from './app/workers/user_worker';
+import Sidekiq from './app/utils/sidekiq';
 import { Color, FontFamily, FontSize } from './app/assets/stylesheets/base_style';
 
 const customTextProps = {
@@ -33,6 +34,7 @@ export default class App extends React.Component {
   componentDidMount() {
     SplashScreen.hide();
     UserWorker.init();
+    Sidekiq.uploadAllUsers();
   }
 
   render() {

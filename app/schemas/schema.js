@@ -6,10 +6,12 @@
 import Realm from 'realm';
 import UserSchema from './user';
 import PdfSchema from './pdf';
+import SidekiqSchema from './sidekiq';
 
 const schema = [
   UserSchema,
-  PdfSchema
+  PdfSchema,
+  SidekiqSchema
 ];
 
 const schemas = [

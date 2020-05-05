@@ -4,17 +4,16 @@ import realm from '../schemas/schema';
 import { ApiBlob } from '../utils/api';
 import { environment } from '../config/environment';
 import RNFetchBlob from 'rn-fetch-blob'
+import Sidekiq from '../utils/sidekiq';
 
 export default class UploadServices  {
   static async uploadUser(uuid) {
     NetInfo.fetch().then(state => {
-      if (state.isConnected) {
-        ApiBlob.post('/migrants', this._buildData(uuid)).then((resp) => {
-          // alert(JSON.stringify(resp))
-        })
-      } else {
-        alert('no internet');
-      }
+      if (!state.isConnected) { return; }
+
+      ApiBlob.post('/migrants', this._buildData(uuid)).then((resp) => {
+        Sidekiq.delete(uuid);
+      })
     });
   }
 

@@ -18,9 +18,9 @@ import Audio from '../components/audio';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import realm from '../schemas/schema';
 import uuidv4 from '../utils/uuidv4';
-import UserWorker from '../workers/user_worker';
 import PlaySound from '../components/play_sound';
 import SexOption from '../components/sex_option';
+import Sidekiq from '../utils/sidekiq';
 
 const requiredFields = ['uuid', 'name', 'sex', 'age', 'phoneNumber'];
 
@@ -111,7 +111,7 @@ export default class Register extends React.Component {
     try {
       realm.write(() => {
         realm.create('User', this._buildData(), true);
-        UserWorker.performAsync(this.state.uuid);
+        Sidekiq.createUser(this.state.uuid);
         this.props.navigation.navigate('ProfileListScreen');
       });
     } catch (e) {
