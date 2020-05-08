@@ -19,6 +19,7 @@ import NetInfo from "@react-native-community/netinfo";
 import Toast, { DURATION } from 'react-native-easy-toast';
 import { Icon, Toolbar } from 'react-native-material-ui';
 import LoadingIndicator from '../components/loading_indicator';
+import { addStatistic } from '../utils/statistic';
 
 export default class Videos extends React.Component {
   state = {
@@ -66,12 +67,13 @@ export default class Videos extends React.Component {
     });
   }
 
-  _onPressItem(url) {
+  _onPressItem(video) {
     if (!this.state.isConnected) {
       return this.refs.toast.show('សូមភ្ជាប់បណ្តាញអ៊ិនធឺណេតជាមុនសិន!', DURATION.SHORT);
     }
 
-    this.props.navigation.navigate('ViewVideoScreen', { videoId: getVideoId(url) })
+    addStatistic('ViewVideo', { videoId: getVideoId(video.url), title: video.title });
+    this.props.navigation.navigate('ViewVideoScreen', { videoId: getVideoId(video.url) });
   }
 
   _renderItem(video) {
@@ -82,7 +84,7 @@ export default class Videos extends React.Component {
     return (
       <View style={[Style.card, {flexDirection: 'row'}]}>
         <Thumbnail
-          onPress={() => this._onPressItem(video.url)}
+          onPress={() => this._onPressItem(video)}
           imageWidth={imageWidth}
           imageHeight={150}
           url={video.url} />

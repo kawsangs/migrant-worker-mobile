@@ -15,11 +15,17 @@ import Images from '../utils/images';
 import { InjectArray } from '../utils/math';
 import uuidv4 from '../utils/uuidv4';
 import { autoImageHeight } from '../utils/image_style';
+import { addStatistic } from '../utils/statistic';
 
 const win = Dimensions.get('window');
 
 export default class OtherInfo extends React.Component {
   state = {};
+
+  _goTo(screenName) {
+    addStatistic(`goTo${screenName.split('Screen')[0]}`);
+    this.props.navigation.navigate(screenName);
+  }
 
   _renderCard(item) {
     let containerWdith = (win.width - 48) / 2 - 50;
@@ -28,7 +34,7 @@ export default class OtherInfo extends React.Component {
     return (
       <TouchableOpacity
         key={uuidv4()}
-        onPress={() => this.props.navigation.navigate(item.screenName)}
+        onPress={() => this._goTo(item.screenName)}
         style={[Style.card, {flex: 1, marginBottom: 0}]}
         >
         <View style={{alignItems: 'flex-end'}}>
@@ -81,10 +87,10 @@ export default class OtherInfo extends React.Component {
 
   render() {
     return (
-        <View style={[Style.container, {flex: 1}]}>
-          <Text style={{marginBottom: 12}}>ស្វែងរកព័ត៌មានខាងក្រោម</Text>
-          { this._renderCards() }
-        </View>
+      <View style={[Style.container, {flex: 1}]}>
+        <Text style={{marginBottom: 12}}>ស្វែងរកព័ត៌មានខាងក្រោម</Text>
+        { this._renderCards() }
+      </View>
     );
   }
 }

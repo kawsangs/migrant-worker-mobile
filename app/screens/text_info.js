@@ -16,14 +16,18 @@ import realm from '../schemas/schema';
 import pdfList from '../data/json/pdf_list';
 import LoadingIndicator from '../components/loading_indicator';
 import { ApiBlob } from '../utils/api';
+import { addStatistic } from '../utils/statistic';
 
 export default class TextInfo extends React.Component {
   state = {};
 
   _onPress(item) {
     if (item.routeName != 'PdfViewScreen' ) {
+      addStatistic(`goTo${item.routeName.split('Screen')[0]}`);
       return this.props.navigation.navigate(item.routeName, { title: item.title, hint: item.hint, list: item.subList });
     }
+
+    addStatistic('text_info_view_pdf', { pdfFile: item.pdfFile});
 
     let pdf = realm.objects('Pdf').filtered('name="' + item.pdfFile + '"')[0];
     if (!!pdf) {

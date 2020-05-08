@@ -14,18 +14,20 @@ import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_s
 import PlaySound from '../components/play_sound';
 import listData from '../data/json/service_directories';
 import uuidv4 from '../utils/uuidv4';
+import { addStatistic } from '../utils/statistic';
 
 export default class ServiceDirectory extends React.Component {
   state = {};
 
-  _onPress(phoneNumber) {
+  _onPress(contactName, phoneNumber) {
+    addStatistic('call_to', {phoneNumber: phoneNumber, contactName: contactName})
     Linking.openURL(`tel:${phoneNumber}`)
   }
 
-  _renderPhoneList(phones) {
-    let doms = phones.map ( (phone, index) => (
+  _renderPhoneList(contact) {
+    let doms = contact.phones.map ( (phone, index) => (
       <TouchableOpacity
-        onPress={() => this._onPress(phone)}
+        onPress={() => this._onPress(contact.name, phone)}
         style={{flexDirection: 'row', paddingBottom: 10, paddingTop: 10, borderBottomWidth: 1, borderColor: Color.border}} key={index}>
         <Icon name='phone' size={24} color={'#111'} />
         <Text style={{marginLeft: 10}}>{phone}</Text>
@@ -44,7 +46,7 @@ export default class ServiceDirectory extends React.Component {
         <View style={{flexDirection: 'row'}}>
           <View style={{flex: 1, mraginRight: 16, justifyContent: 'center'}}>
             <Text style={{fontFamily: FontFamily.title}}>{contact.name}</Text>
-            { this._renderPhoneList(contact.phones) }
+            { this._renderPhoneList(contact) }
 
           </View>
 

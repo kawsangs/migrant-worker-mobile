@@ -13,11 +13,14 @@ import { Icon } from 'react-native-material-ui';
 import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_style';
 import PlaySound from '../components/play_sound';
 import Images from '../utils/images';
+import { addStatistic } from '../utils/statistic';
 
 export default class Contact1280 extends React.Component {
   state = {};
 
   _onPress(item) {
+    addStatistic(`contact1280_via_${item.iconName}`);
+
     Linking.canOpenURL(item.url).then(supported => {
       if (supported) {
         Linking.openURL(item.url);

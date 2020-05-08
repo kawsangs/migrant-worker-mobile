@@ -11,11 +11,13 @@ import {
 import { Icon } from 'react-native-material-ui';
 import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_style';
 import ButtonNav from '../components/button_nav';
+import { addStatistic } from '../utils/statistic';
 
 export default class Home extends React.Component {
   state = {};
 
   _goTo(screenName) {
+    addStatistic(`goTo${screenName.split('Screen')[0]}`);
     this.props.navigation.navigate(screenName);
   }
 
@@ -42,35 +44,28 @@ export default class Home extends React.Component {
   }
 
   _renderButtonNavs() {
+    let list = [
+      { title: 'ចំណាកស្រុកសុវត្ថិភាព', iconName: 'info-outline', audioFileName: 'safe_migration', routeName: 'OtherInfoScreen', active: true },
+      { title: 'ទាក់ទងទៅលេខ', iconName: 'phone', audioFileName: 'contact_1280', routeName: 'Contact1280Screen', active: false },
+      { title: 'ចុះឈ្មោះ', iconName: 'person', audioFileName: 'register', routeName: 'RegisterScreen', active: false },
+    ];
+
+    let doms = list.map((item, index) => (
+      <ButtonNav
+        key={index}
+        active={item.active}
+        title={item.title}
+        icon={item.iconName}
+        audioFileName={item.audioFileName}
+        onPress={() => this._goTo(item.routeName)}
+        activePlaying={this.state.activePlaying}
+        onPressPlaySound={(fileName) => this.setState({activePlaying: fileName})}
+      />
+    ));
+
     return (
       <View style={{marginTop: 30}}>
-        <ButtonNav
-          active={true}
-          title='ចំណាកស្រុកសុវត្ថិភាព'
-          icon='info-outline'
-          audioFileName='safe_migration'
-          onPress={() => this._goTo('OtherInfoScreen')}
-          activePlaying={this.state.activePlaying}
-          onPressPlaySound={(fileName) => this.setState({activePlaying: fileName})}
-        />
-
-        <ButtonNav
-          title='ទាក់ទងទៅលេខ ១២៨០'
-          icon='phone'
-          audioFileName='contact_1280'
-          onPress={() => this._goTo('Contact1280Screen')}
-          activePlaying={this.state.activePlaying}
-          onPressPlaySound={(fileName) => this.setState({activePlaying: fileName})}
-        />
-
-        <ButtonNav
-          title='ចុះឈ្មោះ'
-          icon='person'
-          audioFileName='register'
-          onPress={() => this._goTo('RegisterScreen')}
-          activePlaying={this.state.activePlaying}
-          onPressPlaySound={(fileName) => this.setState({activePlaying: fileName})}
-        />
+        {doms}
       </View>
     )
   }

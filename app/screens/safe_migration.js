@@ -14,33 +14,38 @@ import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_s
 import PlaySound from '../components/play_sound';
 import Images from '../utils/images';
 import uuidv4 from '../utils/uuidv4';
+import { addStatistic } from '../utils/statistic';
 
 export default class SafeMigration extends React.Component {
   state = {};
 
-  _onPress(screen) {
-    this.props.navigation.navigate(screen.screenName, {title: screen.title, imageList: screen.imageList});
+  _onPress(item) {
+    if (item.routeName == 'ImageViewScreen' ) {
+      addStatistic('migration_checklist_view_image', { title: item.title })
+    }
+
+    this.props.navigation.navigate(item.screenName, {title: item.title, imageList: item.imageList});
   }
 
-  _renderCard(screen) {
+  _renderCard(item) {
     return (
       <TouchableOpacity
         key={ uuidv4() }
         style={Style.card}
-        onPress={() => this._onPress(screen)}
+        onPress={() => this._onPress(item)}
         >
         <View style={Style.cardContent}>
           <View style={Style.avata}>
-            {!!screen.image && <Image source={Images[screen.image]} style={{width: screen.w, height: screen.h}} /> }
+            {!!item.image && <Image source={Images[item.image]} style={{width: item.w, height: item.h}} /> }
           </View>
 
           <View style={{flex: 1, marginLeft: 16, marginRight: 16, justifyContent: 'center'}}>
-            <Text>{screen.title}</Text>
+            <Text>{item.title}</Text>
           </View>
 
           <PlaySound
             style={{paddingLeft: 10}}
-            fileName={screen.fileName || 'register'}
+            fileName={item.fileName || 'register'}
             activePlaying={this.state.activePlaying}
             onPress={(fileName) => this.setState({activePlaying: fileName})}/>
         </View>
