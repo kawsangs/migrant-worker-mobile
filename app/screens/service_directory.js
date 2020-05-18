@@ -15,6 +15,7 @@ import PlaySound from '../components/play_sound';
 import listData from '../data/json/service_directories';
 import uuidv4 from '../utils/uuidv4';
 import { addStatistic } from '../utils/statistic';
+import Readmore from '../components/readmore';
 
 export default class ServiceDirectory extends React.Component {
   state = {};
@@ -46,6 +47,8 @@ export default class ServiceDirectory extends React.Component {
         <View style={{flexDirection: 'row'}}>
           <View style={{flex: 1, mraginRight: 16, justifyContent: 'center'}}>
             <Text style={{fontFamily: FontFamily.title}}>{contact.name}</Text>
+            <Readmore text={contact.descriptions.join('; ')} />
+
             { this._renderPhoneList(contact) }
 
           </View>
