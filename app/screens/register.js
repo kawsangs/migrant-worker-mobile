@@ -126,6 +126,7 @@ export default class Register extends React.Component {
     for(let i=0; i<fields.length; i++) {
       obj[fields[i]] = this.state[fields[i]];
     }
+    obj.created_at = new Date();
 
     return obj;
   }

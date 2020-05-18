@@ -9,7 +9,8 @@ const UserSchema = {
     sex: 'string?',
     age: 'string?',
     phoneNumber: 'string?',
-    voiceRecord: 'string?'
+    voiceRecord: 'string?',
+    created_at: 'date'
   }
 }
 

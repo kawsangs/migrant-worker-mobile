@@ -30,7 +30,8 @@ export default class UploadServices  {
       age: user.age,
       sex: user.sex,
       phone_number: user.phoneNumber,
-      voice: user.voiceRecord
+      voice: user.voiceRecord,
+      registered_at: user.created_at
     }
 
     let data = [{ name : 'migrant', data : JSON.stringify(attributes)}];

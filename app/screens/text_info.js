@@ -68,10 +68,14 @@ export default class TextInfo extends React.Component {
   _renderCard(screen) {
     let label = 'ចូលមើល';
     let textStyle = {};
+    let icon = 'visibility';
+    let iconColor = Color.primary;
 
     if (screen.routeName == 'PdfViewScreen' && !this._isPdfExist(screen.pdfFile)) {
       label = 'ទាញយក';
       textStyle = { color: Color.red };
+      icon = 'cloud-download';
+      iconColor = Color.red;
     }
 
     return (
@@ -93,6 +97,7 @@ export default class TextInfo extends React.Component {
         </View>
 
         <View style={{flexDirection: 'row'}}>
+          <Icon name={icon} size={24} color={iconColor} style={{marginRight: 5}} />
           <Text style={[styles.goDetailText, textStyle]}>{label}</Text>
           <Icon name='keyboard-arrow-right' size={24} />
         </View>
