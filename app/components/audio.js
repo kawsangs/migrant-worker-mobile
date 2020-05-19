@@ -172,8 +172,6 @@ export default class Audio extends Component {
   }
 
   async _record() {
-    this._hideActionButtons();
-
     if (this.state.recording) {
       console.warn('Already recording!');
       return;
@@ -201,10 +199,6 @@ export default class Audio extends Component {
   _handleRecording = () => {
     this._showProgressBar();
     this._record();
-  }
-
-  _hideActionButtons() {
-    this.setState({visibleBtnAction: false});
   }
 
   _showProgressBar() {
