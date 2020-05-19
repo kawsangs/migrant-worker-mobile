@@ -31,10 +31,10 @@ export default class Audio extends Component {
       hasPermission: undefined,
       audioPath: audioPath,
       visiblePlayButton: false,
-      visibleProgressBar: false,
+      visibleProgressBar: false
     }
 
-    this.limitTime = 120;
+    this.limitTime = 60;
   }
 
   componentWillUnmount() {
@@ -199,16 +199,7 @@ export default class Audio extends Component {
   }
 
   _handleRecording = () => {
-    if (this.state.visiblePlayButton) {
-      return;
-    }
-
     this._showProgressBar();
-
-    if(this.state.recording) {
-      return this._stop();
-    }
-
     this._record();
   }
 
@@ -223,15 +214,46 @@ export default class Audio extends Component {
     });
   }
 
+  _onPress() {
+    this.setState({showHint: true})
+    let self = this;
+    setTimeout(function() {
+      self.setState({showHint: false});
+    }, 3000);
+  }
+
+  _onLongPress() {
+    this.setState({showHint: false});
+    this.longPress = true;
+    this._handleRecording();
+  }
+
+  _onPressOut() {
+    if(!this.longPress) { return }
+
+    this.longPress = false
+    this._stop();
+  }
+
   _renderButtonMicrophone() {
-    let buttonColor = this.state.visiblePlayButton ? Color.gray : Color.primary;
-    let icon = this.state.recording ? 'pause' : 'microphone';
+    if (this.state.visiblePlayButton) {
+      return;
+    }
 
     return (
-      <TouchableOpacity style={[styles.button, {backgroundColor: buttonColor}]} onPress={this._handleRecording}>
-        <AwesomeIcon name={icon} color='#fff' size={36} />
-      </TouchableOpacity>
-    );
+      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        { this.state.showHint && <Text style={styles.hint}>ចុចនិងសង្កត់ដើម្បីថតសំលេង</Text> }
+
+        <TouchableOpacity
+          style={[styles.button]}
+          onPress={() => this._onPress()}
+          onLongPress={() => this._onLongPress()}
+          onPressOut={() => this._onPressOut()}
+        >
+          <AwesomeIcon name={'microphone'} color='#fff' size={36} />
+        </TouchableOpacity>
+      </View>
+    )
   }
 
   _onSaveRecord() {
@@ -338,5 +360,12 @@ var styles = StyleSheet.create({
   icon: {
     height: 50,
     lineHeight: 50
+  },
+  hint: {
+    backgroundColor: '#111',
+    color: '#fff',
+    padding: 10,
+    borderRadius: 8,
+    marginBottom: 4
   }
 });
