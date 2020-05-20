@@ -79,7 +79,7 @@ export default class SafeMigration extends React.Component {
     return (
       <View style={{flex: 1}}>
         <Animated.ScrollView
-          scrollEventThrottle={16}
+          scrollEventThrottle={1}
           onScroll={Animated.event(
             [{ nativeEvent: { contentOffset: { y: this.state.scrollAnim } } }],
             { useNativeDriver: true },
@@ -93,8 +93,11 @@ export default class SafeMigration extends React.Component {
         </Animated.ScrollView>
 
         <Animated.View style={[styles.navbar, {flexDirection: 'row'}, { transform: [{ translateY: navbarTranslate }] }]}>
-          <HeaderBackButton tintColor={'white'} onPress={() => onBackPress()}/>
-          <HeaderTitle tintColor={'white'} style={{fontFamily: FontFamily.title, marginLeft: 20, width: '75%'}}>{options.title}</HeaderTitle>
+          <Animated.View style={{opacity: navbarOpacity, backgroundColor: 'transparent'}}>
+            <HeaderBackButton tintColor={'white'} onPress={() => onBackPress()} style={{opacity: navbarOpacity}}/>
+          </Animated.View>
+
+          <HeaderTitle tintColor={'white'} style={{fontFamily: FontFamily.title, marginLeft: 20, width: '75%', opacity: navbarOpacity}}>{options.title}</HeaderTitle>
         </Animated.View>
       </View>
     );

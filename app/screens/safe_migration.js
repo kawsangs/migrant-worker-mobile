@@ -18,6 +18,8 @@ import { addStatistic } from '../utils/statistic';
 import CollapsibleNavbar from '../components/collapsible_navbar';
 
 export default class SafeMigration extends React.Component {
+  state = {}
+
   _onPress(item) {
     if (item.routeName == 'ImageViewScreen' ) {
       addStatistic('migration_checklist_view_image', { title: item.title })
@@ -65,7 +67,6 @@ export default class SafeMigration extends React.Component {
       { title: 'កិច្ចសន្យារការងារ', image: '', screenName: 'ImageViewScreen', imageList: '', fileName: '', w: 34, h: 45 },
       { title: 'កិច្ចសន្យាររកការងារឱ្យធ្វើ', image: '', screenName: 'ImageViewScreen', imageList: '', fileName: '', w: 34, h: 45 },
       { title: 'លិខិតអនុញ្ញាតឱ្យស្នាក់នៅក្នុងប្រទេសទទួល', image: '', screenName: 'ImageViewScreen', imageList: '', fileName: '', w: 34, h: 45 },
-
       { title: 'ឯកសារផ្សេងៗ', image: 'other_doc', screenName: 'OtherDocScreen', fileName: '', w: 34, h: 41 },
     ]
 
