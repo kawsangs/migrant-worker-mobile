@@ -15,10 +15,9 @@ import PlaySound from '../components/play_sound';
 import Images from '../utils/images';
 import uuidv4 from '../utils/uuidv4';
 import { addStatistic } from '../utils/statistic';
+import CollapsibleNavbar from '../components/collapsible_navbar';
 
 export default class SafeMigration extends React.Component {
-  state = {};
-
   _onPress(item) {
     if (item.routeName == 'ImageViewScreen' ) {
       addStatistic('migration_checklist_view_image', { title: item.title })
@@ -95,15 +94,24 @@ export default class SafeMigration extends React.Component {
     );
   }
 
+  _renderContent() {
+    return(
+      <View>
+        { this._renderCheckListCard() }
+        <Text>ឯកសារដែលអ្នកត្រូវមានដូចជា៖</Text>
+        { this._renderCardList() }
+      </View>
+    )
+  }
+
   render() {
     return (
-      <ScrollView style={{flex: 1}}>
-        <View style={Style.container}>
-          { this._renderCheckListCard() }
-          <Text>ឯកសារដែលអ្នកត្រូវមានដូចជា៖</Text>
-          { this._renderCardList() }
-        </View>
-      </ScrollView>
-    );
+      <CollapsibleNavbar
+        options={{
+          title: 'ចំណាកស្រុកសុវត្ថិភាព ត្រូវមានអ្វីខ្លះ?',
+          bodyContent: this._renderContent()
+        }}
+      />
+    )
   }
 }
