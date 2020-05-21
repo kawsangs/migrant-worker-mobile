@@ -1,13 +1,9 @@
 import React from 'react';
-import {
-  View,
-  Text,
-} from 'react-native';
-
 import { Icon, Toolbar } from 'react-native-material-ui';
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
 import pdfList from '../../data/json/pdf_list';
 import PdfCards from '../../components/pdf_cards';
+import CollapsibleNavbar from '../../components/collapsible_navbar';
 
 export default class MigrationAgency extends React.Component {
   listData = (!!this.props.route && !!this.props.route.params && this.props.route.params.list) || pdfList[0].subList;
@@ -17,7 +13,7 @@ export default class MigrationAgency extends React.Component {
 
   _onChangeText(val) {
     if (!val) {
-      this._onRefresh();
+      return this._onRefresh();
     }
 
     if (val.length > 1) {
@@ -44,22 +40,32 @@ export default class MigrationAgency extends React.Component {
           onSearchClosed: this._onRefresh.bind(this)
         }}
         onLeftElementPress={() => this.props.navigation.goBack()}
-        style={{titleText: {fontFamily: FontFamily.title}}}
+        style={{titleText: {fontFamily: FontFamily.title}, container: {width: '100%'}}}
       />
     );
   }
 
+  _renderContent() {
+    return (
+      <PdfCards
+        statisticKey={'migration_agency_view_pdf'}
+        navigation={this.props.navigation}
+        list={this.state.agencyList}
+        onDownload={() => this.setState({loading: true})}
+        onFinishDownload={() => this.setState({loading: false})}
+      />
+    )
+  }
+
   render() {
     return (
-      <View style={{flex: 1}}>
-        { this._renderToolbar() }
-
-        <PdfCards
-          statisticKey='migration_agency_view_pdf'
-          navigation={this.props.navigation}
-          list={this.state.agencyList}
-        />
-      </View>
-    )
+      <CollapsibleNavbar
+        options={{
+          loading: this.state.loading,
+          bodyContent: this._renderContent(),
+          header: this._renderToolbar()
+        }}
+      />
+    );
   }
 }

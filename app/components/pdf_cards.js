@@ -14,7 +14,6 @@ import PlaySound from '../components/play_sound';
 import uuidv4 from '../utils/uuidv4';
 import realm from '../schemas/schema';
 import pdfList from '../data/json/pdf_list';
-import LoadingIndicator from '../components/loading_indicator';
 import { ApiBlob } from '../utils/api';
 import { addStatistic } from '../utils/statistic';
 
@@ -47,17 +46,17 @@ export default class PdfCards extends React.Component {
   }
 
   _downloadFile(item) {
-    this.setState({loading: true});
+    !!this.props.onDownload && this.props.onDownload();
 
     ApiBlob.downloadPdf(item.pdfFile).then((res) => {
+      !!this.props.onFinishDownload && this.props.onFinishDownload();
+
       if (res.respInfo.status != 200) {
-        this.setState({loading: false});
         return alert('ការទាញយកមិនជោគជ័យ');
       }
 
       realm.write(() => {
         realm.create('Pdf', {code: uuidv4(), name: item.pdfFile, uri: res.data}, true);
-        this.setState({loading: false});
       });
 
       this.props.navigation.navigate(item.routeName, {title: item.title, pdfFilepath: res.data});
@@ -121,14 +120,6 @@ export default class PdfCards extends React.Component {
     return(<Text>{hint}</Text>);
   }
 
-  _renderLoading() {
-    return (
-      <View style={styles.loadingLayer}>
-        <LoadingIndicator loading={true}/>
-      </View>
-    );
-  }
-
   _onChangeText(val) {
     if (!val) {
       this._onRefresh();
@@ -146,36 +137,13 @@ export default class PdfCards extends React.Component {
     this.setState({agencyList: this.listData});
   }
 
-  _renderToolbar() {
-    return (
-      <Toolbar
-        leftElement={ 'arrow-back' }
-        centerElement={'ភ្នាក់ងារចំណាកស្រុក'}
-        searchable={{
-          autoFocus: true,
-          placeholder: 'ស្វែងរក',
-          onChangeText: this._onChangeText.bind(this),
-          onSearchClosed: this._onRefresh.bind(this)
-        }}
-        onLeftElementPress={() => this.props.navigation.goBack()}
-        style={{titleText: {fontFamily: FontFamily.title}}}
-      />
-    );
-  }
-
   render() {
     return (
-      <View style={{flex: 1}}>
-        { this.state.loading && this._renderLoading() }
-
-        <ScrollView style={{flex: 1}}>
-          <View style={Style.container}>
-            { this._renderHint() }
-            { this._renderCardList() }
-          </View>
-        </ScrollView>
+      <View>
+        { this._renderHint() }
+        { this._renderCardList() }
       </View>
-    );
+    )
   }
 }
 
@@ -184,14 +152,5 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: FontFamily.title,
     color: Color.primary
-  },
-  loadingLayer: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    top: 0,
-    zIndex: 1,
-    backgroundColor: 'rgba(0,0,0,0.4)'
   }
 });
