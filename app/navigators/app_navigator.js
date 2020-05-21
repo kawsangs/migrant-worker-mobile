@@ -55,14 +55,15 @@ export default class AppNavigator extends Component {
             component={ProfileListScreen}
             options={ ({ navigation, route }) => ({
               title: 'ប្រវត្តិចុះឈ្មោះ',
-              headerLeft: () => (<HeaderBackButton tintColor={'white'} onPress={() =>{navigation.popToTop()}} />)
+              headerLeft: () => (<HeaderBackButton tintColor={'white'} onPress={() =>{navigation.popToTop()}} />),
+              headerShown: false
             })}
           />
 
-          <Stack.Screen name="Contact1280Screen" component={Contact1280Screen} options={{title: "ទាក់ទងទៅលេខ១២៨០"}} />
+          <Stack.Screen name="Contact1280Screen" component={Contact1280Screen} options={{title: "ទាក់ទងទៅលេខ១២៨០", headerShown: false}} />
           <Stack.Screen name="OtherInfoScreen" component={OtherInfoScreen} options={{title: "ចំណាកស្រុកសុវត្ថិភាព"}} />
-          <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={{title: "ចុះឈ្មោះ"}} />
-          <Stack.Screen name="AboutScreen" component={AboutScreen} options={{title: "អំពីកម្មវិធី"}} />
+          <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={{title: "ចុះឈ្មោះ", headerShown: true}} />
+          <Stack.Screen name="AboutScreen" component={AboutScreen} options={{title: "អំពីកម្មវិធី", headerShown: false}} />
           <Stack.Screen name="SafeMigrationScreen" component={SafeMigrationScreen} options={{title: "ចំណាកស្រុកសុវត្ថិភាព ត្រូវមានអ្វីខ្លះ?", headerShown: false}} />
           <Stack.Screen name="TextInfoScreen" component={TextInfoScreen} options={{title: "ព័ត៌មានជាអក្សរ", headerShown: false}} />
           <Stack.Screen name="ServiceDirectoryScreen" component={ServiceDirectoryScreen} options={{title: "សៀវភៅអំពីសេវា"}} />
@@ -75,7 +76,7 @@ export default class AppNavigator extends Component {
           <Stack.Screen name="MigrationAgencyScreen" component={MigrationAgencyScreen} options={{title: "ភ្នាក់ងារចំណាកស្រុក", headerShown: false}} />
 
           <Stack.Screen name="PdfViewScreen" component={PdfViewScreen} options={({ route }) => ({ title: route.params.title })} />
-          <Stack.Screen name="ImageViewScreen" component={ImageViewScreen} options={({ route }) => ({ title: route.params.title })} />
+          <Stack.Screen name="ImageViewScreen" component={ImageViewScreen} options={({ route }) => ({ title: route.params.title, headerShown: false })} />
         </Stack.Navigator>
       </NavigationContainer>
     );

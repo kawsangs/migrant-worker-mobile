@@ -14,6 +14,7 @@ import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_s
 import PlaySound from '../components/play_sound';
 import Images from '../utils/images';
 import { addStatistic } from '../utils/statistic';
+import CollapsibleNavbar from '../components/collapsible_navbar';
 
 export default class Contact1280 extends React.Component {
   state = {};
@@ -72,13 +73,13 @@ export default class Contact1280 extends React.Component {
   }
 
   render() {
-
-    return (
-      <ScrollView style={{flex: 1}}>
-        <View style={Style.container}>
-          { this._renderCardList() }
-        </View>
-      </ScrollView>
-    );
+    return(
+      <CollapsibleNavbar
+        options={{
+          title: 'ទាក់ទងទៅលេខ១២៨០',
+          bodyContent: this._renderCardList(),
+        }}
+      />
+    )
   }
 }

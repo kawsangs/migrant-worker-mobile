@@ -3,8 +3,6 @@ import {
   View,
   Text,
   Image,
-  ScrollView,
-  StyleSheet,
   TouchableOpacity,
   Linking
 } from 'react-native';
@@ -13,6 +11,7 @@ import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_s
 import Images from '../utils/images';
 import uuidv4 from '../utils/uuidv4';
 import { autoImageHeight } from '../utils/image_style';
+import CollapsibleNavbar from '../components/collapsible_navbar';
 
 export default class About extends React.Component {
   state = {};
@@ -44,7 +43,7 @@ export default class About extends React.Component {
 
   _renderDescription() {
     return (
-      <View style={[Style.container, {alignItems: 'center'}]}>
+      <View style={{alignItems: 'center'}}>
         <View style={Style.card}>
           <Image source={Images.logo} style={{width: 90, height: 90}}/>
         </View>
@@ -92,22 +91,31 @@ export default class About extends React.Component {
     )
   }
 
-  render() {
+  _renderContent() {
     return (
-      <ScrollView style={{flex: 1}}>
-        <View style={[{alignItems: 'center'}]}>
+      <View style={[{alignItems: 'center'}]}>
 
-          { true && this._renderDescription() }
+        { true && this._renderDescription() }
 
-          <Text style={{fontFamily: FontFamily.title, marginTop: 14}}>សហការផលិតដោយ</Text>
+        <Text style={{fontFamily: FontFamily.title, marginTop: 14}}>សហការផលិតដោយ</Text>
 
-          { this._renderCollaborations() }
+        { this._renderCollaborations() }
 
-          <Text style={{fontFamily: FontFamily.title, marginTop: 16}}>ក្រោមជំនួយថវិកាដោយ</Text>
+        <Text style={{fontFamily: FontFamily.title, marginTop: 16}}>ក្រោមជំនួយថវិកាដោយ</Text>
 
-          { this._renderFunders() }
-        </View>
-      </ScrollView>
+        { this._renderFunders() }
+      </View>
     );
+  }
+
+  render() {
+    return(
+      <CollapsibleNavbar
+        options={{
+          title: 'អំពីកម្មវិធី',
+          bodyContent: this._renderContent()
+        }}
+      />
+    )
   }
 }

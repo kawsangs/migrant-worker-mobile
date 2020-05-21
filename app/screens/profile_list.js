@@ -2,16 +2,12 @@ import React from 'react';
 import {
   View,
   Text,
-  Image,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity
 } from 'react-native';
 
 import ButtonNav from '../components/button_nav';
-import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_style';
 import ProfileCard from '../components/profile_card';
 import realm from '../schemas/schema';
+import CollapsibleNavbar from '../components/collapsible_navbar';
 
 export default class ProfileList extends React.Component {
   state = {};
@@ -51,17 +47,29 @@ export default class ProfileList extends React.Component {
     )
   }
 
+  _renderContent() {
+    return (
+      <View>
+        { this._renderButtonNav() }
+
+        <Text>ប្រវត្តិ</Text>
+
+        { this._renderProfileList() }
+      </View>
+    )
+  }
+
   render() {
     return (
-      <ScrollView style={{flex: 1}}>
-        <View style={Style.container}>
-          { this._renderButtonNav() }
-
-          <Text>ប្រវត្តិ</Text>
-
-          { this._renderProfileList() }
-        </View>
-      </ScrollView>
+      <CollapsibleNavbar
+        options={{
+          title: 'ប្រវត្តិចុះឈ្មោះ',
+          bodyContent: this._renderContent(),
+          headerLeftButton: {
+            onPress: () => this.props.navigation.popToTop()
+          }
+        }}
+      />
     );
   }
 }
