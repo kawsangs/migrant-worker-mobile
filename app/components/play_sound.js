@@ -3,11 +3,13 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
+  Image
 } from 'react-native';
 
 import { Color } from '../assets/stylesheets/base_style';
 import { Icon } from 'react-native-material-ui';
 import SoundPlayer from 'react-native-sound-player';
+import Images from '../utils/images';
 
 export default class PlaySound extends Component {
   _onFinishedPlayingSubscription = null;
@@ -37,8 +39,8 @@ export default class PlaySound extends Component {
 
   render() {
     let isActive = (this.props.activePlaying == this.state.fileName);
-    let iconName = this.props.iconName || 'volume-up';
-    let playIconName = this.props.playIconName || 'play-circle-outline';
+    let iconName = this.props.iconName || Images.audio;
+    let playIconName = this.props.playIconName || Images.audio;
 
     return (
       <TouchableOpacity
@@ -46,8 +48,8 @@ export default class PlaySound extends Component {
         style={this.props.style}
       >
         <View style={styles.buttonAudio}>
-          { (!isActive) && <Icon name={iconName} color='#fff' size={24} />}
-          { isActive && <Icon name={playIconName} color='#fff' size={24} />}
+          { (!isActive) && <Image source={iconName} color='#fff' style={{width: 36, height: 36}} />}
+          { isActive && <Image source={playIconName} color='#fff' style={{width: 36, height: 36}} />}
         </View>
       </TouchableOpacity>
     )
@@ -57,9 +59,9 @@ export default class PlaySound extends Component {
 const styles = StyleSheet.create({
   buttonAudio: {
     backgroundColor: Color.primary,
-    borderRadius: 15,
-    width: 30,
-    height: 30,
+    borderRadius: 18,
+    width: 36,
+    height: 36,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'
