@@ -6,9 +6,12 @@
       return (
         <CollapsibleNavbar
           options={{
+            header: <View></View>
             title: 'ចំណាកស្រុកសុវត្ថិភាព ត្រូវមានអ្វីខ្លះ?',
-            headerLeftButton: { onPress: () => {} }
-            bodyContent: this._renderContent()
+            headerLeftButton: { onPress: () => {} },
+            bodyContent: this._renderContent(),
+            scrollType: 'FlatList',
+            flatListProps: {}
           }}
         />
       )
@@ -22,7 +25,8 @@ import {
   Text,
   StyleSheet,
   Animated,
-  ScrollView
+  ScrollView,
+  FlatList
 } from 'react-native';
 
 import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_style';
@@ -30,7 +34,7 @@ import { HeaderBackButton, HeaderTitle } from '@react-navigation/stack';
 import { NavigationContext } from '@react-navigation/native';
 import LoadingIndicator from '../components/loading_indicator';
 
-const NAVBAR_HEIGHT = 58;
+const NAVBAR_HEIGHT = 56;
 const STATUS_BAR_HEIGHT = Platform.select({ ios: 20, android: 0 });
 
 export default class SafeMigration extends React.Component {
@@ -104,30 +108,62 @@ export default class SafeMigration extends React.Component {
     )
   }
 
-  render() {
+  renderItem(item) {
+    return (
+      <View><Text></Text></View>
+    );
+  }
+
+  _handleRenderFlatList() {
     const {options} = this.props;
 
+    if(!!options.noResultContent) {
+      return (options.noResultContent)
+    }
 
-    const AnimatedScrollView = Animated.createAnimatedComponent(options.scrollView || ScrollView);
+    return (
+      <Animated.FlatList
+        scrollEventThrottle={1}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: this.state.scrollAnim } } }],
+          { useNativeDriver: true },
+        )}
+        style={styles.contentContainer}
+        {...this.props.options.bodyContentProps}
+        contentContainerStyle={[this.props.options.bodyContentProps.contentContainerStyle, {paddingBottom: NAVBAR_HEIGHT}]}
+      />
+    )
+  }
 
+  _renderBody() {
+    const {options} = this.props;
+
+    if (options.bodyContentType == 'FlatList') {
+      return this._handleRenderFlatList();
+    }
+
+    return (
+      <Animated.ScrollView
+        scrollEventThrottle={1}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: this.state.scrollAnim } } }],
+          { useNativeDriver: true },
+        )}
+        style={{flex: 1}}>
+
+        <View style={[Style.container, styles.contentContainer]}>
+          {options.bodyContent}
+        </View>
+      </Animated.ScrollView>
+    )
+  }
+
+  render() {
     return (
       <View style={{flex: 1}}>
         { this._renderHeader() }
-
-        <AnimatedScrollView
-          scrollEventThrottle={1}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: this.state.scrollAnim } } }],
-            { useNativeDriver: true },
-          )}
-          style={{flex: 1}}>
-
-          <View style={[Style.container, styles.contentContainer]}>
-            {options.bodyContent}
-          </View>
-        </AnimatedScrollView>
-
-        { options.loading && this._renderLoading() }
+        { this._renderBody() }
+        { this.props.options.loading && this._renderLoading() }
       </View>
     );
   }

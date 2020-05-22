@@ -20,6 +20,7 @@ import Toast, { DURATION } from 'react-native-easy-toast';
 import { Icon, Toolbar } from 'react-native-material-ui';
 import LoadingIndicator from '../components/loading_indicator';
 import { addStatistic } from '../utils/statistic';
+import CollapsibleNavbar from '../components/collapsible_navbar';
 
 export default class Videos extends React.Component {
   state = {
@@ -102,17 +103,6 @@ export default class Videos extends React.Component {
     )
   }
 
-  _renderContent() {
-    return (
-      <FlatList
-        contentContainerStyle={styles.flatList}
-        data={this.state.videos}
-        renderItem={({ item }) => this._renderItem(item)}
-        keyExtractor={item => item.code}
-      />
-    );
-  }
-
   _onChangeText(val) {
     if (!val) {
       this._onRefresh();
@@ -142,7 +132,7 @@ export default class Videos extends React.Component {
           onSearchClosed: this._onRefresh.bind(this)
         }}
         onLeftElementPress={() => this.props.navigation.goBack()}
-        style={{titleText: {fontFamily: FontFamily.title}}}
+        style={{titleText: {fontFamily: FontFamily.title}, container: {width: '100%'}}}
       />
     );
   }
@@ -150,16 +140,29 @@ export default class Videos extends React.Component {
   render() {
     return (
       <SafeAreaView style={{flex: 1}}>
-        { this._renderToolbar() }
+        <CollapsibleNavbar
+          options={{
+            header: this._renderToolbar(),
+            bodyContentType: 'FlatList',
+            bodyContentProps: {
+              contentContainerStyle: styles.flatList,
+              data: this.state.videos,
+              renderItem: ({ item }) => this._renderItem(item),
+              keyExtractor: item => item.code
+            },
+            noResultContent: !this.state.loading && !this.state.isConnected && this._renderNoInternetConnection()
+          }}
+        />
 
-        <LoadingIndicator loading={this.state.loading}/>
-
-        { !this.state.loading && this.state.isConnected && this._renderContent() }
-        { !this.state.loading && !this.state.isConnected && this._renderNoInternetConnection() }
+        { this.state.loading &&
+          <View style={styles.loadingWrapper}>
+            <LoadingIndicator loading={true}/>
+          </View>
+        }
 
         <Toast ref='toast' position='top' positionValue={ Platform.OS == 'ios' ? 120 : 140 }/>
       </SafeAreaView>
-    );
+    )
   }
 }
 
@@ -176,4 +179,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 12
   },
+  loadingWrapper: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1
+  }
 });
