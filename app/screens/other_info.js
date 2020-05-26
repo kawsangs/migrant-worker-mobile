@@ -88,7 +88,6 @@ export default class OtherInfo extends React.Component {
   render() {
     return (
       <View style={[Style.container, {flex: 1}]}>
-        <Text style={{marginBottom: 12}}>ស្វែងរកព័ត៌មានខាងក្រោម</Text>
         { this._renderCards() }
       </View>
     );

@@ -72,41 +72,67 @@ export default class SafeMigration extends React.Component {
     );
   }
 
+  // None collapsible header
   _renderHeader() {
-    const { clampedScroll } = this.state;
-    const navbarTranslate = clampedScroll.interpolate({
-      inputRange: [0, NAVBAR_HEIGHT - STATUS_BAR_HEIGHT],
-      outputRange: [0, -(NAVBAR_HEIGHT - STATUS_BAR_HEIGHT)],
-      extrapolate: 'clamp',
-    });
-
-    const navbarOpacity = clampedScroll.interpolate({
-      inputRange: [0, NAVBAR_HEIGHT - STATUS_BAR_HEIGHT],
-      outputRange: [1, 0],
-      extrapolate: 'clamp',
-    });
     const {options} = this.props;
     const navigation = this.context;
     const onBackPress = !!options.headerLeftButton && !!options.headerLeftButton.onPress ? options.headerLeftButton.onPress : navigation.goBack;
 
     if (!!options.header) {
       return (
-        <Animated.View style={[styles.navbar, {flexDirection: 'row'}, { transform: [{ translateY: navbarTranslate }] }]}>
+        <Animated.View style={[styles.navbar, {flexDirection: 'row'}, {  }]}>
           { options.header }
         </Animated.View>
       )
     }
 
     return(
-      <Animated.View style={[styles.navbar, {flexDirection: 'row'}, { transform: [{ translateY: navbarTranslate }] }]}>
-        <Animated.View style={{opacity: navbarOpacity, backgroundColor: 'transparent'}}>
-          <HeaderBackButton tintColor={'white'} onPress={() => onBackPress()} style={{opacity: navbarOpacity}}/>
+      <Animated.View style={[styles.navbar, {flexDirection: 'row'}]}>
+        <Animated.View style={{backgroundColor: 'transparent'}}>
+          <HeaderBackButton tintColor={'white'} onPress={() => onBackPress()}/>
         </Animated.View>
 
-        <HeaderTitle tintColor={'#fff'} style={[styles.title, {opacity: navbarOpacity}]}>{options.title}</HeaderTitle>
+        <HeaderTitle tintColor={'#fff'} style={[styles.title]}>{options.title}</HeaderTitle>
       </Animated.View>
     )
   }
+
+  // Collapsible header
+  // _renderHeader() {
+  //   const { clampedScroll } = this.state;
+  //   const navbarTranslate = clampedScroll.interpolate({
+  //     inputRange: [0, NAVBAR_HEIGHT - STATUS_BAR_HEIGHT],
+  //     outputRange: [0, -(NAVBAR_HEIGHT - STATUS_BAR_HEIGHT)],
+  //     extrapolate: 'clamp',
+  //   });
+
+  //   const navbarOpacity = clampedScroll.interpolate({
+  //     inputRange: [0, NAVBAR_HEIGHT - STATUS_BAR_HEIGHT],
+  //     outputRange: [1, 0],
+  //     extrapolate: 'clamp',
+  //   });
+  //   const {options} = this.props;
+  //   const navigation = this.context;
+  //   const onBackPress = !!options.headerLeftButton && !!options.headerLeftButton.onPress ? options.headerLeftButton.onPress : navigation.goBack;
+
+  //   if (!!options.header) {
+  //     return (
+  //       <Animated.View style={[styles.navbar, {flexDirection: 'row'}, { transform: [{ translateY: navbarTranslate }] }]}>
+  //         { options.header }
+  //       </Animated.View>
+  //     )
+  //   }
+
+  //   return(
+  //     <Animated.View style={[styles.navbar, {flexDirection: 'row'}, { transform: [{ translateY: navbarTranslate }] }]}>
+  //       <Animated.View style={{opacity: navbarOpacity, backgroundColor: 'transparent'}}>
+  //         <HeaderBackButton tintColor={'white'} onPress={() => onBackPress()} style={{opacity: navbarOpacity}}/>
+  //       </Animated.View>
+
+  //       <HeaderTitle tintColor={'#fff'} style={[styles.title, {opacity: navbarOpacity}]}>{options.title}</HeaderTitle>
+  //     </Animated.View>
+  //   )
+  // }
 
   renderItem(item) {
     return (
