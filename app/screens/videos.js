@@ -8,6 +8,7 @@ import {
   Dimensions,
   Button,
   ActivityIndicator,
+  TouchableOpacity
 } from 'react-native';
 
 import Thumbnail from '../components/thumbnail';
@@ -91,7 +92,10 @@ export default class Videos extends React.Component {
           url={video.url} />
 
         <View style={styles.textContainer}>
-          <Text style={{fontFamily: FontFamily.title}}>{video.title}</Text>
+          <TouchableOpacity onPress={() => this._onPressItem(video)}>
+            <Text style={{fontFamily: FontFamily.title}}>{video.title}</Text>
+          </TouchableOpacity>
+
           <View style={{flex: 1, alignItems: 'flex-end', justifyContent: 'flex-end'}}>
             <PlaySound
               fileName={fileName}

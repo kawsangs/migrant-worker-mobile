@@ -16,6 +16,7 @@ export default Images = {
   other_doc: require('../assets/images/icons/other_doc.png'),
   travel: require('../assets/images/icons/travel.png'),
   audio: require('../assets/images/icons/audio.png'),
+  active_play: require('../assets/images/icons/playing.gif'),
 
   // Logo
   chc_logo: require('../assets/images/logos/chc_logo.png'),

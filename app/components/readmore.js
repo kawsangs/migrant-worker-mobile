@@ -20,7 +20,7 @@ export default class Readmore extends React.Component {
     return (
       <Text style={{fontSize: 15}}>
         { desc }
-        { shouldTruncate && <Text style={{color: 'gray'}} onPress={() => this.setState({hidden: false})}> មើលច្រើនទៀត</Text> }
+        { shouldTruncate && <Text style={{color: 'gray'}} onPress={() => this.setState({hidden: false})}> អានបន្ថែម</Text> }
       </Text>
     )
   }

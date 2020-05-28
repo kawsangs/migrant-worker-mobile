@@ -40,7 +40,7 @@ export default class PlaySound extends Component {
   render() {
     let isActive = (this.props.activePlaying == this.state.fileName);
     let iconName = this.props.iconName || Images.audio;
-    let playIconName = this.props.playIconName || Images.female;
+    let playIconName = this.props.playIconName || Images.active_play;
 
     return (
       <TouchableOpacity
