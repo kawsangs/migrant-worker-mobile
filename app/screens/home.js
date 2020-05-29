@@ -45,9 +45,9 @@ export default class Home extends React.Component {
 
   _renderButtonNavs() {
     let list = [
-      { title: 'ចំណាកស្រុកសុវត្ថិភាព', iconName: 'info-outline', audioFileName: 'safe_migration', routeName: 'OtherInfoScreen', active: true },
-      { title: 'ទាក់ទងទៅលេខ១២៨០', iconName: 'phone', audioFileName: 'contact_1280', routeName: 'Contact1280Screen', active: false },
-      { title: 'ចុះឈ្មោះ', iconName: 'person', audioFileName: 'register', routeName: 'RegisterScreen', active: false },
+      { title: 'ចុះឈ្មោះ(រក្សាការសម្ងាត់)', iconName: 'person', audioFileName: 'register', routeName: 'RegisterScreen', active: true },
+      { title: 'ទាក់ទងទៅលេខជំនួយ១២៨០', iconName: 'phone', audioFileName: 'contact_1280', routeName: 'Contact1280Screen', active: false },
+      { title: 'ចំណាកស្រុកសុវត្ថិភាព', iconName: 'info-outline', audioFileName: 'safe_migration', routeName: 'OtherInfoScreen', active: false },
     ];
 
     let doms = list.map((item, index) => (

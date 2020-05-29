@@ -21,6 +21,7 @@ import uuidv4 from '../utils/uuidv4';
 import PlaySound from '../components/play_sound';
 import SexOption from '../components/sex_option';
 import Sidekiq from '../utils/sidekiq';
+import { addStatistic } from '../utils/statistic';
 
 const requiredFields = ['uuid', 'name', 'sex', 'age', 'phoneNumber'];
 
@@ -111,6 +112,7 @@ export default class Register extends React.Component {
     try {
       realm.write(() => {
         realm.create('User', this._buildData(), true);
+        addStatistic('registerSuccess');
         Sidekiq.createUser(this.state.uuid);
         this.props.navigation.navigate('ProfileListScreen');
       });

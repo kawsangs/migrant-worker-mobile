@@ -59,7 +59,7 @@ export default class OtherInfo extends React.Component {
     let list = [
       { title: 'ចំណាកស្រុកសុវត្ថិភាព ត្រូវមានអ្វីខ្លះ?', iconName: 'safe_migrant', screenName: 'SafeMigrationScreen', imageWidth: '480', imageHeight: '360', audioFileName: '' },
       { title: 'ព័ត៌មានជាអក្សរ', iconName: 'text_info', screenName: 'TextInfoScreen', imageWidth: '300', imageHeight: '372', audioFileName: '' },
-      { title: 'សៀវភៅអំពីសេវា', iconName: 'service_directory', screenName: 'ServiceDirectoryScreen', imageWidth: '440', imageHeight: '344', audioFileName: '' },
+      { title: 'សៀវភៅទូរស័ព្ទរកជំនួយ', iconName: 'service_directory', screenName: 'ServiceDirectoryScreen', imageWidth: '440', imageHeight: '344', audioFileName: '' },
       { title: 'ព័ត៌មានជាវីដេអូ', iconName: 'video', screenName: 'VideosScreen', imageWidth: '440', imageHeight: '344', audioFileName: '' },
     ];
 

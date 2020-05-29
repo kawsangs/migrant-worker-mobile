@@ -8,11 +8,14 @@ import ButtonNav from '../components/button_nav';
 import ProfileCard from '../components/profile_card';
 import realm from '../schemas/schema';
 import CollapsibleNavbar from '../components/collapsible_navbar';
+import { addStatistic } from '../utils/statistic';
 
 export default class ProfileList extends React.Component {
   state = {};
 
   _goToRegisterScreen() {
+    addStatistic('goToRegisterAgain');
+
     this.props.navigation.reset({
       index: 1,
       routes: [{ name: 'HomeScreen' }, { name: 'RegisterScreen' }],
