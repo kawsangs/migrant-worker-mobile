@@ -13,6 +13,13 @@ import UserWorker from './app/workers/user_worker';
 import Sidekiq from './app/utils/sidekiq';
 import { Color, FontFamily, FontSize } from './app/assets/stylesheets/base_style';
 
+import * as Sentry from '@sentry/react-native';
+
+Sentry.init({
+  dsn: 'https://b0b7fac69a6d45abb446ccfdc6e15423@o357910.ingest.sentry.io/5257533',
+});
+
+
 const customTextProps = {
   style: {
     fontFamily: FontFamily.body,
