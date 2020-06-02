@@ -60,7 +60,7 @@ export default class AppNavigator extends Component {
             })}
           />
 
-          <Stack.Screen name="Contact1280Screen" component={Contact1280Screen} options={{title: "ទាក់ទងទៅលេខ១២៨០", headerShown: false}} />
+          <Stack.Screen name="Contact1280Screen" component={Contact1280Screen} options={{title: "ទាក់ទងទៅលេខជំនួយ១២៨០", headerShown: false}} />
           <Stack.Screen name="OtherInfoScreen" component={OtherInfoScreen} options={{title: "ចំណាកស្រុកសុវត្ថិភាព"}} />
           <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={{title: "ចុះឈ្មោះ", headerShown: true}} />
           <Stack.Screen name="AboutScreen" component={AboutScreen} options={{title: "អំពីកម្មវិធី", headerShown: false}} />

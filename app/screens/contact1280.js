@@ -76,7 +76,7 @@ export default class Contact1280 extends React.Component {
     return(
       <CollapsibleNavbar
         options={{
-          title: 'ទាក់ទងទៅលេខ១២៨០',
+          title: 'ទាក់ទងទៅលេខជំនួយ១២៨០',
           bodyContent: this._renderCardList(),
         }}
       />
