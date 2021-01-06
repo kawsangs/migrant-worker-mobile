@@ -1,6 +1,6 @@
 export const FontFamily = {
-  body: 'KhmerOSContentRegular',
-  title: 'KhmerOSContentBold'
+  body: 'KhmerOSContent',
+  title: 'KhmerOSContent-Bold'
 };
 
 export const FontSize = {
