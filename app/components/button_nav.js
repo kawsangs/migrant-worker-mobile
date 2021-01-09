@@ -2,36 +2,37 @@ import React from 'react';
 import {
   View,
   Text,
-  Image,
-  ScrollView,
   StyleSheet,
   TouchableOpacity
 } from 'react-native';
 
-import { Button, Icon } from 'react-native-material-ui';
-import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_style';
+import { Icon } from 'react-native-material-ui';
+import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
 import PlaySound from '../components/play_sound';
 
-export default class Home extends React.Component {
+export default class ButtonNav extends React.Component {
   render() {
-    let textColor = this.props.active ? '#fff' : Color.primary;
-    let buttonColor = this.props.active ? Color.primary : '#fff';
+    let textColor = this.props.active ? Color.white : Color.primary;
+    let buttonColor = this.props.active ? Color.primary : Color.white;
+    let iconTintColor = this.props.active ? Color.primary : Color.white;
 
     return (
-      <View style={styles.buttonWrapper}>
+      <View style={[styles.buttonWrapper, Style.boxShadow, { borderColor: Color.primary, backgroundColor: buttonColor }]}>
         <TouchableOpacity
           onPress={() => this.props.onPress()}
-          style={[styles.buttonTextWrapper, Style.boxShadow, { backgroundColor: buttonColor }]}
+          style={[styles.buttonTextWrapper]}
         >
           <Icon name={this.props.icon} color={textColor} size={24} />
-          <Text style={[styles.buttonText, {color: textColor}]}>{this.props.title}</Text>
+          <Text style={[styles.buttonText, { color: textColor }]}>{this.props.title}</Text>
         </TouchableOpacity>
 
         <PlaySound
-          style={[styles.buttonAudioWrapper, Style.boxShadow]}
+          style={[styles.buttonAudioWrapper]}
+          buttonAudioStyle={{ backgroundColor: textColor }}
+          iconStyle={{ tintColor: iconTintColor }}
           fileName={this.props.audioFileName}
           activePlaying={this.props.activePlaying}
-          onPress={(fileName) => this.props.onPressPlaySound(fileName)}/>
+          onPress={(fileName) => this.props.onPressPlaySound(fileName)} />
       </View>
     )
   }
@@ -40,24 +41,26 @@ export default class Home extends React.Component {
 const styles = StyleSheet.create({
   buttonWrapper: {
     flexDirection: 'row',
-    marginBottom: 16
+    marginBottom: 16,
+    borderRadius: 10,
+    overflow: 'hidden',
+    borderWidth: 3,
+    alignItems: 'center',
   },
   buttonTextWrapper: {
     flexDirection: 'row',
     flex: 1,
-    padding: 16,
+    padding: 14,
     marginRight: 10,
-    borderRadius: 10
   },
   buttonText: {
-    marginLeft: 10,
-    fontFamily: FontFamily.title
+    marginLeft: 20,
+    fontFamily: FontFamily.title,
+    fontWeight: '700'
   },
   buttonAudioWrapper: {
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 14,
+    padding: 12,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   }
 });
