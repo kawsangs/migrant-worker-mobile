@@ -8,6 +8,7 @@ import { Color, FontFamily, FontSize } from '../assets/stylesheets/base_style';
 
 // screens
 import HomeScreen from '../screens/home';
+import WelcomeScreen from '../screens/welcome';
 import OtherInfoScreen from '../screens/other_info';
 import RegisterScreen from '../screens/register';
 import Contact1280Screen from '../screens/contact1280';
@@ -35,7 +36,7 @@ export default class AppNavigator extends Component {
       <NavigationContainer>
         <StatusBar backgroundColor={Color.primary} />
         <Stack.Navigator
-          initialRouteName="HomeScreen"
+          initialRouteName="WelcomeScreen"
           screenOptions={{
             headerStyle: {
               backgroundColor: Color.primary,
@@ -49,6 +50,7 @@ export default class AppNavigator extends Component {
             }
           }}>
 
+          <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} options={{headerShown: false}}/>
           <Stack.Screen name="HomeScreen" component={HomeScreen} options={{headerShown: false}}/>
           <Stack.Screen
             name="ProfileListScreen"

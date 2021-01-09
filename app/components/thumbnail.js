@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_style';
+import { Color } from '../assets/stylesheets/base_style';
 import { Icon } from 'react-native-material-ui';
 import { getVideoId } from '../utils/youtube.js';
 
@@ -15,7 +15,7 @@ export default class Thumbnail extends React.Component {
   static defaultProps = {
     imageHeight: 200,
     imageWidth: Dimensions.get('window').width,
-    onPressError: () => {},
+    onPressError: () => { },
     showPlayIcon: true
   };
 
@@ -41,7 +41,8 @@ export default class Thumbnail extends React.Component {
       <TouchableOpacity
         onPress={() => this.props.onPress()}
         style={containerStyle}
-        >
+        activeOpacity={0.8}
+      >
         <ImageBackground
           source={{ uri: imageURL }}
           style={[
@@ -53,15 +54,24 @@ export default class Thumbnail extends React.Component {
           ]}
           {...props}
         >
-        {
-          showPlayIcon ? (
-            <View style={[styles.iconWrapper, iconWrapperStyle]}>
-              <Icon name='play-arrow' size={30} color={Color.primary} iconSet='MaterialIcons'/>
-            </View>
-          ) : (
-            null
-          )
-        }
+          {
+            showPlayIcon ? (
+              <View style={[styles.iconWrapper, iconWrapperStyle]}>
+                <View style={{
+                  backgroundColor: Color.primary,
+                  width: 40,
+                  height: 40,
+                  borderRadius: 20,
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}>
+                  <Icon name='play-arrow' size={30} color={Color.white} iconSet='MaterialIcons' />
+                </View>
+              </View>
+            ) : (
+                null
+              )
+          }
         </ImageBackground>
       </TouchableOpacity>
     );
@@ -76,9 +86,9 @@ const styles = StyleSheet.create({
   },
   iconWrapper: {
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    width: 44,
-    height: 44,
-    borderRadius: 22,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center'
   }

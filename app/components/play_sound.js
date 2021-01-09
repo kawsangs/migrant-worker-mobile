@@ -6,9 +6,8 @@ import {
   Image
 } from 'react-native';
 
-import { Color } from '../assets/stylesheets/base_style';
-import { Icon } from 'react-native-material-ui';
 import SoundPlayer from 'react-native-sound-player';
+import { Color } from '../assets/stylesheets/base_style';
 import Images from '../utils/images';
 
 export default class PlaySound extends Component {
@@ -41,15 +40,18 @@ export default class PlaySound extends Component {
     let isActive = (this.props.activePlaying == this.state.fileName);
     let iconName = this.props.iconName || Images.audio;
     let playIconName = this.props.playIconName || Images.active_play;
+    let getBtnAudioStyle = this.props.buttonAudioStyle;
+    let getIconStyle = this.props.iconStyle;
 
     return (
       <TouchableOpacity
-        onPress={() => this._playAudio() }
+        onPress={() => this._playAudio()}
         style={this.props.style}
+        activeOpacity={0.7}
       >
-        <View style={styles.buttonAudio}>
-          { (!isActive) && <Image source={iconName} color='#fff' style={{width: 36, height: 36}} />}
-          { isActive && <Image source={playIconName} color='#fff' style={{width: 36, height: 36}} />}
+        <View style={[styles.buttonAudio, getBtnAudioStyle]}>
+          {(!isActive) && <Image source={iconName} style={[styles.iconStyle, getIconStyle]} />}
+          {isActive && <Image source={playIconName} style={[styles.iconStyle, getIconStyle]} />}
         </View>
       </TouchableOpacity>
     )
@@ -65,5 +67,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  iconStyle: {
+    width: 36,
+    height: 36
   }
 });
