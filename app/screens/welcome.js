@@ -49,7 +49,7 @@ export default class Welcome extends React.Component {
   _renderButtonNavs() {
     let list = [
       { title: 'Register', iconName: 'person', audioFileName: 'register', routeName: 'RegisterScreen', active: true },
-      { title: 'Continue as guest', iconName: 'phone', audioFileName: 'contact_1280', routeName: 'Contact1280Screen', active: false },
+      { title: 'Continue as guest', iconName: 'phone', audioFileName: 'contact_1280', routeName: 'HomeScreen', active: false },
     ];
 
     let doms = list.map((item, index) => (
