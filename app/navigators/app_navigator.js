@@ -2,8 +2,9 @@ import 'react-native-gesture-handler';
 import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { HeaderBackButton } from '@react-navigation/stack'
-import { StatusBar, View, Text } from 'react-native';
+import { HeaderBackButton } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { StatusBar } from 'react-native';
 import { Color, FontFamily, FontSize } from '../assets/stylesheets/base_style';
 
 // screens
@@ -28,7 +29,56 @@ import MigrationAgencyScreen from '../screens/text_info/migration_agency';
 import PdfViewScreen from '../screens/pdf_view';
 import ImageViewScreen from '../screens/image_view';
 
+import CustomHeaderHome from '../components/custom_header_home';
+import CustomBottomTab from '../components/custom_bottom_tab';
+
 const Stack = createStackNavigator();
+const BottomTab = createBottomTabNavigator();
+
+function HomeTab() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={({ }) => ({
+          header: () => <CustomHeaderHome />,
+        })}
+      />
+    </Stack.Navigator>
+  );
+}
+
+const BottomTabNavigator = () => {
+  return (
+    <BottomTab.Navigator
+      tabBar={(props) => <CustomBottomTab {...props} />}
+    >
+      <BottomTab.Screen
+        name="HomeScreen"
+        component={HomeTab}
+        options={{
+          tabBarLabel: 'Home',
+        }}
+      />
+      <BottomTab.Screen
+        name="VideosScreen"
+        component={VideosScreen}
+        options={{
+          tabBarLabel: 'Videos',
+        }}
+      />
+      <BottomTab.Screen
+        name="MoreScreen"
+        component={OtherInfoScreen}
+        options={{
+          tabBarLabel: 'More',
+        }}
+      />
+
+    </BottomTab.Navigator>
+  );
+};
 
 export default class AppNavigator extends Component {
   render() {
@@ -48,34 +98,37 @@ export default class AppNavigator extends Component {
             headerTitleContainerStyle: {
               width: '75%'
             }
-          }}>
+          }}
+        >
 
-          <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} options={{headerShown: false}}/>
-          <Stack.Screen name="HomeScreen" component={HomeScreen} options={{headerShown: false}}/>
+          <Stack.Screen name="HomeScreen" component={BottomTabNavigator} options={{ headerShown: false }} />
+
+          <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} options={{ headerShown: false }} />
+
           <Stack.Screen
             name="ProfileListScreen"
             component={ProfileListScreen}
-            options={ ({ navigation, route }) => ({
+            options={({ navigation, route }) => ({
               title: 'ប្រវត្តិចុះឈ្មោះ',
-              headerLeft: () => (<HeaderBackButton tintColor={'white'} onPress={() =>{navigation.popToTop()}} />),
+              headerLeft: () => (<HeaderBackButton tintColor={'white'} onPress={() => { navigation.popToTop() }} />),
               headerShown: false
             })}
           />
 
-          <Stack.Screen name="Contact1280Screen" component={Contact1280Screen} options={{title: "ទាក់ទងទៅលេខជំនួយ១២៨០", headerShown: false}} />
-          <Stack.Screen name="OtherInfoScreen" component={OtherInfoScreen} options={{title: "ចំណាកស្រុកសុវត្ថិភាព"}} />
-          <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={{title: "ចុះឈ្មោះ", headerShown: true}} />
-          <Stack.Screen name="AboutScreen" component={AboutScreen} options={{title: "អំពីកម្មវិធី", headerShown: false}} />
-          <Stack.Screen name="SafeMigrationScreen" component={SafeMigrationScreen} options={{title: "ចំណាកស្រុកសុវត្ថិភាព ត្រូវមានអ្វីខ្លះ?", headerShown: false}} />
-          <Stack.Screen name="TextInfoScreen" component={TextInfoScreen} options={{title: "ព័ត៌មានជាអក្សរ", headerShown: false}} />
-          <Stack.Screen name="ServiceDirectoryScreen" component={ServiceDirectoryScreen} options={{title: "សៀវភៅទូរស័ព្ទរកជំនួយ"}} />
-          <Stack.Screen name="VideosScreen" component={VideosScreen} options={{title: "វីដេអូ និងករណីចំណាកស្រុក", headerShown: false}} />
-          <Stack.Screen name="ViewVideoScreen" component={ViewVideoScreen} options={{title: "វីដេអូ"}} />
+          <Stack.Screen name="Contact1280Screen" component={Contact1280Screen} options={{ title: "ទាក់ទងទៅលេខជំនួយ១២៨០", headerShown: false }} />
+          <Stack.Screen name="OtherInfoScreen" component={OtherInfoScreen} options={{ title: "ចំណាកស្រុកសុវត្ថិភាព" }} />
+          <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={{ title: "ចុះឈ្មោះ", headerShown: true }} />
+          <Stack.Screen name="AboutScreen" component={AboutScreen} options={{ title: "អំពីកម្មវិធី", headerShown: false }} />
+          <Stack.Screen name="SafeMigrationScreen" component={SafeMigrationScreen} options={{ title: "ចំណាកស្រុកសុវត្ថិភាព ត្រូវមានអ្វីខ្លះ?", headerShown: false }} />
+          <Stack.Screen name="TextInfoScreen" component={TextInfoScreen} options={{ title: "ព័ត៌មានជាអក្សរ", headerShown: false }} />
+          <Stack.Screen name="ServiceDirectoryScreen" component={ServiceDirectoryScreen} options={{ title: "សៀវភៅទូរស័ព្ទរកជំនួយ" }} />
+          <Stack.Screen name="VideosScreen" component={VideosScreen} options={{ title: "វីដេអូ និងករណីចំណាកស្រុក", headerShown: false }} />
+          <Stack.Screen name="ViewVideoScreen" component={ViewVideoScreen} options={{ title: "វីដេអូ" }} />
 
-          <Stack.Screen name="OtherDocScreen" component={OtherDocScreen} options={{title: "ឯកសារផ្សេងៗ"}} />
+          <Stack.Screen name="OtherDocScreen" component={OtherDocScreen} options={{ title: "ឯកសារផ្សេងៗ" }} />
 
-          <Stack.Screen name="ContactRelativeScreen" component={ContactRelativeScreen} options={{title: "វិធីទំនាក់ទំនងសាច់ញាតិ"}} />
-          <Stack.Screen name="MigrationAgencyScreen" component={MigrationAgencyScreen} options={{title: "ភ្នាក់ងារចំណាកស្រុក", headerShown: false}} />
+          <Stack.Screen name="ContactRelativeScreen" component={ContactRelativeScreen} options={{ title: "វិធីទំនាក់ទំនងសាច់ញាតិ" }} />
+          <Stack.Screen name="MigrationAgencyScreen" component={MigrationAgencyScreen} options={{ title: "ភ្នាក់ងារចំណាកស្រុក", headerShown: false }} />
 
           <Stack.Screen name="PdfViewScreen" component={PdfViewScreen} options={({ route }) => ({ title: route.params.title })} />
           <Stack.Screen name="ImageViewScreen" component={ImageViewScreen} options={({ route }) => ({ title: route.params.title, headerShown: false })} />
