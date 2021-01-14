@@ -32,6 +32,8 @@ import ImageViewScreen from '../screens/image_view';
 import CustomHeaderHome from '../components/custom_header_home';
 import CustomBottomTab from '../components/custom_bottom_tab';
 import MoreScreen from '../screens/more';
+import BeforeYouGoScreen from '../screens/before_you_go/before_you_go';
+import MigrationScreen from '../screens/before_you_go/migration';
 
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -105,6 +107,12 @@ export default class AppNavigator extends Component {
           <Stack.Screen name="HomeScreen" component={BottomTabNavigator} options={{ headerShown: false }} />
 
           <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} options={{ headerShown: false }} />
+
+
+          <Stack.Screen name="BeforeYouGoScreen" component={BeforeYouGoScreen} options={{ headerShown: false }} />
+
+          <Stack.Screen name="MigrationScreen" component={MigrationScreen} options={{ headerShown: false }} />
+
 
           <Stack.Screen
             name="ProfileListScreen"
