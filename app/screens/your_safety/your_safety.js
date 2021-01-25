@@ -61,7 +61,7 @@ export default class YourSafety extends React.Component {
     let list = [
       { title: 'Your rights & Safety', image: Images.safe_migrant, screenName: 'YourRightsAndSafetyScreen', imageList: 'visas', fileName: '', w: 34, h: 45 },
       { title: 'Safety planning', image: Images.safe_migrant, screenName: 'SafetyPlanningScreen', imageList: 'worker_cards', fileName: '', w: 34, h: 45 },
-      { title: 'Videos', image: Images.safe_migrant, screenName: 'YourRightsAndSafetyScreen', imageList: 'worker_cards', fileName: '', w: 34, h: 45 },
+      { title: 'Videos', image: Images.safe_migrant, screenName: 'YourSafetyVideosScreen', imageList: 'worker_cards', fileName: '', w: 34, h: 45 },
     ];
 
     return list.map((item, index) => this._renderCard(item, index));
