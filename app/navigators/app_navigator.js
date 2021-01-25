@@ -38,6 +38,7 @@ import PrepareYourTripScreen from '../screens/before_you_go/prepare_your_trip';
 import YourSafetyScreen from '../screens/your_safety/your_safety';
 import YourRightsAndSafetyScreen from '../screens/your_safety/your_rights_and_safety';
 import SafetyPlanningScreen from '../screens/your_safety/safety_planning';
+import YourSafetyVideosScreen from '../screens/your_safety/videos';
 
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -124,6 +125,8 @@ export default class AppNavigator extends Component {
           <Stack.Screen name="YourRightsAndSafetyScreen" component={YourRightsAndSafetyScreen} options={{ headerShown: false }} />
 
           <Stack.Screen name="SafetyPlanningScreen" component={SafetyPlanningScreen} options={{ headerShown: false }} />
+
+          <Stack.Screen name="YourSafetyVideosScreen" component={YourSafetyVideosScreen} options={{ headerShown: false }} />
 
 
           <Stack.Screen
