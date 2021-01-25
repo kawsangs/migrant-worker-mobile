@@ -36,6 +36,7 @@ import BeforeYouGoScreen from '../screens/before_you_go/before_you_go';
 import MigrationScreen from '../screens/before_you_go/migration';
 import PrepareYourTripScreen from '../screens/before_you_go/prepare_your_trip';
 import YourSafetyScreen from '../screens/your_safety/your_safety';
+import YourRightsAndSafetyScreen from '../screens/your_safety/your_rights_and_safety';
 
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -118,6 +119,8 @@ export default class AppNavigator extends Component {
           <Stack.Screen name="PrepareYourTripScreen" component={PrepareYourTripScreen} options={{ headerShown: false }} />
 
           <Stack.Screen name="YourSafetyScreen" component={YourSafetyScreen} options={{ headerShown: false }} />
+
+          <Stack.Screen name="YourRightsAndSafetyScreen" component={YourRightsAndSafetyScreen} options={{ headerShown: false }} />
 
 
           <Stack.Screen
