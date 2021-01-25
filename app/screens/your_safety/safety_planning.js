@@ -11,11 +11,10 @@ import { Icon, Toolbar } from 'react-native-material-ui';
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
 import PlaySound from '../../components/play_sound';
 import Images from '../../utils/images';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { addStatistic } from '../../utils/statistic';
 
 
-export default class YourSafety extends React.Component {
+export default class SafetyPlanning extends React.Component {
   state = {}
 
   _goTo(screenName) {
@@ -28,7 +27,7 @@ export default class YourSafety extends React.Component {
       <Toolbar
         leftElement={'arrow-back'}
         onLeftElementPress={() => this.props.navigation.goBack()}
-        centerElement={'Your Safety'}
+        centerElement={'Safety Planning'}
         rightElement={'home'}
         onRightElementPress={() => this._goTo('HomeScreen')}
         size={30}
@@ -59,9 +58,13 @@ export default class YourSafety extends React.Component {
 
   _renderContent() {
     let list = [
-      { title: 'Your rights & Safety', image: Images.safe_migrant, screenName: 'YourRightsAndSafetyScreen', imageList: 'visas', fileName: '', w: 34, h: 45 },
-      { title: 'Safety planning', image: Images.safe_migrant, screenName: 'SafetyPlanningScreen', imageList: 'worker_cards', fileName: '', w: 34, h: 45 },
-      { title: 'Videos', image: Images.safe_migrant, screenName: 'YourRightsAndSafetyScreen', imageList: 'worker_cards', fileName: '', w: 34, h: 45 },
+      { title: 'If you have to leave early', screenName: 'AboutScreen', fileName: '', },
+      { title: 'Things to pack', screenName: 'AboutScreen', fileName: '', },
+      { title: 'Things to know', screenName: 'AboutScreen', fileName: '', },
+      { title: 'Further safety strategies', screenName: 'AboutScreen', fileName: '', },
+      { title: 'Your health', screenName: 'AboutScreen', fileName: '', },
+      { title: 'Your rights and protection', screenName: 'AboutScreen', fileName: '', },
+      { title: 'Other rights and protection', screenName: 'AboutScreen', fileName: '', },
     ];
 
     return list.map((item, index) => this._renderCard(item, index));
@@ -71,42 +74,41 @@ export default class YourSafety extends React.Component {
     return (
       <TouchableOpacity
         key={index}
+        style={[Style.card, { padding: 10 }]}
         onPress={() => this._onPress(item)}
         activeOpacity={0.8}
-        style={[Style.card, { padding: 0 }]}
       >
         <View style={styles.cardContent}>
-          <View style={{ width: 46 }} />
+          <View style={styles.cardIcon}>
+            <Image source={Images.info} style={styles.cardInfoIcon} />
+          </View>
 
-          <View style={styles.cardImage}>
-            <Image source={item.image} style={styles.cardImageStyle} />
+          <View style={styles.cardDescription}>
+            <Text style={{ fontWeight: '700' }}>{item.title}</Text>
           </View>
 
           <View>
             <PlaySound
               fileName={'register'}
               buttonAudioStyle={{
-                backgroundColor: Color.white
+                backgroundColor: Color.primary
               }}
               iconStyle={{
-                tintColor: Color.primary
+                tintColor: Color.white
               }}
               activePlaying={this.state.activePlaying}
               onPress={(fileName) => this.setState({ activePlaying: fileName })}
-              style={{ marginTop: 10, marginRight: 10 }}
             />
           </View>
         </View>
 
-        <View style={styles.cardTitle}>
-          <Text style={[styles.title]}>{item.title}</Text>
-          <Icon name='keyboard-arrow-right' size={24} />
+        <View style={{ flexDirection: 'row', }}>
+          <Text style={[styles.title]}>View Detail</Text>
+          <Icon name='keyboard-arrow-right' size={24} style={{ color: Color.gray }} />
         </View>
       </TouchableOpacity>
     )
   }
-
-
 
   render() {
     return (
@@ -125,30 +127,36 @@ export default class YourSafety extends React.Component {
   }
 }
 
-
 const styles = StyleSheet.create({
   cardContent: {
     flexDirection: 'row',
-    backgroundColor: Color.primary,
+    borderBottomWidth: 1,
+    borderColor: '#efefef',
+    marginBottom: 10,
+    paddingBottom: 10,
   },
-  cardImage: {
-    flex: 1,
+  cardIcon: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: Color.primary,
   },
-  cardImageStyle: {
-    width: wp('40'),
-    height: wp('40')
+  cardDescription: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 14
   },
-  cardTitle: {
-    flexDirection: 'row',
-    paddingHorizontal: 14,
-    paddingVertical: 10,
+  cardInfoIcon: {
+    width: 30,
+    height: 30,
+    tintColor: Color.white
   },
   title: {
     flex: 1,
-    fontFamily: FontFamily.title,
-    color: Color.textBlack,
-    fontWeight: '700'
+    color: Color.gray,
+    fontWeight: '700',
+    textTransform: 'uppercase'
   },
 });
