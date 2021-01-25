@@ -26,6 +26,9 @@ export default Images = {
   share: require('../assets/images/icons/share.png'),
   doc: require('../assets/images/icons/doc.png'),
   next: require('../assets/images/icons/next.png'),
+  left_arrow: require('../assets/images/icons/left_arrow.png'),
+  down: require('../assets/images/icons/down.png'),
+  rotate: require('../assets/images/icons/rotate.png'),
 
   // Logo
   chc_logo: require('../assets/images/logos/chc_logo.png'),
