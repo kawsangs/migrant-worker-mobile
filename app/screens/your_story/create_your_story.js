@@ -1,22 +1,109 @@
 import React from 'react';
 import {
   View,
-  TouchableOpacity,
   Text,
-  StyleSheet,
   Image,
-  ScrollView,
+  TouchableOpacity,
+  Dimensions,
+  StyleSheet,
   StatusBar,
+  ScrollView,
 } from 'react-native';
-import { Icon, Toolbar } from 'react-native-material-ui';
+
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
 import PlaySound from '../../components/play_sound';
 import Images from '../../utils/images';
+import { InjectArray } from '../../utils/math';
+import uuidv4 from '../../utils/uuidv4';
+import { autoImageHeight } from '../../utils/image_style';
 import { addStatistic } from '../../utils/statistic';
-import ProgressCircle from 'react-native-progress-circle';
+import { Toolbar } from 'react-native-material-ui';
+
+
+
+const win = Dimensions.get('window');
 
 export default class CreateYourStory extends React.Component {
-  state = {}
+  state = {
+    questions: [
+      {
+        id: 1,
+        question: '1. What is your purpose there?',
+        answers: [
+          { id: 1, title: 'Answer A', answer: 'a', audioFileName: '' },
+          { id: 2, title: 'Answer B', answer: 'b', audioFileName: '' },
+          { id: 3, title: 'Answer C', answer: 'c', audioFileName: '' },
+          { id: 4, title: 'Answer D', answer: 'd', audioFileName: '' },
+          { id: 5, title: 'Answer E', answer: 'e', audioFileName: '' },
+          { id: 6, title: 'Answer F', answer: 'f', audioFileName: '' },
+        ]
+      },
+      {
+        id: 2,
+        question: '2. What is your purpose there?',
+        answers: [
+          { id: 1, title: 'Answer A', answer: 'a', audioFileName: '' },
+          { id: 2, title: 'Answer B', answer: 'b', audioFileName: '' },
+          { id: 3, title: 'Answer C', answer: 'c', audioFileName: '' },
+          { id: 4, title: 'Answer D', answer: 'd', audioFileName: '' },
+          { id: 5, title: 'Answer E', answer: 'e', audioFileName: '' },
+          { id: 6, title: 'Answer F', answer: 'f', audioFileName: '' },
+        ]
+      },
+      {
+        id: 3,
+        question: '3. What is your purpose there?',
+        answers: [
+          { id: 1, title: 'Answer A', answer: 'a', audioFileName: '' },
+          { id: 2, title: 'Answer B', answer: 'b', audioFileName: '' },
+          { id: 3, title: 'Answer C', answer: 'c', audioFileName: '' },
+          { id: 4, title: 'Answer D', answer: 'd', audioFileName: '' },
+          { id: 5, title: 'Answer E', answer: 'e', audioFileName: '' },
+          { id: 6, title: 'Answer F', answer: 'f', audioFileName: '' },
+        ]
+      },
+      {
+        id: 4,
+        question: '4. What is your purpose there?',
+        answers: [
+          { id: 1, title: 'Answer A', answer: 'a', audioFileName: '' },
+          { id: 2, title: 'Answer B', answer: 'b', audioFileName: '' },
+          { id: 3, title: 'Answer C', answer: 'c', audioFileName: '' },
+          { id: 4, title: 'Answer D', answer: 'd', audioFileName: '' },
+          { id: 5, title: 'Answer E', answer: 'e', audioFileName: '' },
+          { id: 6, title: 'Answer F', answer: 'f', audioFileName: '' },
+        ]
+      },
+      {
+        id: 5,
+        question: '5. What is your purpose there?',
+        answers: [
+          { id: 1, title: 'Answer A', answer: 'a', audioFileName: '' },
+          { id: 2, title: 'Answer B', answer: 'b', audioFileName: '' },
+          { id: 3, title: 'Answer C', answer: 'c', audioFileName: '' },
+          { id: 4, title: 'Answer D', answer: 'd', audioFileName: '' },
+          { id: 5, title: 'Answer E', answer: 'e', audioFileName: '' },
+          { id: 6, title: 'Answer F', answer: 'f', audioFileName: '' },
+        ]
+      },
+      {
+        id: 6,
+        question: '6. What is your purpose there?',
+        answers: [
+          { id: 1, title: 'Answer A', answer: 'a', audioFileName: '' },
+          { id: 2, title: 'Answer B', answer: 'b', audioFileName: '' },
+          { id: 3, title: 'Answer C', answer: 'c', audioFileName: '' },
+          { id: 4, title: 'Answer D', answer: 'd', audioFileName: '' },
+          { id: 5, title: 'Answer E', answer: 'e', audioFileName: '' },
+          { id: 6, title: 'Answer F', answer: 'f', audioFileName: '' },
+        ]
+      },
+    ],
+    current_question: 0,
+
+    answer: 'a',
+    progress: 40,
+  };
 
   _goTo(screenName) {
     addStatistic(`goTo${screenName.split('Screen')[0]}`);
@@ -50,121 +137,98 @@ export default class CreateYourStory extends React.Component {
     );
   }
 
-  _onPress(item) {
-    if (item.routeName == 'ImageViewScreen') {
-      addStatistic('migration_checklist_view_image', { title: item.title })
-    }
+  _renderCard(item) {
+    let isSelected = this.state.answer == item.answer;
+    let selectedAnswer = isSelected ? { backgroundColor: Color.pink } : { backgroundColor: Color.gray };
 
-    this.props.navigation.navigate(item.screenName, { title: item.title, imageList: item.imageList });
+    return (
+      <TouchableOpacity
+        key={uuidv4()}
+        onPress={() => this.setState({ answer: item.answer })}
+        style={[Style.card, styles.answerCard]}
+        activeOpacity={0.8}
+      >
+        {!isSelected && <View style={styles.coverSoundIcon}>
+          <PlaySound
+            buttonAudioStyle={{ backgroundColor: isSelected ? Color.white : Color.pink }}
+            iconStyle={{ tintColor: isSelected ? Color.pink : Color.white }}
+            fileName={item.audioFileName || 'register'}
+            activePlaying={this.state.activePlaying}
+            onPress={(fileName) => this.setState({ activePlaying: fileName })} />
+        </View>}
+
+        <View style={[styles.coverImage, selectedAnswer]}>
+          {isSelected && <Image source={Images.checked} style={{ width: 55, height: 55 }} />}
+        </View>
+
+        <View style={styles.cardTitle}>
+          <Text style={styles.title}>{item.title}</Text>
+        </View>
+      </TouchableOpacity>
+    );
   }
 
-  _renderContent() {
+  _renderCards() {
     let list = [
-      { title: '1st Story', subTitle: '6 questions', screenName: 'AboutScreen', fileName: '', },
-      { title: '2nd Story', subTitle: '6 questions', screenName: 'AboutScreen', fileName: '', },
-      { title: '3rd Story', subTitle: '6 questions', screenName: 'AboutScreen', fileName: '', },
+      { id: 1, title: 'Answer A', answer: 'a', audioFileName: '' },
+      { id: 2, title: 'Answer B', answer: 'b', audioFileName: '' },
+      { id: 3, title: 'Answer C', answer: 'c', audioFileName: '' },
+      { id: 4, title: 'Answer D', answer: 'd', audioFileName: '' },
+      { id: 5, title: 'Answer E', answer: 'e', audioFileName: '' },
+      { id: 6, title: 'Answer F', answer: 'f', audioFileName: '' },
     ];
 
-    return <View style={Style.container}>
-      <View style={{ marginBottom: 16 }}>
-        <Text style={styles.testStoryTitle}>Test your story</Text>
-      </View>
-      {list.map((item, index) => {
-        const is_last_item = (index !== list.length - 1) ? true : false;
-        return this._renderCard(item, index, is_last_item)
-      })}
-    </View>;
-  }
+    // let row = list.map((item) => this._renderCard(item));
+    let question = this.state.questions[this.state.current_question];
+    let row = question?.answers.map((item) => this._renderCard(item));
 
-  _renderCard(item, index, last_item) {
     return (
-      <View>
-        <TouchableOpacity
-          key={index}
-          style={[Style.card, { marginBottom: 10, padding: 15 }]}
-          onPress={() => this._onPress(item)}
-          activeOpacity={0.8}
-        >
-          <View style={styles.cardContent}>
-            <View style={styles.cardIcon}>
-              <Image source={Images.folder} style={styles.cardFolder} />
-            </View>
-
-            <View style={styles.cardDescription}>
-              <Text style={styles.cardTitle}>{item.title}</Text>
-              <Text style={styles.cardSubTitle}>{item.subTitle}</Text>
-            </View>
-
-            <View>
-              <PlaySound
-                fileName={'register'}
-                buttonAudioStyle={{ backgroundColor: Color.pink }}
-                iconStyle={{ tintColor: Color.white }}
-                activePlaying={this.state.activePlaying}
-                onPress={(fileName) => this.setState({ activePlaying: fileName })}
-              />
-            </View>
+      <View style={{ flex: 1 }}>
+        <View style={styles.question} >
+          <View style={{ flex: 1 }}>
+            <Text style={{ fontWeight: '700' }}>{question.question}</Text>
           </View>
+          <PlaySound
+            fileName={'register'}
+            buttonAudioStyle={{ backgroundColor: Color.pink }}
+            iconStyle={{ tintColor: Color.white }}
+            activePlaying={this.state.activePlaying}
+            onPress={(fileName) => this.setState({ activePlaying: fileName })}
+            style={{ marginHorizontal: 10 }}
+          />
+        </View>
 
-          <View style={{ flexDirection: 'row', }}>
-            <Text style={[styles.title]}>Start Test</Text>
-            <Icon name='keyboard-arrow-right' size={24} style={{ color: Color.gray }} />
-          </View>
-        </TouchableOpacity>
-        {
-          !last_item ? null : <View style={styles.verticalLine}>
-            <Image source={Images.vertical_line} style={[styles.cardFolder, { tintColor: Color.gray }]} />
-          </View>
-        }
+        <View style={styles.listAnswerContent}>
+          {row}
+        </View>
       </View>
-    )
+    );
   }
 
   _renderHeader() {
     return (
       <View style={{ backgroundColor: Color.pink }}>
-        <View style={[Style.card, styles.cardHeaderContent]}>
-          <View>
-            <ProgressCircle
-              percent={70}
-              radius={40}
-              borderWidth={10}
-              color="#0bc763"
-              shadowColor="#e4e6e9"
-              bgColor="#fff"
-            >
-              <Text style={{ fontSize: 18, fontWeight: '700' }}>{'70%'}</Text>
-            </ProgressCircle>
-          </View>
-          <View style={styles.headerCardTitle}>
-            <Text style={styles.headerCardMainTitle}>Safety Migration</Text>
-            <Text style={styles.headerCardSubTitle}>Percentage number of test</Text>
-          </View>
-          <View>
-            <PlaySound
-              fileName={'register'}
-              buttonAudioStyle={{ backgroundColor: Color.pink }}
-              iconStyle={{ tintColor: Color.white }}
-              activePlaying={this.state.activePlaying}
-              onPress={(fileName) => this.setState({ activePlaying: fileName })}
-            />
-          </View>
+        <View style={styles.topHeaderContent}>
+          <Text style={styles.topHeaderProgressLabel}>Progress 1/6</Text>
+        </View>
+        <View style={styles.topHeaderProgressBar}>
+          <View style={{ width: `${this.state.progress}%`, backgroundColor: Color.white }} />
         </View>
       </View>
     )
   }
 
-  _renderStartButton() {
+  _renderNextButton() {
     return (
-      <View style={[Style.boxShadow, styles.startButton]}>
+      <View style={[Style.boxShadow, styles.nextButton]}>
         <TouchableOpacity
-          onPress={() => this._submit()}
-          style={styles.startBtnAction}
+          onPress={() => this._goTo('CreateYourStoryTwoScreen')}
+          style={styles.nextBtnAction}
           activeOpacity={0.8}
         >
           <View style={{ width: 58 }} />
-          <View style={styles.coverStartText}>
-            <Text style={styles.startText}>Start</Text>
+          <View style={styles.coverNextText}>
+            <Text style={styles.nextText}>Next</Text>
           </View>
           <PlaySound
             fileName={'register'}
@@ -181,99 +245,98 @@ export default class CreateYourStory extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: "#ecedf1" }}>
+      <View style={{ flex: 1 }}>
         <StatusBar barStyle={'light-content'} backgroundColor={Color.pink} />
         {this._renderToolbar()}
         <ScrollView
           style={{ flex: 1 }}
           contentContainerStyle={{ flexGrow: 1 }}
           showsVerticalScrollIndicator={false}>
-          <View style={{ flex: 1, marginBottom: 0 }}>
-            {this._renderHeader()}
-            {this._renderContent()}
+          {this._renderHeader()}
+          <View style={[Style.container, { flex: 1, marginBottom: 0 }]}>
+            {this._renderCards()}
           </View>
         </ScrollView>
-        {this._renderStartButton()}
+        {this._renderNextButton()}
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  cardContent: {
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderColor: '#efefef',
-    marginBottom: 10,
-    paddingBottom: 10,
+  answerCard: {
+    width: '48%',
+    minHeight: 200,
+    marginBottom: 13,
+    padding: 0
   },
-  cardIcon: {
-    width: 60,
+  question: {
     height: 60,
-    borderRadius: 30,
-    justifyContent: 'center',
+    borderRadius: 10,
     alignItems: 'center',
-    backgroundColor: Color.pink,
+    flexDirection: 'row',
+    marginBottom: 16,
   },
-  cardDescription: {
+  listAnswerContent: {
     flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  topHeaderContent: {
+    flexDirection: 'row',
+    marginTop: 0,
+    marginHorizontal: 16,
+  },
+  topHeaderProgressLabel: {
+    color: Color.white,
+    fontSize: 13,
+    backgroundColor: '#902343',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+  },
+  topHeaderProgressBar: {
+    flexDirection: 'row',
+    marginBottom: 16,
+    marginHorizontal: 16,
+    padding: 0,
+    height: 8,
+    borderRadius: 10,
+    backgroundColor: '#b2355a',
+    overflow: 'hidden',
+  },
+  coverSoundIcon: {
+    alignItems: 'flex-end',
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 1
+  },
+  coverImage: {
     justifyContent: 'center',
-    paddingHorizontal: 14
-  },
-  cardFolder: {
-    width: 30,
-    height: 30,
-    tintColor: Color.yellow
-  },
-  title: {
     flex: 1,
-    color: Color.gray,
-    fontWeight: '700',
-    textTransform: 'uppercase'
-  },
-  testStoryTitle: {
-    fontSize: 23,
-    fontWeight: '700'
+    alignItems: 'center',
   },
   cardTitle: {
-    fontSize: 18,
+    paddingHorizontal: 14,
+    paddingVertical: 14
+  },
+  title: {
+    fontFamily: FontFamily.title,
     fontWeight: '700'
   },
-  cardSubTitle: {
-    fontSize: 14,
-    fontWeight: '700'
-  },
-  verticalLine: {
-    flex: 1,
-    alignItems: 'center',
-    marginBottom: 10
-  },
-  cardHeaderContent: {
+  rowStyle: {
     flexDirection: 'row',
-    margin: 16,
-    padding: 13,
-    backgroundColor: Color.white,
+    flex: 1
   },
-  headerCardTitle: {
-    flex: 1,
-    marginHorizontal: 10,
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-  headerCardMainTitle: {
-    fontSize: FontSize.title - 9,
-    fontWeight: '700'
-  },
-  headerCardSubTitle: {
-    fontSize: FontSize.body - 4,
-    color: Color.gray
-  },
-  startButton: {
+  nextButton: {
     paddingHorizontal: 16,
     paddingVertical: 10,
     backgroundColor: Color.white,
   },
-  startBtnAction: {
+  nextBtnAction: {
     height: 60,
     borderRadius: 10,
     justifyContent: 'center',
@@ -281,15 +344,15 @@ const styles = StyleSheet.create({
     backgroundColor: Color.pink,
     flexDirection: 'row'
   },
-  coverStartText: {
+  coverNextText: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  startText: {
+  nextText: {
     color: Color.white,
     fontFamily: FontFamily.title,
     fontWeight: '700',
     textTransform: 'uppercase',
-  }
+  },
 });
