@@ -31,6 +31,8 @@ export default Images = {
   rotate: require('../assets/images/icons/rotate.png'),
   vertical_line: require('../assets/images/icons/vertical_line.png'),
   folder: require('../assets/images/icons/folder.png'),
+  tick: require('../assets/images/icons/tick.png'),
+  user: require('../assets/images/icons/user.png'),
 
   // Logo
   chc_logo: require('../assets/images/logos/chc_logo.png'),

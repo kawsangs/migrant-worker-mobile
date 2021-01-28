@@ -55,7 +55,7 @@ export default class YourStory extends React.Component {
       addStatistic('migration_checklist_view_image', { title: item.title })
     }
 
-    this.props.navigation.navigate(item.screenName, { title: item.title, imageList: item.imageList });
+    this.props.navigation.navigate(item.screenName, { title: item.title });
   }
 
   _renderContent() {
@@ -78,9 +78,8 @@ export default class YourStory extends React.Component {
 
   _renderCard(item, index, last_item) {
     return (
-      <View>
+      <View key={index}>
         <TouchableOpacity
-          key={index}
           style={[Style.card, { marginBottom: 10, padding: 15 }]}
           onPress={() => this._onPress(item)}
           activeOpacity={0.8}
@@ -164,7 +163,7 @@ export default class YourStory extends React.Component {
     return (
       <View style={[Style.boxShadow, styles.startButton]}>
         <TouchableOpacity
-          onPress={() => this._submit()}
+          onPress={() => this._goTo('CreateYourStoryScreen')}
           style={styles.startBtnAction}
           activeOpacity={0.8}
         >

@@ -111,11 +111,12 @@ export default class CreateYourStory extends React.Component {
   }
 
   _renderToolbar() {
+    let title = this.props.route.params?.title || '';
     return (
       <Toolbar
         leftElement={'arrow-back'}
         onLeftElementPress={() => this.props.navigation.goBack()}
-        centerElement={'Create your story'}
+        centerElement={'Create your story ' + title}
         rightElement={'home'}
         onRightElementPress={() => this._goTo('HomeScreen')}
         size={30}
@@ -222,7 +223,7 @@ export default class CreateYourStory extends React.Component {
     return (
       <View style={[Style.boxShadow, styles.nextButton]}>
         <TouchableOpacity
-          onPress={() => this._goTo('CreateYourStoryTwoScreen')}
+          onPress={() => this._goTo('TestResultScreen')}
           style={styles.nextBtnAction}
           activeOpacity={0.8}
         >
