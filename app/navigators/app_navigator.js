@@ -42,6 +42,7 @@ import YourSafetyVideosScreen from '../screens/your_safety/videos';
 import YourStoryScreen from '../screens/your_story/your_story';
 import CreateYourStoryScreen from '../screens/your_story/create_your_story';
 import TestResultScreen from '../screens/your_story/test_result';
+import LookingForHelpScreen from '../screens/looking_for_help/looking_for_help';
 
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -136,6 +137,8 @@ export default class AppNavigator extends Component {
           <Stack.Screen name="CreateYourStoryScreen" component={CreateYourStoryScreen} options={{ headerShown: false }} />
 
           <Stack.Screen name="TestResultScreen" component={TestResultScreen} options={{ headerShown: false }} />
+          
+          <Stack.Screen name="LookingForHelpScreen" component={LookingForHelpScreen} options={{ headerShown: false }} />
 
 
           <Stack.Screen
