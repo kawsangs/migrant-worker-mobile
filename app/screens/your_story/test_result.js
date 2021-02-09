@@ -18,7 +18,7 @@ import ProgressCircle from 'react-native-progress-circle';
 
 export default class TestResult extends React.Component {
   state = {
-    progress: 75
+    progress: this.props.route.params.total_weight
   };
 
   _goTo(screenName) {
@@ -54,18 +54,21 @@ export default class TestResult extends React.Component {
   }
 
   _renderContent() {
+    let progress_bar_color = this.state.progress < 25 ? Color.red : this.state.progress < 50 ? Color.yellow : '#0bc763';
     return (
       <View style={{ flex: 1, paddingHorizontal: 30 }}>
         <View style={{ alignItems: 'center' }}>
           <View>
-            <View style={styles.coverTickIcon}>
+            <View style={[styles.coverTickIcon, {
+              backgroundColor: progress_bar_color,
+            }]}>
               <Image source={Images.tick} style={styles.tickIcon} />
             </View>
             <ProgressCircle
               percent={this.state.progress}
               radius={65}
               borderWidth={13}
-              color="#0bc763"
+              color={progress_bar_color}
               shadowColor="#e4e6e9"
               bgColor={Color.pink}
               containerStyle={{ transform: [{ rotate: '50deg' }] }}
@@ -174,7 +177,6 @@ const styles = StyleSheet.create({
     top: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#0bc763',
     borderRadius: 15
   },
   tickIcon: { width: 15, height: 15, tintColor: Color.white },
