@@ -43,6 +43,7 @@ import YourStoryScreen from '../screens/your_story/your_story';
 import CreateYourStoryScreen from '../screens/your_story/create_your_story';
 import TestResultScreen from '../screens/your_story/test_result';
 import LookingForHelpScreen from '../screens/looking_for_help/looking_for_help';
+import ListVideosScreen from '../screens/list_videos';
 
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -75,7 +76,8 @@ const BottomTabNavigator = () => {
       />
       <BottomTab.Screen
         name="VideosScreen"
-        component={VideosScreen}
+        // component={VideosScreen}
+        component={ListVideosScreen}
         options={{
           tabBarLabel: 'Videos',
         }}
@@ -137,7 +139,7 @@ export default class AppNavigator extends Component {
           <Stack.Screen name="CreateYourStoryScreen" component={CreateYourStoryScreen} options={{ headerShown: false }} />
 
           <Stack.Screen name="TestResultScreen" component={TestResultScreen} options={{ headerShown: false }} />
-          
+
           <Stack.Screen name="LookingForHelpScreen" component={LookingForHelpScreen} options={{ headerShown: false }} />
 
 
@@ -159,7 +161,7 @@ export default class AppNavigator extends Component {
           <Stack.Screen name="TextInfoScreen" component={TextInfoScreen} options={{ title: "ព័ត៌មានជាអក្សរ", headerShown: false }} />
           <Stack.Screen name="ServiceDirectoryScreen" component={ServiceDirectoryScreen} options={{ title: "សៀវភៅទូរស័ព្ទរកជំនួយ" }} />
           <Stack.Screen name="VideosScreen" component={VideosScreen} options={{ title: "វីដេអូ និងករណីចំណាកស្រុក", headerShown: false }} />
-          <Stack.Screen name="ViewVideoScreen" component={ViewVideoScreen} options={{ title: "វីដេអូ" }} />
+          <Stack.Screen name="ViewVideoScreen" component={ViewVideoScreen} options={{ headerShown: false }} />
 
           <Stack.Screen name="OtherDocScreen" component={OtherDocScreen} options={{ title: "ឯកសារផ្សេងៗ" }} />
 
