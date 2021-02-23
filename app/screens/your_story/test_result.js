@@ -18,7 +18,7 @@ import ProgressCircle from 'react-native-progress-circle';
 
 export default class TestResult extends React.Component {
   state = {
-    progress: this.props.route.params.total_weight
+    progress: parseFloat(this.props.route.params.total_weight)
   };
 
   _goTo(screenName) {
@@ -30,7 +30,7 @@ export default class TestResult extends React.Component {
     return (
       <Toolbar
         leftElement={'close'}
-        onLeftElementPress={() => this.props.navigation.goBack()}
+        onLeftElementPress={() => this.props.navigation.pop(2)}
         // centerElement={'Create your story'}
         // rightElement={'home'}
         // onRightElementPress={() => this._goTo('HomeScreen')}
@@ -54,7 +54,20 @@ export default class TestResult extends React.Component {
   }
 
   _renderContent() {
-    let progress_bar_color = this.state.progress < 25 ? Color.red : this.state.progress < 50 ? Color.yellow : '#0bc763';
+    let progress_bar_color = this.state.progress < 51 ? Color.red : this.state.progress < 76 ? Color.yellow : '#0bc763';
+    let high_risk = "You’re in high risk…";
+    let ready_to_migrate = "You’re about to ready to migrate…";
+    let ready_to_migrate_1 = "Your percentage of your safety migration…";
+    let description = '';
+
+    if (this.state.progress < 51) {
+      description = high_risk
+    } else if (this.state.progress < 76) {
+      description = ready_to_migrate
+    } else {
+      description = ready_to_migrate_1
+    }
+
     return (
       <View style={{ flex: 1, paddingHorizontal: 30 }}>
         <View style={{ alignItems: 'center' }}>
@@ -80,7 +93,7 @@ export default class TestResult extends React.Component {
         </View>
         <View style={{ alignItems: 'center' }}>
           <Text style={styles.textTitle}>Congratulation</Text>
-          <Text style={{ color: Color.white, textAlign: 'center' }}>Your percentage of your safety migration.</Text>
+          <Text style={{ color: Color.white, textAlign: 'center' }}>{description}</Text>
         </View>
         <View style={styles.borderStyle} />
         <View style={{ alignItems: 'center' }}>
