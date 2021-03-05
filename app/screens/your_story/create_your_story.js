@@ -16,6 +16,7 @@ import uuidv4 from '../../utils/uuidv4';
 import { addStatistic } from '../../utils/statistic';
 import { Toolbar } from 'react-native-material-ui';
 import Questionnaires from '../../data/json/questionnaires';
+import realm from '../../schemas/schema';
 
 export default class CreateYourStory extends React.Component {
 
@@ -58,9 +59,32 @@ export default class CreateYourStory extends React.Component {
   }
 
   _init() {
-    let get_questionnaires_data = Questionnaires.sort(function (a, b) {
-      return a.order - b.order;
-    });
+    let get_questionnaires_data = Questionnaires.sort(function (a, b) { return a.order - b.order; });
+    let get_question_from_realm = realm.objects('Question');
+    let list_question = null;
+
+    console.log("get_question_from_realm : ",get_question_from_realm);
+
+    if (get_question_from_realm.length > 0) {
+      // console.log("get_question_from_realm.length : ", get_question_from_realm.length);
+
+      list_question = get_question_from_realm;
+
+    } else {
+      // console.log("get_question_from_realm : ", get_question_from_realm);
+
+      try {
+        get_questionnaires_data.map(item => {
+          realm.write(() => {
+            realm.create('Question', item, true);
+          });
+        })
+      } catch (e) {
+        alert(e);
+      }
+
+      list_question = get_questionnaires_data;
+    }
 
     this.state = {
       current_question_index: 0,
@@ -135,7 +159,7 @@ export default class CreateYourStory extends React.Component {
         </View>
 
         <View style={styles.cardTitle}>
-          <Text style={styles.title}>{item.text}</Text>
+          <Text style={styles.title}>{item.title}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -468,6 +492,23 @@ export default class CreateYourStory extends React.Component {
   }
 
   render() {
+    // let getPerson = realm.objects('Person');
+    // let getUser = realm.objects('User');
+    // let getDog = realm.objects('Dog');
+
+    // console.log("getPerson : ", getPerson);
+
+    // getPerson.map(item => console.log('item dot dog : ', item.dog))
+
+    // console.log("getUser : ", getUser);
+    // console.log("getDog : ", getDog);
+
+    // ------------------------------------------------------------------
+
+    let getQuestion = realm.objects('Question');
+
+    // console.log('getQuestion from realm : ', getQuestion);
+
     return (
       <View style={{ flex: 1 }}>
         <StatusBar barStyle={'light-content'} backgroundColor={Color.pink} />
