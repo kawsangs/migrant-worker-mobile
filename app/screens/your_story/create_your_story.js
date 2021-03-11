@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -17,8 +17,11 @@ import { addStatistic } from '../../utils/statistic';
 import { Toolbar } from 'react-native-material-ui';
 import Questionnaires from '../../data/json/questionnaires';
 import realm from '../../schemas/schema';
+import i18n from 'i18next';
+import { withTranslation } from 'react-i18next';
 
-export default class CreateYourStory extends React.Component {
+
+class CreateYourStory extends Component {
 
   constructor(props) {
     super(props)
@@ -31,12 +34,14 @@ export default class CreateYourStory extends React.Component {
   }
 
   _renderToolbar() {
-    let title = this.props.route.params?.title || '';
+    let params = this.props.route.params || '';
+    let title = params && params.title[`title_${i18n.language}`];
+
     return (
       <Toolbar
         leftElement={'arrow-back'}
         onLeftElementPress={() => this.props.navigation.goBack()}
-        centerElement={'Create your story ' + title}
+        centerElement={this.props.t('CreateYourStoryScreen.HeaderTitle') + " " + title}
         rightElement={'home'}
         onRightElementPress={() => this._goTo('HomeScreen')}
         size={30}
@@ -63,7 +68,7 @@ export default class CreateYourStory extends React.Component {
     let get_question_from_realm = realm.objects('Question');
     let list_question = null;
 
-    console.log("get_question_from_realm : ",get_question_from_realm);
+    console.log("get_question_from_realm : ", get_question_from_realm);
 
     if (get_question_from_realm.length > 0) {
       // console.log("get_question_from_realm.length : ", get_question_from_realm.length);
@@ -159,7 +164,7 @@ export default class CreateYourStory extends React.Component {
         </View>
 
         <View style={styles.cardTitle}>
-          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.title}>{item[`title_${i18n.language}`]}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -178,7 +183,7 @@ export default class CreateYourStory extends React.Component {
       <View style={{ flex: 1 }}>
         <View style={styles.question} >
           <View style={{ flex: 1 }}>
-            <Text style={{ fontWeight: '700' }}>{question.question}</Text>
+            <Text style={{ fontWeight: '700' }}>{question[`question_${i18n.language}`]}</Text>
           </View>
           <PlaySound
             fileName={'register'}
@@ -203,7 +208,7 @@ export default class CreateYourStory extends React.Component {
     return (
       <View style={{ backgroundColor: Color.pink }}>
         <View style={styles.topHeaderContent}>
-          <Text style={styles.topHeaderProgressLabel}>Progress {this.state.current_question_index + 1}/{this.state.question_length}</Text>
+          <Text style={styles.topHeaderProgressLabel}>{this.props.t('CreateYourStoryScreen.Progress')}{" "}{this.state.current_question_index + 1}/{this.state.question_length}</Text>
         </View>
         <View style={styles.topHeaderProgressBar}>
           <View style={{ width: `${progress_bar_width}%`, backgroundColor: Color.white }} />
@@ -476,7 +481,7 @@ export default class CreateYourStory extends React.Component {
         >
           <View style={{ width: 58 }} />
           <View style={styles.coverNextText}>
-            <Text style={[styles.nextText, { color: hasSelectedAnswer ? Color.white : Color.textBlack }]}>Next</Text>
+            <Text style={[styles.nextText, { color: hasSelectedAnswer ? Color.white : Color.textBlack }]}>{this.props.t('CreateYourStoryScreen.Next')}</Text>
           </View>
           <PlaySound
             fileName={'register'}
@@ -492,18 +497,6 @@ export default class CreateYourStory extends React.Component {
   }
 
   render() {
-    // let getPerson = realm.objects('Person');
-    // let getUser = realm.objects('User');
-    // let getDog = realm.objects('Dog');
-
-    // console.log("getPerson : ", getPerson);
-
-    // getPerson.map(item => console.log('item dot dog : ', item.dog))
-
-    // console.log("getUser : ", getUser);
-    // console.log("getDog : ", getDog);
-
-    // ------------------------------------------------------------------
 
     let getQuestion = realm.objects('Question');
 
@@ -622,3 +615,6 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
 });
+
+
+export default withTranslation()(CreateYourStory);

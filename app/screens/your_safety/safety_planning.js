@@ -1,4 +1,6 @@
-import React from 'react';
+import i18n from 'i18next';
+import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 import {
   View,
   TouchableOpacity,
@@ -14,7 +16,7 @@ import Images from '../../utils/images';
 import { addStatistic } from '../../utils/statistic';
 
 
-export default class SafetyPlanning extends React.Component {
+class SafetyPlanning extends React.Component {
   state = {}
 
   _goTo(screenName) {
@@ -27,7 +29,7 @@ export default class SafetyPlanning extends React.Component {
       <Toolbar
         leftElement={'arrow-back'}
         onLeftElementPress={() => this.props.navigation.goBack()}
-        centerElement={'Safety Planning'}
+        centerElement={this.props.t('SafetyPlanningScreen.HeaderTitle')}
         rightElement={'home'}
         onRightElementPress={() => this._goTo('HomeScreen')}
         size={30}
@@ -58,13 +60,48 @@ export default class SafetyPlanning extends React.Component {
 
   _renderContent() {
     let list = [
-      { title: 'If you have to leave early', screenName: 'AboutScreen', fileName: '', },
-      { title: 'Things to pack', screenName: 'AboutScreen', fileName: '', },
-      { title: 'Things to know', screenName: 'AboutScreen', fileName: '', },
-      { title: 'Further safety strategies', screenName: 'AboutScreen', fileName: '', },
-      { title: 'Your health', screenName: 'AboutScreen', fileName: '', },
-      { title: 'Your rights and protection', screenName: 'AboutScreen', fileName: '', },
-      { title: 'Other rights and protection', screenName: 'AboutScreen', fileName: '', },
+      {
+        title_en: 'If you have to leave early',
+        title_kh: 'ប្រសិនបើអ្នកត្រូវចាកចេញមុនពេលកំណត់',
+        screenName: 'AboutScreen',
+        fileName: '',
+      },
+      {
+        title_en: 'Things to pack',
+        title_kh: 'របស់របរត្រូវខ្ចប់',
+        screenName: 'AboutScreen',
+        fileName: '',
+      },
+      {
+        title_en: 'Things to know',
+        title_kh: 'រឿងដែលត្រូវដឹង',
+        screenName: 'AboutScreen',
+        fileName: '',
+      },
+      {
+        title_en: 'Further safety strategies',
+        title_kh: 'យុទ្ធសាស្ត្រសុវត្ថិភាពបន្ថែម',
+        screenName: 'AboutScreen',
+        fileName: '',
+      },
+      {
+        title_en: 'Your health',
+        title_kh: 'សុខភាព​របស់​អ្នក',
+        screenName: 'AboutScreen',
+        fileName: '',
+      },
+      {
+        title_en: 'Your rights and protection',
+        title_kh: 'សិទ្ធិនិងការការពាររបស់អ្នក',
+        screenName: 'AboutScreen',
+        fileName: '',
+      },
+      {
+        title_en: 'Other rights and protection',
+        title_kh: 'សិទ្ធិនិងការការពារផ្សេងៗ',
+        screenName: 'AboutScreen',
+        fileName: '',
+      },
     ];
 
     return list.map((item, index) => this._renderCard(item, index));
@@ -84,7 +121,7 @@ export default class SafetyPlanning extends React.Component {
           </View>
 
           <View style={styles.cardDescription}>
-            <Text style={{ fontWeight: '700' }}>{item.title}</Text>
+            <Text style={{ fontWeight: '700' }}>{item[`title_${i18n.language}`]}</Text>
           </View>
 
           <View>
@@ -103,7 +140,7 @@ export default class SafetyPlanning extends React.Component {
         </View>
 
         <View style={{ flexDirection: 'row', }}>
-          <Text style={[styles.title]}>View Detail</Text>
+          <Text style={[styles.title]}>{this.props.t("SafetyPlanningScreen.ViewDetail")}</Text>
           <Icon name='keyboard-arrow-right' size={24} style={{ color: Color.gray }} />
         </View>
       </TouchableOpacity>
@@ -160,3 +197,5 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase'
   },
 });
+
+export default withTranslation()(SafetyPlanning);

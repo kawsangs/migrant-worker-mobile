@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -9,7 +9,7 @@ import {
   Platform
 } from 'react-native';
 
-import { Icon } from 'react-native-material-ui';
+import { Icon, Toolbar } from 'react-native-material-ui';
 import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
 import Audio from '../components/audio';
 import Toast, { DURATION } from 'react-native-easy-toast';
@@ -20,11 +20,11 @@ import SexOption from '../components/sex_option';
 import Sidekiq from '../utils/sidekiq';
 import { addStatistic } from '../utils/statistic';
 import color from '../assets/stylesheets/base/color';
-import style from '../assets/stylesheets/base/style';
+import { withTranslation } from 'react-i18next';
 
 const requiredFields = ['uuid', 'name', 'sex', 'age'];
 
-export default class Register extends React.Component {
+class Register extends Component {
   state = {
     uuid: uuidv4(),
     name: '',
@@ -51,7 +51,7 @@ export default class Register extends React.Component {
           <View style={styles.textInputWrapper}>
             <Icon name={item.iconName} size={24} style={styles.inputIcon} />
             <TextInput
-              placeholder={item.placeholder}
+              placeholder={this.props.t("RegisterScreen." + item.placeholder)}
               style={styles.textInput}
               keyboardType={item.keyboardType || 'default'}
               onChangeText={value => this._setState(item.stateName, value)}
@@ -83,7 +83,7 @@ export default class Register extends React.Component {
     return (
       <View style={{ marginBottom: 24 }}>
         <View style={{ marginBottom: 10, flexDirection: 'row' }}>
-          <Text style={{ flex: 1 }}>Choose Gender</Text>
+          <Text style={{ flex: 1 }}>{this.props.t('RegisterScreen.ChooseGender')}</Text>
           {this._buildButtonAudio('register')}
         </View>
 
@@ -102,7 +102,7 @@ export default class Register extends React.Component {
       <View style={styles.separatorCover}>
         <View style={styles.line} />
         <View style={styles.separatorCoverLabel}>
-          <Text style={styles.separatorLabel}>OR</Text>
+          <Text style={styles.separatorLabel}>{this.props.t('RegisterScreen.OR')}</Text>
         </View>
         <View style={styles.line} />
       </View>
@@ -112,7 +112,7 @@ export default class Register extends React.Component {
   _renderVoiceRecord() {
     return (
       <View style={styles.voiceRecord}>
-        <Text>Record voice</Text>
+        <Text>{this.props.t('RegisterScreen.RecordVoice')}</Text>
         <Audio
           callback={(path) => this.setState({ voiceRecord: path })}
           audioPath={this.state.voiceRecord} />
@@ -122,7 +122,7 @@ export default class Register extends React.Component {
 
   _submit() {
     if (!this._isFormValid()) {
-      return this.refs.toast.show('សូមបំពេញព័ត៌មានជាមុនសិន...!', DURATION.SHORT);
+      return this.refs.toast.show(this.props.t("RegisterScreen.WarningFillRequiredInfo"), DURATION.SHORT);
     }
 
     try {
@@ -153,7 +153,7 @@ export default class Register extends React.Component {
     let value = this.state[field];
 
     if (value == null || !value.length) {
-      this.formError[field] = ["មិនអាចទទេបានទេ"];
+      this.formError[field] = [this.props.t('RegisterScreen.CanNotBeBlank')];
     } else {
       delete this.formError[field];
     }
@@ -188,21 +188,47 @@ export default class Register extends React.Component {
       >
         <View style={{ width: 58 }} />
         <View style={styles.coverRegisterLabel}>
-          <Text style={styles.buttonNextText}>Register</Text>
+          <Text style={styles.buttonNextText}>{this.props.t("RegisterScreen.ButtonRegister")}</Text>
         </View>
         {this._buildButtonAudio('register', true)}
       </TouchableOpacity>
     )
   }
 
+  _renderToolbar() {
+    return (
+      <Toolbar
+        leftElement={'arrow-back'}
+        onLeftElementPress={() => this.props.navigation.goBack()}
+        centerElement={this.props.t('RegisterScreen.HeaderTitle')}
+        // rightElement={'home'}
+        // onRightElementPress={() => this._goTo('HomeScreen')}
+        size={30}
+        style={{
+          titleText: {
+            fontFamily: FontFamily.title,
+            textAlign: 'center',
+          },
+          centerElementContainer: {
+            marginLeft: 0
+          },
+          container: {
+            width: '100%',
+          },
+        }}
+      />
+    );
+  }
+
   render() {
     let list = [
-      { stateName: 'name', iconName: 'person', placeholder: 'Enter your name', audioFilename: '' },
-      { stateName: 'age', iconName: 'person', placeholder: 'Enter your age', audioFilename: '', keyboardType: 'number-pad' },
+      { stateName: 'name', iconName: 'person', placeholder: 'EnterYourName', audioFilename: '' },
+      { stateName: 'age', iconName: 'person', placeholder: 'EnterYourAge', audioFilename: '', keyboardType: 'number-pad' },
     ]
 
     return (
       <View style={{ flex: 1 }}>
+        {this._renderToolbar()}
         <ScrollView style={{ flex: 1 }}>
           <View style={styles.container}>
             {this._renderTextInput(list[0])}
@@ -307,3 +333,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   }
 });
+
+export default withTranslation()(Register);

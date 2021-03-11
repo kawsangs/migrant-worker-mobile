@@ -1,0 +1,93 @@
+{
+    "translation": {
+        "RegisterScreen": {
+            "HeaderTitle": "Register",
+            "EnterYourName": "Enter your name",
+            "ChooseGender": "Choose Gender",
+            "EnterYourAge": "Enter your age",
+            "OR": "OR",
+            "RecordVoice": "Record voice",
+            "ButtonRegister": "Register",
+            "CanNotBeBlank": "Can not be blank",
+            "WarningFillRequiredInfo": "Fill in required information ...!",
+            "Gender": {
+                "Male": "Male",
+                "Female": "Female"
+            }
+        },
+        "MoreScreen": {
+            "More": "More",
+            "AboutUs": "About Us",
+            "ShareApp": "Share App",
+            "PrivacyPolicy": "Privacy Policy",
+            "TermsConditions": "Terms & Condition",
+            "Edit": "Edit",
+            "AppVersion": "Version"
+        },
+        "HomeScreen": {
+            "WelcomeTo": "Welcome to",
+            "Homepage": "Homepage",
+            "Home": "Home",
+            "Videos": "Videos",
+            "More": "More"
+        },
+        "BeforeYouGoScreen": {
+            "HeaderTitle": "Before you go",
+            "CheckListForDeparture": "Checklist for departure",
+        },
+        "PrepareYourTripScreen": {
+            "HeaderTitle": "Predeparture list",
+            "Descriptions": "Things prepare before departures"
+        },
+        "ImageViewScreen": {
+            "Rotate": "Rotate"
+        },
+        "YourSafetyScreen": {
+            "HeaderTitle": "Your Safety"
+        },
+        "YourRightSafetyScreen": {
+            "HeaderTitle": "Your rights & safety",
+            "ViewDetail": "View Detail"
+        },
+        "SafetyPlanningScreen": {
+            "HeaderTitle": "Safety Planning",
+            "ViewDetail": "View Detail"
+        },
+        "VideosScreen": {
+            "HeaderTitle": "Videos"
+        },
+        "InternetConnection": {
+            "NoInternetConnection": "No internet connection",
+            "PleaseRetry": "Please retry",
+            "PleaseCheckYourInternetConnection": "Please check your internet connection first"
+        },
+        "LookingForHelpScreen": {
+            "HeaderTitle": "Looking for help"
+        },
+        "YourStoryScreen": {
+            "HeaderCard": {
+                "Title": "Safety Migration",
+                "Description": "Percentage number of test"
+            },
+            "HeaderTitle": "Create your story",
+            "Title": "Test your story",
+            "StartTest": "Start Test",
+            "Start": "Start"
+        },
+        "CreateYourStoryScreen": {
+            "HeaderTitle": "Create your story",
+            "Progress": "Progress",
+            "Next": "Next"
+        },
+        "TestResultScreen": {
+            "Title": "Congratulation",
+            "OptionI": "You’re in high risk…",
+            "OptionII": "You’re about to ready to migrate…",
+            "OptionIII": "Your percentage of your safety migration…",
+            "SubTitle": "Advice for your result",
+            "DescriptionI": "If you have to leave early",
+            "DescriptionII": "If you have to leave early",
+            "Done": "Done"
+        }
+    }
+}

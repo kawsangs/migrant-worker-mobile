@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -14,9 +14,11 @@ import Images from '../../utils/images';
 import { addStatistic } from '../../utils/statistic';
 import { Toolbar } from 'react-native-material-ui';
 import ProgressCircle from 'react-native-progress-circle';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 
-export default class TestResult extends React.Component {
+class TestResult extends Component {
   state = {
     progress: parseFloat(this.props.route.params.total_weight)
   };
@@ -55,9 +57,9 @@ export default class TestResult extends React.Component {
 
   _renderContent() {
     let progress_bar_color = this.state.progress < 51 ? Color.red : this.state.progress < 76 ? Color.yellow : '#0bc763';
-    let high_risk = "You’re in high risk…";
-    let ready_to_migrate = "You’re about to ready to migrate…";
-    let ready_to_migrate_1 = "Your percentage of your safety migration…";
+    let high_risk = this.props.t('TestResultScreen.OptionI');
+    let ready_to_migrate = this.props.t('TestResultScreen.OptionII');
+    let ready_to_migrate_1 = this.props.t('TestResultScreen.OptionIII');
     let description = '';
 
     if (this.state.progress < 51) {
@@ -92,26 +94,26 @@ export default class TestResult extends React.Component {
           </View>
         </View>
         <View style={{ alignItems: 'center' }}>
-          <Text style={styles.textTitle}>Congratulation</Text>
+          <Text style={styles.textTitle}>{this.props.t('TestResultScreen.Title')}</Text>
           <Text style={{ color: Color.white, textAlign: 'center' }}>{description}</Text>
         </View>
         <View style={styles.borderStyle} />
         <View style={{ alignItems: 'center' }}>
-          <Text style={[styles.textTitle, { marginBottom: 16 }]}>Advice for your result</Text>
+          <Text style={[styles.textTitle, { marginBottom: 16 }]}>{this.props.t('TestResultScreen.SubTitle')}</Text>
           <View style={styles.bottomItem}>
             <View style={styles.bottomItemIcon}>
               <Image source={Images.user} style={{ width: 35, height: 35, tintColor: Color.pink }} />
             </View>
-            <View>
-              <Text style={{ color: Color.white }}>If you have to leave early</Text>
+            <View style={{ flex: 1 }}>
+              <Text style={{ color: Color.white, flex: 1, flexWrap: 'wrap' }}>{this.props.t('TestResultScreen.DescriptionI')}</Text>
             </View>
           </View>
           <View style={styles.bottomItem}>
             <View style={styles.bottomItemIcon}>
               <Image source={Images.user} style={{ width: 35, height: 35, tintColor: Color.pink }} />
             </View>
-            <View>
-              <Text style={{ color: Color.white }}>If you have to leave early</Text>
+            <View style={{ flex: 1 }}>
+              <Text style={{ color: Color.white, flex: 1, flexWrap: 'wrap' }}>{this.props.t('TestResultScreen.DescriptionII')}</Text>
             </View>
           </View>
         </View>
@@ -129,7 +131,7 @@ export default class TestResult extends React.Component {
         >
           <View style={{ width: 58 }} />
           <View style={styles.coverDoneText}>
-            <Text style={styles.doneText}>Done</Text>
+            <Text style={styles.doneText}>{this.props.t('TestResultScreen.Done')}</Text>
           </View>
           <PlaySound
             fileName={'register'}
@@ -217,3 +219,6 @@ const styles = StyleSheet.create({
     marginRight: 15
   }
 });
+
+
+export default withTranslation()(TestResult);

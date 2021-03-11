@@ -3,12 +3,33 @@ export default [
     order: 1,
     code: 'question_1',
     type: 'multiple_choice',
-    question: '1. What is your purpose there?',
+    question_en: '1. What is your purpose there?',
+    question_kh: '1. តើអ្នកមានគោលបំណងអ្វីនៅទីនោះ?',
     options: [
-      { id: 1, title: 'Answer A', weight: 0.50 },
-      { id: 2, title: 'Answer B', weight: 0.70 },
-      { id: 3, title: 'Answer C', weight: 0.85 },
-      { id: 4, title: 'Answer D', weight: 0.50 },
+      {
+        id: 1,
+        title_en: 'Answer A',
+        title_kh: 'ចម្លើយ ក',
+        weight: 0.50
+      },
+      {
+        id: 2,
+        title_en: 'Answer B',
+        title_kh: 'ចម្លើយ ខ',
+        weight: 0.70
+      },
+      {
+        id: 3,
+        title_en: 'Answer C',
+        title_kh: 'ចម្លើយ គ',
+        weight: 0.85
+      },
+      {
+        id: 4,
+        title_en: 'Answer D',
+        title_kh: 'ចម្លើយ ឃ',
+        weight: 0.50
+      },
     ],
     skip_logic: null
   },
@@ -16,12 +37,33 @@ export default [
     order: 2,
     code: 'question_2',
     type: 'multiple_choice',
-    question: '2. What is your purpose there?',
+    question_en: '2. What is your purpose there?',
+    question_kh: '2. តើអ្នកមានគោលបំណងអ្វីនៅទីនោះ?',
     options: [
-      { id: 1, title: 'Answer A', weight: 0.50 },
-      { id: 2, title: 'Answer B', weight: 0.70 },
-      { id: 3, title: 'Answer C', weight: 0.85 },
-      { id: 4, title: 'Answer D', weight: 0.50 },
+      {
+        id: 1,
+        title_en: 'Answer A',
+        title_kh: 'ចម្លើយ ក',
+        weight: 0.50
+      },
+      {
+        id: 2,
+        title_en: 'Answer B',
+        title_kh: 'ចម្លើយ ខ',
+        weight: 0.70
+      },
+      {
+        id: 3,
+        title_en: 'Answer C',
+        title_kh: 'ចម្លើយ គ',
+        weight: 0.85
+      },
+      {
+        id: 4,
+        title_en: 'Answer D',
+        title_kh: 'ចម្លើយ ឃ',
+        weight: 0.50
+      },
     ],
     skip_logic: {
       operator: 'and',
@@ -38,12 +80,33 @@ export default [
     order: 3,
     code: 'question_3',
     type: 'multiple_choice',
-    question: '3. What is your purpose there?',
+    question_en: '3. What is your purpose there?',
+    question_kh: '3. តើអ្នកមានគោលបំណងអ្វីនៅទីនោះ?',
     options: [
-      { id: 1, title: 'Answer A', weight: 0.50 },
-      { id: 2, title: 'Answer B', weight: 0.70 },
-      { id: 3, title: 'Answer C', weight: 0.85 },
-      { id: 4, title: 'Answer D', weight: 0.50 },
+      {
+        id: 1,
+        title_en: 'Answer A',
+        title_kh: 'ចម្លើយ ក',
+        weight: 0.50
+      },
+      {
+        id: 2,
+        title_en: 'Answer B',
+        title_kh: 'ចម្លើយ ខ',
+        weight: 0.70
+      },
+      {
+        id: 3,
+        title_en: 'Answer C',
+        title_kh: 'ចម្លើយ គ',
+        weight: 0.85
+      },
+      {
+        id: 4,
+        title_en: 'Answer D',
+        title_kh: 'ចម្លើយ ឃ',
+        weight: 0.50
+      },
     ],
     skip_logic: {
       operator: 'and',
@@ -65,12 +128,33 @@ export default [
     order: 4,
     code: 'question_4',
     type: 'multiple_choice',
-    question: '4. What is your purpose there?',
+    question_en: '4. What is your purpose there?',
+    question_kh: '4. តើអ្នកមានគោលបំណងអ្វីនៅទីនោះ?',
     options: [
-      { id: 1, title: 'Answer A', weight: 0.50 },
-      { id: 2, title: 'Answer B', weight: 0.70 },
-      { id: 3, title: 'Answer C', weight: 0.85 },
-      { id: 4, title: 'Answer D', weight: 0.50 },
+      {
+        id: 1,
+        title_en: 'Answer A',
+        title_kh: 'ចម្លើយ ក',
+        weight: 0.50
+      },
+      {
+        id: 2,
+        title_en: 'Answer B',
+        title_kh: 'ចម្លើយ ខ',
+        weight: 0.70
+      },
+      {
+        id: 3,
+        title_en: 'Answer C',
+        title_kh: 'ចម្លើយ គ',
+        weight: 0.85
+      },
+      {
+        id: 4,
+        title_en: 'Answer D',
+        title_kh: 'ចម្លើយ ឃ',
+        weight: 0.50
+      },
     ],
     skip_logic: {
       operator: 'or',
@@ -92,12 +176,33 @@ export default [
     order: 5,
     code: 'question_5',
     type: 'multiple_choice',
-    question: '5. What is your purpose there?',
+    question_en: '5. What is your purpose there?',
+    question_kh: '5. តើអ្នកមានគោលបំណងអ្វីនៅទីនោះ?',
     options: [
-      { id: 1, title: 'Answer A', weight: 0.50 },
-      { id: 2, title: 'Answer B', weight: 0.70 },
-      { id: 3, title: 'Answer C', weight: 0.85 },
-      { id: 4, title: 'Answer D', weight: 0.50 },
+      {
+        id: 1,
+        title_en: 'Answer A',
+        title_kh: 'ចម្លើយ ក',
+        weight: 0.50
+      },
+      {
+        id: 2,
+        title_en: 'Answer B',
+        title_kh: 'ចម្លើយ ខ',
+        weight: 0.70
+      },
+      {
+        id: 3,
+        title_en: 'Answer C',
+        title_kh: 'ចម្លើយ គ',
+        weight: 0.85
+      },
+      {
+        id: 4,
+        title_en: 'Answer D',
+        title_kh: 'ចម្លើយ ឃ',
+        weight: 0.50
+      },
     ],
     skip_logic: {
       operator: 'or',
@@ -119,12 +224,33 @@ export default [
     order: 6,
     code: 'question_6',
     type: 'multiple_choice',
-    question: '6. What is your purpose there?',
+    question_en: '6. What is your purpose there?',
+    question_kh: '6. តើអ្នកមានគោលបំណងអ្វីនៅទីនោះ?',
     options: [
-      { id: 1, title: 'Answer A', weight: 0.50 },
-      { id: 2, title: 'Answer B', weight: 0.70 },
-      { id: 3, title: 'Answer C', weight: 0.85 },
-      { id: 4, title: 'Answer D', weight: 0.50 },
+      {
+        id: 1,
+        title_en: 'Answer A',
+        title_kh: 'ចម្លើយ ក',
+        weight: 0.50
+      },
+      {
+        id: 2,
+        title_en: 'Answer B',
+        title_kh: 'ចម្លើយ ខ',
+        weight: 0.70
+      },
+      {
+        id: 3,
+        title_en: 'Answer C',
+        title_kh: 'ចម្លើយ គ',
+        weight: 0.85
+      },
+      {
+        id: 4,
+        title_en: 'Answer D',
+        title_kh: 'ចម្លើយ ឃ',
+        weight: 0.50
+      },
     ],
     skip_logic: {
       operator: 'and',
