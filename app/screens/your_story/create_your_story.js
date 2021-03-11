@@ -70,26 +70,26 @@ class CreateYourStory extends Component {
 
     console.log("get_question_from_realm : ", get_question_from_realm);
 
-    if (get_question_from_realm.length > 0) {
-      // console.log("get_question_from_realm.length : ", get_question_from_realm.length);
+    // if (get_question_from_realm.length > 0) {
+    //   // console.log("get_question_from_realm.length : ", get_question_from_realm.length);
 
-      list_question = get_question_from_realm;
+    //   list_question = get_question_from_realm;
 
-    } else {
-      // console.log("get_question_from_realm : ", get_question_from_realm);
+    // } else {
+    //   // console.log("get_question_from_realm : ", get_question_from_realm);
 
-      try {
-        get_questionnaires_data.map(item => {
-          realm.write(() => {
-            realm.create('Question', item, true);
-          });
-        })
-      } catch (e) {
-        alert(e);
-      }
+    //   try {
+    //     get_questionnaires_data.map(item => {
+    //       realm.write(() => {
+    //         realm.create('Question', item, true);
+    //       });
+    //     })
+    //   } catch (e) {
+    //     alert(e);
+    //   }
 
-      list_question = get_questionnaires_data;
-    }
+    //   list_question = get_questionnaires_data;
+    // }
 
     this.state = {
       current_question_index: 0,

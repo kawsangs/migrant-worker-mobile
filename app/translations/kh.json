@@ -39,6 +39,14 @@
             "HeaderTitle": "បញ្ជីមុនចេញដំណើរ",
             "Descriptions": "យ៉ាងត្រៀមមុនចេញដំណើរ"
         },
+        "MigrationScreen": {
+            "HeaderTitle": "ការធ្វើចំណាកស្រុក",
+            "Descriptions": "យ៉ាងត្រៀមសម្រាប់ការធ្វើចំណាកស្រុក"
+        },
+        "ComingHomeScreen": {
+            "HeaderTitle": "មកដល់ផ្ទះ",
+            "Descriptions": "យ៉ាងត្រៀមសម្រាប់ការមកដល់ផ្ទះ"
+        },
         "ImageViewScreen": {
             "Rotate": "បង្វិល"
         },

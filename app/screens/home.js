@@ -49,7 +49,7 @@ class Home extends Component {
         </View>
 
         <View style={[styles.coverImage, { backgroundColor: item.backgroundColor || Color.primary }]}>
-          <Image source={Images[item.iconName]} style={imageStyle} />
+          <Image source={Images[item.iconName]} style={{ width: '100%', height: '100%', resizeMode: 'cover', }} />
         </View>
 
         <View style={styles.cardTitle}>
@@ -64,7 +64,7 @@ class Home extends Component {
       {
         title_en: 'Before you go',
         title_kh: 'មុនចាកចេញ',
-        iconName: 'safe_migrant',
+        iconName: 'before_you_go',
         screenName: 'BeforeYouGoScreen',
         imageWidth: '480',
         imageHeight: '360',
@@ -74,7 +74,7 @@ class Home extends Component {
       {
         title_en: 'Your Safety',
         title_kh: 'សុវត្ថភាពរបស់អ្នក',
-        iconName: 'text_info',
+        iconName: 'your_safety',
         screenName: 'YourSafetyScreen',
         imageWidth: '300',
         imageHeight: '372',
@@ -84,7 +84,7 @@ class Home extends Component {
       {
         title_en: 'Looking for help?',
         title_kh: 'ស្វែងរកជំនួយ?',
-        iconName: 'service_directory',
+        iconName: 'looking_for_help',
         screenName: 'LookingForHelpScreen',
         imageWidth: '440',
         imageHeight: '344',
@@ -94,7 +94,7 @@ class Home extends Component {
       {
         title_en: 'Your Story',
         title_kh: 'រឿងរបស់អ្នក',
-        iconName: 'video',
+        iconName: 'your_story',
         screenName: 'YourStoryScreen',
         imageWidth: '440',
         imageHeight: '344',

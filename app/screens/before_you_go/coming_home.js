@@ -17,7 +17,7 @@ import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
 
 
-class PrepareYourTrip extends Component {
+class ComingHome extends Component {
   state = {}
 
   _renderToolbar() {
@@ -25,7 +25,7 @@ class PrepareYourTrip extends Component {
       <Toolbar
         leftElement={'arrow-back'}
         onLeftElementPress={() => this.props.navigation.goBack()}
-        centerElement={this.props.t('PrepareYourTripScreen.HeaderTitle')}
+        centerElement={this.props.t('ComingHomeScreen.HeaderTitle')}
         rightElement={'home'}
         onRightElementPress={() => this._goTo('HomeScreen')}
         size={30}
@@ -51,15 +51,15 @@ class PrepareYourTrip extends Component {
       addStatistic('migration_checklist_view_image', { title: item.title })
     }
 
-    this.props.navigation.navigate(item.screenName, { title: item[`title_${i18n.language}`], imageList: item.imageList });
+    // this.props.navigation.navigate(item.screenName, { title: item[`title_${i18n.language}`], imageList: item.imageList });
   }
 
   _renderContent() {
     let list = [
       {
-        title_en: 'Passport',
-        title_kh: 'លិខិតឆ្លងដែន',
-        image: Images.pre_departure_list_passport,
+        title_en: 'Making your plan',
+        title_kh: 'ធ្វើផែនការរបស់អ្នក',
+        image: Images.coming_home_women_migrant_worker,
         screenName: 'ImageViewScreen',
         imageList: 'visas',
         fileName: '',
@@ -67,9 +67,9 @@ class PrepareYourTrip extends Component {
         h: 45
       },
       {
-        title_en: 'Visa',
-        title_kh: 'ទិដ្ឋាការ',
-        image: Images.pre_departure_list_visa,
+        title_en: 'Reintegration at home',
+        title_kh: 'ការបង្រួបបង្រួមនៅផ្ទះ',
+        image: Images.coming_home_women_migrant_worker,
         screenName: 'ImageViewScreen',
         imageList: 'worker_cards',
         fileName: '',
@@ -77,41 +77,11 @@ class PrepareYourTrip extends Component {
         h: 45
       },
       {
-        title_en: 'Work Permint',
-        title_kh: 'ប័ណ្ណការងារ',
-        image: Images.pre_departure_list_work_permit,
+        title_en: 'Women migrant workers and the economy',
+        title_kh: 'ពលករចំណាកស្រុកនិងសេដ្ឋកិច្ច',
+        image: Images.coming_home_women_migrant_worker,
         screenName: 'ImageViewScreen',
         imageList: 'passport',
-        fileName: '',
-        w: 34,
-        h: 45
-      },
-      {
-        title_en: 'Destination Links',
-        title_kh: 'តំណភ្ជាប់ទិសដៅ',
-        image: Images.pre_departure_list_destination_links,
-        screenName: 'ImageViewScreen',
-        imageList: 'passport_preparation',
-        fileName: '',
-        w: 34,
-        h: 45
-      },
-      {
-        title_en: 'Contact with home',
-        title_kh: 'ទាក់ទងជាមួយផ្ទះ',
-        image: Images.pre_departure_list_contact_with_home,
-        screenName: 'ImageViewScreen',
-        imageList: 'thai_working_card',
-        fileName: '',
-        w: 34,
-        h: 45
-      },
-      {
-        title_en: 'Contract',
-        title_kh: 'កិច្ចសន្យា',
-        image: Images.pre_departure_list_contract,
-        screenName: 'ImageViewScreen',
-        imageList: 'worker_cards',
         fileName: '',
         w: 34,
         h: 45
@@ -176,15 +146,15 @@ class PrepareYourTrip extends Component {
     return (
       <View style={[Style.card, { maxHeight: 150, padding: 0, backgroundColor: Color.red }]}>
         <ImageBackground
-          source={Images.six_things_prepare_your_trip}
+          source={Images.three_things_to_prepare}
           style={{ width: '100%', height: '100%', resizeMode: "cover", }}>
 
           <View style={[Style.cardContent, styles.mainCardContent]}>
             <View style={{ marginRight: 10, paddingHorizontal: 10, justifyContent: "center" }}>
-              <Text style={styles.mainCardNumber}>{6}</Text>
+              <Text style={styles.mainCardNumber}>{3}</Text>
             </View>
             <View style={{ flex: 1, justifyContent: "center" }}>
-              <Text style={styles.mainCardLabel}>{this.props.t('PrepareYourTripScreen.Descriptions')}</Text>
+              <Text style={styles.mainCardLabel}>{this.props.t('ComingHomeScreen.Descriptions')}</Text>
             </View>
             <View style={{ marginLeft: 20 }}>
               <PlaySound
@@ -285,4 +255,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withTranslation()(PrepareYourTrip);
+export default withTranslation()(ComingHome);
