@@ -34,6 +34,7 @@ export default class Thumbnail extends React.Component {
       containerStyle,
       iconWrapperStyle,
       showPlayIcon,
+      backgroundPlayIcon,
       ...props
     } = this.props;
 
@@ -58,7 +59,7 @@ export default class Thumbnail extends React.Component {
             showPlayIcon ? (
               <View style={[styles.iconWrapper, iconWrapperStyle]}>
                 <View style={{
-                  backgroundColor: Color.primary,
+                  backgroundColor: backgroundPlayIcon ? backgroundPlayIcon : Color.primary,
                   width: 40,
                   height: 40,
                   borderRadius: 20,
@@ -69,8 +70,8 @@ export default class Thumbnail extends React.Component {
                 </View>
               </View>
             ) : (
-                null
-              )
+              null
+            )
           }
         </ImageBackground>
       </TouchableOpacity>

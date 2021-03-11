@@ -34,6 +34,9 @@ import CustomBottomTab from '../components/custom_bottom_tab';
 import MoreScreen from '../screens/more';
 import BeforeYouGoScreen from '../screens/before_you_go/before_you_go';
 import MigrationScreen from '../screens/before_you_go/migration';
+import PreDepartureListScreen from '../screens/before_you_go/predeparture_list';
+import ComingHomeScreen from '../screens/before_you_go/coming_home';
+import BeforeYouGoVideoScreen from '../screens/before_you_go/videos';
 import PrepareYourTripScreen from '../screens/before_you_go/prepare_your_trip';
 import YourSafetyScreen from '../screens/your_safety/your_safety';
 import YourRightsAndSafetyScreen from '../screens/your_safety/your_rights_and_safety';
@@ -122,7 +125,13 @@ export default class AppNavigator extends Component {
 
           <Stack.Screen name="BeforeYouGoScreen" component={BeforeYouGoScreen} options={{ headerShown: false }} />
 
+          <Stack.Screen name="PreDepartureListScreen" component={PreDepartureListScreen} options={{ headerShown: false }} />
+          
           <Stack.Screen name="MigrationScreen" component={MigrationScreen} options={{ headerShown: false }} />
+          
+          <Stack.Screen name="ComingHomeScreen" component={ComingHomeScreen} options={{ headerShown: false }} />
+          
+          <Stack.Screen name="BeforeYouGoVideoScreen" component={BeforeYouGoVideoScreen} options={{ headerShown: false }} />
 
           <Stack.Screen name="PrepareYourTripScreen" component={PrepareYourTripScreen} options={{ headerShown: false }} />
 

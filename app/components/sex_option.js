@@ -28,7 +28,14 @@ class SexOption extends Component {
 
         {isSelected ? <Image source={Images.checked} style={styles.checkedIconStyle} /> : null}
 
-        <Image source={Images[item.iconName]} style={{ width: 60, height: 60 }} />
+        <Image source={Images[item.iconName]}
+          style={{
+            width: '100%',
+            height: '100%',
+            resizeMode: 'cover',
+            // borderWidth: 1,
+            borderColor: "red"
+          }} />
         <Text style={{ fontFamily: textFont, color: textColor, marginVertical: 5 }}>{this.props.t("RegisterScreen.Gender." + item.title)}</Text>
       </TouchableOpacity>
     )
@@ -65,19 +72,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 0,
     backgroundColor: '#fff',
-    borderWidth: 3,
+    // borderWidth: 3,
     borderColor: '#fff',
-    paddingTop: 10,
-    paddingBottom: 10,
+    // paddingTop: 10,
+    // paddingBottom: 10,
     height: 110,
     borderRadius: 8,
+    overflow: 'hidden'
   },
   checkedIconStyle: {
     width: 15,
     height: 15,
     position: 'absolute',
     top: 6,
-    right: 6
+    right: 6,
+    zIndex: 1
   }
 });
 

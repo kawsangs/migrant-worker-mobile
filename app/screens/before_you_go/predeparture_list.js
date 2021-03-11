@@ -17,7 +17,7 @@ import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
 
 
-class PrepareYourTrip extends Component {
+class PreDepartureList extends Component {
   state = {}
 
   _renderToolbar() {
@@ -285,4 +285,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withTranslation()(PrepareYourTrip);
+export default withTranslation()(PreDepartureList);
