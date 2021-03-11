@@ -1,305 +1,365 @@
 [
   {
     "stepCode": "before_you_go",
-    "stepTitle": "Before you go",
+    "stepTitle_en": "Before you go",
+    "stepTitle_kh": "មុនពេលអ្នកទៅ",
     "list": [
       {
         "code": "01",
         "url": "https://www.youtube.com/watch?v=ttSsAGmpC_U",
-        "title": "CTIP Ambassador Gives Safe Migration Advice to the People of Cambodia"
+        "title_en": "CTIP Ambassador Gives Safe Migration Advice to the People of Cambodia",
+        "title_kh": "ឯកអគ្គរដ្ឋទូតស៊ីធីវីផ្តល់ដំបូន្មានស្តីពីការធ្វើចំណាកស្រុកដោយសុវត្ថិភាពដល់ប្រជាជនកម្ពុជា"
       },
       {
         "code": "02",
         "url": "https://www.youtube.com/watch?v=Lsd-wDnQC1o",
-        "title": "ASEAN Safe Migration Campaign - Khmer"
+        "title_en": "ASEAN Safe Migration Campaign - Khmer",
+        "title_kh": "យុទ្ធនាការធ្វើចំណាកស្រុកដោយសុវត្ថិភាពអាស៊ាន - ខ្មែរ"
       },
       {
         "code": "03",
         "url": "https://www.youtube.com/watch?v=0CVF4Om6KT4",
-        "title": "ពលករមួយរូបបង្ហាញបទពិសោធន៍ចំណាកស្រុកដោយសុវត្ថិភាព"
+        "title_en": "A worker demonstrates safe migration experience",
+        "title_kh": "ពលករមួយរូបបង្ហាញបទពិសោធន៍ចំណាកស្រុកដោយសុវត្ថិភាព"
       },
       {
         "code": "04",
         "url": "https://www.youtube.com/watch?v=l8gf4labqVw",
-        "title": "ខ្សែវីដេអូចំណាកស្រុកដោយសុវត្ថិភាព៖ Know Before You Go"
+        "title_en": "Safe Migration Video: Know Before You Go",
+        "title_kh": "ខ្សែវីដេអូចំណាកស្រុកដោយសុវត្ថិភាព៖ Know Before You Go"
       },
       {
         "code": "05",
         "url": "https://www.youtube.com/watch?v=3huHzKQ6KQM",
-        "title": "ការធ្វើចំណាកស្រុក ដោយសុវត្ថភាព"
+        "title_en": "Safe Migration",
+        "title_kh": "ការធ្វើចំណាកស្រុក ដោយសុវត្ថភាព"
       },
       {
         "code": "06",
         "url": "https://www.youtube.com/watch?v=MygplobHhTQ&list=RDCMUCsMW60l4zLO11NB6ckap57g&index=9",
-        "title": "ចំណេះដឹងដ៏ល្អក្នុងការសន្សំលុយ!"
+        "title_en": "Good knowledge to save money!",
+        "title_kh": "ចំណេះដឹងដ៏ល្អក្នុងការសន្សំលុយ!"
       },
       {
         "code": "07",
         "url": "https://www.youtube.com/watch?v=RgeKg5iGZKI&list=RDCMUCsMW60l4zLO11NB6ckap57g&index=28",
-        "title": "វិធីសន្សំលុយងាយៗ"
+        "title_en": "Easy ways to save money",
+        "title_kh": "វិធីសន្សំលុយងាយៗ"
       },
       {
         "code": "08",
         "url": "https://www.youtube.com/watch?v=JTiDMAHM_Tk",
-        "title": "ប្រធានបទៈ បញ្ហាប្រឈមរបស់ពលករចំណាកស្រុក"
+        "title_en": "Topic: Challenges of Migrant Workers",
+        "title_kh": "ប្រធានបទៈ បញ្ហាប្រឈមរបស់ពលករចំណាកស្រុក"
       },
       {
         "code": "09",
         "url": "https://www.youtube.com/watch?v=P7C7fBGmk_Q",
-        "title": "ចំណាកស្រុកដោយជោគជ័យ (Successful Migration)"
+        "title_en": "Successful Migration",
+        "title_kh": "ចំណាកស្រុកដោយជោគជ័យ (Successful Migration)"
       },
       {
         "code": "10",
         "url": "https://www.youtube.com/watch?v=3LBkILLtj3I",
-        "title": "ឯកសារ​ចាំ​បាច់​សម្រាប់​ការ​ធ្វើ​ចំណាកស្រុក"
+        "title_en": "Necessary documents for migration",
+        "title_kh": "ឯកសារ​ចាំ​បាច់​សម្រាប់​ការ​ធ្វើ​ចំណាកស្រុក"
       },
       {
         "code": "11",
         "url": "https://www.youtube.com/watch?v=9fjLUf6Cz08",
-        "title": "បញ្ហាប្រឈមរបស់ពលករចំណាកស្រុក"
+        "title_en": "Challenges of Migrant Workers",
+        "title_kh": "បញ្ហាប្រឈមរបស់ពលករចំណាកស្រុក"
       },
       {
         "code": "12",
         "url": "https://www.youtube.com/watch?v=9lj8dJPetYQ",
-        "title": "គ្រោះថ្នាក់នៃការចំណាកស្រុកដោយខុសច្បាប់"
+        "title_en": "Dangers of Illegal Migration",
+        "title_kh": "គ្រោះថ្នាក់នៃការចំណាកស្រុកដោយខុសច្បាប់"
       },
       {
         "code": "13",
         "url": "https://www.youtube.com/watch?v=F552JNOb9CM",
-        "title": "A Maid's Tale"
+        "title_en": "A Maid's Tale",
+        "title_kh": "រឿងនិទានរបស់អ្នកបំរើ"
       },
       {
         "code": "15",
         "url": "https://www.youtube.com/watch?v=oJ9Kpkyz2e4",
-        "title": "វិលត្រឡប់វិញ​ Retuning Home"
+        "title_en": "Retuning Home",
+        "title_kh": "វិលត្រឡប់វិញ​ Retuning Home"
       }
     ]
   },
   {
     "stepCode": "your_safety",
-    "stepTitle": "Your Safety",
+    "stepTitle_en": "Your Safety",
+    "stepTitle_kh": "សុវត្ថិភាពរបស់អ្នក",
     "list": [
       {
         "code": "01",
         "url": "https://www.youtube.com/watch?v=ttSsAGmpC_U",
-        "title": "CTIP Ambassador Gives Safe Migration Advice to the People of Cambodia"
+        "title_en": "CTIP Ambassador Gives Safe Migration Advice to the People of Cambodia",
+        "title_kh": "ឯកអគ្គរដ្ឋទូតស៊ីធីវីផ្តល់ដំបូន្មានស្តីពីការធ្វើចំណាកស្រុកដោយសុវត្ថិភាពដល់ប្រជាជនកម្ពុជា"
       },
       {
         "code": "02",
         "url": "https://www.youtube.com/watch?v=Lsd-wDnQC1o",
-        "title": "ASEAN Safe Migration Campaign - Khmer"
+        "title_en": "ASEAN Safe Migration Campaign - Khmer",
+        "title_kh": "យុទ្ធនាការធ្វើចំណាកស្រុកដោយសុវត្ថិភាពអាស៊ាន - ខ្មែរ"
       },
       {
         "code": "03",
         "url": "https://www.youtube.com/watch?v=0CVF4Om6KT4",
-        "title": "ពលករមួយរូបបង្ហាញបទពិសោធន៍ចំណាកស្រុកដោយសុវត្ថិភាព"
+        "title_en": "A worker demonstrates safe migration experience",
+        "title_kh": "ពលករមួយរូបបង្ហាញបទពិសោធន៍ចំណាកស្រុកដោយសុវត្ថិភាព"
       },
       {
         "code": "04",
         "url": "https://www.youtube.com/watch?v=l8gf4labqVw",
-        "title": "ខ្សែវីដេអូចំណាកស្រុកដោយសុវត្ថិភាព៖ Know Before You Go"
+        "title_en": "Safe Migration Video: Know Before You Go",
+        "title_kh": "ខ្សែវីដេអូចំណាកស្រុកដោយសុវត្ថិភាព៖ Know Before You Go"
       },
       {
         "code": "05",
         "url": "https://www.youtube.com/watch?v=3huHzKQ6KQM",
-        "title": "ការធ្វើចំណាកស្រុក ដោយសុវត្ថភាព"
+        "title_en": "Safe Migration",
+        "title_kh": "ការធ្វើចំណាកស្រុក ដោយសុវត្ថភាព"
       },
       {
         "code": "06",
         "url": "https://www.youtube.com/watch?v=MygplobHhTQ&list=RDCMUCsMW60l4zLO11NB6ckap57g&index=9",
-        "title": "ចំណេះដឹងដ៏ល្អក្នុងការសន្សំលុយ!"
+        "title_en": "Good knowledge to save money!",
+        "title_kh": "ចំណេះដឹងដ៏ល្អក្នុងការសន្សំលុយ!"
       },
       {
         "code": "07",
         "url": "https://www.youtube.com/watch?v=RgeKg5iGZKI&list=RDCMUCsMW60l4zLO11NB6ckap57g&index=28",
-        "title": "វិធីសន្សំលុយងាយៗ"
+        "title_en": "Easy ways to save money",
+        "title_kh": "វិធីសន្សំលុយងាយៗ"
       },
       {
         "code": "08",
         "url": "https://www.youtube.com/watch?v=JTiDMAHM_Tk",
-        "title": "ប្រធានបទៈ បញ្ហាប្រឈមរបស់ពលករចំណាកស្រុក"
+        "title_en": "Topic: Challenges of Migrant Workers",
+        "title_kh": "ប្រធានបទៈ បញ្ហាប្រឈមរបស់ពលករចំណាកស្រុក"
       },
       {
         "code": "09",
         "url": "https://www.youtube.com/watch?v=P7C7fBGmk_Q",
-        "title": "ចំណាកស្រុកដោយជោគជ័យ (Successful Migration)"
+        "title_en": "Successful Migration",
+        "title_kh": "ចំណាកស្រុកដោយជោគជ័យ (Successful Migration)"
       },
       {
         "code": "10",
         "url": "https://www.youtube.com/watch?v=3LBkILLtj3I",
-        "title": "ឯកសារ​ចាំ​បាច់​សម្រាប់​ការ​ធ្វើ​ចំណាកស្រុក"
+        "title_en": "Necessary documents for migration",
+        "title_kh": "ឯកសារ​ចាំ​បាច់​សម្រាប់​ការ​ធ្វើ​ចំណាកស្រុក"
       },
       {
         "code": "11",
         "url": "https://www.youtube.com/watch?v=9fjLUf6Cz08",
-        "title": "បញ្ហាប្រឈមរបស់ពលករចំណាកស្រុក"
+        "title_en": "Challenges of Migrant Workers",
+        "title_kh": "បញ្ហាប្រឈមរបស់ពលករចំណាកស្រុក"
       },
       {
         "code": "12",
         "url": "https://www.youtube.com/watch?v=9lj8dJPetYQ",
-        "title": "គ្រោះថ្នាក់នៃការចំណាកស្រុកដោយខុសច្បាប់"
+        "title_en": "Dangers of Illegal Migration",
+        "title_kh": "គ្រោះថ្នាក់នៃការចំណាកស្រុកដោយខុសច្បាប់"
       },
       {
         "code": "13",
         "url": "https://www.youtube.com/watch?v=F552JNOb9CM",
-        "title": "A Maid's Tale"
+        "title_en": "A Maid's Tale",
+        "title_kh": "រឿងនិទានរបស់អ្នកបំរើ"
       },
       {
         "code": "15",
         "url": "https://www.youtube.com/watch?v=oJ9Kpkyz2e4",
-        "title": "វិលត្រឡប់វិញ​ Retuning Home"
+        "title_en": "Retuning Home",
+        "title_kh": "វិលត្រឡប់វិញ​ Retuning Home"
       }
     ]
   },
   {
     "stepCode": "looking_for_help",
-    "stepTitle": "Looking for help",
+    "stepTitle_en": "Looking for help",
+    "stepTitle_kh": "រកជំនួយ",
     "list": [
       {
         "code": "01",
         "url": "https://www.youtube.com/watch?v=ttSsAGmpC_U",
-        "title": "CTIP Ambassador Gives Safe Migration Advice to the People of Cambodia"
+        "title_en": "CTIP Ambassador Gives Safe Migration Advice to the People of Cambodia",
+        "title_kh": "ឯកអគ្គរដ្ឋទូតស៊ីធីវីផ្តល់ដំបូន្មានស្តីពីការធ្វើចំណាកស្រុកដោយសុវត្ថិភាពដល់ប្រជាជនកម្ពុជា"
       },
       {
         "code": "02",
         "url": "https://www.youtube.com/watch?v=Lsd-wDnQC1o",
-        "title": "ASEAN Safe Migration Campaign - Khmer"
+        "title_en": "ASEAN Safe Migration Campaign - Khmer",
+        "title_kh": "យុទ្ធនាការធ្វើចំណាកស្រុកដោយសុវត្ថិភាពអាស៊ាន - ខ្មែរ"
       },
       {
         "code": "03",
         "url": "https://www.youtube.com/watch?v=0CVF4Om6KT4",
-        "title": "ពលករមួយរូបបង្ហាញបទពិសោធន៍ចំណាកស្រុកដោយសុវត្ថិភាព"
+        "title_en": "A worker demonstrates safe migration experience",
+        "title_kh": "ពលករមួយរូបបង្ហាញបទពិសោធន៍ចំណាកស្រុកដោយសុវត្ថិភាព"
       },
       {
         "code": "04",
         "url": "https://www.youtube.com/watch?v=l8gf4labqVw",
-        "title": "ខ្សែវីដេអូចំណាកស្រុកដោយសុវត្ថិភាព៖ Know Before You Go"
+        "title_en": "Safe Migration Video: Know Before You Go",
+        "title_kh": "ខ្សែវីដេអូចំណាកស្រុកដោយសុវត្ថិភាព៖ Know Before You Go"
       },
       {
         "code": "05",
         "url": "https://www.youtube.com/watch?v=3huHzKQ6KQM",
-        "title": "ការធ្វើចំណាកស្រុក ដោយសុវត្ថភាព"
+        "title_en": "Safe Migration",
+        "title_kh": "ការធ្វើចំណាកស្រុក ដោយសុវត្ថភាព"
       },
       {
         "code": "06",
         "url": "https://www.youtube.com/watch?v=MygplobHhTQ&list=RDCMUCsMW60l4zLO11NB6ckap57g&index=9",
-        "title": "ចំណេះដឹងដ៏ល្អក្នុងការសន្សំលុយ!"
+        "title_en": "Good knowledge to save money!",
+        "title_kh": "ចំណេះដឹងដ៏ល្អក្នុងការសន្សំលុយ!"
       },
       {
         "code": "07",
         "url": "https://www.youtube.com/watch?v=RgeKg5iGZKI&list=RDCMUCsMW60l4zLO11NB6ckap57g&index=28",
-        "title": "វិធីសន្សំលុយងាយៗ"
+        "title_en": "Easy ways to save money",
+        "title_kh": "វិធីសន្សំលុយងាយៗ"
       },
       {
         "code": "08",
         "url": "https://www.youtube.com/watch?v=JTiDMAHM_Tk",
-        "title": "ប្រធានបទៈ បញ្ហាប្រឈមរបស់ពលករចំណាកស្រុក"
+        "title_en": "Topic: Challenges of Migrant Workers",
+        "title_kh": "ប្រធានបទៈ បញ្ហាប្រឈមរបស់ពលករចំណាកស្រុក"
       },
       {
         "code": "09",
         "url": "https://www.youtube.com/watch?v=P7C7fBGmk_Q",
-        "title": "ចំណាកស្រុកដោយជោគជ័យ (Successful Migration)"
+        "title_en": "Successful Migration",
+        "title_kh": "ចំណាកស្រុកដោយជោគជ័យ (Successful Migration)"
       },
       {
         "code": "10",
         "url": "https://www.youtube.com/watch?v=3LBkILLtj3I",
-        "title": "ឯកសារ​ចាំ​បាច់​សម្រាប់​ការ​ធ្វើ​ចំណាកស្រុក"
+        "title_en": "Necessary documents for migration",
+        "title_kh": "ឯកសារ​ចាំ​បាច់​សម្រាប់​ការ​ធ្វើ​ចំណាកស្រុក"
       },
       {
         "code": "11",
         "url": "https://www.youtube.com/watch?v=9fjLUf6Cz08",
-        "title": "បញ្ហាប្រឈមរបស់ពលករចំណាកស្រុក"
+        "title_en": "Challenges of Migrant Workers",
+        "title_kh": "បញ្ហាប្រឈមរបស់ពលករចំណាកស្រុក"
       },
       {
         "code": "12",
         "url": "https://www.youtube.com/watch?v=9lj8dJPetYQ",
-        "title": "គ្រោះថ្នាក់នៃការចំណាកស្រុកដោយខុសច្បាប់"
+        "title_en": "Dangers of Illegal Migration",
+        "title_kh": "គ្រោះថ្នាក់នៃការចំណាកស្រុកដោយខុសច្បាប់"
       },
       {
         "code": "13",
         "url": "https://www.youtube.com/watch?v=F552JNOb9CM",
-        "title": "A Maid's Tale"
+        "title_en": "A Maid's Tale",
+        "title_kh": "រឿងនិទានរបស់អ្នកបំរើ"
       },
       {
         "code": "15",
         "url": "https://www.youtube.com/watch?v=oJ9Kpkyz2e4",
-        "title": "វិលត្រឡប់វិញ​ Retuning Home"
+        "title_en": "Retuning Home",
+        "title_kh": "វិលត្រឡប់វិញ​ Retuning Home"
       }
     ]
   },
   {
     "stepCode": "your_story",
-    "stepTitle": "Your story",
+    "stepTitle_en": "Your story",
+    "stepTitle_kh": "រឿងរបស់អ្នក",
     "list": [
       {
         "code": "01",
         "url": "https://www.youtube.com/watch?v=ttSsAGmpC_U",
-        "title": "CTIP Ambassador Gives Safe Migration Advice to the People of Cambodia"
+        "title_en": "CTIP Ambassador Gives Safe Migration Advice to the People of Cambodia",
+        "title_kh": "ឯកអគ្គរដ្ឋទូតស៊ីធីវីផ្តល់ដំបូន្មានស្តីពីការធ្វើចំណាកស្រុកដោយសុវត្ថិភាពដល់ប្រជាជនកម្ពុជា"
       },
       {
         "code": "02",
         "url": "https://www.youtube.com/watch?v=Lsd-wDnQC1o",
-        "title": "ASEAN Safe Migration Campaign - Khmer"
+        "title_en": "ASEAN Safe Migration Campaign - Khmer",
+        "title_kh": "យុទ្ធនាការធ្វើចំណាកស្រុកដោយសុវត្ថិភាពអាស៊ាន - ខ្មែរ"
       },
       {
         "code": "03",
         "url": "https://www.youtube.com/watch?v=0CVF4Om6KT4",
-        "title": "ពលករមួយរូបបង្ហាញបទពិសោធន៍ចំណាកស្រុកដោយសុវត្ថិភាព"
+        "title_en": "A worker demonstrates safe migration experience",
+        "title_kh": "ពលករមួយរូបបង្ហាញបទពិសោធន៍ចំណាកស្រុកដោយសុវត្ថិភាព"
       },
       {
         "code": "04",
         "url": "https://www.youtube.com/watch?v=l8gf4labqVw",
-        "title": "ខ្សែវីដេអូចំណាកស្រុកដោយសុវត្ថិភាព៖ Know Before You Go"
+        "title_en": "Safe Migration Video: Know Before You Go",
+        "title_kh": "ខ្សែវីដេអូចំណាកស្រុកដោយសុវត្ថិភាព៖ Know Before You Go"
       },
       {
         "code": "05",
         "url": "https://www.youtube.com/watch?v=3huHzKQ6KQM",
-        "title": "ការធ្វើចំណាកស្រុក ដោយសុវត្ថភាព"
+        "title_en": "Safe Migration",
+        "title_kh": "ការធ្វើចំណាកស្រុក ដោយសុវត្ថភាព"
       },
       {
         "code": "06",
         "url": "https://www.youtube.com/watch?v=MygplobHhTQ&list=RDCMUCsMW60l4zLO11NB6ckap57g&index=9",
-        "title": "ចំណេះដឹងដ៏ល្អក្នុងការសន្សំលុយ!"
+        "title_en": "Good knowledge to save money!",
+        "title_kh": "ចំណេះដឹងដ៏ល្អក្នុងការសន្សំលុយ!"
       },
       {
         "code": "07",
         "url": "https://www.youtube.com/watch?v=RgeKg5iGZKI&list=RDCMUCsMW60l4zLO11NB6ckap57g&index=28",
-        "title": "វិធីសន្សំលុយងាយៗ"
+        "title_en": "Easy ways to save money",
+        "title_kh": "វិធីសន្សំលុយងាយៗ"
       },
       {
         "code": "08",
         "url": "https://www.youtube.com/watch?v=JTiDMAHM_Tk",
-        "title": "ប្រធានបទៈ បញ្ហាប្រឈមរបស់ពលករចំណាកស្រុក"
+        "title_en": "Topic: Challenges of Migrant Workers",
+        "title_kh": "ប្រធានបទៈ បញ្ហាប្រឈមរបស់ពលករចំណាកស្រុក"
       },
       {
         "code": "09",
         "url": "https://www.youtube.com/watch?v=P7C7fBGmk_Q",
-        "title": "ចំណាកស្រុកដោយជោគជ័យ (Successful Migration)"
+        "title_en": "Successful Migration",
+        "title_kh": "ចំណាកស្រុកដោយជោគជ័យ (Successful Migration)"
       },
       {
         "code": "10",
         "url": "https://www.youtube.com/watch?v=3LBkILLtj3I",
-        "title": "ឯកសារ​ចាំ​បាច់​សម្រាប់​ការ​ធ្វើ​ចំណាកស្រុក"
+        "title_en": "Necessary documents for migration",
+        "title_kh": "ឯកសារ​ចាំ​បាច់​សម្រាប់​ការ​ធ្វើ​ចំណាកស្រុក"
       },
       {
         "code": "11",
         "url": "https://www.youtube.com/watch?v=9fjLUf6Cz08",
-        "title": "បញ្ហាប្រឈមរបស់ពលករចំណាកស្រុក"
+        "title_en": "Challenges of Migrant Workers",
+        "title_kh": "បញ្ហាប្រឈមរបស់ពលករចំណាកស្រុក"
       },
       {
         "code": "12",
         "url": "https://www.youtube.com/watch?v=9lj8dJPetYQ",
-        "title": "គ្រោះថ្នាក់នៃការចំណាកស្រុកដោយខុសច្បាប់"
+        "title_en": "Dangers of Illegal Migration",
+        "title_kh": "គ្រោះថ្នាក់នៃការចំណាកស្រុកដោយខុសច្បាប់"
       },
       {
         "code": "13",
         "url": "https://www.youtube.com/watch?v=F552JNOb9CM",
-        "title": "A Maid's Tale"
+        "title_en": "A Maid's Tale",
+        "title_kh": "រឿងនិទានរបស់អ្នកបំរើ"
       },
       {
         "code": "15",
         "url": "https://www.youtube.com/watch?v=oJ9Kpkyz2e4",
-        "title": "វិលត្រឡប់វិញ​ Retuning Home"
+        "title_en": "Retuning Home",
+        "title_kh": "វិលត្រឡប់វិញ​ Retuning Home"
       }
     ]
   }

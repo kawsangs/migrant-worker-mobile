@@ -33,6 +33,8 @@ export default Images = {
   folder: require('../assets/images/icons/folder.png'),
   tick: require('../assets/images/icons/tick.png'),
   user: require('../assets/images/icons/user.png'),
+  en: require('../assets/images/icons/en.png'),
+  kh: require('../assets/images/icons/kh.png'),
 
   // Logo
   chc_logo: require('../assets/images/logos/chc_logo.png'),

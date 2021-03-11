@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 import {
   View,
   Text,
@@ -11,7 +12,7 @@ import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
 import Images from '../utils/images';
 import { InjectArray } from '../utils/math';
 
-export default class SexOption extends React.Component {
+class SexOption extends Component {
   _buildOption(item, index) {
     let borderStyle = this.props.sex == item.value ? { borderColor: Color.primary } : {};
     let backgroundStyle = this.props.sex == item.value ? { backgroundColor: Color.primary } : {};
@@ -28,15 +29,15 @@ export default class SexOption extends React.Component {
         {isSelected ? <Image source={Images.checked} style={styles.checkedIconStyle} /> : null}
 
         <Image source={Images[item.iconName]} style={{ width: 60, height: 60 }} />
-        <Text style={{ fontFamily: textFont, color: textColor, marginVertical: 5 }}>{item.title}</Text>
+        <Text style={{ fontFamily: textFont, color: textColor, marginVertical: 5 }}>{this.props.t("RegisterScreen.Gender." + item.title)}</Text>
       </TouchableOpacity>
     )
   }
 
   _renderSexOption() {
     let list = [
-      { title: 'ប្រុស', value: 'male', iconName: 'male' },
-      { title: 'ស្រី', value: 'female', iconName: 'female' },
+      { title: 'Male', value: 'male', iconName: 'male' },
+      { title: 'Female', value: 'female', iconName: 'female' },
     ];
     let space = <View style={{ width: 24 }} />;
     let doms = list.map((item, index) => this._buildOption(item, index))
@@ -79,3 +80,5 @@ const styles = StyleSheet.create({
     right: 6
   }
 });
+
+export default withTranslation()(SexOption)

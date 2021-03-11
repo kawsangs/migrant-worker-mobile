@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -11,8 +11,11 @@ import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
 import { Toolbar } from 'react-native-material-ui';
 import Images from '../utils/images';
 import { addStatistic } from '../utils/statistic';
+import i18n from 'i18next';
+import TranslationHelper from '../translations';
+import { withTranslation } from 'react-i18next';
 
-export default class More extends React.Component {
+class More extends Component {
 
   _goTo(screenName) {
     addStatistic(`goTo${screenName.split('Screen')[0]}`);
@@ -22,7 +25,7 @@ export default class More extends React.Component {
   _renderToolbar() {
     return (
       <Toolbar
-        centerElement={'More'}
+        centerElement={this.props.t('MoreScreen.More')}
         rightElement={'home'}
         onRightElementPress={() => this._goTo('HomeScreen')}
         size={30}
@@ -50,7 +53,7 @@ export default class More extends React.Component {
         </View>
         <View style={styles.profileDescription}>
           <Text style={styles.userName}>Dara</Text>
-          <Text style={styles.userEditText}>Edit</Text>
+          <Text style={styles.userEditText}>{this.props.t('MoreScreen.Edit')}</Text>
         </View>
         <View>
           <Image source={Images.next} style={styles.nextIcon} />
@@ -59,7 +62,35 @@ export default class More extends React.Component {
     )
   }
 
+  _renderChangeLanguage() {
+    return (
+      <TouchableOpacity
+        style={[Style.boxShadow, styles.menuItem, { marginBottom: 16 }]}
+        onPress={null}
+        activeOpacity={0.8}
+      >
+        <View style={styles.menuIconWrapper}>
+          <Image
+            source={Images.info}
+            style={styles.menuIcon} />
+        </View>
+        <View style={styles.menuTitleWrapper}>
+          <Text style={styles.menuTextTitle}>{'English'}</Text>
+        </View>
+        <View>
+          <Image
+            source={Images.en}
+            style={{
+              width: 48,
+              height: 25,
+            }} />
+        </View>
+      </TouchableOpacity>
+    )
+  }
+
   _renderMenuItem(item, index) {
+    let lang = i18n.language == 'kh'? 'en' : 'kh';
     return (
       <TouchableOpacity
         style={[Style.boxShadow, styles.menuItem, { marginBottom: index == 0 ? 16 : 0, }]}
@@ -73,10 +104,14 @@ export default class More extends React.Component {
             style={styles.menuIcon} />
         </View>
         <View style={styles.menuTitleWrapper}>
-          <Text style={styles.menuTextTitle}>{item.title}</Text>
+          <Text style={styles.menuTextTitle}>{this.props.t(`MoreScreen.${item.title}`)}</Text>
         </View>
         <View>
-          <Image source={Images.next} style={styles.nextIcon} />
+          {index == 0 ? <TouchableOpacity
+            style={Style.boxShadow}
+            onPress={() => TranslationHelper.changeLanguage(lang)}
+            activeOpacity={0.8}
+          ><Image source={i18n.language === 'kh' ? Images.kh : Images.en} style={{ width: 50, height: 27 }} /></TouchableOpacity> : <Image source={Images.next} style={styles.nextIcon} />}
         </View>
       </TouchableOpacity>
     )
@@ -84,10 +119,10 @@ export default class More extends React.Component {
 
   _renderListMenuItem() {
     let list = [
-      { title: 'About Us', icon: Images.info, routeName: 'AboutScreen' },
-      { title: 'Share App', icon: Images.share, routeName: '' },
-      { title: 'Privacy Policy', icon: Images.doc, routeName: '' },
-      { title: 'Terms & Conditions', icon: Images.doc, routeName: '' },
+      { title: 'AboutUs', icon: Images.info, routeName: 'AboutScreen' },
+      { title: 'ShareApp', icon: Images.share, routeName: '' },
+      { title: 'PrivacyPolicy', icon: Images.doc, routeName: '' },
+      { title: 'TermsConditions', icon: Images.doc, routeName: '' },
     ];
 
     return list.map((item, index) => this._renderMenuItem(item, index));
@@ -96,7 +131,7 @@ export default class More extends React.Component {
   _renderVersion() {
     return (
       <View style={styles.appVersion}>
-        <Text>កំណែ: v1.0.0</Text>
+        <Text>{this.props.t("MoreScreen.AppVersion")}: v1.0.0</Text>
       </View>
     )
   }
@@ -106,6 +141,7 @@ export default class More extends React.Component {
       <SafeAreaView style={{ flex: 1 }}>
         {this._renderToolbar()}
         {this._renderUserProfile()}
+        {/* {this._renderChangeLanguage()} */}
         {this._renderListMenuItem()}
         {this._renderVersion()}
       </SafeAreaView>
@@ -198,3 +234,5 @@ const styles = StyleSheet.create({
     marginTop: 20
   }
 });
+
+export default withTranslation()(More);

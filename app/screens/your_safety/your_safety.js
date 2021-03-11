@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -13,9 +13,10 @@ import PlaySound from '../../components/play_sound';
 import Images from '../../utils/images';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { addStatistic } from '../../utils/statistic';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
-
-export default class YourSafety extends React.Component {
+class YourSafety extends Component {
   state = {}
 
   _goTo(screenName) {
@@ -28,7 +29,7 @@ export default class YourSafety extends React.Component {
       <Toolbar
         leftElement={'arrow-back'}
         onLeftElementPress={() => this.props.navigation.goBack()}
-        centerElement={'Your Safety'}
+        centerElement={this.props.t('YourSafetyScreen.HeaderTitle')}
         rightElement={'home'}
         onRightElementPress={() => this._goTo('HomeScreen')}
         size={30}
@@ -59,9 +60,36 @@ export default class YourSafety extends React.Component {
 
   _renderContent() {
     let list = [
-      { title: 'Your rights & Safety', image: Images.safe_migrant, screenName: 'YourRightsAndSafetyScreen', imageList: 'visas', fileName: '', w: 34, h: 45 },
-      { title: 'Safety planning', image: Images.safe_migrant, screenName: 'SafetyPlanningScreen', imageList: 'worker_cards', fileName: '', w: 34, h: 45 },
-      { title: 'Videos', image: Images.safe_migrant, screenName: 'YourSafetyVideosScreen', imageList: 'worker_cards', fileName: '', w: 34, h: 45 },
+      {
+        title_en: 'Your rights & Safety',
+        title_kh: 'សិទ្ធិនិងសុវត្ថិភាពរបស់អ្នក',
+        image: Images.safe_migrant,
+        screenName: 'YourRightsAndSafetyScreen',
+        imageList: 'visas',
+        fileName: '',
+        w: 34,
+        h: 45
+      },
+      {
+        title_en: 'Safety planning',
+        title_kh: 'ការធ្វើផែនការសុវត្ថិភាព',
+        image: Images.safe_migrant,
+        screenName: 'SafetyPlanningScreen',
+        imageList: 'worker_cards',
+        fileName: '',
+        w: 34,
+        h: 45
+      },
+      {
+        title_en: 'Videos',
+        title_kh: 'វីដេអូ ',
+        image: Images.safe_migrant,
+        screenName: 'YourSafetyVideosScreen',
+        imageList: 'worker_cards',
+        fileName: '',
+        w: 34,
+        h: 45
+      },
     ];
 
     return list.map((item, index) => this._renderCard(item, index));
@@ -99,7 +127,7 @@ export default class YourSafety extends React.Component {
         </View>
 
         <View style={styles.cardTitle}>
-          <Text style={[styles.title]}>{item.title}</Text>
+          <Text style={[styles.title]}>{item[`title_${i18n.language}`]}</Text>
           <Icon name='keyboard-arrow-right' size={24} />
         </View>
       </TouchableOpacity>
@@ -152,3 +180,5 @@ const styles = StyleSheet.create({
     fontWeight: '700'
   },
 });
+
+export default withTranslation()(YourSafety);

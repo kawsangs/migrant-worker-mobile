@@ -1,4 +1,6 @@
-import React from 'react';
+import i18n from 'i18next';
+import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 import {
   View,
   TouchableOpacity,
@@ -13,8 +15,7 @@ import PlaySound from '../../components/play_sound';
 import Images from '../../utils/images';
 import { addStatistic } from '../../utils/statistic';
 
-
-export default class YourRightsAndSafety extends React.Component {
+class YourRightsAndSafety extends Component {
   state = {}
 
   _goTo(screenName) {
@@ -27,7 +28,7 @@ export default class YourRightsAndSafety extends React.Component {
       <Toolbar
         leftElement={'arrow-back'}
         onLeftElementPress={() => this.props.navigation.goBack()}
-        centerElement={'Your rights & safety'}
+        centerElement={this.props.t('YourRightSafetyScreen.HeaderTitle')}
         rightElement={'home'}
         onRightElementPress={() => this._goTo('HomeScreen')}
         size={30}
@@ -58,10 +59,30 @@ export default class YourRightsAndSafety extends React.Component {
 
   _renderContent() {
     let list = [
-      { title: 'Violence against', screenName: 'AboutScreen', fileName: '', },
-      { title: 'Sexual Harassment', screenName: 'AboutScreen', fileName: '', },
-      { title: 'Your heath', screenName: 'AboutScreen', fileName: '', },
-      { title: 'Your rights and protection', screenName: 'AboutScreen', fileName: '', },
+      {
+        title_en: 'Violence against',
+        title_kh: 'អំពើហឹង្សាប្រឆាំងនឹង',
+        screenName: 'AboutScreen',
+        fileName: '',
+      },
+      {
+        title_en: 'Sexual Harassment',
+        title_kh: 'ការរំខានផ្លូវភេទ',
+        screenName: 'AboutScreen',
+        fileName: '',
+      },
+      {
+        title_en: 'Your health',
+        title_kh: 'សុខភាព​របស់​អ្នក',
+        screenName: 'AboutScreen',
+        fileName: '',
+      },
+      {
+        title_en: 'Your rights and protection',
+        title_kh: 'សិទ្ធិនិងការការពាររបស់អ្នក',
+        screenName: 'AboutScreen',
+        fileName: '',
+      },
     ];
 
     return list.map((item, index) => this._renderCard(item, index));
@@ -81,7 +102,7 @@ export default class YourRightsAndSafety extends React.Component {
           </View>
 
           <View style={styles.cardDescription}>
-            <Text style={{ fontWeight: '700' }}>{item.title}</Text>
+            <Text style={{ fontWeight: '700' }}>{item.[`title_${i18n.language}`]}</Text>
           </View>
 
           <View>
@@ -100,7 +121,7 @@ export default class YourRightsAndSafety extends React.Component {
         </View>
 
         <View style={{ flexDirection: 'row', }}>
-          <Text style={[styles.title]}>View Detail</Text>
+          <Text style={[styles.title]}>{this.props.t("YourRightSafetyScreen.ViewDetail")}</Text>
           <Icon name='keyboard-arrow-right' size={24} style={{ color: Color.gray }} />
         </View>
       </TouchableOpacity>
@@ -157,3 +178,5 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase'
   },
 });
+
+export default withTranslation()(YourRightsAndSafety);

@@ -14,6 +14,7 @@ import Sidekiq from './app/utils/sidekiq';
 import { Color, FontFamily, FontSize } from './app/assets/stylesheets/base_style';
 
 import * as Sentry from '@sentry/react-native';
+import TranslationHelper from './app/translations';
 
 Sentry.init({
   dsn: 'https://b0b7fac69a6d45abb446ccfdc6e15423@o357910.ingest.sentry.io/5257533',
@@ -38,6 +39,12 @@ const uiTheme = {
 setCustomText(customTextProps);
 
 export default class App extends React.Component {
+
+  async UNSAFE_componentWillMount() {
+    await TranslationHelper.configure();
+    await TranslationHelper.loadLanguage();
+  }
+
   componentDidMount() {
     SplashScreen.hide();
     UserWorker.init();

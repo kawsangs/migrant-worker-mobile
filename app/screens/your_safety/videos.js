@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -20,8 +20,12 @@ import { Icon, Toolbar } from 'react-native-material-ui';
 import LoadingIndicator from '../../components/loading_indicator';
 import { addStatistic } from '../../utils/statistic';
 import CollapsibleNavbar from '../../components/collapsible_navbar';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
-export default class Videos extends React.Component {
+
+
+class Videos extends Component {
   state = {
     videos: videoList,
     loading: true
@@ -51,14 +55,14 @@ export default class Videos extends React.Component {
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <View style={{ flexDirection: 'row' }}>
           <Icon name='info-outline' color='#111' size={24} style={{ marginRight: 8 }} iconSet='MaterialIcons' />
-          <Text>មិនមានការតភ្ជាប់បណ្តាញទេឥឡូវនេះ។</Text>
+          <Text>{this.props.t('InternetConnection.NoInternetConnection')}</Text>
         </View>
-        <Text>សូមព្យាយាម​ម្តង​ទៀត​</Text>
+        <Text>{this.props.t('InternetConnection.PleaseRetry')}</Text>
 
         { this.state.showLoading && <ActivityIndicator size="small" />}
 
         <View style={{ marginTop: 20 }}>
-          <Button title='ព្យាយាមម្តងទៀត' onPress={() => this._retryConnection()} />
+          <Button title={this.props.t('InternetConnection.PleaseRetry')} onPress={() => this._retryConnection()} />
         </View>
       </View>
     )
@@ -74,10 +78,10 @@ export default class Videos extends React.Component {
 
   _onPressItem(video) {
     if (!this.state.isConnected) {
-      return this.refs.toast.show('សូមភ្ជាប់បណ្តាញអ៊ិនធឺណេតជាមុនសិន!', DURATION.SHORT);
+      return this.refs.toast.show(this.props.t('InternetConnection.PleaseCheckYourInternetConnection'), DURATION.SHORT);
     }
 
-    addStatistic('ViewVideo', { videoId: getVideoId(video.url), title: video.title });
+    addStatistic('ViewVideo', { videoId: getVideoId(video.url), title: video[`title_${i18n.language}`] });
     this.props.navigation.navigate('ViewVideoScreen', { videoId: getVideoId(video.url) });
   }
 
@@ -95,7 +99,7 @@ export default class Videos extends React.Component {
 
         <View style={styles.textContainer}>
           <TouchableOpacity onPress={() => this._onPressItem(video)}>
-            <Text style={{ fontFamily: FontFamily.title, fontWeight: '700' }}>{video.title}</Text>
+            <Text style={{ fontFamily: FontFamily.title, fontWeight: '700' }}>{video[`title_${i18n.language}`]}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -107,7 +111,7 @@ export default class Videos extends React.Component {
       <Toolbar
         leftElement={'arrow-back'}
         onLeftElementPress={() => this.props.navigation.goBack()}
-        centerElement={'Videos'}
+        centerElement={this.props.t('VideosScreen.HeaderTitle')}
         rightElement={'home'}
         onRightElementPress={() => this._goTo('HomeScreen')}
         size={30}
@@ -179,3 +183,5 @@ const styles = StyleSheet.create({
     zIndex: 1
   }
 });
+
+export default withTranslation()(Videos);
