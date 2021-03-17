@@ -170,6 +170,40 @@ class CreateYourStory extends Component {
     );
   }
 
+  _renderList(item) {
+
+    let isSelected = this.state.answer.find(i => i.id == item.id)
+    let selectedAnswer = isSelected ? { backgroundColor: Color.pink } : { backgroundColor: Color.gray };
+
+    console.log("item : ", item);
+
+    return (
+      <TouchableOpacity
+        key={uuidv4()}
+        onPress={() => this._onSelectAnswer(item)}
+        style={[Style.card, styles.answerCard, { width: '100%', minHeight: 50 }]}
+        activeOpacity={0.8}
+      >
+        <View style={[styles.cardTitle, selectedAnswer, { backgroundColor: isSelected ? Color.pink : Color.white, flexDirection: 'row' }]}>
+          <View style={{ flex: 1, paddingRight: 14 }}>
+            <Text style={[styles.title, { color: isSelected ? Color.white : Color.textBlack }]}>{item[`title_${i18n.language}`]}</Text>
+          </View>
+          <View>
+            {!isSelected && <View style={{ alignItems: 'flex-end' }}>
+              <PlaySound
+                buttonAudioStyle={{ backgroundColor: isSelected ? Color.white : Color.pink }}
+                iconStyle={{ tintColor: isSelected ? Color.pink : Color.white }}
+                fileName={item.audioFileName || 'register'}
+                activePlaying={this.state.activePlaying}
+                onPress={(fileName) => this.setState({ activePlaying: fileName })} />
+            </View>}
+            {isSelected && <Image source={Images.checked} style={{ width: 40, height: 40 }} />}
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+
   _get_current_question() {
     let question = this.state.questionnaires[this.state.current_question_index];
     return question;
@@ -177,7 +211,8 @@ class CreateYourStory extends Component {
 
   _renderCards() {
     let question = this._get_current_question();
-    let row = question?.options.map((item) => this._renderCard(item));
+    let answer_type = question.answer_type;
+    let row = question?.options.map((item) => answer_type == 'list' ? this._renderList(item) : this._renderCard(item));
 
     return (
       <View style={{ flex: 1 }}>
