@@ -58,7 +58,7 @@ class Migration extends Component {
     let list = [
       {
         title_en: 'Starting your journey',
-        title_kh: 'ចាប់ផ្តើមដំណើររបស់អ្នក',
+        title_kh: 'ចាប់ផ្ដើមចេញដំណើរ',
         image: Images.migration_starting_your_journey,
         screenName: 'ImageViewScreen',
         imageList: 'visas',
@@ -68,7 +68,7 @@ class Migration extends Component {
       },
       {
         title_en: 'Understanding your contract',
-        title_kh: 'ស្វែងយល់ពីកិច្ចសន្យារបស់អ្នក',
+        title_kh: 'ស្វែងយល់អំពីកិច្ចសន្យាការងារ',
         image: Images.migration_understanding_your_contract,
         screenName: 'ImageViewScreen',
         imageList: 'worker_cards',
@@ -78,7 +78,7 @@ class Migration extends Component {
       },
       {
         title_en: 'Your right as migrant worker',
-        title_kh: 'សិទ្ធិរបស់អ្នកជាពលករចំណាកស្រុក',
+        title_kh: 'សិទ្ធិពលករចំណាកស្រុក',
         image: Images.migration_your_right_as_migrant_worker,
         screenName: 'ImageViewScreen',
         imageList: 'passport',
@@ -88,7 +88,7 @@ class Migration extends Component {
       },
       {
         title_en: 'Culture and lifestyle',
-        title_kh: 'វប្បធម៌និងរបៀបរស់នៅ',
+        title_kh: 'វប្បធម៌ និងការរស់នៅ',
         image: Images.migration_your_right_as_migrant_worker,
         screenName: 'ImageViewScreen',
         imageList: 'passport_preparation',
@@ -98,7 +98,7 @@ class Migration extends Component {
       },
       {
         title_en: 'Saving tips',
-        title_kh: 'ការរក្សាទុកគន្លឹះ',
+        title_kh: 'គន្លឹះក្នុងការសន្សំប្រាក់',
         image: Images.migration_your_right_as_migrant_worker,
         screenName: 'ImageViewScreen',
         imageList: 'thai_working_card',

@@ -92,7 +92,7 @@ class BeforeYouGo extends Component {
     let list = [
       {
         title_en: 'Prepare your trip',
-        title_kh: 'រៀបចំដំណើរកម្សាន្ត',
+        title_kh: 'រៀបចំដំណើររបស់អ្នក',
         iconName: 'before_you_go_prepare_your_trip',
         screenName: 'PreDepartureListScreen',
         imageWidth: '480',
@@ -112,7 +112,7 @@ class BeforeYouGo extends Component {
       },
       {
         title_en: 'Coming Home',
-        title_kh: 'មកផ្ទះ',
+        title_kh: 'ដំណើរវិលត្រឡប់',
         iconName: 'before_you_go_coming_home',
         screenName: 'ComingHomeScreen',
         imageWidth: '440',
@@ -185,8 +185,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   cardTitle: {
-    paddingHorizontal: 14,
-    paddingVertical: 14
+    paddingHorizontal: 10,
+    paddingVertical: 10
   },
   title: {
     fontFamily: FontFamily.title,

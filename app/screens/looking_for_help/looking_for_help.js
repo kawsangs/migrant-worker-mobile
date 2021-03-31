@@ -232,7 +232,7 @@ class LookingForHelp extends React.Component {
               data: this.state.contacts,
               renderItem: ({ item }) => this._renderItem(item),
               keyExtractor: item => item.code,
-              ListHeaderComponent: () => this._renderHeaderComponent()
+              // ListHeaderComponent: () => this._renderHeaderComponent()
             },
             noResultContent: !this.state.loading && !this.state.isConnected && this._renderNoInternetConnection()
           }}
