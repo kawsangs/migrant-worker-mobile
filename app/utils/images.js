@@ -1,6 +1,7 @@
 export default Images = {
   // Icons
   male: require('../assets/images/icons/male.png'),
+  hidden_sex: require('../assets/images/icons/hidden_sex.png'),
   female: require('../assets/images/icons/female.png'),
   other: require('../assets/images/icons/other.png'),
   facebook: require('../assets/images/icons/facebook.png'),
@@ -62,13 +63,19 @@ export default Images = {
   migration_your_right_as_migrant_worker: require('../assets/images/icons/migration_your_right_as_migrant_worker.png'),
 
   // coming home
-  three_things_to_prepare: require('../assets/images/icons/three_things_to_prepare.png'),
+  three_things_to_prepare: require('../assets/images/icons/three_things_to_prepare_new.png'),
   coming_home_women_migrant_worker: require('../assets/images/icons/coming_home_women_migrant_worker.png'),
+  coming_home_women_migrant_worker_1: require('../assets/images/icons/coming_home_women_migrant_worker_1.png'),
   
   // your safety
   your_safety_your_right_and_safety: require('../assets/images/icons/your_safety_your_right_and_safety.png'),
   your_safety_safety_planning: require('../assets/images/icons/your_safety_safety_planning.png'),
   your_safety_videos: require('../assets/images/icons/your_safety_videos.png'),
+  
+  // safety planning
+  safety_planning_leave_now: require('../assets/images/icons/safety_planning_leave_now.png'),
+  safety_planning_prepare_stuff: require('../assets/images/icons/safety_planning_prepare_stuff.png'),
+  safety_planning_extra_safe_tips: require('../assets/images/icons/safety_planning_extra_safe_tips.png'),
   
   // your right and safety
   your_right_and_safety_work_permit_1: require('../assets/images/icons/your_right_and_safety_work_permit_1.png'),
@@ -78,6 +85,11 @@ export default Images = {
   your_right_and_safety_work_permit_5: require('../assets/images/icons/your_right_and_safety_work_permit_5.png'),
   your_right_and_safety_work_permit_6: require('../assets/images/icons/your_right_and_safety_work_permit_6.png'),
   your_right_and_safety_work_permit_7: require('../assets/images/icons/your_right_and_safety_work_permit_7.png'),
+  
+  your_right_and_safety_1: require('../assets/images/icons/your_right_and_safety_1.png'),
+  your_right_and_safety_2: require('../assets/images/icons/your_right_and_safety_2.png'),
+  your_right_and_safety_3: require('../assets/images/icons/your_right_and_safety_3.png'),
+  your_right_and_safety_5: require('../assets/images/icons/your_right_and_safety_5.png'),
 
   // Logo
   chc_logo: require('../assets/images/logos/chc_logo.png'),

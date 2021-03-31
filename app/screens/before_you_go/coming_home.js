@@ -58,7 +58,7 @@ class ComingHome extends Component {
     let list = [
       {
         title_en: 'Making your plan',
-        title_kh: 'ធ្វើផែនការរបស់អ្នក',
+        title_kh: 'រៀបចំផែនការរបស់អ្នក',
         image: Images.coming_home_women_migrant_worker,
         screenName: 'ImageViewScreen',
         imageList: 'visas',
@@ -68,8 +68,8 @@ class ComingHome extends Component {
       },
       {
         title_en: 'Reintegration at home',
-        title_kh: 'ការបង្រួបបង្រួមនៅផ្ទះ',
-        image: Images.coming_home_women_migrant_worker,
+        title_kh: 'ត្រលប់ចូលក្នុងគ្រួសារ',
+        image: Images.coming_home_women_migrant_worker_1,
         screenName: 'ImageViewScreen',
         imageList: 'worker_cards',
         fileName: '',
@@ -78,7 +78,7 @@ class ComingHome extends Component {
       },
       {
         title_en: 'Women migrant workers and the economy',
-        title_kh: 'ពលករចំណាកស្រុកនិងសេដ្ឋកិច្ច',
+        title_kh: 'ស្រ្តីពលករចំណាកស្រុក និងចូលរួមចំណែកក្នុងសេដ្ឋកិច្ច',
         image: Images.coming_home_women_migrant_worker,
         screenName: 'ImageViewScreen',
         imageList: 'passport',

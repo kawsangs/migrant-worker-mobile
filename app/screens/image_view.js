@@ -37,7 +37,7 @@ class ImageView extends Component {
       <Toolbar
         leftElement={'arrow-back'}
         onLeftElementPress={() => this.props.navigation.goBack()}
-        centerElement={this.props.route.params.title}
+        centerElement={this.props.t('PrepareYourTripScreen.HeaderTitle')}
         rightElement={'home'}
         onRightElementPress={() => this._goTo('HomeScreen')}
         size={30}

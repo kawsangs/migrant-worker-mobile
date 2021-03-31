@@ -89,11 +89,13 @@ class More extends Component {
     )
   }
 
-  _renderMenuItem(item, index) {
+  _renderMenuItem(section, item, index) {
     let lang = i18n.language == 'kh' ? 'en' : 'kh';
     return (
       <TouchableOpacity
-        style={[Style.boxShadow, styles.menuItem, { marginBottom: index == 0 ? 16 : 0, }]}
+        style={[Style.boxShadow, styles.menuItem, {
+          //  marginBottom: index == 0 ? 16 : 0, 
+        }]}
         key={index}
         onPress={() => item.routeName ? this._goTo(item.routeName) : null}
         activeOpacity={0.8}
@@ -104,10 +106,10 @@ class More extends Component {
             style={styles.menuIcon} />
         </View>
         <View style={styles.menuTitleWrapper}>
-          <Text style={styles.menuTextTitle}>{this.props.t(`MoreScreen.${item.title}`)}</Text>
+          <Text style={styles.menuTextTitle}>{item[`title_${i18n.language}`]}</Text>
         </View>
         <View>
-          {index == 0 ? <TouchableOpacity
+          {section == 0 && index == 0 ? <TouchableOpacity
             style={Style.boxShadow}
             onPress={() => TranslationHelper.changeLanguage(lang)}
             activeOpacity={0.8}
@@ -118,14 +120,61 @@ class More extends Component {
   }
 
   _renderListMenuItem() {
+
     let list = [
-      { title: 'AboutUs', icon: Images.info, routeName: 'AboutScreen' },
-      { title: 'ShareApp', icon: Images.share, routeName: '' },
-      { title: 'PrivacyPolicy', icon: Images.doc, routeName: '' },
-      { title: 'TermsConditions', icon: Images.doc, routeName: '' },
+      {
+        title_en: "About",
+        title_kh: "អំពី",
+        items: [
+          {
+            title_en: 'Spotlight Initiative',
+            title_kh: 'Spotlight Initiative',
+            icon: Images.info,
+            routeName: 'AboutScreen'
+          },
+          {
+            title_en: 'Safe and Fair App',
+            title_kh: 'Safe and Fair App',
+            icon: Images.info,
+            routeName: 'AboutScreen'
+          },
+        ]
+      },
+      {
+        title_en: "Other",
+        title_kh: "ផ្សេងៗ",
+        items: [
+          {
+            title_en: 'Share App',
+            title_kh: 'ចែកចាយ/ចែករំលែកអែប',
+            icon: Images.share,
+            routeName: ''
+          },
+          {
+            title_en: 'Privacy Policy',
+            title_kh: 'គោលការណ៍អំពីឯកជនភាព',
+            icon: Images.doc,
+            routeName: ''
+          },
+          {
+            title_en: 'Terms Conditions',
+            title_kh: 'គោលការណ៍ និងលក្ខខណ្ឌ',
+            icon: Images.doc,
+            routeName: ''
+          },
+        ]
+      }
     ];
 
-    return list.map((item, index) => this._renderMenuItem(item, index));
+
+    return list.map((section, index) =>
+      <View key={index}>
+        <View style={{ paddingHorizontal: 16, paddingTop: 10, paddingBottom: 5 }}>
+          <Text>{section[`title_${i18n.language}`]}</Text>
+        </View>
+        {section.items.map((i, j) => this._renderMenuItem(index, i, j))}
+      </View>
+    );
   }
 
   _renderVersion() {

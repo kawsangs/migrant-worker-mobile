@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   homepageText: {
-    fontSize: FontSize.title,
+    fontSize: FontSize.title - 8,
     fontWeight: '700'
   },
   headerRight: {

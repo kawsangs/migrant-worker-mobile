@@ -59,7 +59,7 @@ class Welcome extends React.Component {
       },
       {
         title_en: 'Continue as guest',
-        title_kh: 'បន្តជាភ្ញៀវ',
+        title_kh: 'បន្តចូលមើល ជាភ្ញៀវ',
         iconName: 'phone',
         audioFileName: 'contact_1280',
         routeName: 'HomeScreen',
@@ -133,7 +133,7 @@ class Welcome extends React.Component {
         />
         <View style={styles.slideDescription}>
           <Text style={styles.slideTitle}>{item[`title_${i18n.language}`]}</Text>
-          <Text style={styles.slideSubTitle} numberOfLines={2} >{item[`sub_title_${i18n.language}`]}</Text>
+          <Text style={styles.slideSubTitle} numberOfLines={3} >{item[`sub_title_${i18n.language}`]}</Text>
         </View>
       </View>
     );
@@ -143,25 +143,25 @@ class Welcome extends React.Component {
     let data = [
       {
         title_en: "Welcome to",
-        title_kh: "សូមស្វាគមន៍មកកាន់",
+        title_kh: "សូមស្វាគមន៍",
         sub_title_en: "My journey app is help user for find usful information about migration.",
-        sub_title_kh: "កម្មវិធីដំណើររបស់ខ្ញុំគឺជួយអ្នកប្រើ ឲ្យ រកឃើញព័ត៌មានមានប្រយោជន៍អំពីការធ្វើចំណាកស្រុក។",
+        sub_title_kh: "ដំណើរឆ្លងដែនរបស់ខ្ញុំគឺជាកម្មវិធីប្រពន្ធ័ទូរសព្ទ័ (អែប) ដើម្បីជួយដល់អ្នកប្រើប្រាស់អាចរកបាននូវព័ត៌មានដែលមានសារ​សំខាន់សម្រាប់ការធ្វើចំណាកស្រុក",
         imgUrl: require('../assets/images/icons/travel.png'),
         videoUrl: "https://www.youtube.com/watch?v=ttSsAGmpC_U",
       },
       {
         title_en: "Welcome to",
-        title_kh: "សូមស្វាគមន៍មកកាន់",
+        title_kh: "សូមស្វាគមន៍",
         sub_title_en: "My journey app is help user for find usful information about migration.",
-        sub_title_kh: "កម្មវិធីដំណើររបស់ខ្ញុំគឺជួយអ្នកប្រើ ឲ្យ រកឃើញព័ត៌មានមានប្រយោជន៍អំពីការធ្វើចំណាកស្រុក។",
+        sub_title_kh: "ដំណើរឆ្លងដែនរបស់ខ្ញុំគឺជាកម្មវិធីប្រពន្ធ័ទូរសព្ទ័ (អែប) ដើម្បីជួយដល់អ្នកប្រើប្រាស់អាចរកបាននូវព័ត៌មានដែលមានសារ​សំខាន់សម្រាប់ការធ្វើចំណាកស្រុក",
         imgUrl: require('../assets/images/icons/travel.png'),
         videoUrl: "https://www.youtube.com/watch?v=Lsd-wDnQC1o",
       },
       {
         title_en: "Welcome to",
-        title_kh: "សូមស្វាគមន៍មកកាន់",
+        title_kh: "សូមស្វាគមន៍",
         sub_title_en: "My journey app is help user for find usful information about migration.",
-        sub_title_kh: "កម្មវិធីដំណើររបស់ខ្ញុំគឺជួយអ្នកប្រើ ឲ្យ រកឃើញព័ត៌មានមានប្រយោជន៍អំពីការធ្វើចំណាកស្រុក។",
+        sub_title_kh: "ដំណើរឆ្លងដែនរបស់ខ្ញុំគឺជាកម្មវិធីប្រពន្ធ័ទូរសព្ទ័ (អែប) ដើម្បីជួយដល់អ្នកប្រើប្រាស់អាចរកបាននូវព័ត៌មានដែលមានសារ​សំខាន់សម្រាប់ការធ្វើចំណាកស្រុក",
         imgUrl: require('../assets/images/icons/travel.png'),
         videoUrl: "https://www.youtube.com/watch?v=0CVF4Om6KT4",
       },

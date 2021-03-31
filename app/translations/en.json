@@ -1,5 +1,8 @@
 {
     "translation": {
+        "AboutScreen": {
+            "HeaderTitle": "About Us",
+        },
         "RegisterScreen": {
             "HeaderTitle": "Register",
             "EnterYourName": "Enter your name",

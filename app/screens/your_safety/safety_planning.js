@@ -1,6 +1,4 @@
-import i18n from 'i18next';
 import React, { Component } from 'react';
-import { withTranslation } from 'react-i18next';
 import {
   View,
   TouchableOpacity,
@@ -8,15 +6,18 @@ import {
   StyleSheet,
   Image,
   ScrollView,
+  ImageBackground
 } from 'react-native';
 import { Icon, Toolbar } from 'react-native-material-ui';
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
 import PlaySound from '../../components/play_sound';
 import Images from '../../utils/images';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { addStatistic } from '../../utils/statistic';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
-
-class SafetyPlanning extends React.Component {
+class SafetyPlanning extends Component {
   state = {}
 
   _goTo(screenName) {
@@ -61,46 +62,44 @@ class SafetyPlanning extends React.Component {
   _renderContent() {
     let list = [
       {
-        title_en: 'If you have to leave early',
-        title_kh: 'ប្រសិនបើអ្នកត្រូវចាកចេញមុនពេលកំណត់',
-        screenName: 'AboutScreen',
+        title_en: 'If you have to leave now',
+        title_kh: 'ប្រសិនបើអ្នកត្រូវចាកចេញភ្លាមៗ',
+        image: Images.safety_planning_leave_now,
+        screenName: 'YourRightsAndSafetyScreen',
+        imageList: 'visas',
         fileName: '',
+        w: 34,
+        h: 45
       },
       {
-        title_en: 'Things to pack',
-        title_kh: 'របស់របរត្រូវខ្ចប់',
-        screenName: 'AboutScreen',
+        title_en: 'Prepare your stuff',
+        title_kh: 'របស់របរដែលត្រូវរៀបចំ',
+        image: Images.safety_planning_prepare_stuff,
+        screenName: 'YourRightsAndSafetyScreen',
+        imageList: 'visas',
         fileName: '',
+        w: 34,
+        h: 45
       },
       {
         title_en: 'Things to know',
-        title_kh: 'រឿងដែលត្រូវដឹង',
-        screenName: 'AboutScreen',
+        title_kh: 'ចំនុចដែលត្រូវដឹង',
+        image: Images.safety_planning_prepare_stuff,
+        screenName: 'YourRightsAndSafetyScreen',
+        imageList: 'visas',
         fileName: '',
+        w: 34,
+        h: 45
       },
       {
-        title_en: 'Further safety strategies',
+        title_en: 'Safety tips',
         title_kh: 'យុទ្ធសាស្ត្រសុវត្ថិភាពបន្ថែម',
-        screenName: 'AboutScreen',
+        image: Images.safety_planning_extra_safe_tips,
+        screenName: 'YourRightsAndSafetyScreen',
+        imageList: 'visas',
         fileName: '',
-      },
-      {
-        title_en: 'Your health',
-        title_kh: 'សុខភាព​របស់​អ្នក',
-        screenName: 'AboutScreen',
-        fileName: '',
-      },
-      {
-        title_en: 'Your rights and protection',
-        title_kh: 'សិទ្ធិនិងការការពាររបស់អ្នក',
-        screenName: 'AboutScreen',
-        fileName: '',
-      },
-      {
-        title_en: 'Other rights and protection',
-        title_kh: 'សិទ្ធិនិងការការពារផ្សេងៗ',
-        screenName: 'AboutScreen',
-        fileName: '',
+        w: 34,
+        h: 45
       },
     ];
 
@@ -111,41 +110,49 @@ class SafetyPlanning extends React.Component {
     return (
       <TouchableOpacity
         key={index}
-        style={[Style.card, { padding: 10 }]}
-        onPress={() => this._onPress(item)}
+        // onPress={() => this._onPress(item)}
+        onPress={() => null}
         activeOpacity={0.8}
+        style={[Style.card, { padding: 0 }]}
       >
-        <View style={styles.cardContent}>
-          <View style={styles.cardIcon}>
-            <Image source={Images.info} style={styles.cardInfoIcon} />
-          </View>
+        <ImageBackground
+          source={item.image}
+          style={{ flex: 1 }}>
+          <View style={[Style.cardContent,
+          {
+            marginBottom: 0,
+            paddingBottom: 0,
+            minHeight: 160
+          }
+          ]}>
+            <View style={{ flex: 1 }} />
 
-          <View style={styles.cardDescription}>
-            <Text style={{ fontWeight: '700' }}>{item[`title_${i18n.language}`]}</Text>
+            <View>
+              <PlaySound
+                fileName={'register'}
+                buttonAudioStyle={{
+                  backgroundColor: Color.primary
+                }}
+                iconStyle={{
+                  tintColor: Color.white
+                }}
+                activePlaying={this.state.activePlaying}
+                onPress={(fileName) => this.setState({ activePlaying: fileName })}
+                style={{ marginTop: 10, marginRight: 10 }}
+              />
+            </View>
           </View>
+        </ImageBackground>
 
-          <View>
-            <PlaySound
-              fileName={'register'}
-              buttonAudioStyle={{
-                backgroundColor: Color.primary
-              }}
-              iconStyle={{
-                tintColor: Color.white
-              }}
-              activePlaying={this.state.activePlaying}
-              onPress={(fileName) => this.setState({ activePlaying: fileName })}
-            />
-          </View>
-        </View>
-
-        <View style={{ flexDirection: 'row', }}>
-          <Text style={[styles.title]}>{this.props.t("SafetyPlanningScreen.ViewDetail")}</Text>
-          <Icon name='keyboard-arrow-right' size={24} style={{ color: Color.gray }} />
+        <View style={styles.cardTitle}>
+          <Text style={[styles.title]}>{item[`title_${i18n.language}`]}</Text>
+          <Icon name='keyboard-arrow-right' size={24} />
         </View>
       </TouchableOpacity>
     )
   }
+
+
 
   render() {
     return (
@@ -164,38 +171,25 @@ class SafetyPlanning extends React.Component {
   }
 }
 
+
 const styles = StyleSheet.create({
   cardContent: {
     flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderColor: '#efefef',
-    marginBottom: 10,
-    paddingBottom: 10,
-  },
-  cardIcon: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: Color.primary,
   },
-  cardDescription: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: 14
-  },
-  cardInfoIcon: {
-    width: 30,
-    height: 30,
-    tintColor: Color.white
+  cardTitle: {
+    flexDirection: 'row',
+    paddingHorizontal: 14,
+    paddingVertical: 10,
   },
   title: {
     flex: 1,
-    color: Color.gray,
-    fontWeight: '700',
-    textTransform: 'uppercase'
+    fontFamily: FontFamily.title,
+    color: Color.textBlack,
+    fontWeight: '700'
   },
 });
 
 export default withTranslation()(SafetyPlanning);
+
+

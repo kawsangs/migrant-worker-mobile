@@ -6,11 +6,13 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
+  ImageBackground
 } from 'react-native';
 
 import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
 import Images from '../utils/images';
 import { InjectArray } from '../utils/math';
+import i18n from 'i18next';
 
 class SexOption extends Component {
   _buildOption(item, index) {
@@ -24,29 +26,57 @@ class SexOption extends Component {
       <TouchableOpacity
         key={index}
         onPress={() => this.props.onPress(item.value)}
-        style={[styles.card, Style.boxShadow, borderStyle, backgroundStyle]}>
+        style={[styles.card, Style.boxShadow, borderStyle]}>
+        <ImageBackground source={Images[item.iconName]} style={{
+          width: '100%',
+          height: '100%',
+          resizeMode: "cover",
+        }}>
 
-        {isSelected ? <Image source={Images.checked} style={styles.checkedIconStyle} /> : null}
+          {isSelected ? <Image source={Images.checked} style={styles.checkedIconStyle} /> : null}
 
-        <Image source={Images[item.iconName]}
+          {/* <Image source={Images[item.iconName]}
           style={{
             width: '100%',
             height: '100%',
             resizeMode: 'cover',
             // borderWidth: 1,
             borderColor: "red"
-          }} />
-        <Text style={{ fontFamily: textFont, color: textColor, marginVertical: 5 }}>{this.props.t("RegisterScreen.Gender." + item.title)}</Text>
+          }} /> */}
+          <Text style={{
+            fontFamily: textFont,
+            color: Color.white,
+            marginVertical: 5,
+            position: 'absolute',
+            marginHorizontal: 10
+          }}>{item[`title_${i18n.language}`]}</Text>
+        </ImageBackground>
       </TouchableOpacity>
     )
   }
 
   _renderSexOption() {
     let list = [
-      { title: 'Male', value: 'male', iconName: 'male' },
-      { title: 'Female', value: 'female', iconName: 'female' },
+      {
+        title_en: 'Male',
+        title_kh: 'ប្រុស',
+        value: 'male',
+        iconName: 'male'
+      },
+      {
+        title_en: 'Female',
+        title_kh: 'ស្រី',
+        value: 'female',
+        iconName: 'female'
+      },
+      {
+        title_en: 'Hidden',
+        title_kh: 'មិនបញ្ចេញ',
+        value: 'none',
+        iconName: 'hidden_sex'
+      },
     ];
-    let space = <View style={{ width: 24 }} />;
+    let space = <View style={{ width: 10 }} />;
     let doms = list.map((item, index) => this._buildOption(item, index))
     doms = InjectArray(doms, space);
 
