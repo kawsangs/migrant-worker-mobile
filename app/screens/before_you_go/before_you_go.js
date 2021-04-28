@@ -88,10 +88,10 @@ export default class BeforeYouGo extends React.Component {
 
   _renderCards() {
     let list = [
-      { title: 'Prepare your trip', iconName: 'safe_migrant', screenName: 'SafeMigrationScreen', imageWidth: '480', imageHeight: '360', audioFileName: '', backgroundColor: Color.red },
-      { title: 'Migration', iconName: 'text_info', screenName: 'MigrationScreen', imageWidth: '300', imageHeight: '372', audioFileName: '', backgroundColor: Color.red },
-      { title: 'Coming Home', iconName: 'service_directory', screenName: 'ServiceDirectoryScreen', imageWidth: '440', imageHeight: '344', audioFileName: '', backgroundColor: Color.red },
-      { title: 'Video', iconName: 'video', screenName: 'VideosScreen', imageWidth: '440', imageHeight: '344', audioFileName: '', backgroundColor: Color.red },
+      { title: 'Prepare your trip', iconName: 'safe_migrant', screenName: 'PrepareYourTripScreen', imageWidth: '480', imageHeight: '360', audioFileName: '', backgroundColor: Color.red },
+      { title: 'Migration', iconName: 'text_info', screenName: 'PrepareYourTripScreen', imageWidth: '300', imageHeight: '372', audioFileName: '', backgroundColor: Color.red },
+      { title: 'Coming Home', iconName: 'service_directory', screenName: 'PrepareYourTripScreen', imageWidth: '440', imageHeight: '344', audioFileName: '', backgroundColor: Color.red },
+      { title: 'Video', iconName: 'video', screenName: 'PrepareYourTripScreen', imageWidth: '440', imageHeight: '344', audioFileName: '', backgroundColor: Color.red },
     ];
 
     let row1 = list.slice(0, 2).map((item) => this._renderCard(item));
