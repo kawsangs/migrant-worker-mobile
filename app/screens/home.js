@@ -60,7 +60,7 @@ export default class Home extends React.Component {
   _renderCards() {
     let list = [
       { title: 'Before you go', iconName: 'safe_migrant', screenName: 'BeforeYouGoScreen', imageWidth: '480', imageHeight: '360', audioFileName: '', backgroundColor: Color.red },
-      { title: 'Your Safety', iconName: 'text_info', screenName: 'TextInfoScreen', imageWidth: '300', imageHeight: '372', audioFileName: '', backgroundColor: Color.primary },
+      { title: 'Your Safety', iconName: 'text_info', screenName: 'YourSafetyScreen', imageWidth: '300', imageHeight: '372', audioFileName: '', backgroundColor: Color.primary },
       { title: 'Looking for help?', iconName: 'service_directory', screenName: 'ServiceDirectoryScreen', imageWidth: '440', imageHeight: '344', audioFileName: '', backgroundColor: Color.yellow },
       { title: 'Your Story', iconName: 'video', screenName: 'VideosScreen', imageWidth: '440', imageHeight: '344', audioFileName: '', backgroundColor: Color.pink },
     ];
