@@ -18,6 +18,10 @@ export default Images = {
   audio: require('../assets/images/icons/speaker.png'),
   active_play: require('../assets/images/icons/speaker_playing.gif'),
   checked: require('../assets/images/icons/checked.png'),
+  notification: require('../assets/images/icons/notification.png'),
+  home: require('../assets/images/icons/home.png'),
+  youtube: require('../assets/images/icons/youtube.png'),
+  dotted: require('../assets/images/icons/dotted.png'),
 
   // Logo
   chc_logo: require('../assets/images/logos/chc_logo.png'),

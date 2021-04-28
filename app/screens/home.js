@@ -3,15 +3,20 @@ import {
   View,
   Text,
   Image,
-  ScrollView,
-  StyleSheet,
   TouchableOpacity,
+  Dimensions,
+  StyleSheet
 } from 'react-native';
 
-import { Icon } from 'react-native-material-ui';
-import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_style';
-import ButtonNav from '../components/button_nav';
+import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
+import PlaySound from '../components/play_sound';
+import Images from '../utils/images';
+import { InjectArray } from '../utils/math';
+import uuidv4 from '../utils/uuidv4';
+import { autoImageHeight } from '../utils/image_style';
 import { addStatistic } from '../utils/statistic';
+
+const win = Dimensions.get('window');
 
 export default class Home extends React.Component {
   state = {};
@@ -21,89 +26,99 @@ export default class Home extends React.Component {
     this.props.navigation.navigate(screenName);
   }
 
-  _renderButtonAbout() {
+  _renderCard(item) {
+    let containerWdith = (win.width - 48) / 2 - 50;
+    let imageStyle = autoImageHeight(containerWdith, item.imageWidth, item.imageHeight);
+
     return (
-      <View style={{flexGrow: 1, justifyContent: 'flex-end'}}>
-        <TouchableOpacity
-          onPress={() => this._goTo('AboutScreen')}
-          style={styles.buttonAboutWrapper}
-        >
-          <Icon name='info' size={24} />
-          <Text style={{marginLeft: 10}}>អំពីកម្មវិធី</Text>
-        </TouchableOpacity>
-      </View>
-    )
+      <TouchableOpacity
+        key={uuidv4()}
+        onPress={() => this._goTo(item.screenName)}
+        style={[Style.card, { flex: 1, marginBottom: 0, padding: 0 }]}
+        activeOpacity={0.8}
+      >
+        <View style={styles.coverSoundIcon}>
+          <PlaySound
+            buttonAudioStyle={{ backgroundColor: Color.white }}
+            iconStyle={{ tintColor: item.backgroundColor || Color.primary }}
+            fileName={item.audioFileName || 'register'}
+            activePlaying={this.state.activePlaying}
+            onPress={(fileName) => this.setState({ activePlaying: fileName })} />
+        </View>
+
+        <View style={[styles.coverImage, { backgroundColor: item.backgroundColor || Color.primary }]}>
+          <Image source={Images[item.iconName]} style={imageStyle} />
+        </View>
+
+        <View style={styles.cardTitle}>
+          <Text style={styles.title}>{item.title}</Text>
+        </View>
+      </TouchableOpacity>
+    );
   }
 
-  _renderHeader() {
-    return (
-      <View style={styles.imageWrapper}>
-        <Image style={{width: 301, height: 198}} source={require('../assets/images/icons/travel.png')} />
-      </View>
-    )
-  }
-
-  _renderButtonNavs() {
+  _renderCards() {
     let list = [
-      { title: 'ចុះឈ្មោះ(រក្សាការសម្ងាត់)', iconName: 'person', audioFileName: 'register', routeName: 'RegisterScreen', active: true },
-      { title: 'ទាក់ទងទៅលេខជំនួយ១២៨០', iconName: 'phone', audioFileName: 'contact_1280', routeName: 'Contact1280Screen', active: false },
-      { title: 'ចំណាកស្រុកសុវត្ថិភាព', iconName: 'info-outline', audioFileName: 'safe_migration', routeName: 'OtherInfoScreen', active: false },
+      { title: 'Before you go', iconName: 'safe_migrant', screenName: 'SafeMigrationScreen', imageWidth: '480', imageHeight: '360', audioFileName: '', backgroundColor: "#e43425" },
+      { title: 'Your Safety', iconName: 'text_info', screenName: 'TextInfoScreen', imageWidth: '300', imageHeight: '372', audioFileName: '', backgroundColor: "#00acb9" },
+      { title: 'Looking for help?', iconName: 'service_directory', screenName: 'ServiceDirectoryScreen', imageWidth: '440', imageHeight: '344', audioFileName: '', backgroundColor: "#fba924" },
+      { title: 'Your Story', iconName: 'video', screenName: 'VideosScreen', imageWidth: '440', imageHeight: '344', audioFileName: '', backgroundColor: "#e44877" },
     ];
 
-    let doms = list.map((item, index) => (
-      <ButtonNav
-        key={index}
-        active={item.active}
-        title={item.title}
-        icon={item.iconName}
-        audioFileName={item.audioFileName}
-        onPress={() => this._goTo(item.routeName)}
-        activePlaying={this.state.activePlaying}
-        onPressPlaySound={(fileName) => this.setState({activePlaying: fileName})}
-      />
-    ));
+    let row1 = list.slice(0, 2).map((item) => this._renderCard(item));
+    let row2 = list.slice(2, 4).map((item) => this._renderCard(item));
+
+    let space = <View key={uuidv4()} style={{ width: 16 }}></View>;
+    row1 = InjectArray(row1, space);
+    row2 = InjectArray(row2, space);
 
     return (
-      <View style={{marginTop: 30}}>
-        {doms}
+      <View style={{ flex: 1 }}>
+        <View style={styles.rowStyle}>
+          {row1}
+        </View>
+
+        <View style={{ height: 16 }}></View>
+
+        <View style={styles.rowStyle}>
+          {row2}
+        </View>
       </View>
-    )
+    );
   }
 
   render() {
     return (
-      <ScrollView style={{flex: 1}} contentContainerStyle={{flexGrow: 1}}>
-        { this._renderHeader() }
-
-        <View style={Style.container}>
-          <Text style={styles.title}>ចំណាកស្រុកសុវត្ថិភាព</Text>
-          <Text>កម្មវិធីចំណាកស្រុកសុវត្ថិភាព</Text>
-          <Text>ជាកម្មវិធីទូរស័ព្ទបង្កើតឡើងក្នុងគោលបំណងជំនួយ</Text>
-          { this._renderButtonNavs() }
-        </View>
-
-        { this._renderButtonAbout() }
-      </ScrollView>
+      <View style={[Style.container, { flex: 1 }]}>
+        { this._renderCards()}
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  imageWrapper: {
-    height: 196,
-    backgroundColor: Color.primary,
-    flexDirection: 'row',
+  coverSoundIcon: {
+    alignItems: 'flex-end',
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 1
+  },
+  coverImage: {
     justifyContent: 'center',
-    alignItems: 'flex-start'
+    flex: 1,
+    alignItems: 'center',
+  },
+  cardTitle: {
+    paddingHorizontal: 14,
+    paddingVertical: 14
   },
   title: {
     fontFamily: FontFamily.title,
-    fontSize: FontSize.title,
-    textAlign: 'center',
+    fontWeight: '700'
   },
-  buttonAboutWrapper: {
+  rowStyle: {
     flexDirection: 'row',
-    padding: 16,
-    justifyContent: 'center',
+    flex: 1
   }
 });
