@@ -7,11 +7,19 @@ import Realm from 'realm';
 import UserSchema from './user';
 import PdfSchema from './pdf';
 import SidekiqSchema from './sidekiq';
+import QuestionSchema from './question';
+import AnswerSchema from './answer';
+import CriteriaSchema from './criteria';
+import SkipLogicShema from './skip_logic';
 
 const schema = [
   UserSchema,
   PdfSchema,
-  SidekiqSchema
+  SidekiqSchema,
+  CriteriaSchema,
+  SkipLogicShema,
+  AnswerSchema,
+  QuestionSchema,
 ];
 
 const schemas = [

@@ -16,6 +16,7 @@ import uuidv4 from '../../utils/uuidv4';
 import { addStatistic } from '../../utils/statistic';
 import { Toolbar } from 'react-native-material-ui';
 import Questionnaires from '../../data/json/questionnaires';
+import realm from '../../schemas/schema';
 
 export default class CreateYourStory extends React.Component {
 
@@ -58,12 +59,36 @@ export default class CreateYourStory extends React.Component {
   }
 
   _init() {
-    let get_questionnaires_data = Questionnaires.sort(function (a, b) {
-      return a.order - b.order;
-    });
+    let get_questionnaires_data = Questionnaires.sort(function (a, b) { return a.order - b.order; });
+    let get_question_from_realm = realm.objects('Question');
+    let list_question = null;
+
+    console.log("get_question_from_realm : ",get_question_from_realm);
+
+    if (get_question_from_realm.length > 0) {
+      // console.log("get_question_from_realm.length : ", get_question_from_realm.length);
+
+      list_question = get_question_from_realm;
+
+    } else {
+      // console.log("get_question_from_realm : ", get_question_from_realm);
+
+      try {
+        get_questionnaires_data.map(item => {
+          realm.write(() => {
+            realm.create('Question', item, true);
+          });
+        })
+      } catch (e) {
+        alert(e);
+      }
+
+      list_question = get_questionnaires_data;
+    }
 
     this.state = {
       current_question_index: 0,
+      answer: [],
       answer_id: 1,
       progress: 0,
       question_length: get_questionnaires_data.length,
@@ -79,14 +104,44 @@ export default class CreateYourStory extends React.Component {
     return progress_percentage;
   }
 
+  _onSelectAnswer(item) {
+    let isSelected = this.state.answer.find(i => {
+      return i.id == item.id;
+    })
+
+    if (isSelected) {
+      let filter_array = this.state.answer.filter(item => {
+        return item.id !== isSelected.id;
+      });
+
+      this.setState({
+        answer: filter_array
+      })
+
+    } else {
+      let answer = [...this.state.answer];
+
+      answer.push({
+        id: item.id,
+        weight: item.weight
+      });
+
+      this.setState({ answer });
+
+    }
+
+  }
+
   _renderCard(item) {
-    let isSelected = this.state.answer_id == item.id;
+
+    let isSelected = this.state.answer.find(i => i.id == item.id)
     let selectedAnswer = isSelected ? { backgroundColor: Color.pink } : { backgroundColor: Color.gray };
 
     return (
       <TouchableOpacity
         key={uuidv4()}
-        onPress={() => this.setState({ answer_id: item.id })}
+        // onPress={() => this.setState({ answer_id: item.id })}
+        onPress={() => this._onSelectAnswer(item)}
         style={[Style.card, styles.answerCard]}
         activeOpacity={0.8}
       >
@@ -104,7 +159,7 @@ export default class CreateYourStory extends React.Component {
         </View>
 
         <View style={styles.cardTitle}>
-          <Text style={styles.title}>{item.text}</Text>
+          <Text style={styles.title}>{item.title}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -160,6 +215,7 @@ export default class CreateYourStory extends React.Component {
   _checkSelectedAnswer() {
     let current_question = this._get_current_question();
     let answer_id = this.state.answer_id;
+    let answer = this.state.answer;
     let selected_answer = {};
 
     let selected_answer_weight = current_question.options.find(item => {
@@ -167,11 +223,134 @@ export default class CreateYourStory extends React.Component {
     })
 
     selected_answer = {
+      id: selected_answer_weight.id,
       code: current_question.code,
-      weight: selected_answer_weight.weight
+      answers: answer,
     }
 
     return selected_answer;
+  }
+
+  _checkNextQuestionV2() {
+    let current_question_index = this.state.current_question_index;
+    let all_questions = this.state.questionnaires;
+
+    let update_state = {
+      answers: [...this.state.answers, {
+        order: all_questions[current_question_index].order,
+        code: all_questions[current_question_index].code,
+        answers: [...this.state.answer]
+      }]
+    };
+
+    let next_question_index = -1;
+
+    for (let i = current_question_index + 1; i < all_questions.length; i++) {
+      const question = all_questions[i];
+
+      if (question.skip_logic !== null) {
+        let operator = question.skip_logic.operator;
+
+        if (operator == 'and') {
+          let skip_flag = true;
+
+          for (let j = 0; j < question.skip_logic.criterias.length; j++) {
+            let criteria = question.skip_logic.criterias[j];
+
+            var get_answer = update_state.answers.find(obj => {
+              return obj.code == criteria.code;
+            })
+
+            if (!get_answer) {
+              skip_flag = false;
+              break;
+            }
+
+            if (criteria.operator == 'match_any') {
+
+              const match_any = criteria.value.some(e => get_answer.answers.find(k => k.id == e) ? true : false);
+              skip_flag &= match_any;
+
+            } else if (criteria.operator == 'match_all') {
+
+              const match_all = criteria.value.every(e => get_answer.answers.find(k => k.id == e) ? true : false);
+              skip_flag &= match_all;
+
+            }
+
+          }
+
+          if (skip_flag) {
+            next_question_index = i;
+          }
+
+        } else if (operator == 'or') {
+          let skip_flag = false;
+
+          for (let j = 0; j < question.skip_logic.criterias.length; j++) {
+            let criteria = question.skip_logic.criterias[j];
+
+            var get_answer = update_state.answers.find(obj => {
+              return obj.code == criteria.code;
+            })
+
+            if (get_answer) {
+              if (criteria.operator == 'match_any') {
+
+                const match_any = criteria.value.some(e => get_answer.answers.find(k => k.id == e) ? true : false);
+                skip_flag |= match_any;
+
+              } else if (criteria.operator == 'match_all') {
+
+                const match_all = criteria.value.every(e => get_answer.answers.find(k => k.id == e) ? true : false);
+                skip_flag |= match_all;
+
+              }
+            }
+          }
+
+          if (skip_flag) {
+            next_question_index = i;
+          }
+        }
+
+      } else {
+        next_question_index = i;
+      }
+
+      if (next_question_index >= 0) {
+        break;
+      }
+    }
+
+    if (next_question_index >= 0) {
+      update_state = {
+        ...update_state,
+        current_question_index: next_question_index,
+        answer: []
+      }
+
+      this.setState(update_state);
+    } else {
+      let answers = update_state.answers;
+      let total = 0;
+
+      this.setState(update_state);
+
+      for (let i = 0; i < answers.length; i++) {
+        let answer = answers[i];
+
+        for (let j = 0; j < answer.answers.length; j++) {
+          let a = answer.answers[j];
+          total += a.weight;
+        }
+      }
+
+      total = parseFloat(total).toFixed(2);
+
+      this._goTo('TestResultScreen', { total_weight: total });
+    }
+
   }
 
   _checkNextQuestion() {
@@ -188,7 +367,7 @@ export default class CreateYourStory extends React.Component {
       ...this.state,
       answers: [
         ...this.state.answers,
-        selected_answer
+        answer
       ]
     }, () => {
       let next_question_index = -1;
@@ -285,16 +464,19 @@ export default class CreateYourStory extends React.Component {
   }
 
   _renderNextButton() {
+    let hasSelectedAnswer = this.state.answer.length > 0;
     return (
       <View style={[Style.boxShadow, styles.nextButton]}>
         <TouchableOpacity
-          onPress={() => this._checkNextQuestion()}
-          style={styles.nextBtnAction}
+          onPress={() => { hasSelectedAnswer ? this._checkNextQuestionV2() : null }}
+          style={[styles.nextBtnAction, {
+            backgroundColor: hasSelectedAnswer ? Color.pink : Color.gray,
+          }]}
           activeOpacity={0.8}
         >
           <View style={{ width: 58 }} />
           <View style={styles.coverNextText}>
-            <Text style={styles.nextText}>Next</Text>
+            <Text style={[styles.nextText, { color: hasSelectedAnswer ? Color.white : Color.textBlack }]}>Next</Text>
           </View>
           <PlaySound
             fileName={'register'}
@@ -310,15 +492,33 @@ export default class CreateYourStory extends React.Component {
   }
 
   render() {
+    // let getPerson = realm.objects('Person');
+    // let getUser = realm.objects('User');
+    // let getDog = realm.objects('Dog');
+
+    // console.log("getPerson : ", getPerson);
+
+    // getPerson.map(item => console.log('item dot dog : ', item.dog))
+
+    // console.log("getUser : ", getUser);
+    // console.log("getDog : ", getDog);
+
+    // ------------------------------------------------------------------
+
+    let getQuestion = realm.objects('Question');
+
+    // console.log('getQuestion from realm : ', getQuestion);
+
     return (
       <View style={{ flex: 1 }}>
         <StatusBar barStyle={'light-content'} backgroundColor={Color.pink} />
         {this._renderToolbar()}
+        {this._renderHeader()}
         <ScrollView
           style={{ flex: 1 }}
           contentContainerStyle={{ flexGrow: 1 }}
           showsVerticalScrollIndicator={false}>
-          {this._renderHeader()}
+          {/* {this._renderHeader()} */}
           <View style={[Style.container, { flex: 1, marginBottom: 0 }]}>
             {this._renderCards()}
           </View>
