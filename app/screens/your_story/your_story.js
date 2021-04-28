@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -14,8 +14,10 @@ import PlaySound from '../../components/play_sound';
 import Images from '../../utils/images';
 import { addStatistic } from '../../utils/statistic';
 import ProgressCircle from 'react-native-progress-circle';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
-export default class YourStory extends React.Component {
+class YourStory extends Component {
   state = {}
 
   _goTo(screenName) {
@@ -28,7 +30,7 @@ export default class YourStory extends React.Component {
       <Toolbar
         leftElement={'arrow-back'}
         onLeftElementPress={() => this.props.navigation.goBack()}
-        centerElement={'Create your story'}
+        centerElement={this.props.t('YourStoryScreen.HeaderTitle')}
         rightElement={'home'}
         onRightElementPress={() => this._goTo('HomeScreen')}
         size={30}
@@ -52,22 +54,43 @@ export default class YourStory extends React.Component {
 
   _onPress(item) {
     if (item.routeName == 'ImageViewScreen') {
-      addStatistic('migration_checklist_view_image', { title: item.title })
+      addStatistic('migration_checklist_view_image', { title: item[`title_${i18n.language}`] })
     }
 
-    this.props.navigation.navigate(item.screenName, { title: item.title });
+    this.props.navigation.navigate(item.screenName, { title: { title_en: item.title_en, title_kh: item.title_kh } });
   }
 
   _renderContent() {
     let list = [
-      { title: '1st Story', subTitle: '6 questions', screenName: 'CreateYourStoryScreen', fileName: '', },
-      { title: '2nd Story', subTitle: '6 questions', screenName: 'CreateYourStoryScreen', fileName: '', },
-      { title: '3rd Story', subTitle: '6 questions', screenName: 'CreateYourStoryScreen', fileName: '', },
+      {
+        title_en: '1st Story',
+        title_kh: 'រឿងទី ១',
+        subTitle_en: '6 questions',
+        subTitle_kh: '៦ សំណួរ',
+        screenName: 'CreateYourStoryScreen',
+        fileName: '',
+      },
+      {
+        title_en: '2nd Story',
+        title_kh: 'រឿងទី ២',
+        subTitle_en: '6 questions',
+        subTitle_kh: '៦ សំណួរ',
+        screenName: 'CreateYourStoryScreen',
+        fileName: '',
+      },
+      {
+        title_en: '3rd Story',
+        title_kh: 'រឿងទី ៣',
+        subTitle_en: '6 questions',
+        subTitle_kh: '៦ សំណួរ',
+        screenName: 'CreateYourStoryScreen',
+        fileName: '',
+      },
     ];
 
     return <View style={Style.container}>
       <View style={{ marginBottom: 16 }}>
-        <Text style={styles.testStoryTitle}>Test your story</Text>
+        <Text style={styles.testStoryTitle}>{this.props.t('YourStoryScreen.Title')}</Text>
       </View>
       {list.map((item, index) => {
         const is_last_item = (index !== list.length - 1) ? true : false;
@@ -90,8 +113,8 @@ export default class YourStory extends React.Component {
             </View>
 
             <View style={styles.cardDescription}>
-              <Text style={styles.cardTitle}>{item.title}</Text>
-              <Text style={styles.cardSubTitle}>{item.subTitle}</Text>
+              <Text style={styles.cardTitle}>{item[`title_${i18n.language}`]}</Text>
+              <Text style={styles.cardSubTitle}>{item[`subTitle_title_${i18n.language}`]}</Text>
             </View>
 
             <View>
@@ -106,7 +129,7 @@ export default class YourStory extends React.Component {
           </View>
 
           <View style={{ flexDirection: 'row', }}>
-            <Text style={[styles.title]}>Start Test</Text>
+            <Text style={[styles.title]}>{this.props.t('YourStoryScreen.StartTest')}</Text>
             <Icon name='keyboard-arrow-right' size={24} style={{ color: Color.gray }} />
           </View>
         </TouchableOpacity>
@@ -131,19 +154,19 @@ export default class YourStory extends React.Component {
               color="#0bc763"
               shadowColor="#e4e6e9"
               bgColor="#fff"
-              // containerStyle={{
-              //   transform: [{ rotate: '60deg' }]
-              // }}
-              // outerCircleStyle={{
-              //   transform: [{ rotate: '-60deg' }]
-              // }}
+            // containerStyle={{
+            //   transform: [{ rotate: '60deg' }]
+            // }}
+            // outerCircleStyle={{
+            //   transform: [{ rotate: '-60deg' }]
+            // }}
             >
               <Text style={{ fontSize: 18, fontWeight: '700' }}>{'70%'}</Text>
             </ProgressCircle>
           </View>
           <View style={styles.headerCardTitle}>
-            <Text style={styles.headerCardMainTitle}>Safety Migration</Text>
-            <Text style={styles.headerCardSubTitle}>Percentage number of test</Text>
+            <Text style={styles.headerCardMainTitle}>{this.props.t('YourStoryScreen.HeaderCard.Title')}</Text>
+            <Text style={styles.headerCardSubTitle}>{this.props.t('YourStoryScreen.HeaderCard.Description')}</Text>
           </View>
           <View>
             <PlaySound
@@ -169,7 +192,7 @@ export default class YourStory extends React.Component {
         >
           <View style={{ width: 58 }} />
           <View style={styles.coverStartText}>
-            <Text style={styles.startText}>Start</Text>
+            <Text style={styles.startText}>{this.props.t('YourStoryScreen.Start')}</Text>
           </View>
           <PlaySound
             fileName={'register'}
@@ -298,3 +321,5 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   }
 });
+
+export default withTranslation()(YourStory);

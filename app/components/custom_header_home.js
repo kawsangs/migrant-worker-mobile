@@ -1,4 +1,5 @@
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import {
   View,
   StyleSheet,
@@ -11,13 +12,13 @@ import { Color, FontSize } from '../assets/stylesheets/base_style';
 import Images from '../utils/images';
 
 
-const CustomHeaderHome = ({ }) => {
+const CustomHeaderHome = withTranslation()((props) => {
   return (
     <SafeAreaView style={styles.container}>
 
       <View style={styles.headerLeft}>
-        <Text style={styles.welcomeText}>Welcome to</Text>
-        <Text style={styles.homepageText}>Homepage</Text>
+        <Text style={styles.welcomeText}>{props.t('HomeScreen.WelcomeTo')}</Text>
+        <Text style={styles.homepageText}>{props.t('HomeScreen.Homepage')}</Text>
       </View>
 
       <View style={styles.headerRight}>
@@ -32,8 +33,8 @@ const CustomHeaderHome = ({ }) => {
       </View>
 
     </SafeAreaView>
-  );
-};
+  )
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -59,12 +60,10 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     fontSize: FontSize.body,
-    lineHeight: FontSize.body,
     fontWeight: '700',
   },
   homepageText: {
     fontSize: FontSize.title,
-    lineHeight: FontSize.title,
     fontWeight: '700'
   },
   headerRight: {

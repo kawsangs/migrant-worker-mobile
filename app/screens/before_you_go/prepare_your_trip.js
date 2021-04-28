@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -12,9 +12,11 @@ import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/bas
 import PlaySound from '../../components/play_sound';
 import Images from '../../utils/images';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 
-export default class PrepareYourTrip extends React.Component {
+class PrepareYourTrip extends Component {
   state = {}
 
   _renderToolbar() {
@@ -22,7 +24,7 @@ export default class PrepareYourTrip extends React.Component {
       <Toolbar
         leftElement={'arrow-back'}
         onLeftElementPress={() => this.props.navigation.goBack()}
-        centerElement={'Predeparture list'}
+        centerElement={this.props.t('PrepareYourTripScreen.HeaderTitle')}
         rightElement={'home'}
         onRightElementPress={() => this._goTo('HomeScreen')}
         size={30}
@@ -44,21 +46,75 @@ export default class PrepareYourTrip extends React.Component {
   }
 
   _onPress(item) {
-    if (item.routeName == 'ImageViewScreen' ) {
+    if (item.routeName == 'ImageViewScreen') {
       addStatistic('migration_checklist_view_image', { title: item.title })
     }
 
-    this.props.navigation.navigate(item.screenName, {title: item.title, imageList: item.imageList});
+    this.props.navigation.navigate(item.screenName, { title: item[`title_${i18n.language}`], imageList: item.imageList });
   }
 
   _renderContent() {
     let list = [
-      { title: 'Passport', image: Images.safe_migrant, screenName: 'ImageViewScreen', imageList: 'visas', fileName: '', w: 34, h: 45 },
-      { title: 'Visa', image: Images.safe_migrant, screenName: 'ImageViewScreen', imageList: 'worker_cards', fileName: '', w: 34, h: 45 },
-      { title: 'Work Permint', image: Images.safe_migrant, screenName: 'ImageViewScreen', imageList: 'passport', fileName: '', w: 34, h: 45 },
-      { title: 'Work Permint I', image: Images.safe_migrant, screenName: 'ImageViewScreen', imageList: 'passport_preparation', fileName: '', w: 34, h: 45 },
-      { title: 'Work Permint II', image: Images.safe_migrant, screenName: 'ImageViewScreen', imageList: 'thai_working_card', fileName: '', w: 34, h: 45 },
-      { title: 'Work Permint III', image: Images.safe_migrant, screenName: 'ImageViewScreen', imageList: 'worker_cards', fileName: '', w: 34, h: 45 },
+      {
+        title_en: 'Passport',
+        title_kh: 'លិខិតឆ្លងដែន',
+        image: Images.safe_migrant,
+        screenName: 'ImageViewScreen',
+        imageList: 'visas',
+        fileName: '',
+        w: 34,
+        h: 45
+      },
+      {
+        title_en: 'Visa',
+        title_kh: 'ទិដ្ឋាការ',
+        image: Images.safe_migrant,
+        screenName: 'ImageViewScreen',
+        imageList: 'worker_cards',
+        fileName: '',
+        w: 34,
+        h: 45
+      },
+      {
+        title_en: 'Work Permint',
+        title_kh: 'ប័ណ្ណការងារ',
+        image: Images.safe_migrant,
+        screenName: 'ImageViewScreen',
+        imageList: 'passport',
+        fileName: '',
+        w: 34,
+        h: 45
+      },
+      {
+        title_en: 'Work Permint I',
+        title_kh: 'ប័ណ្ណការងារក',
+        image: Images.safe_migrant,
+        screenName: 'ImageViewScreen',
+        imageList: 'passport_preparation',
+        fileName: '',
+        w: 34,
+        h: 45
+      },
+      {
+        title_en: 'Work Permint II',
+        title_kh: 'ការអនុញ្ញាតការងារទី II',
+        image: Images.safe_migrant,
+        screenName: 'ImageViewScreen',
+        imageList: 'thai_working_card',
+        fileName: '',
+        w: 34,
+        h: 45
+      },
+      {
+        title_en: 'Work Permint III',
+        title_kh: 'លិខិតអនុញ្ញាតការងារ III',
+        image: Images.safe_migrant,
+        screenName: 'ImageViewScreen',
+        imageList: 'worker_cards',
+        fileName: '',
+        w: 34,
+        h: 45
+      },
     ];
 
     return list.map((item, index) => this._renderCard(item, index));
@@ -99,7 +155,7 @@ export default class PrepareYourTrip extends React.Component {
         </View>
 
         <View style={{ flexDirection: 'row', }}>
-          <Text style={[styles.title]}>{item.title}</Text>
+          <Text style={[styles.title]}>{item[`title_${i18n.language}`]}</Text>
           <Icon name='keyboard-arrow-right' size={24} />
         </View>
       </TouchableOpacity>
@@ -117,7 +173,7 @@ export default class PrepareYourTrip extends React.Component {
             <Text style={styles.mainCardNumber}>{6}</Text>
           </View>
           <View style={{ flex: 1 }}>
-            <Text style={styles.mainCardLabel}>Things prepare before departures</Text>
+            <Text style={styles.mainCardLabel}>{this.props.t('PrepareYourTripScreen.Descriptions')}</Text>
           </View>
           <View style={{ marginLeft: 30 }}>
             <PlaySound
@@ -229,3 +285,5 @@ const styles = StyleSheet.create({
     tintColor: Color.gray
   }
 });
+
+export default withTranslation()(PrepareYourTrip);

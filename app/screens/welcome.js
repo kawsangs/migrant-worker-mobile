@@ -20,8 +20,9 @@ import NetInfo from "@react-native-community/netinfo";
 import Toast, { DURATION } from 'react-native-easy-toast';
 import LoadingIndicator from '../components/loading_indicator';
 import { getVideoId } from '../utils/youtube';
-
-export default class Welcome extends React.Component {
+import i18n from 'i18next';
+import { withTranslation } from 'react-i18next';
+class Welcome extends React.Component {
   state = {
     loading: true,
     activeSlide: 0
@@ -48,15 +49,29 @@ export default class Welcome extends React.Component {
 
   _renderButtonNavs() {
     let list = [
-      { title: 'Register', iconName: 'person', audioFileName: 'register', routeName: 'RegisterScreen', active: true },
-      { title: 'Continue as guest', iconName: 'phone', audioFileName: 'contact_1280', routeName: 'HomeScreen', active: false },
+      {
+        title_en: 'Register',
+        title_kh: 'ចុះឈ្មោះ',
+        iconName: 'person',
+        audioFileName: 'register',
+        routeName: 'RegisterScreen',
+        active: true
+      },
+      {
+        title_en: 'Continue as guest',
+        title_kh: 'បន្តជាភ្ញៀវ',
+        iconName: 'phone',
+        audioFileName: 'contact_1280',
+        routeName: 'HomeScreen',
+        active: false
+      },
     ];
 
     let doms = list.map((item, index) => (
       <ButtonNav
         key={index}
         active={item.active}
-        title={item.title}
+        title={item[`title_${i18n.language}`]}
         icon={item.iconName}
         audioFileName={item.audioFileName}
         onPress={() => this._goTo(item.routeName)}
@@ -117,8 +132,8 @@ export default class Welcome extends React.Component {
           url={item.videoUrl}
         />
         <View style={styles.slideDescription}>
-          <Text style={styles.slideTitle}>{item.title}</Text>
-          <Text style={styles.slideSubTitle} numberOfLines={2} >{item.sub_title}</Text>
+          <Text style={styles.slideTitle}>{item[`title_${i18n.language}`]}</Text>
+          <Text style={styles.slideSubTitle} numberOfLines={2} >{item[`sub_title_${i18n.language}`]}</Text>
         </View>
       </View>
     );
@@ -127,20 +142,26 @@ export default class Welcome extends React.Component {
   _renderHeaderSlide() {
     let data = [
       {
-        title: "Welcome to",
-        sub_title: "My journey app is help user for find usful information about migration.",
+        title_en: "Welcome to",
+        title_kh: "សូមស្វាគមន៍មកកាន់",
+        sub_title_en: "My journey app is help user for find usful information about migration.",
+        sub_title_kh: "កម្មវិធីដំណើររបស់ខ្ញុំគឺជួយអ្នកប្រើ ឲ្យ រកឃើញព័ត៌មានមានប្រយោជន៍អំពីការធ្វើចំណាកស្រុក។",
         imgUrl: require('../assets/images/icons/travel.png'),
         videoUrl: "https://www.youtube.com/watch?v=ttSsAGmpC_U",
       },
       {
-        title: "Welcome to",
-        sub_title: "My journey app is help user for find usful information about migration.",
+        title_en: "Welcome to",
+        title_kh: "សូមស្វាគមន៍មកកាន់",
+        sub_title_en: "My journey app is help user for find usful information about migration.",
+        sub_title_kh: "កម្មវិធីដំណើររបស់ខ្ញុំគឺជួយអ្នកប្រើ ឲ្យ រកឃើញព័ត៌មានមានប្រយោជន៍អំពីការធ្វើចំណាកស្រុក។",
         imgUrl: require('../assets/images/icons/travel.png'),
         videoUrl: "https://www.youtube.com/watch?v=Lsd-wDnQC1o",
       },
       {
-        title: "Welcome to",
-        sub_title: "My journey app is help user for find usful information about migration.",
+        title_en: "Welcome to",
+        title_kh: "សូមស្វាគមន៍មកកាន់",
+        sub_title_en: "My journey app is help user for find usful information about migration.",
+        sub_title_kh: "កម្មវិធីដំណើររបស់ខ្ញុំគឺជួយអ្នកប្រើ ឲ្យ រកឃើញព័ត៌មានមានប្រយោជន៍អំពីការធ្វើចំណាកស្រុក។",
         imgUrl: require('../assets/images/icons/travel.png'),
         videoUrl: "https://www.youtube.com/watch?v=0CVF4Om6KT4",
       },
@@ -227,3 +248,5 @@ const styles = StyleSheet.create({
     backgroundColor: Color.primary,
   }
 });
+
+export default withTranslation()(Welcome);

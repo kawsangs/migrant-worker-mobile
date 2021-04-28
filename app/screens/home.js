@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -15,10 +15,12 @@ import { InjectArray } from '../utils/math';
 import uuidv4 from '../utils/uuidv4';
 import { autoImageHeight } from '../utils/image_style';
 import { addStatistic } from '../utils/statistic';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 const win = Dimensions.get('window');
 
-export default class Home extends React.Component {
+class Home extends Component {
   state = {};
 
   _goTo(screenName) {
@@ -51,7 +53,7 @@ export default class Home extends React.Component {
         </View>
 
         <View style={styles.cardTitle}>
-          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.title}>{item[`title_${i18n.language}`]}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -59,10 +61,46 @@ export default class Home extends React.Component {
 
   _renderCards() {
     let list = [
-      { title: 'Before you go', iconName: 'safe_migrant', screenName: 'BeforeYouGoScreen', imageWidth: '480', imageHeight: '360', audioFileName: '', backgroundColor: Color.red },
-      { title: 'Your Safety', iconName: 'text_info', screenName: 'YourSafetyScreen', imageWidth: '300', imageHeight: '372', audioFileName: '', backgroundColor: Color.primary },
-      { title: 'Looking for help?', iconName: 'service_directory', screenName: 'LookingForHelpScreen', imageWidth: '440', imageHeight: '344', audioFileName: '', backgroundColor: Color.yellow },
-      { title: 'Your Story', iconName: 'video', screenName: 'YourStoryScreen', imageWidth: '440', imageHeight: '344', audioFileName: '', backgroundColor: Color.pink },
+      {
+        title_en: 'Before you go',
+        title_kh: 'មុនចាកចេញ',
+        iconName: 'safe_migrant',
+        screenName: 'BeforeYouGoScreen',
+        imageWidth: '480',
+        imageHeight: '360',
+        audioFileName: '',
+        backgroundColor: Color.red
+      },
+      {
+        title_en: 'Your Safety',
+        title_kh: 'សុវត្ថភាពរបស់អ្នក',
+        iconName: 'text_info',
+        screenName: 'YourSafetyScreen',
+        imageWidth: '300',
+        imageHeight: '372',
+        audioFileName: '',
+        backgroundColor: Color.primary
+      },
+      {
+        title_en: 'Looking for help?',
+        title_kh: 'ស្វែងរកជំនួយ?',
+        iconName: 'service_directory',
+        screenName: 'LookingForHelpScreen',
+        imageWidth: '440',
+        imageHeight: '344',
+        audioFileName: '',
+        backgroundColor: Color.yellow
+      },
+      {
+        title_en: 'Your Story',
+        title_kh: 'រឿងរបស់អ្នក',
+        iconName: 'video',
+        screenName: 'YourStoryScreen',
+        imageWidth: '440',
+        imageHeight: '344',
+        audioFileName: '',
+        backgroundColor: Color.pink
+      },
     ];
 
     let row1 = list.slice(0, 2).map((item) => this._renderCard(item));
@@ -122,3 +160,5 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
+
+export default withTranslation()(Home);

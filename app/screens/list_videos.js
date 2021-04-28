@@ -12,11 +12,13 @@ import { getVideoId } from '../utils/youtube';
 import { useNavigation } from '@react-navigation/native';
 import NetInfo from "@react-native-community/netinfo";
 import Toast, { DURATION } from 'react-native-easy-toast';
+import { useTranslation } from 'react-i18next';
 
 export default function ListVideos() {
+  const { t, i18n } = useTranslation();
   const [index, setIndex] = React.useState(0);
   const initialLayout = { width: Dimensions.get('window').width };
-  const states = listData.map((item) => ({ key: item.stepCode, title: `${item.stepTitle}` }));
+  const states = listData.map((item) => ({ key: item.stepCode, title_en: item.stepTitle_en, title_kh: item.stepTitle_kh }));
   const [routes] = React.useState(states);
   const [isConnected, setIsConnected] = React.useState(false);
   const [showLoading, setShowLoading] = React.useState(false);
@@ -41,14 +43,14 @@ export default function ListVideos() {
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <View style={{ flexDirection: 'row' }}>
           <Icon name='info-outline' color='#111' size={24} style={{ marginRight: 8 }} iconSet='MaterialIcons' />
-          <Text>មិនមានការតភ្ជាប់បណ្តាញទេឥឡូវនេះ។</Text>
+          <Text>{t('InternetConnection.NoInternetConnection')}</Text>
         </View>
-        <Text>សូមព្យាយាម​ម្តង​ទៀត​</Text>
+        <Text>{t('InternetConnection.PleaseRetry')}</Text>
 
         { showLoading && <ActivityIndicator size="small" />}
 
         <View style={{ marginTop: 20 }}>
-          <Button title='ព្យាយាមម្តងទៀត' onPress={() => retryConnection()} />
+          <Button title={t('InternetConnection.PleaseRetry')} onPress={() => retryConnection()} />
         </View>
       </View>
     )
@@ -57,7 +59,6 @@ export default function ListVideos() {
   const retryConnection = () => {
     setShowLoading(true);
     NetInfo.fetch().then(state => {
-      console.log("retry : ", state)
       setIsConnected(state.isConnected);
       setShowLoading(false)
     });
@@ -66,7 +67,7 @@ export default function ListVideos() {
   const renderToolBar = () => {
     return (
       <Toolbar
-        centerElement={'Videos'}
+        centerElement={t('VideosScreen.HeaderTitle')}
         onRightElementPress={() => this._goTo('HomeScreen')}
         size={30}
         style={{
@@ -81,7 +82,7 @@ export default function ListVideos() {
   }
 
   const onPressItem = (video) => {
-    addStatistic('ViewVideo', { videoId: getVideoId(video.url), title: video.title });
+    addStatistic('ViewVideo', { videoId: getVideoId(video.url), title: video[`title_${i18n.language}`] });
     navigation.navigate('ViewVideoScreen', { videoId: getVideoId(video.url) });
   }
 
@@ -98,7 +99,7 @@ export default function ListVideos() {
 
         <View style={{ flex: 1, marginLeft: 12, marginRight: 12, marginTop: 10, marginBottom: 12 }}>
           <TouchableOpacity onPress={() => onPressItem(video)}>
-            <Text style={{ fontFamily: FontFamily.title, fontWeight: '700' }}>{video.title}</Text>
+            <Text style={{ fontFamily: FontFamily.title, fontWeight: '700' }}>{video[`title_${i18n.language}`]}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -132,6 +133,7 @@ export default function ListVideos() {
   const renderTabBar = props => (
     <TabBar
       {...props}
+      getLabelText={({ route }) => route[`title_${i18n.language}`]}
       indicatorStyle={{ backgroundColor: Color.primary, height: 4 }}
       style={{ backgroundColor: '#fff' }}
       pressColor={'rgba(0,0,0,0.2)'}

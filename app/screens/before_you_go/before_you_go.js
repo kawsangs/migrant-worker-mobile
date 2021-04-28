@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -17,11 +17,13 @@ import uuidv4 from '../../utils/uuidv4';
 import { autoImageHeight } from '../../utils/image_style';
 import { addStatistic } from '../../utils/statistic';
 import { Toolbar } from 'react-native-material-ui';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 
 const win = Dimensions.get('window');
 
-export default class BeforeYouGo extends React.Component {
+class BeforeYouGo extends Component {
   state = {};
 
   _goTo(screenName) {
@@ -34,7 +36,7 @@ export default class BeforeYouGo extends React.Component {
       <Toolbar
         leftElement={'arrow-back'}
         onLeftElementPress={() => this.props.navigation.goBack()}
-        centerElement={'Before you go'}
+        centerElement={this.props.t("BeforeYouGoScreen.HeaderTitle")}
         rightElement={'home'}
         onRightElementPress={() => this._goTo('HomeScreen')}
         size={30}
@@ -80,7 +82,7 @@ export default class BeforeYouGo extends React.Component {
         </View>
 
         <View style={styles.cardTitle}>
-          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.title}>{item[`title_${i18n.language}`]}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -88,10 +90,46 @@ export default class BeforeYouGo extends React.Component {
 
   _renderCards() {
     let list = [
-      { title: 'Prepare your trip', iconName: 'safe_migrant', screenName: 'PrepareYourTripScreen', imageWidth: '480', imageHeight: '360', audioFileName: '', backgroundColor: Color.red },
-      { title: 'Migration', iconName: 'text_info', screenName: 'PrepareYourTripScreen', imageWidth: '300', imageHeight: '372', audioFileName: '', backgroundColor: Color.red },
-      { title: 'Coming Home', iconName: 'service_directory', screenName: 'PrepareYourTripScreen', imageWidth: '440', imageHeight: '344', audioFileName: '', backgroundColor: Color.red },
-      { title: 'Video', iconName: 'video', screenName: 'PrepareYourTripScreen', imageWidth: '440', imageHeight: '344', audioFileName: '', backgroundColor: Color.red },
+      {
+        title_en: 'Prepare your trip',
+        title_kh: 'រៀបចំដំណើរកម្សាន្ត',
+        iconName: 'safe_migrant',
+        screenName: 'PrepareYourTripScreen',
+        imageWidth: '480',
+        imageHeight: '360',
+        audioFileName: '',
+        backgroundColor: Color.red
+      },
+      {
+        title_en: 'Migration',
+        title_kh: 'ចំណាកស្រុក',
+        iconName: 'text_info',
+        screenName: 'PrepareYourTripScreen',
+        imageWidth: '300',
+        imageHeight: '372',
+        audioFileName: '',
+        backgroundColor: Color.red
+      },
+      {
+        title_en: 'Coming Home',
+        title_kh: 'មកផ្ទះ',
+        iconName: 'service_directory',
+        screenName: 'PrepareYourTripScreen',
+        imageWidth: '440',
+        imageHeight: '344',
+        audioFileName: '',
+        backgroundColor: Color.red
+      },
+      {
+        title_en: 'Video',
+        title_kh: 'វីដេអូ',
+        iconName: 'video',
+        screenName: 'PrepareYourTripScreen',
+        imageWidth: '440',
+        imageHeight: '344',
+        audioFileName: '',
+        backgroundColor: Color.red
+      },
     ];
 
     let row1 = list.slice(0, 2).map((item) => this._renderCard(item));
@@ -105,7 +143,7 @@ export default class BeforeYouGo extends React.Component {
       <View style={[Style.container, { flex: 1 }]}>
         <View style={{ flex: 1 }}>
           <View style={{ marginBottom: 16 }}>
-            <Text style={{ fontWeight: '700' }}>Checklist for departure</Text>
+            <Text style={{ fontWeight: '700' }}>{this.props.t('BeforeYouGoScreen.CheckListForDeparture')}</Text>
           </View>
 
           <View style={styles.rowStyle}>
@@ -159,3 +197,5 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
+
+export default withTranslation()(BeforeYouGo);

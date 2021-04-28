@@ -27,8 +27,10 @@ import LoadingIndicator from '../../components/loading_indicator';
 import { addStatistic } from '../../utils/statistic';
 import CollapsibleNavbar from '../../components/collapsible_navbar';
 import ContactsList from '../../data/json/service_directories';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
-export default class LookingForHelp extends React.Component {
+class LookingForHelp extends React.Component {
   state = {
     contacts: ContactsList,
     loading: true
@@ -53,14 +55,14 @@ export default class LookingForHelp extends React.Component {
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <View style={{ flexDirection: 'row' }}>
           <Icon name='info-outline' color='#111' size={24} style={{ marginRight: 8 }} iconSet='MaterialIcons' />
-          <Text>មិនមានការតភ្ជាប់បណ្តាញទេឥឡូវនេះ។</Text>
+          <Text>{this.props.t('InternetConnection.NoInternetConnection')}</Text>
         </View>
-        <Text>សូមព្យាយាម​ម្តង​ទៀត​</Text>
+        <Text>{this.props.t('InternetConnection.PleaseRetry')}</Text>
 
         { this.state.showLoading && <ActivityIndicator size="small" />}
 
         <View style={{ marginTop: 20 }}>
-          <Button title='ព្យាយាមម្តងទៀត' onPress={() => this._retryConnection()} />
+          <Button title={this.props.t('InternetConnection.PleaseRetry')} onPress={() => this._retryConnection()} />
         </View>
       </View>
     )
@@ -76,7 +78,7 @@ export default class LookingForHelp extends React.Component {
 
   _onPressItem(video) {
     if (!this.state.isConnected) {
-      return this.refs.toast.show('សូមភ្ជាប់បណ្តាញអ៊ិនធឺណេតជាមុនសិន!', DURATION.SHORT);
+      return this.refs.toast.show(this.props.t('InternetConnection.PleaseCheckYourInternetConnection'), DURATION.SHORT);
     }
 
     addStatistic('ViewVideo', { videoId: getVideoId(video.url), title: video.title });
@@ -90,7 +92,7 @@ export default class LookingForHelp extends React.Component {
           <Image
             source={require("../../assets/images/icons/cambodia_flag.png")}
             style={{ width: 30, height: 30, borderRadius: 15, marginRight: 10 }} />
-          <Text style={{ fontWeight: '700' }}>{item.country}</Text>
+          <Text style={{ fontWeight: '700' }}>{item[`country_${i18n.language}`]}</Text>
         </View>
         {item?.list && item.list.map((item, index) => this._renderCardBody(item, index))}
       </View>
@@ -108,7 +110,7 @@ export default class LookingForHelp extends React.Component {
       >
         <View style={{ flex: 1, flexDirection: 'row' }}>
           <View style={{ flex: 1, justifyContent: 'center' }}>
-            <Text style={{ fontWeight: '700' }}>{item.name}</Text>
+            <Text style={{ fontWeight: '700' }}>{item[`name_${i18n.language}`]}</Text>
           </View>
 
           <View style={{ marginLeft: 15 }}>
@@ -172,29 +174,12 @@ export default class LookingForHelp extends React.Component {
     this.setState({ contacts: ContactsList });
   }
 
-  // _renderToolbar() {
-  //   return (
-  //     <Toolbar
-  //       leftElement={'arrow-back'}
-  //       centerElement={'វីដេអូ និងករណីចំណាកស្រុក'}
-  //       searchable={{
-  //         autoFocus: true,
-  //         placeholder: 'ស្វែងរក',
-  //         onChangeText: this._onChangeText.bind(this),
-  //         onSearchClosed: this._onRefresh.bind(this)
-  //       }}
-  //       onLeftElementPress={() => this.props.navigation.goBack()}
-  //       style={{ titleText: { fontFamily: FontFamily.title }, container: { width: '100%' } }}
-  //     />
-  //   );
-  // }
-
   _renderToolbar() {
     return (
       <Toolbar
         leftElement={'arrow-back'}
         onLeftElementPress={() => this.props.navigation.goBack()}
-        centerElement={'Looking for help'}
+        centerElement={this.props.t('LookingForHelpScreen.HeaderTitle')}
         rightElement={'home'}
         onRightElementPress={() => this._goTo('HomeScreen')}
         size={30}
@@ -283,3 +268,5 @@ const styles = StyleSheet.create({
     zIndex: 1
   }
 });
+
+export default withTranslation()(LookingForHelp);

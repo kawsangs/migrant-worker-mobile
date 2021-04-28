@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Image,
@@ -15,10 +15,12 @@ import ImageData from '../data/json/image_list';
 import { autoImageHeight } from '../utils/image_style';
 import { Toolbar } from 'react-native-material-ui';
 import PlaySound from '../components/play_sound';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 const win = Dimensions.get('window');
 
-export default class ImageView extends React.Component {
+class ImageView extends Component {
   state = {
     rotation: 0,
     activePlaying: false,
@@ -124,7 +126,7 @@ export default class ImageView extends React.Component {
               resizeMode={'contain'} />
           </TouchableOpacity>
           <View style={styles.viewImageTitle}>
-            <Text style={{ fontWeight: '700' }}>{image && image.title}</Text>
+            <Text style={{ fontWeight: '700' }}>{image && image[`title_${i18n.language}`]}</Text>
           </View>
           <TouchableOpacity
             style={styles.nextBtn}
@@ -181,7 +183,7 @@ export default class ImageView extends React.Component {
             resizeMode={'contain'} />
         </View>
         <View style={styles.coverRegisterLabel}>
-          <Text style={styles.buttonRotationText}>{`Rotate ${this.props.route.params.title}`}</Text>
+          <Text style={styles.buttonRotationText}>{this.props.t('ImageViewScreen.Rotate')} {" "} {this.props.route.params.title}</Text>
         </View>
         {this._buildButtonAudio('register', true)}
       </TouchableOpacity>
@@ -277,3 +279,5 @@ const styles = StyleSheet.create({
     tintColor: Color.white
   }
 });
+
+export default withTranslation()(ImageView);
