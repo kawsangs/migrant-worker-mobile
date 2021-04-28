@@ -88,7 +88,7 @@ class PreDepartureList extends Component {
       },
       {
         title_en: 'Destination Links',
-        title_kh: 'តំណភ្ជាប់ទិសដៅ',
+        title_kh: 'ប្រភេទនៅមធ្យោបាយធ្វើដំណើរ',
         image: Images.pre_departure_list_destination_links,
         screenName: 'ImageViewScreen',
         imageList: 'passport_preparation',
@@ -98,7 +98,7 @@ class PreDepartureList extends Component {
       },
       {
         title_en: 'Contact with home',
-        title_kh: 'ទាក់ទងជាមួយផ្ទះ',
+        title_kh: 'ទំនាក់ទំនងជាមួយអ្នកផ្ទះ',
         image: Images.pre_departure_list_contact_with_home,
         screenName: 'ImageViewScreen',
         imageList: 'thai_working_card',
@@ -107,8 +107,8 @@ class PreDepartureList extends Component {
         h: 45
       },
       {
-        title_en: 'Contract',
-        title_kh: 'កិច្ចសន្យា',
+        title_en: 'Contact',
+        title_kh: 'លេខ ឬអាស័យដ្ឋានទំនាក់ទំនង',
         image: Images.pre_departure_list_contract,
         screenName: 'ImageViewScreen',
         imageList: 'worker_cards',

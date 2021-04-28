@@ -63,8 +63,8 @@ class YourSafety extends Component {
     let list = [
       {
         title_en: 'Your rights & Safety',
-        title_kh: 'សិទ្ធិនិងសុវត្ថិភាពរបស់អ្នក',
-        image: Images.your_safety_your_right_and_safety,
+        title_kh: 'សិទ្ធិរបស់អ្នក និង សុវត្ថិភាពអ្នក',
+        image: Images.your_safety_safety_planning,
         screenName: 'YourRightsAndSafetyScreen',
         imageList: 'visas',
         fileName: '',
@@ -73,8 +73,8 @@ class YourSafety extends Component {
       },
       {
         title_en: 'Safety planning',
-        title_kh: 'ការធ្វើផែនការសុវត្ថិភាព',
-        image: Images.your_safety_safety_planning,
+        title_kh: 'ផែនការសុវត្ថិភាព',
+        image: Images.your_safety_your_right_and_safety,
         screenName: 'SafetyPlanningScreen',
         imageList: 'worker_cards',
         fileName: '',

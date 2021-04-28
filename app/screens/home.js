@@ -63,7 +63,7 @@ class Home extends Component {
     let list = [
       {
         title_en: 'Before you go',
-        title_kh: 'មុនចាកចេញ',
+        title_kh: 'ដំណើរឆ្លងដែនរបស់អ្នក',
         iconName: 'before_you_go',
         screenName: 'BeforeYouGoScreen',
         imageWidth: '480',
@@ -73,7 +73,7 @@ class Home extends Component {
       },
       {
         title_en: 'Your Safety',
-        title_kh: 'សុវត្ថភាពរបស់អ្នក',
+        title_kh: 'សុវត្ថិភាពរបស់អ្នក',
         iconName: 'your_safety',
         screenName: 'YourSafetyScreen',
         imageWidth: '300',
@@ -93,7 +93,7 @@ class Home extends Component {
       },
       {
         title_en: 'Your Story',
-        title_kh: 'រឿងរបស់អ្នក',
+        title_kh: 'សាច់រឿងរបស់អ្នក',
         iconName: 'your_story',
         screenName: 'YourStoryScreen',
         imageWidth: '440',
@@ -148,8 +148,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   cardTitle: {
-    paddingHorizontal: 14,
-    paddingVertical: 14
+    paddingHorizontal: 10,
+    paddingVertical: 10
   },
   title: {
     fontFamily: FontFamily.title,
