@@ -15,8 +15,9 @@ export default Images = {
   passport: require('../assets/images/icons/passport.png'),
   other_doc: require('../assets/images/icons/other_doc.png'),
   travel: require('../assets/images/icons/travel.png'),
-  audio: require('../assets/images/icons/audio.png'),
-  active_play: require('../assets/images/icons/playing.gif'),
+  audio: require('../assets/images/icons/speaker.png'),
+  active_play: require('../assets/images/icons/speaker_playing.gif'),
+  checked: require('../assets/images/icons/checked.png'),
 
   // Logo
   chc_logo: require('../assets/images/logos/chc_logo.png'),
