@@ -22,6 +22,10 @@ export default Images = {
   home: require('../assets/images/icons/home.png'),
   youtube: require('../assets/images/icons/youtube.png'),
   dotted: require('../assets/images/icons/dotted.png'),
+  info: require('../assets/images/icons/info.png'),
+  share: require('../assets/images/icons/share.png'),
+  doc: require('../assets/images/icons/doc.png'),
+  next: require('../assets/images/icons/next.png'),
 
   // Logo
   chc_logo: require('../assets/images/logos/chc_logo.png'),

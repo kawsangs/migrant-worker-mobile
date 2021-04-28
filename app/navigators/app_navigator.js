@@ -31,6 +31,7 @@ import ImageViewScreen from '../screens/image_view';
 
 import CustomHeaderHome from '../components/custom_header_home';
 import CustomBottomTab from '../components/custom_bottom_tab';
+import MoreScreen from '../screens/more';
 
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -70,7 +71,7 @@ const BottomTabNavigator = () => {
       />
       <BottomTab.Screen
         name="MoreScreen"
-        component={OtherInfoScreen}
+        component={MoreScreen}
         options={{
           tabBarLabel: 'More',
         }}
