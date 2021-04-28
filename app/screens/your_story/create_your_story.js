@@ -4,110 +4,29 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  Dimensions,
   StyleSheet,
   StatusBar,
   ScrollView,
 } from 'react-native';
 
-import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
+import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
 import PlaySound from '../../components/play_sound';
 import Images from '../../utils/images';
-import { InjectArray } from '../../utils/math';
 import uuidv4 from '../../utils/uuidv4';
-import { autoImageHeight } from '../../utils/image_style';
 import { addStatistic } from '../../utils/statistic';
 import { Toolbar } from 'react-native-material-ui';
-
-
-
-const win = Dimensions.get('window');
+import Questionnaires from '../../data/json/questionnaires';
 
 export default class CreateYourStory extends React.Component {
-  state = {
-    questions: [
-      {
-        id: 1,
-        question: '1. What is your purpose there?',
-        answers: [
-          { id: 1, title: 'Answer A', answer: 'a', audioFileName: '' },
-          { id: 2, title: 'Answer B', answer: 'b', audioFileName: '' },
-          { id: 3, title: 'Answer C', answer: 'c', audioFileName: '' },
-          { id: 4, title: 'Answer D', answer: 'd', audioFileName: '' },
-          { id: 5, title: 'Answer E', answer: 'e', audioFileName: '' },
-          { id: 6, title: 'Answer F', answer: 'f', audioFileName: '' },
-        ]
-      },
-      {
-        id: 2,
-        question: '2. What is your purpose there?',
-        answers: [
-          { id: 1, title: 'Answer A', answer: 'a', audioFileName: '' },
-          { id: 2, title: 'Answer B', answer: 'b', audioFileName: '' },
-          { id: 3, title: 'Answer C', answer: 'c', audioFileName: '' },
-          { id: 4, title: 'Answer D', answer: 'd', audioFileName: '' },
-          { id: 5, title: 'Answer E', answer: 'e', audioFileName: '' },
-          { id: 6, title: 'Answer F', answer: 'f', audioFileName: '' },
-        ]
-      },
-      {
-        id: 3,
-        question: '3. What is your purpose there?',
-        answers: [
-          { id: 1, title: 'Answer A', answer: 'a', audioFileName: '' },
-          { id: 2, title: 'Answer B', answer: 'b', audioFileName: '' },
-          { id: 3, title: 'Answer C', answer: 'c', audioFileName: '' },
-          { id: 4, title: 'Answer D', answer: 'd', audioFileName: '' },
-          { id: 5, title: 'Answer E', answer: 'e', audioFileName: '' },
-          { id: 6, title: 'Answer F', answer: 'f', audioFileName: '' },
-        ]
-      },
-      {
-        id: 4,
-        question: '4. What is your purpose there?',
-        answers: [
-          { id: 1, title: 'Answer A', answer: 'a', audioFileName: '' },
-          { id: 2, title: 'Answer B', answer: 'b', audioFileName: '' },
-          { id: 3, title: 'Answer C', answer: 'c', audioFileName: '' },
-          { id: 4, title: 'Answer D', answer: 'd', audioFileName: '' },
-          { id: 5, title: 'Answer E', answer: 'e', audioFileName: '' },
-          { id: 6, title: 'Answer F', answer: 'f', audioFileName: '' },
-        ]
-      },
-      {
-        id: 5,
-        question: '5. What is your purpose there?',
-        answers: [
-          { id: 1, title: 'Answer A', answer: 'a', audioFileName: '' },
-          { id: 2, title: 'Answer B', answer: 'b', audioFileName: '' },
-          { id: 3, title: 'Answer C', answer: 'c', audioFileName: '' },
-          { id: 4, title: 'Answer D', answer: 'd', audioFileName: '' },
-          { id: 5, title: 'Answer E', answer: 'e', audioFileName: '' },
-          { id: 6, title: 'Answer F', answer: 'f', audioFileName: '' },
-        ]
-      },
-      {
-        id: 6,
-        question: '6. What is your purpose there?',
-        answers: [
-          { id: 1, title: 'Answer A', answer: 'a', audioFileName: '' },
-          { id: 2, title: 'Answer B', answer: 'b', audioFileName: '' },
-          { id: 3, title: 'Answer C', answer: 'c', audioFileName: '' },
-          { id: 4, title: 'Answer D', answer: 'd', audioFileName: '' },
-          { id: 5, title: 'Answer E', answer: 'e', audioFileName: '' },
-          { id: 6, title: 'Answer F', answer: 'f', audioFileName: '' },
-        ]
-      },
-    ],
-    current_question: 0,
 
-    answer: 'a',
-    progress: 40,
-  };
+  constructor(props) {
+    super(props)
+    this._init();
+  }
 
-  _goTo(screenName) {
+  _goTo(screenName, param) {
     addStatistic(`goTo${screenName.split('Screen')[0]}`);
-    this.props.navigation.navigate(screenName);
+    this.props.navigation.navigate(screenName, param);
   }
 
   _renderToolbar() {
@@ -138,14 +57,36 @@ export default class CreateYourStory extends React.Component {
     );
   }
 
+  _init() {
+    let get_questionnaires_data = Questionnaires.sort(function (a, b) {
+      return a.order - b.order;
+    });
+
+    this.state = {
+      current_question_index: 0,
+      answer_id: 1,
+      progress: 0,
+      question_length: get_questionnaires_data.length,
+      answers: [],
+      questionnaires: get_questionnaires_data,
+    };
+  }
+
+  _calculatePercentageProgressBar() {
+    let question_length = this.state.questionnaires.length;
+    let progress_percentage = Math.round(((this.state.current_question_index + 1) * 100) / question_length);
+
+    return progress_percentage;
+  }
+
   _renderCard(item) {
-    let isSelected = this.state.answer == item.answer;
+    let isSelected = this.state.answer_id == item.id;
     let selectedAnswer = isSelected ? { backgroundColor: Color.pink } : { backgroundColor: Color.gray };
 
     return (
       <TouchableOpacity
         key={uuidv4()}
-        onPress={() => this.setState({ answer: item.answer })}
+        onPress={() => this.setState({ answer_id: item.id })}
         style={[Style.card, styles.answerCard]}
         activeOpacity={0.8}
       >
@@ -163,25 +104,20 @@ export default class CreateYourStory extends React.Component {
         </View>
 
         <View style={styles.cardTitle}>
-          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.title}>{item.text}</Text>
         </View>
       </TouchableOpacity>
     );
   }
 
-  _renderCards() {
-    let list = [
-      { id: 1, title: 'Answer A', answer: 'a', audioFileName: '' },
-      { id: 2, title: 'Answer B', answer: 'b', audioFileName: '' },
-      { id: 3, title: 'Answer C', answer: 'c', audioFileName: '' },
-      { id: 4, title: 'Answer D', answer: 'd', audioFileName: '' },
-      { id: 5, title: 'Answer E', answer: 'e', audioFileName: '' },
-      { id: 6, title: 'Answer F', answer: 'f', audioFileName: '' },
-    ];
+  _get_current_question() {
+    let question = this.state.questionnaires[this.state.current_question_index];
+    return question;
+  }
 
-    // let row = list.map((item) => this._renderCard(item));
-    let question = this.state.questions[this.state.current_question];
-    let row = question?.answers.map((item) => this._renderCard(item));
+  _renderCards() {
+    let question = this._get_current_question();
+    let row = question?.options.map((item) => this._renderCard(item));
 
     return (
       <View style={{ flex: 1 }}>
@@ -207,23 +143,152 @@ export default class CreateYourStory extends React.Component {
   }
 
   _renderHeader() {
+    let progress_bar_width = this._calculatePercentageProgressBar();
+
     return (
       <View style={{ backgroundColor: Color.pink }}>
         <View style={styles.topHeaderContent}>
-          <Text style={styles.topHeaderProgressLabel}>Progress 1/6</Text>
+          <Text style={styles.topHeaderProgressLabel}>Progress {this.state.current_question_index + 1}/{this.state.question_length}</Text>
         </View>
         <View style={styles.topHeaderProgressBar}>
-          <View style={{ width: `${this.state.progress}%`, backgroundColor: Color.white }} />
+          <View style={{ width: `${progress_bar_width}%`, backgroundColor: Color.white }} />
         </View>
       </View>
     )
+  }
+
+  _checkSelectedAnswer() {
+    let current_question = this._get_current_question();
+    let answer_id = this.state.answer_id;
+    let selected_answer = {};
+
+    let selected_answer_weight = current_question.options.find(item => {
+      return item.id == answer_id;
+    })
+
+    selected_answer = {
+      code: current_question.code,
+      weight: selected_answer_weight.weight
+    }
+
+    return selected_answer;
+  }
+
+  _checkNextQuestion() {
+    let current_question_index = this.state.current_question_index;
+    let all_questions = this.state.questionnaires;
+    let answer = this._checkSelectedAnswer();
+
+    let selected_answer = {
+      code: answer.code,
+      weight: answer.weight
+    }
+
+    this.setState({
+      ...this.state,
+      answers: [
+        ...this.state.answers,
+        selected_answer
+      ]
+    }, () => {
+      let next_question_index = -1;
+
+      for (let i = current_question_index + 1; i < all_questions.length; i++) {
+        const question = all_questions[i];
+
+        if (question.skip_logic !== null) {
+          let operator = question.skip_logic.operator;
+
+          if (operator == 'and') {
+            let skip_flag = true;
+
+            for (let j = 0; j < question.skip_logic.criterias.length; j++) {
+              let criteria = question.skip_logic.criterias[j];
+
+              var get_answer = this.state.answers.find(obj => {
+                return obj.code == criteria.code;
+              })
+
+              if (!get_answer) {
+                skip_flag = true;
+                break;
+              }
+
+              if (criteria.operator == 'gt') {
+                const greater = get_answer?.weight > criteria.value;
+                skip_flag &= greater;
+              } else if (criteria.operator == 'eq') {
+                const equal = get_answer?.weight == criteria.value;
+                skip_flag &= equal;
+              }
+            }
+
+            if (!skip_flag) {
+              next_question_index = i;
+            }
+
+          } else if (operator == 'or') {
+            let skip_flag = false;
+
+            for (let j = 0; j < question.skip_logic.criterias.length; j++) {
+              let criteria = question.skip_logic.criterias[j];
+
+              var get_answer = this.state.answers.find(obj => {
+                return obj.code == criteria.code;
+              })
+
+              if (!get_answer) {
+                skip_flag = true;
+                break;
+              }
+
+              if (criteria.operator == 'gt') {
+                const greater = get_answer?.weight > criteria.value;
+                skip_flag |= greater;
+
+              } else if (criteria.operator == 'eq') {
+                const equal = get_answer?.weight == criteria.value;
+                skip_flag |= equal;
+              }
+            }
+
+            if (!skip_flag) {
+              next_question_index = i;
+            }
+          }
+
+        } else {
+          next_question_index = i;
+        }
+
+        if (next_question_index >= 0) {
+          break;
+        }
+      }
+
+      if (next_question_index >= 0) {
+        this.setState({
+          ...this.state,
+          answer_id: 1,
+          current_question_index: next_question_index
+        })
+      } else {
+        let answers = this.state.answers;
+
+        var total_weight = answers.reduce(function (prev, cur) {
+          return prev + cur.weight;
+        }, 0);
+
+        this._goTo('TestResultScreen', { total_weight: total_weight });
+      }
+    })
   }
 
   _renderNextButton() {
     return (
       <View style={[Style.boxShadow, styles.nextButton]}>
         <TouchableOpacity
-          onPress={() => this._goTo('TestResultScreen')}
+          onPress={() => this._checkNextQuestion()}
           style={styles.nextBtnAction}
           activeOpacity={0.8}
         >
