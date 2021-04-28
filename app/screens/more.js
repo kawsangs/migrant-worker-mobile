@@ -90,7 +90,7 @@ class More extends Component {
   }
 
   _renderMenuItem(item, index) {
-    let lang = i18n.language == 'kh'? 'en' : 'kh';
+    let lang = i18n.language == 'kh' ? 'en' : 'kh';
     return (
       <TouchableOpacity
         style={[Style.boxShadow, styles.menuItem, { marginBottom: index == 0 ? 16 : 0, }]}
@@ -111,7 +111,7 @@ class More extends Component {
             style={Style.boxShadow}
             onPress={() => TranslationHelper.changeLanguage(lang)}
             activeOpacity={0.8}
-          ><Image source={i18n.language === 'kh' ? Images.kh : Images.en} style={{ width: 50, height: 27 }} /></TouchableOpacity> : <Image source={Images.next} style={styles.nextIcon} />}
+          ><Image source={i18n.language === 'kh' ? Images.en : Images.kh} style={{ width: 50, height: 27 }} /></TouchableOpacity> : <Image source={Images.next} style={styles.nextIcon} />}
         </View>
       </TouchableOpacity>
     )

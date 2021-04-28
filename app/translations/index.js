@@ -48,8 +48,8 @@ async function changeLanguage(lang) {
 
 async function loadLanguage() {
   await AsyncStorage.getItem('lang').then(async lang => {
-    setMomentLocale(lang || 'kh');
-    await i18n.changeLanguage(lang || 'kh');
+    setMomentLocale(lang || 'en');
+    await i18n.changeLanguage(lang || 'en');
   });
 }
 

@@ -78,7 +78,7 @@ class BeforeYouGo extends Component {
         </View>
 
         <View style={[styles.coverImage, { backgroundColor: item.backgroundColor || Color.primary }]}>
-          <Image source={Images[item.iconName]} style={imageStyle} />
+          <Image source={Images[item.iconName]} style={{ width: '100%', height: '100%', resizeMode: 'cover' }} />
         </View>
 
         <View style={styles.cardTitle}>
@@ -93,8 +93,8 @@ class BeforeYouGo extends Component {
       {
         title_en: 'Prepare your trip',
         title_kh: 'រៀបចំដំណើរកម្សាន្ត',
-        iconName: 'safe_migrant',
-        screenName: 'PrepareYourTripScreen',
+        iconName: 'before_you_go_prepare_your_trip',
+        screenName: 'PreDepartureListScreen',
         imageWidth: '480',
         imageHeight: '360',
         audioFileName: '',
@@ -103,8 +103,8 @@ class BeforeYouGo extends Component {
       {
         title_en: 'Migration',
         title_kh: 'ចំណាកស្រុក',
-        iconName: 'text_info',
-        screenName: 'PrepareYourTripScreen',
+        iconName: 'before_you_go_migration',
+        screenName: 'MigrationScreen',
         imageWidth: '300',
         imageHeight: '372',
         audioFileName: '',
@@ -113,8 +113,8 @@ class BeforeYouGo extends Component {
       {
         title_en: 'Coming Home',
         title_kh: 'មកផ្ទះ',
-        iconName: 'service_directory',
-        screenName: 'PrepareYourTripScreen',
+        iconName: 'before_you_go_coming_home',
+        screenName: 'ComingHomeScreen',
         imageWidth: '440',
         imageHeight: '344',
         audioFileName: '',
@@ -123,8 +123,8 @@ class BeforeYouGo extends Component {
       {
         title_en: 'Video',
         title_kh: 'វីដេអូ',
-        iconName: 'video',
-        screenName: 'PrepareYourTripScreen',
+        iconName: 'before_you_go_video',
+        screenName: 'BeforeYouGoVideoScreen',
         imageWidth: '440',
         imageHeight: '344',
         audioFileName: '',

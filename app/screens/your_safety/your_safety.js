@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Image,
   ScrollView,
+  ImageBackground
 } from 'react-native';
 import { Icon, Toolbar } from 'react-native-material-ui';
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
@@ -63,7 +64,7 @@ class YourSafety extends Component {
       {
         title_en: 'Your rights & Safety',
         title_kh: 'សិទ្ធិនិងសុវត្ថិភាពរបស់អ្នក',
-        image: Images.safe_migrant,
+        image: Images.your_safety_your_right_and_safety,
         screenName: 'YourRightsAndSafetyScreen',
         imageList: 'visas',
         fileName: '',
@@ -73,7 +74,7 @@ class YourSafety extends Component {
       {
         title_en: 'Safety planning',
         title_kh: 'ការធ្វើផែនការសុវត្ថិភាព',
-        image: Images.safe_migrant,
+        image: Images.your_safety_safety_planning,
         screenName: 'SafetyPlanningScreen',
         imageList: 'worker_cards',
         fileName: '',
@@ -83,7 +84,7 @@ class YourSafety extends Component {
       {
         title_en: 'Videos',
         title_kh: 'វីដេអូ ',
-        image: Images.safe_migrant,
+        image: Images.your_safety_videos,
         screenName: 'YourSafetyVideosScreen',
         imageList: 'worker_cards',
         fileName: '',
@@ -103,28 +104,34 @@ class YourSafety extends Component {
         activeOpacity={0.8}
         style={[Style.card, { padding: 0 }]}
       >
-        <View style={styles.cardContent}>
-          <View style={{ width: 46 }} />
+        <ImageBackground
+          source={item.image}
+          style={{ flex: 1 }}>
+          <View style={[Style.cardContent,
+          {
+            marginBottom: 0,
+            paddingBottom: 0,
+            minHeight: 160
+          }
+          ]}>
+            <View style={{ flex: 1 }} />
 
-          <View style={styles.cardImage}>
-            <Image source={item.image} style={styles.cardImageStyle} />
+            <View>
+              <PlaySound
+                fileName={'register'}
+                buttonAudioStyle={{
+                  backgroundColor: Color.white
+                }}
+                iconStyle={{
+                  tintColor: Color.primary
+                }}
+                activePlaying={this.state.activePlaying}
+                onPress={(fileName) => this.setState({ activePlaying: fileName })}
+                style={{ marginTop: 10, marginRight: 10 }}
+              />
+            </View>
           </View>
-
-          <View>
-            <PlaySound
-              fileName={'register'}
-              buttonAudioStyle={{
-                backgroundColor: Color.white
-              }}
-              iconStyle={{
-                tintColor: Color.primary
-              }}
-              activePlaying={this.state.activePlaying}
-              onPress={(fileName) => this.setState({ activePlaying: fileName })}
-              style={{ marginTop: 10, marginRight: 10 }}
-            />
-          </View>
-        </View>
+        </ImageBackground>
 
         <View style={styles.cardTitle}>
           <Text style={[styles.title]}>{item[`title_${i18n.language}`]}</Text>
@@ -158,15 +165,6 @@ const styles = StyleSheet.create({
   cardContent: {
     flexDirection: 'row',
     backgroundColor: Color.primary,
-  },
-  cardImage: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cardImageStyle: {
-    width: wp('40'),
-    height: wp('40')
   },
   cardTitle: {
     flexDirection: 'row',

@@ -39,6 +39,14 @@
             "HeaderTitle": "Predeparture list",
             "Descriptions": "Things prepare before departures"
         },
+        "MigrationScreen": {
+            "HeaderTitle": "Migration",
+            "Descriptions": "Things prepare to prepare for migration"
+        },
+        "ComingHomeScreen": {
+            "HeaderTitle": "Coming home",
+            "Descriptions": "Things prepare to prepare for coming home"
+        },
         "ImageViewScreen": {
             "Rotate": "Rotate"
         },
