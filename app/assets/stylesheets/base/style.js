@@ -45,6 +45,9 @@ export default Style = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-
+  row: {
+    flexDirection: 'row',
+    flex: 1
+  }
 });
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
 import { InjectArray } from '../utils/math';
 import { addStatistic } from '../utils/statistic';
@@ -11,8 +11,6 @@ import CardItem from '../components/Home/CardItem';
 import homeMenuList from '../db/json/home_menu';
 
 class Home extends Component {
-  state = {};
-
   _goTo(screenName) {
     addStatistic(`goTo${screenName.split('Screen')[0]}`);
     this.props.navigation.navigate(screenName);
@@ -35,13 +33,13 @@ class Home extends Component {
 
     return (
       <View style={{ flex: 1 }}>
-        <View style={styles.rowStyle}>
+        <View style={Style.row}>
           { InjectArray(row1, space) }
         </View>
 
         <View style={{ height: 16 }}></View>
 
-        <View style={styles.rowStyle}>
+        <View style={Style.row}>
           { InjectArray(row2, space) }
         </View>
       </View>
@@ -56,12 +54,5 @@ class Home extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  rowStyle: {
-    flexDirection: 'row',
-    flex: 1
-  }
-});
 
 export default withTranslation()(Home);
