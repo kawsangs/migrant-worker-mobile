@@ -1,14 +1,13 @@
 'use strict';
 
-import Realm from 'realm';
-import UserSchema from './migrations/v1/user';
-import PdfSchema from './migrations/v1/pdf';
-import SidekiqSchema from './migrations/v1/sidekiq';
-import QuestionSchema from './migrations/v1/question';
-import AnswerSchema from './migrations/v1/answer';
-import CriteriaSchema from './migrations/v1/criteria';
-import SkipLogicShema from './migrations/v1/skip_logic';
-import CategoryShema from './migrations/v1/category';
+import UserSchema from '../migrations/v1/user';
+import PdfSchema from '../migrations/v1/pdf';
+import SidekiqSchema from '../migrations/v1/sidekiq';
+import QuestionSchema from '../migrations/v1/question';
+import AnswerSchema from '../migrations/v1/answer';
+import CriteriaSchema from '../migrations/v1/criteria';
+import SkipLogicShema from '../migrations/v1/skip_logic';
+import CategoryShema from '../migrations/v1/category';
 
 const schemaNames = [
   "User",

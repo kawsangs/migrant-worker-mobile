@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import NetInfo from "@react-native-community/netinfo";
-import realm from '../schemas/schema';
+import realm from '../db/schema';
 import { ApiBlob } from '../utils/api';
 import { environment } from '../config/environment';
 import RNFetchBlob from 'rn-fetch-blob'

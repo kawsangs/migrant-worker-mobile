@@ -13,7 +13,7 @@ import { Icon, Toolbar } from 'react-native-material-ui';
 import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
 import Audio from '../components/audio';
 import Toast, { DURATION } from 'react-native-easy-toast';
-import realm from '../schemas/schema';
+import realm from '../db/schema';
 import uuidv4 from '../utils/uuidv4';
 import PlaySound from '../components/play_sound';
 import SexOption from '../components/sex_option';
