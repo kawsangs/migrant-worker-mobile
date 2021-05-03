@@ -16,7 +16,7 @@ import uuidv4 from '../../utils/uuidv4';
 import { addStatistic } from '../../utils/statistic';
 import { Toolbar } from 'react-native-material-ui';
 import Questionnaires from '../../data/json/questionnaires';
-import realm from '../../schemas/schema';
+import realm from '../../db/schema';
 import i18n from 'i18next';
 import { withTranslation } from 'react-i18next';
 

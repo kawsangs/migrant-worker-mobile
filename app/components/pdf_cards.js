@@ -12,7 +12,7 @@ import { Icon, Toolbar } from 'react-native-material-ui';
 import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_style';
 import PlaySound from '../components/play_sound';
 import uuidv4 from '../utils/uuidv4';
-import realm from '../schemas/schema';
+import realm from '../db/schema';
 import pdfList from '../data/json/pdf_list';
 import { ApiBlob } from '../utils/api';
 import { addStatistic } from '../utils/statistic';

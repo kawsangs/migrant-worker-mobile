@@ -19,4 +19,4 @@ const CategorySchema = {
   }
 };
 
-export default CriteriaSchema;
+export default CategorySchema;

@@ -1,4 +1,4 @@
-import realm from '../schemas/schema';
+import realm from '../db/schema';
 import UserWorker from '../workers/user_worker';
 
 export default class Sidekiq {

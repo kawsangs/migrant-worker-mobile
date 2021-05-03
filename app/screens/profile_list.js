@@ -6,7 +6,7 @@ import {
 
 import ButtonNav from '../components/button_nav';
 import ProfileCard from '../components/profile_card';
-import realm from '../schemas/schema';
+import realm from '../db/schema';
 import CollapsibleNavbar from '../components/collapsible_navbar';
 import { addStatistic } from '../utils/statistic';
 

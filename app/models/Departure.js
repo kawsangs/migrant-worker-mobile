@@ -1,4 +1,4 @@
-// import realm from '../db/schema';
+import realm from '../db/schema';
 
 const Departure = (() => {
   return {
