@@ -33,6 +33,7 @@ import CustomHeaderHome from '../components/custom_header_home';
 import CustomBottomTab from '../components/custom_bottom_tab';
 import MoreScreen from '../screens/more';
 import BeforeYouGoScreen from '../screens/before_you_go/before_you_go';
+import YourDepartureScreen from '../screens/your_departure/your_departure';
 import MigrationScreen from '../screens/before_you_go/migration';
 import PreDepartureListScreen from '../screens/before_you_go/predeparture_list';
 import ComingHomeScreen from '../screens/before_you_go/coming_home';
@@ -103,7 +104,9 @@ export default class AppNavigator extends Component {
       <NavigationContainer>
         <StatusBar backgroundColor={Color.primary} />
         <Stack.Navigator
-          initialRouteName="WelcomeScreen"
+          // initialRouteName="YourDepartureScreen"
+          // initialRouteName="BeforeYouGoScreen"
+          initialRouteName="Home"
           screenOptions={{
             headerStyle: {
               backgroundColor: Color.primary,
@@ -125,12 +128,14 @@ export default class AppNavigator extends Component {
 
           <Stack.Screen name="BeforeYouGoScreen" component={BeforeYouGoScreen} options={{ headerShown: false }} />
 
+          <Stack.Screen name="YourDepartureScreen" component={YourDepartureScreen} options={{ headerShown: false }} />
+
           <Stack.Screen name="PreDepartureListScreen" component={PreDepartureListScreen} options={{ headerShown: false }} />
-          
+
           <Stack.Screen name="MigrationScreen" component={MigrationScreen} options={{ headerShown: false }} />
-          
+
           <Stack.Screen name="ComingHomeScreen" component={ComingHomeScreen} options={{ headerShown: false }} />
-          
+
           <Stack.Screen name="BeforeYouGoVideoScreen" component={BeforeYouGoVideoScreen} options={{ headerShown: false }} />
 
           <Stack.Screen name="PrepareYourTripScreen" component={PrepareYourTripScreen} options={{ headerShown: false }} />

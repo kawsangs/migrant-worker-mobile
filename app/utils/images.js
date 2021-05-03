@@ -37,11 +37,6 @@ export default Images = {
   en: require('../assets/images/icons/en.png'),
   kh: require('../assets/images/icons/kh.png'),
 
-  before_you_go: require('../assets/images/icons/before_you_go.png'),
-  your_safety: require('../assets/images/icons/your_safety.png'),
-  looking_for_help: require('../assets/images/icons/looking_for_help.png'),
-  your_story: require('../assets/images/icons/your_story.png'),
-  
   before_you_go_prepare_your_trip: require('../assets/images/icons/before_you_go_prepare_your_trip.png'),
   before_you_go_migration: require('../assets/images/icons/before_you_go_migration.png'),
   before_you_go_coming_home: require('../assets/images/icons/before_you_go_coming_home.png'),
@@ -55,7 +50,7 @@ export default Images = {
   pre_departure_list_destination_links: require('../assets/images/icons/pre_departure_list_destination_links.png'),
   pre_departure_list_contact_with_home: require('../assets/images/icons/pre_departure_list_contact_with_home.png'),
   pre_departure_list_contract: require('../assets/images/icons/pre_departure_list_contract.png'),
-  
+
   // migration
   five_things_prepare_your_trip: require('../assets/images/icons/five_things_prepare_your_trip.png'),
   migration_starting_your_journey: require('../assets/images/icons/migration_starting_your_journey.png'),
@@ -66,17 +61,17 @@ export default Images = {
   three_things_to_prepare: require('../assets/images/icons/three_things_to_prepare_new.png'),
   coming_home_women_migrant_worker: require('../assets/images/icons/coming_home_women_migrant_worker.png'),
   coming_home_women_migrant_worker_1: require('../assets/images/icons/coming_home_women_migrant_worker_1.png'),
-  
+
   // your safety
   your_safety_your_right_and_safety: require('../assets/images/icons/your_safety_your_right_and_safety.png'),
   your_safety_safety_planning: require('../assets/images/icons/your_safety_safety_planning.png'),
   your_safety_videos: require('../assets/images/icons/your_safety_videos.png'),
-  
+
   // safety planning
   safety_planning_leave_now: require('../assets/images/icons/safety_planning_leave_now.png'),
   safety_planning_prepare_stuff: require('../assets/images/icons/safety_planning_prepare_stuff.png'),
   safety_planning_extra_safe_tips: require('../assets/images/icons/safety_planning_extra_safe_tips.png'),
-  
+
   // your right and safety
   your_right_and_safety_work_permit_1: require('../assets/images/icons/your_right_and_safety_work_permit_1.png'),
   your_right_and_safety_work_permit_2: require('../assets/images/icons/your_right_and_safety_work_permit_2.png'),
@@ -85,7 +80,7 @@ export default Images = {
   your_right_and_safety_work_permit_5: require('../assets/images/icons/your_right_and_safety_work_permit_5.png'),
   your_right_and_safety_work_permit_6: require('../assets/images/icons/your_right_and_safety_work_permit_6.png'),
   your_right_and_safety_work_permit_7: require('../assets/images/icons/your_right_and_safety_work_permit_7.png'),
-  
+
   your_right_and_safety_1: require('../assets/images/icons/your_right_and_safety_1.png'),
   your_right_and_safety_2: require('../assets/images/icons/your_right_and_safety_2.png'),
   your_right_and_safety_3: require('../assets/images/icons/your_right_and_safety_3.png'),
