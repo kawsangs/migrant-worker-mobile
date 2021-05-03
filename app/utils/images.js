@@ -37,10 +37,10 @@ export default Images = {
   en: require('../assets/images/icons/en.png'),
   kh: require('../assets/images/icons/kh.png'),
 
-  before_you_go_prepare_your_trip: require('../assets/images/icons/before_you_go_prepare_your_trip.png'),
-  before_you_go_migration: require('../assets/images/icons/before_you_go_migration.png'),
-  before_you_go_coming_home: require('../assets/images/icons/before_you_go_coming_home.png'),
-  before_you_go_video: require('../assets/images/icons/before_you_go_video.png'),
+  // before_you_go_prepare_your_trip: require('../assets/images/icons/before_you_go_prepare_your_trip.png'),
+  // before_you_go_migration: require('../assets/images/icons/before_you_go_migration.png'),
+  // before_you_go_coming_home: require('../assets/images/icons/before_you_go_coming_home.png'),
+  // before_you_go_video: require('../assets/images/icons/before_you_go_video.png'),
 
   // pre departure list
   six_things_prepare_your_trip: require('../assets/images/icons/six_things_prepare_your_trip.png'),
