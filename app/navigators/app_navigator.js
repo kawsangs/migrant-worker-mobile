@@ -49,6 +49,8 @@ import TestResultScreen from '../screens/your_story/test_result';
 import LookingForHelpScreen from '../screens/looking_for_help/looking_for_help';
 import ListVideosScreen from '../screens/list_videos';
 
+import SubCategoryScreen from '../screens/sub_category/sub_category';
+
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
 
@@ -131,6 +133,8 @@ export default class AppNavigator extends Component {
           <Stack.Screen name="YourDepartureScreen" component={YourDepartureScreen} options={{ headerShown: false }} />
 
           <Stack.Screen name="PreDepartureListScreen" component={PreDepartureListScreen} options={{ headerShown: false }} />
+
+          <Stack.Screen name="SubCategoryScreen" component={SubCategoryScreen} options={{ headerShown: false }} />
 
           <Stack.Screen name="MigrationScreen" component={MigrationScreen} options={{ headerShown: false }} />
 
