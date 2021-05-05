@@ -5,6 +5,7 @@ const Departure = (() => {
   return {
     getAll,
     getRoots,
+    getChildren,
     getPendingDownload,
     update,
     upsertCollection,
@@ -14,8 +15,11 @@ const Departure = (() => {
     isDownloaded,
  }
 
+ function getChildren(parent_id) {
+   return realm.objects('Category').filtered(`parent_id=${parent_id}`);
+ }
+
   function isDownloaded() {
-    console.log(getPendingDownload())
     return !!getAll().length && !getPendingDownload().length;
   }
 

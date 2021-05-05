@@ -9,7 +9,6 @@ import {
 import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
 import { InjectArray } from '../../utils/math';
 import { addStatistic } from '../../utils/statistic';
-import { Icon, Toolbar } from 'react-native-material-ui';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
 
@@ -23,6 +22,7 @@ import NetInfo from "@react-native-community/netinfo";
 import NoConnection from '../../components/NoConnection';
 
 import * as Progress from 'react-native-progress';
+import Toolbar from '../../components/SubCategory/Toolbar';
 
 class YourDeparture extends Component {
   constructor(props) {
@@ -52,33 +52,17 @@ class YourDeparture extends Component {
     });
   }
 
-  _goTo(screenName) {
-    addStatistic(`goTo${screenName.split('Screen')[0]}`);
-    this.props.navigation.navigate(screenName);
+  _goToSubCategory(item) {
+    // addStatistic(`goTo${screenName.split('Screen')[0]}`);
+    // this.props.navigation.navigate("PreDepartureListScreen", { parent_id: item.id });
+    this.props.navigation.navigate("SubCategoryScreen", { parent_id: item.id });
   }
 
   _renderToolbar() {
     return (
       <Toolbar
-        leftElement={'arrow-back'}
-        onLeftElementPress={() => this.props.navigation.goBack()}
-        centerElement={this.props.t("BeforeYouGoScreen.HeaderTitle")}
-        rightElement={'home'}
-        onRightElementPress={() => this._goTo('HomeScreen')}
-        size={30}
-        style={{
-          titleText: {
-            fontFamily: FontFamily.title,
-            textAlign: 'center',
-          },
-          centerElementContainer: {
-            marginLeft: 0
-          },
-          container: {
-            width: '100%',
-            backgroundColor: Color.red,
-          },
-        }}
+        navigation={this.props.navigation}
+        title={this.props.t("BeforeYouGoScreen.HeaderTitle")}
       />
     );
   }
@@ -93,7 +77,7 @@ class YourDeparture extends Component {
         backgroundColor={Color.red}
         title={item.name}
         image={image}
-        onPress={() => this._goTo(item.screenName)}
+        onPress={() => this._goToSubCategory(item)}
       />
     )
   }
@@ -191,4 +175,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
 )(withTranslation()(YourDeparture));
-
