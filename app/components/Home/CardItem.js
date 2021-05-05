@@ -25,6 +25,9 @@ class CardItem extends Component {
     let { item } = this.props;
     let containerWdith = (win.width - 48) / 2 - 50;
     let imageStyle = autoImageHeight(containerWdith, item.imageWidth, item.imageHeight);
+    let image = this.props.image || Images.default;
+    let title = this.props.title || item[`title_${i18n.language}`];
+    let bgColor = this.props.backgroundColor || Color.primary;
 
     return (
       <TouchableOpacity
@@ -36,18 +39,18 @@ class CardItem extends Component {
         <View style={styles.coverSoundIcon}>
           <PlaySound
             buttonAudioStyle={{ backgroundColor: Color.white }}
-            iconStyle={{ tintColor: item.backgroundColor || Color.primary }}
+            iconStyle={{ tintColor: bgColor }}
             fileName={item.audioFileName || 'register'}
             activePlaying={this.state.activePlaying}
             onPress={(fileName) => this.setState({ activePlaying: fileName })} />
         </View>
 
-        <View style={[styles.coverImage, { backgroundColor: item.backgroundColor || Color.primary }]}>
-          <Image source={item.image} style={{ width: '100%', height: '100%', resizeMode: 'cover', }} />
+        <View style={[styles.coverImage, { backgroundColor: bgColor }]}>
+          <Image source={image} style={{ width: '100%', height: '100%', resizeMode: 'cover', }} />
         </View>
 
         <View style={styles.cardTitle}>
-          <Text style={styles.title}>{item[`title_${i18n.language}`]}</Text>
+          <Text style={styles.title}>{title}</Text>
         </View>
       </TouchableOpacity>
     );
