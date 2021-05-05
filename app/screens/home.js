@@ -21,7 +21,8 @@ class Home extends Component {
       <CardItem
         key={uuidv4()}
         item={item}
-        onPress={() => this._goTo(item.screenName)}
+        image={item.image}
+        onPress={ () => this._goTo(item.screenName) }
       />
     )
   }

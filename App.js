@@ -13,13 +13,15 @@ import UserWorker from './app/workers/user_worker';
 import Sidekiq from './app/utils/sidekiq';
 import { Color, FontFamily, FontSize } from './app/assets/stylesheets/base_style';
 
+import configureStore from './app/store/configureStore';
+import { Provider } from 'react-redux';
+
 import * as Sentry from '@sentry/react-native';
 import TranslationHelper from './app/translations';
 
 Sentry.init({
   dsn: 'https://b0b7fac69a6d45abb446ccfdc6e15423@o357910.ingest.sentry.io/5257533',
 });
-
 
 const customTextProps = {
   style: {
@@ -35,6 +37,8 @@ const uiTheme = {
     primaryColor: Color.primary
   },
 };
+
+const store = configureStore();
 
 setCustomText(customTextProps);
 
@@ -53,9 +57,11 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <ThemeContext.Provider value={getTheme(uiTheme)}>
-        <AppNavigator ref="app"/>
-      </ThemeContext.Provider>
+      <Provider store={store}>
+        <ThemeContext.Provider value={getTheme(uiTheme)}>
+          <AppNavigator ref="app"/>
+        </ThemeContext.Provider>
+      </Provider>
     )
   }
 };
