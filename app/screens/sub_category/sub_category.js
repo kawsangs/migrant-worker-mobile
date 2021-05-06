@@ -16,6 +16,7 @@ import HintCard from '../../components/SubCategory/HintCard';
 import ArrowDown from '../../components/SubCategory/ArrowDown';
 import Departure from '../../models/Departure';
 import Images from '../../utils/images';
+import CategoryImage from '../../models/CategoryImage';
 
 class SubCategory extends Component {
   constructor(props) {
@@ -41,7 +42,11 @@ class SubCategory extends Component {
 
   _onPress(item) {
     if (item.leaf || item.last) {
-      return this.props.navigation.navigate('ImageViewScreen', { title: item.name });
+      if(!CategoryImage.byCategory(item.id).length) {
+        return;
+      }
+
+      return this.props.navigation.navigate('ImageViewScreen', { title: item.name, category_id: item.id });
     }
 
     const pushAction = StackActions.push('SubCategoryScreen', { parent_id: item.id });
@@ -58,6 +63,7 @@ class SubCategory extends Component {
         title={item.name}
         image={image}
         number={index + 1}
+        hideArrow={!CategoryImage.byCategory(item.id).length}
       />
     )
   }

@@ -1,6 +1,9 @@
 import Departure from '../models/Departure';
 import { Api } from '../utils/api';
 import{ titleCase } from '../utils/string';
+import ImageDownloader from '../downloaders/image_downloader';
+import AudioDownloader from '../downloaders/audio_downloader';
+import realm from '../db/schema';
 
 const CategoryService = (()=> {
   return {
@@ -30,26 +33,21 @@ const CategoryService = (()=> {
     if(index == categories.length) { return; }
 
     let category = categories[index];
+    let downloader = category.type == 'image' ? ImageDownloader : AudioDownloader;
 
-    // downloadImage or downloadAudio
-    let downloadFunction = "download" + titleCase(category.type);
-
-    // Download image or audio
-    Departure[downloadFunction](category, function(fileUrl) {
-      Departure.update(category.uuid, buildParam(category, fileUrl));
+    downloader.download(_getFileName(category), category.url, function(fileUrl) {
+      realm.write(() => {
+        category.obj[category.type] = fileUrl
+      });
 
       increaseProgressCallback();
-
-      // Download next pending asset recursively
       download(index + 1, categories, increaseProgressCallback);
-    });
+    })
   }
 
-  function buildParam(category, fileUrl) {
-    let params = {}
-    params[category.type] = fileUrl;
-
-    return params;
+  function _getFileName(category={}) {
+    let fileNames = category.url.split('/');
+    return `${category.type}_${category.uuid}_${fileNames[fileNames.length - 1]}`;
   }
 })();
 

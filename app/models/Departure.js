@@ -1,5 +1,6 @@
 import realm from '../db/schema';
 import ImageDownloader from '../downloaders/image_downloader';
+import CategoryImage from '../models/CategoryImage';
 
 const Departure = (() => {
   return {
@@ -13,11 +14,11 @@ const Departure = (() => {
     downloadImage,
     downloadAudio,
     isDownloaded,
- }
+  }
 
- function getChildren(parent_id) {
-   return realm.objects('Category').filtered(`parent_id=${parent_id}`);
- }
+  function getChildren(parent_id) {
+    return realm.objects('Category').filtered(`parent_id=${parent_id} SORT(lft ASC)`);
+  }
 
   function isDownloaded() {
     return !!getAll().length && !getPendingDownload().length;
@@ -34,15 +35,17 @@ const Departure = (() => {
   }
 
   function upsertCollection(categories) {
-    realm.write(() => {
-      for(let i=0; i<categories.length; i++) {
-        upsert(categories[i]);
-      }
-    });
+    for(let i=0; i<categories.length; i++) {
+      upsert(categories[i]);
+    }
   }
 
   function upsert(category) {
-    realm.create('Category', _buildData(category), 'modified');
+    realm.write(() => {
+      realm.create('Category', _buildData(category), 'modified');
+    });
+
+    CategoryImage.upsertCollection(category.category_images, category.id);
 
     for (let i=0; i<category.children.length; i++) {
       upsert(category.children[i]);
@@ -67,7 +70,9 @@ const Departure = (() => {
   }
 
   function getPendingDownload() {
-    return byPendingImage().concat(byPendingAudio());
+    let collection = byPendingImage().concat(byPendingAudio());
+
+    return collection.concat(CategoryImage.getPendingDownload());
   }
 
   function parseJson(realmObjects) {
@@ -77,14 +82,14 @@ const Departure = (() => {
   function byPendingImage() {
     let categories = realm.objects('Category').filtered(`type='Departure' AND image_url != null AND image = null`);
     return categories.map(c => {
-      return { uuid: c.uuid, url: c.image_url, type: 'image' };
+      return { uuid: c.uuid, url: c.image_url, type: 'image', obj: c };
     })
   }
 
   function byPendingAudio() {
     let categories = realm.objects('Category').filtered(`type='Departure' AND audio_url != null AND audio = null`);
     return categories.map(c => {
-      return { uuid: c.uuid, url: c.audio_url, type: 'audio' }
+      return { uuid: c.uuid, url: c.audio_url, type: 'audio', obj: c }
     })
   }
 
