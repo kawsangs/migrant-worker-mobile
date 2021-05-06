@@ -15,6 +15,7 @@ import i18n from 'i18next';
 import uuidv4 from '../../utils/uuidv4';
 import CardItem from '../../components/Home/CardItem';
 import Departure from '../../models/Departure';
+import CategoryImage from '../../models/CategoryImage';
 
 import CategoryService from '../../services/category_service';
 import { connect } from 'react-redux';
@@ -25,21 +26,20 @@ import * as Progress from 'react-native-progress';
 import Toolbar from '../../components/SubCategory/Toolbar';
 
 class YourDeparture extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      categories: Departure.getRoots(),
-      isDownloaded: Departure.isDownloaded(),
-      // isDownloaded: false,
-      progress: 0,
-      total: 1
-    };
-  }
+  state = {};
 
   componentDidMount() {
     // Departure.deleteAll();
+    // CategoryImage.deleteAll();
+    this._initState();
     this._checkConnection();
+  }
+
+  _initState() {
+    this.setState({
+      categories: Departure.getRoots(),
+      isDownloaded: Departure.isDownloaded(),
+    })
   }
 
   _checkConnection() {
@@ -110,28 +110,46 @@ class YourDeparture extends Component {
   }
 
   _download() {
+    this.setState({progress: 0});
+
     CategoryService.downloadDeparture(this._updateTotoal, this._incrementProgress);
     this.setState({total: Departure.getPendingDownload().length + 1});
   }
 
   _incrementProgress = () => {
-    this.setState({progress: this.state.progress + 1});
+    let num = this.state.progress + 1
+    this.setState({progress: num});
+
+    if (num == this.state.total) {
+      this._initState();
+    }
   }
 
   _updateTotoal = (total) => {
     this.setState({total: total});
   }
 
+  _getProgress() {
+    if (!!this.state.total) {
+      return ((this.state.progress || 0 ) / this.state.total).toFixed(2);
+    } else {
+      return 0;
+    }
+  }
+
   _renderDownloadButton() {
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <Progress.Bar progress={(this.state.progress / this.state.total).toFixed(2)} width={200} style={{marginBottom: 20}} />
+        { this.state.progress >= 0 &&
+          <Progress.Bar progress={this._getProgress()} width={200} style={{marginBottom: 20}} />
+        }
 
         { false &&
           <View>
             <Text>Departure category: {Departure.getAll().length}</Text>
+            <Text>Category Image: {CategoryImage.getAll().length}</Text>
             <Text>Pending category: {Departure.getPendingDownload().length}</Text>
-            <Text>Progress: {this.state.progress / this.state.total}</Text>
+            <Text>Progress: {this._getProgress()}</Text>
           </View>
         }
 

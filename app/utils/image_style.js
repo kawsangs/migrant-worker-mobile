@@ -11,7 +11,7 @@ export const autoImageWidth = function(containerHeight, imageWidth, imageHeight)
 
   return {
     width: parseInt(imageWidth) * ratio,
-    height: containerWdith
+    height: containerHeight
   }
 }
 

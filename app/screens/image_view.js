@@ -10,78 +10,35 @@ import {
 
 import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_style';
 import Images from '../utils/images';
-import uuidv4 from '../utils/uuidv4';
-import ImageData from '../data/json/image_list';
-import { autoImageHeight } from '../utils/image_style';
-import { Toolbar } from 'react-native-material-ui';
+import { autoImageHeight, autoImageWidth } from '../utils/image_style';
 import PlaySound from '../components/play_sound';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
-
-const win = Dimensions.get('window');
+import CategoryImage from '../models/CategoryImage';
+import Toolbar from '../components/SubCategory/Toolbar';
 
 class ImageView extends Component {
-  state = {
-    rotation: 0,
-    activePlaying: false,
-    images: null,
-    current_image: null,
-  }
+  constructor(props) {
+    super(props);
 
-  _goTo(screenName) {
-    this.props.navigation.navigate(screenName);
-  }
+    let imageList = CategoryImage.byCategory(props.route.params.category_id);
 
-  _renderToolbar() {
-    return (
-      <Toolbar
-        leftElement={'arrow-back'}
-        onLeftElementPress={() => this.props.navigation.goBack()}
-        centerElement={this.props.t('PrepareYourTripScreen.HeaderTitle')}
-        rightElement={'home'}
-        onRightElementPress={() => this._goTo('HomeScreen')}
-        size={30}
-        style={{
-          titleText: {
-            fontFamily: FontFamily.title,
-            textAlign: 'center',
-          },
-          centerElementContainer: {
-            marginLeft: 0
-          },
-          container: {
-            width: '100%',
-            backgroundColor: Color.red,
-          },
-        }}
-      />
-    );
+    this.state = {
+      rotation: 0,
+      activePlaying: false,
+      images: JSON.parse(JSON.stringify(imageList)),
+      current_image: imageList[0],
+    };
   }
 
   componentDidMount() {
-    this._renderImageList()
-  }
-
-  _renderImageList() {
-    let imageList = this.props.route.params.imageList;
-    let image = ImageData[imageList] || [];
-    const new_images = [];
-
-    image && image.map(function (img, index) {
-      new_images.push({
-        ...img,
-        index: index,
-      })
-    })
-
-    new_images && this.setState({
-      images: new_images,
-      current_image: new_images[0]
-    })
+    Image.getSize(`file://${this.state.current_image.image}`, (width, height) => {
+      this.setState({imageWidth: width, imageHeight: height});
+    });
   }
 
   _onPrevClicked = (image) => {
-    const index = image.index;
+    let index = this.state.images.findIndex((img) => img.id == image.id);
 
     if (index <= 0) {
       return null;
@@ -95,7 +52,7 @@ class ImageView extends Component {
   };
 
   _onNextClicked = (image) => {
-    const index = image.index;
+    let index = this.state.images.findIndex((img) => img.id == image.id);
 
     if (index >= this.state.images.length - 1) {
       return null;
@@ -108,45 +65,71 @@ class ImageView extends Component {
     });
   };
 
-  _renderImage() {
-    let containerWidth = win.width - 60;
+  _renderImageNav() {
     const image = this.state.current_image;
 
     return (
-      <View>
-        <View style={styles.viewImageHeader}>
-          <TouchableOpacity
-            style={styles.prevBtn}
-            activeOpacity={0.8}
-            onPress={() => this._onPrevClicked(image)}
-          >
-            <Image
-              source={Images.left_arrow}
-              style={styles.prevIcon}
-              resizeMode={'contain'} />
-          </TouchableOpacity>
-          <View style={styles.viewImageTitle}>
-            <Text style={{ fontWeight: '700' }}>{image && image[`title_${i18n.language}`]}</Text>
-          </View>
-          <TouchableOpacity
-            style={styles.nextBtn}
-            activeOpacity={0.8}
-            onPress={() => this._onNextClicked(image)}
-          >
-            <Image
-              source={Images.next}
-              style={styles.nextIcon}
-              resizeMode={'contain'} />
-          </TouchableOpacity>
+      <View style={styles.viewImageHeader}>
+        <TouchableOpacity
+          style={styles.prevBtn}
+          activeOpacity={0.8}
+          onPress={() => this._onPrevClicked(image)} >
+
+          <Image
+            source={Images.left_arrow}
+            style={styles.prevIcon}
+            resizeMode={'contain'} />
+        </TouchableOpacity>
+
+        <View style={styles.viewImageTitle}>
+          <Text style={{ fontWeight: '700' }}>{image && image.name}</Text>
         </View>
-        <View style={Style.card} key={uuidv4()}>
-          {this.state.current_image && <Image
-            source={image && image.source}
-            style={[autoImageHeight(containerWidth, image.width, (this.state.rotation == 90 || this.state.rotation == 270) ? image.width : image.height), {
-              transform: [{ rotate: `${this.state.rotation}deg` }]
-            }]}
-            resizeMode={'contain'} />}
-        </View>
+
+        <TouchableOpacity
+          style={styles.nextBtn}
+          activeOpacity={0.8}
+          onPress={() => this._onNextClicked(image)} >
+
+          <Image
+            source={Images.next}
+            style={styles.nextIcon}
+            resizeMode={'contain'} />
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
+  _getImageSize() {
+    const { containerHeight, containerWidth, imageWidth, imageHeight } = this.state;
+
+    // Portrait image
+    if (imageHeight > imageWidth) {
+      if (this.state.rotation == 90 || this.state.rotation == 270) {
+        return autoImageHeight(containerWidth, imageWidth, imageWidth);
+      }
+
+      return autoImageWidth(containerHeight, imageWidth, imageHeight);
+    }
+
+    // Landscape image
+    if (this.state.rotation == 90 || this.state.rotation == 270) {
+      return autoImageWidth(containerHeight, imageHeight, imageHeight);
+    }
+
+    return autoImageHeight(containerWidth, imageWidth, imageHeight);
+  }
+
+  _renderImagePreview() {
+    let image = {uri: `file://${this.state.current_image.image}`};
+
+    return (
+      <View style={[Style.card, {flex: 1, justifyContent: 'center', alignItems: 'center'}]} onLayout={(e) => this.setState({containerHeight: e.nativeEvent.layout.height, containerWidth: e.nativeEvent.layout.width})}>
+        { !!this.state.imageWidth &&
+          <Image
+            source={image}
+            style={[this._getImageSize(), { transform: [{ rotate: `${this.state.rotation}deg` }] } ]}
+            resizeMode={'contain'} />
+        }
       </View>
     );
   }
@@ -182,6 +165,7 @@ class ImageView extends Component {
             style={styles.rotateIcon}
             resizeMode={'contain'} />
         </View>
+
         <View style={styles.coverRegisterLabel}>
           <Text style={styles.buttonRotationText}>{this.props.t('ImageViewScreen.Rotate')} {" "} {this.props.route.params.title}</Text>
         </View>
@@ -192,17 +176,20 @@ class ImageView extends Component {
 
   render() {
     return (
-      <View>
-        {this._renderToolbar()}
-        <View style={[Style.container, { marginVertical: 0 }]}>
-          {this.state.images ? this._renderImage() : null}
-          {this._renderButtonRotation()}
+      <View style={{flex: 1}}>
+        <Toolbar
+          navigation={this.props.navigation}
+          title={this.props.t('PrepareYourTripScreen.HeaderTitle')}/>
+
+        <View style={[Style.container, { marginVertical: 0, flex: 1 }]}>
+          { this._renderImageNav() }
+          { this._renderImagePreview() }
+          { this._renderButtonRotation() }
         </View>
       </View>
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   coverRegisterLabel: {
@@ -216,7 +203,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Color.red,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginBottom: 16
   },
   buttonRotationText: {
     color: Color.white,

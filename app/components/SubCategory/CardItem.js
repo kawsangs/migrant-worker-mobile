@@ -21,6 +21,8 @@ class SubCategory extends Component {
   state = {};
 
   render() {
+    let image = this.props.image || Images.default;
+
     return (
       <TouchableOpacity
         style={[Style.card, { padding: 0 }]}
@@ -28,7 +30,7 @@ class SubCategory extends Component {
         {...this.props}
       >
         <ImageBackground
-          source={this.props.image}
+          source={image}
           style={{ flex: 1 }}>
           <View style={[Style.cardContent,
           {
@@ -64,7 +66,10 @@ class SubCategory extends Component {
 
         <View style={{ flexDirection: 'row', padding: 14 }}>
           <Text style={[styles.title]}>{this.props.title}</Text>
-          <Icon name='keyboard-arrow-right' size={24} />
+          { !this.props.hideArrow &&
+            <Icon name='keyboard-arrow-right' size={24} />
+          }
+
         </View>
       </TouchableOpacity>
     )

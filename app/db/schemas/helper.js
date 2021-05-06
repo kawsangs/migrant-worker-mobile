@@ -8,6 +8,7 @@ import AnswerSchema from '../migrations/v1/answer';
 import CriteriaSchema from '../migrations/v1/criteria';
 import SkipLogicShema from '../migrations/v1/skip_logic';
 import CategoryShema from '../migrations/v1/category';
+import CategoryImageShema from '../migrations/v1/category_image';
 
 const schemaNames = [
   "User",
@@ -18,6 +19,7 @@ const schemaNames = [
   "Answer",
   "Question",
   "Category",
+  "CategoryImage",
 ]
 
 const schemaHelper = (() => {
@@ -35,6 +37,7 @@ const schemaHelper = (() => {
       AnswerSchema,
       QuestionSchema,
       CategoryShema,
+      CategoryImageShema,
     ];
 
     changedSchemas.map((schema) => {

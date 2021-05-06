@@ -22,6 +22,7 @@ class Home extends Component {
         key={uuidv4()}
         item={item}
         image={item.image}
+        backgroundColor={item.backgroundColor}
         onPress={ () => this._goTo(item.screenName) }
       />
     )
