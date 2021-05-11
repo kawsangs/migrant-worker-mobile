@@ -1,5 +1,6 @@
 import realm from '../db/schema';
-import Option from '../models/Option';
+import Option from './Option';
+import Answer from './Answer';
 
 const Question = (() => {
   return {
@@ -10,14 +11,15 @@ const Question = (() => {
     upsertCollection,
     upsert,
     byForm,
+    findIndexNextQuestion,
   }
 
   function byForm(form_id) {
-    return realm.objects('Question').filtered(`form_id=${form_id}`);
+    return realm.objects('Question').filtered(`form_id=${form_id} SORT(display_order ASC)`);
   }
 
   function getAll() {
-    return realm.objects('Question');
+    return realm.objects('Question').filtered("SORT(display_order ASC)");
   }
 
   function deleteAll() {
@@ -97,6 +99,24 @@ const Question = (() => {
     return data.map(item => {
       return { uuid: item.id, url: item[`${type}_url`], type: type, obj: item };
     })
+  }
+
+  function findIndexNextQuestion(currentIndex=0, questions=[], quizUuid) {
+    let nextIndex = currentIndex + 1;
+    let question = questions[nextIndex];
+
+    if (!question.relevant) { return nextIndex; }
+
+    // Todo: need to enhance logic, such as: any_of and !=
+    let questionCode = question.relevant.split('||')[0];
+    let operator = question.relevant.split('||')[1];
+    let values = question.relevant.split('||')[2];
+    let queryString = `value${operator}'${values}'`;
+    queryString = `question_code='${questionCode}' AND ${queryString} AND quiz_uuid='${quizUuid}'`;
+
+    if (!!Answer.where(queryString).length) { return nextIndex; }
+
+    return findIndexNextQuestion(nextIndex, questions, quizUuid);
   }
 })();
 

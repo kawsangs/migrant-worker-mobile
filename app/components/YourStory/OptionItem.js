@@ -18,9 +18,9 @@ class OptionItem extends Component {
     return (
       <RadioButton
         label={item.name}
-        checked={this.state.checked}
+        checked={ item.value == this.props.answer }
         value={item.value}
-        onSelect={checked => this.setState({ checked })}
+        onSelect={value => this.props.onSelect(value)}
       />
     );
   }

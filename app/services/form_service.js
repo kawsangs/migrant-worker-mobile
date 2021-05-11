@@ -19,7 +19,6 @@ const CategoryService = (()=> {
         let items = Form.getPendingDownload();
 
         // Update progress state
-        console.log("items=============", items.length);
         updateTotalCountCallback(items.length + 1);
         increaseProgressCallback();
 
