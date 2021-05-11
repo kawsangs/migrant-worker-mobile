@@ -3,23 +3,28 @@
 import UserSchema from '../migrations/v1/user';
 import PdfSchema from '../migrations/v1/pdf';
 import SidekiqSchema from '../migrations/v1/sidekiq';
+
+import CategorySchema from '../migrations/v1/category';
+import CategoryImageSchema from '../migrations/v1/category_image';
+
+import FormSchema from '../migrations/v1/form';
 import QuestionSchema from '../migrations/v1/question';
+import OptionSchema from '../migrations/v1/option';
+
+import QuizSchema from '../migrations/v1/quiz';
 import AnswerSchema from '../migrations/v1/answer';
-import CriteriaSchema from '../migrations/v1/criteria';
-import SkipLogicShema from '../migrations/v1/skip_logic';
-import CategoryShema from '../migrations/v1/category';
-import CategoryImageShema from '../migrations/v1/category_image';
 
 const schemaNames = [
   "User",
   "Pdf",
   "Sidekiq",
-  "Criteria",
-  "SkipLogic",
-  "Answer",
-  "Question",
   "Category",
   "CategoryImage",
+  "Form",
+  "Question",
+  "Option",
+  "Quiz",
+  "Answer",
 ]
 
 const schemaHelper = (() => {
@@ -32,12 +37,13 @@ const schemaHelper = (() => {
       UserSchema,
       PdfSchema,
       SidekiqSchema,
-      CriteriaSchema,
-      SkipLogicShema,
-      AnswerSchema,
+      CategorySchema,
+      CategoryImageSchema,
+      FormSchema,
       QuestionSchema,
-      CategoryShema,
-      CategoryImageShema,
+      OptionSchema,
+      QuizSchema,
+      AnswerSchema,
     ];
 
     changedSchemas.map((schema) => {

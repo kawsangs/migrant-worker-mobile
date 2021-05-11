@@ -13,7 +13,6 @@ const ImageDownloader = (()=> {
     };
 
     await RNFS.downloadFile(options).promise.then(res => {
-      console.log('=============download image success');
       !!successCallback && successCallback(options.toFile);
     }).catch(err => {
       console.log('=============download image error', err);
@@ -21,10 +20,6 @@ const ImageDownloader = (()=> {
     });
   }
 
-  function getFileName(filePath) {
-    let fileNames = filePath.split('/');
-    return fileNames[fileNames.length - 1];
-  }
 })();
 
 export default ImageDownloader;

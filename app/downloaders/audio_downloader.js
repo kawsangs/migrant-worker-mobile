@@ -6,10 +6,10 @@ const AudioDownloader = (()=> {
     download: download
   }
 
-  async function download(dirName, filePath, successCallback, failsCallback) {
+  async function download(fileName, filePath, successCallback, failsCallback) {
     let options = {
       fromUrl: `${environment.domain}/${filePath}`,
-      toFile: `${RNFS.DocumentDirectoryPath}/${dirName}/audios/${getFileName(filePath)}`,
+      toFile: `${RNFS.DocumentDirectoryPath}/${fileName}`,
     };
 
     await RNFS.downloadFile(options).promise.then(res => {
@@ -18,12 +18,6 @@ const AudioDownloader = (()=> {
       console.log('=============download audio error', err);
       !!failsCallback && failsCallback();
     });
-  }
-
-  function getFileName(filePath) {
-    let fileNames = filePath.split('/');
-
-    return fileNames[fileNames.length - 1];
   }
 })();
 
