@@ -1,6 +1,5 @@
 import Departure from '../models/Departure';
 import { Api } from '../utils/api';
-import{ titleCase } from '../utils/string';
 import ImageDownloader from '../downloaders/image_downloader';
 import AudioDownloader from '../downloaders/audio_downloader';
 import realm from '../db/schema';

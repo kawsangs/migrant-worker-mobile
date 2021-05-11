@@ -31,9 +31,9 @@ const CategoryImage = (() => {
     })
   }
 
-  function upsertCollection(collection, category_id) {
+  function upsertCollection(collection) {
     for(let i=0; i<collection.length; i++) {
-      upsert(_buildData(collection[i], category_id));
+      upsert(_buildData(collection[i]));
     }
   }
 
@@ -43,12 +43,12 @@ const CategoryImage = (() => {
     })
   }
 
-  function _buildData(category_image, category_id) {
+  function _buildData(category_image) {
     return {
       id: category_image.id,
       name: category_image.name,
       image_url: category_image.image_url,
-      category_id: category_id,
+      category_id: category_image.category_id,
     }
   }
 

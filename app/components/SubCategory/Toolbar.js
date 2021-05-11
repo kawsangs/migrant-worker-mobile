@@ -9,6 +9,8 @@ export default class MyToolbar extends Component {
   }
 
   render() {
+    const backgroundColor = this.props.backgroundColor || Color.red
+    const elevation = this.props.elevation > -1 ? this.props.elevation : 4;
     return (
       <Toolbar
         leftElement={'arrow-back'}
@@ -27,7 +29,8 @@ export default class MyToolbar extends Component {
           },
           container: {
             width: '100%',
-            backgroundColor: Color.red,
+            backgroundColor: backgroundColor,
+            elevation: elevation,
           },
         }}
       />

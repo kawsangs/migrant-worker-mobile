@@ -2,14 +2,16 @@
 
 const AnswerSchema = {
   name: 'Answer',
-  // primaryKey: 'id',
+  primaryKey: 'uuid',
   properties: {
-    id: 'int',
-    title: 'string',
-    weight: 'double'
+    uuid: 'string',
+    question_id: 'int',
+    question_code: 'string',
+    value: 'string',
+    score: { type: 'int', default: 0 },
+    user_uuid: 'string',
+    quiz_uuid: 'string',
   }
 };
-
-
 
 export default AnswerSchema;

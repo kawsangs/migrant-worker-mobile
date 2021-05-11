@@ -1,47 +1,28 @@
 'use strict';
 
-// const QuestionSchema = {
-//   name: 'Questionnaire',
-//   primaryKey: 'code',
-//   properties: {
-//     order: 'string',
-//     code: 'string',
-//     type: 'string',
-//     question: 'string',
-//     options: [
-//       {
-//         id: 'string',
-//         title: 'string',
-//         weight: 'double'
-//       }
-//     ],
-//     skip_logic: {
-//       operator: 'string',
-//       criterias: [
-//         {
-//           code: 'string',
-//           operator: 'string',
-//           value: ['string']
-//         }
-//       ]
-//     }
-//   }
-// };
-
-
 const QuestionSchema = {
   name: 'Question',
-  // primaryKey: 'code',
+  primaryKey: 'id',
   properties: {
-    order: 'int',
+    id: 'int',
     code: 'string',
     type: 'string',
-    question: 'string',
-    options: { type: 'list', objectType: 'Answer' },
-    skip_logic: 'SkipLogic'
+    name: 'string',
+    display_order: 'int',
+    hint: 'string?',
+    relevant: 'string?',
+    required: {type: 'bool', default: false},
+    audio: 'string?',
+    audio_url: 'string?',
+    passing_score: 'int?',
+    passing_message: 'string?',
+    passing_audio: 'string?',
+    passing_audio_url: 'string?',
+    failing_message: 'string?',
+    failing_audio: 'string?',
+    failing_audio_url: 'string?',
+    form_id: 'int',
   }
 };
-
-
 
 export default QuestionSchema;
