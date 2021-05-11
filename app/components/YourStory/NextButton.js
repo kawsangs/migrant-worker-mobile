@@ -16,21 +16,21 @@ class NextButton extends Component {
   state = {};
 
   render() {
+    const { disabled } = this.props;
     let hasSelectedAnswer = false;
+    let bgStyle = disabled ? { backgroundColor: Color.gray } : { backgroundColor: Color.pink };
+    let textStyle = disabled ? { color:  Color.textBlack} : { color: Color.white };
 
     return (
       <View style={[Style.boxShadow, styles.nextButton]}>
         <TouchableOpacity
-          onPress={() => {}}
-          style={[styles.nextBtnAction, {
-            backgroundColor: hasSelectedAnswer ? Color.pink : Color.gray,
-          }]}
-          activeOpacity={0.8} >
+          style={[styles.nextBtnAction, bgStyle]}
+          { ...this.props }>
 
           <View style={{ width: 58 }} />
 
           <View style={styles.coverNextText}>
-            <Text style={[styles.nextText, { color: hasSelectedAnswer ? Color.white : Color.textBlack }]}>{this.props.t('CreateYourStoryScreen.Next')}</Text>
+            <Text style={[styles.nextText, textStyle]}>{this.props.t('CreateYourStoryScreen.Next')}</Text>
           </View>
 
           <PlaySound

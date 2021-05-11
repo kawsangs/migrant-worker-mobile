@@ -68,14 +68,14 @@ class YourStory extends Component {
   }
 
   _incrementProgress = () => {
-    let num = this.state.progress + 1
+    let num = this.state.progress + 1;
     this.setState({progress: num});
 
-    console.log("num: ----", num)
-    console.log("progress", this._getProgress())
-
+    // When progress reach 100%, let user see the full progress before hiding it.
     if (num == this.state.total) {
-      this._initState();
+      setTimeout(() => {
+        this._initState();
+      }, 1000);
     }
   }
 

@@ -1,102 +1,75 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  StatusBar,
-  ScrollView,
-} from 'react-native';
+import { View, StatusBar, Text } from 'react-native';
 
 import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
-import PlaySound from '../../components/play_sound';
-import Images from '../../utils/images';
-import uuidv4 from '../../utils/uuidv4';
-import { addStatistic } from '../../utils/statistic';
 
 import i18n from 'i18next';
 import { withTranslation } from 'react-i18next';
 
+// Model
 import Question from '../../models/Question';
-import Option from '../../models/Option';
+import Answer from '../../models/Answer';
 
+// Component
 import Toolbar from '../../components/SubCategory/Toolbar';
-import OptionItem from '../../components/YourStory/OptionItem';
 import ProgressHeader from '../../components/YourStory/ProgressHeader';
-import NextButton from '../../components/YourStory/NextButton';
+import Questions from '../../components/Questions';
+
+// Redux
+import { connect } from 'react-redux';
+import { setQuestions } from '../../actions/questionAction';
+import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexAction';
 
 class CreateYourStory extends Component {
   constructor(props) {
     super(props)
 
-    let questions = Question.byForm(props.route.params.form_id);
-    let currentQuestion = questions[0];
+    this.state = {};
 
-    this.state = {
-      questions: questions,
-      currentQuestion: currentQuestion,
-      options: Option.byQuestion(currentQuestion.id),
-    };
-  }
+    props.setQuestions(Question.byForm(props.route.params.form_id));
+    props.setCurrentIndex(0);
 
-  _renderToolbar() {
-    return(
-      <Toolbar
-        title={"Todo: chagne Story title "}
-        navigation={this.props.navigation}
-        elevation={0}
-        backgroundColor={Color.pink} />
-    )
-  }
-
-  _renderOptions() {
-    return this.state.options.map((item, index) => <OptionItem item={item} key={index}/>);
-  }
-
-  _renderQuestion() {
-    const { currentQuestion } = this.state;
-
-    return (
-      <View style={{flexDirection: 'row'}} >
-        <View style={{ flex: 1 }}>
-          <Text style={{ fontFamily: FontFamily.title }}>{currentQuestion.name}</Text>
-        </View>
-
-        <PlaySound
-          fileName={'register'}
-          buttonAudioStyle={{ backgroundColor: Color.pink }}
-          iconStyle={{ tintColor: Color.white }}
-          activePlaying={this.state.activePlaying}
-          onPress={(fileName) => this.setState({ activePlaying: fileName })}
-          style={{ marginHorizontal: 10 }}
-        />
-      </View>
-    );
+    // Todo: need to remove, it is used for testing
+    Answer.deleteAll();
   }
 
   render() {
+    const { questions, currentIndex } = this.props;
+    const currentQuestion = questions[currentIndex];
+
     return (
       <View style={{ flex: 1 }}>
         <StatusBar barStyle={'light-content'} backgroundColor={Color.pink} />
-        { this._renderToolbar() }
+
+        <Toolbar
+          title={"Todo: chagne Story title "}
+          navigation={this.props.navigation}
+          elevation={0}
+          backgroundColor={Color.pink} />
 
         <ProgressHeader />
 
-        <ScrollView
-          style={{ flex: 1 }}
-          contentContainerStyle={{ flexGrow: 1 }}
-          showsVerticalScrollIndicator={false}>
-
-          <View style={[Style.container, Style.card]}>
-            { this._renderQuestion() }
-            { this._renderOptions() }
-          </View>
-        </ScrollView>
-
-        <NextButton />
+        { Questions(currentQuestion) }
       </View>
     );
   }
 }
 
-export default withTranslation()(CreateYourStory);
+function mapStateToProps(state) {
+  return {
+    questions: state.questions,
+    currentIndex: state.currentQuestionIndex,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setQuestions: (questions) => dispatch(setQuestions(questions)),
+    setCurrentIndex: (index) => dispatch(setCurrentQuestionIndex(index))
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withTranslation()(CreateYourStory));
