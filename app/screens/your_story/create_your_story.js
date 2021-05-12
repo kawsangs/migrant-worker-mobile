@@ -19,6 +19,7 @@ import Questions from '../../components/Questions';
 import { connect } from 'react-redux';
 import { setQuestions } from '../../actions/questionAction';
 import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexAction';
+import AlertMessage from '../../components/AlertMessage';
 
 class CreateYourStory extends Component {
   constructor(props) {
@@ -42,14 +43,15 @@ class CreateYourStory extends Component {
         <StatusBar barStyle={'light-content'} backgroundColor={Color.pink} />
 
         <Toolbar
-          title={"Todo: chagne Story title "}
+          title={"Todo: change Story title "}
           navigation={this.props.navigation}
           elevation={0}
           backgroundColor={Color.pink} />
 
         <ProgressHeader />
 
-        { Questions(currentQuestion) }
+        { !!currentQuestion && Questions(currentQuestion) }
+        { !currentQuestion && <Text>End Questions</Text> }
       </View>
     );
   }
@@ -65,7 +67,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     setQuestions: (questions) => dispatch(setQuestions(questions)),
-    setCurrentIndex: (index) => dispatch(setCurrentQuestionIndex(index))
+    setCurrentIndex: (index) => dispatch(setCurrentQuestionIndex(index)),
   };
 }
 

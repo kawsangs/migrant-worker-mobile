@@ -14,11 +14,11 @@ const Questions = {
 };
 
 export default (question={}) => {
-  // component does exist
   if (!question.type) {
     return null;
   }
 
+  // component does exist
   const type = question.type.split('::')[1];
 
   if (typeof Questions[type] !== "undefined") {
@@ -27,6 +27,7 @@ export default (question={}) => {
       question: question
     });
   }
+
   // component doesn't exist yet
   return React.createElement(
     () => <div>The component {type} has not been created yet.</div>,
