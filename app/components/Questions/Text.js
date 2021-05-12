@@ -46,11 +46,6 @@ class QuestionsSelectOne extends Component {
     // Todo: update quizUuid
     let quizUuid = "123";
 
-    if ( this.props.currentIndex == this.props.questions.length - 1) {
-      // Todo: enhance message
-      return alert("end questions");
-    }
-
     let nextIndex = Question.findIndexNextQuestion(this.props.currentIndex, this.props.questions, quizUuid);
     this.props.setCurrentIndex(nextIndex);
   }
@@ -70,7 +65,9 @@ class QuestionsSelectOne extends Component {
           </View>
         </ScrollView>
 
-        <NextButton onPress={() => this._onPressNext() } />
+        <NextButton
+          disabled={!this.state.answer}
+          onPress={() => this._onPressNext() } />
       </View>
     );
   }

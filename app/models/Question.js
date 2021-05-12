@@ -101,23 +101,40 @@ const Question = (() => {
     })
   }
 
+  // -------------------------------Skip Logic start
+
   function findIndexNextQuestion(currentIndex=0, questions=[], quizUuid) {
     let nextIndex = currentIndex + 1;
     let question = questions[nextIndex];
 
-    if (!question.relevant) { return nextIndex; }
-
-    // Todo: need to enhance logic, such as: any_of and !=
-    let questionCode = question.relevant.split('||')[0];
-    let operator = question.relevant.split('||')[1];
-    let values = question.relevant.split('||')[2];
-    let queryString = `value${operator}'${values}'`;
-    queryString = `question_code='${questionCode}' AND ${queryString} AND quiz_uuid='${quizUuid}'`;
-
-    if (!!Answer.where(queryString).length) { return nextIndex; }
+    if (!question) { return -1; }
+    if (!question.relevant || _hasRelevantResponse(question, quizUuid)) {
+      return nextIndex;
+    }
 
     return findIndexNextQuestion(nextIndex, questions, quizUuid);
   }
+
+  function _hasRelevantResponse(question, quizUuid) {
+    let questionCode = question.relevant.split('||')[0];
+    let operator = question.relevant.split('||')[1];
+    let values = question.relevant.split('||')[2];
+    let answers = [];
+
+    if (["=", "!="].includes(operator)) {
+      answers = Answer.where(`question_code='${questionCode}' AND value${operator}'${values}' AND quiz_uuid='${quizUuid}'`);
+    } else if (operator == 'in') {
+      values = values.split(',');
+      answers = Answer.where(`question_code='${questionCode}' AND quiz_uuid='${quizUuid}'`);
+      answers = answers.filter(answer => !!answer.value.split(',').filter(v => values.includes(v)).length );
+    }
+
+    // Todo: handle multiple condition (compound operators)
+
+    return !!answers.length;
+  }
+  // -------------------------------Skip Logic end
+
 })();
 
 export default Question;

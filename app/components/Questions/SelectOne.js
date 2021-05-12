@@ -15,9 +15,10 @@ import Question from '../../models/Question';
 import Answer from '../../models/Answer';
 import Option from '../../models/Option';
 
-import OptionItem from '../../components/YourStory/OptionItem';
+import { RadioButton } from 'react-native-material-ui';
 import NextButton from '../../components/YourStory/NextButton';
 import QuestionName from './questionName';
+import AlertMessage from '../../components/AlertMessage';
 
 import { connect } from 'react-redux';
 import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexAction';
@@ -28,73 +29,108 @@ class QuestionsSelectOne extends Component {
 
     this.state = {
       options: Option.byQuestion(props.question.id),
-      answer: ''
+      answer: '',
+      // Todo: update quizUuid
+      quizUuid: '123',
+      selectedOption: {},
     };
   }
 
   _renderInputField() {
     return this.state.options.map((item, index) =>
-      <OptionItem
-        item={item}
+      <RadioButton
         key={index}
-        answer={ this.state.answer }
-        onSelect={ (value) => this.setState({answer: value}) }
+        label={item.name}
+        checked={item.id.toString() == this.state.answer}
+        value={item.id.toString()}
+        onSelect={id => {
+          let option = this.state.options.filter(o => o.id.toString() == id)[0];
+          this.setState({answer: id, selectedOption: option});
+        }}
       />
     );
   }
 
   _saveAnswer() {
-    const { options, answer } = this.state;
+    const { selectedOption } = this.state;
+    const { question } = this.props;
 
     let data = {
       uuid: uuidv4(),
-      question_id: this.props.question.id,
-      question_code: this.props.question.code,
-      value: answer,
-      score: options.filter(o => o.value == answer)[0].score || 0,
+      question_id: question.id,
+      question_code: question.code,
+      value: selectedOption.value,
+      score: selectedOption.score || 0,
       // Todo: update user_uuid and quiz_uuid
       user_uuid: "123",
-      quiz_uuid: "123"
+      quiz_uuid: this.state.quizUuid
     }
 
     Answer.upsert(data);
   }
 
   _onPressNext() {
-    // Todo: update quizUuid
-    let quizUuid = "123";
-
-    this._saveAnswer();
-
-    if ( this.props.currentIndex == this.props.questions.length - 1) {
-      // Todo: enhance message
-      return alert("end questions");
+    if (!!this.state.selectedOption.alert_message) {
+      return this.setState({showAlert: true});
     }
 
-    let nextIndex = Question.findIndexNextQuestion(this.props.currentIndex, this.props.questions, quizUuid);
+    this._handleNext();
+  }
+
+  _handleNext() {
+    this._saveAnswer();
+
+    let nextIndex = Question.findIndexNextQuestion(this.props.currentIndex, this.props.questions, this.state.quizUuid);
     this.props.setCurrentIndex(nextIndex);
+  }
+
+  _resetCurrentQuestion() {
+    this.setState({
+      answer: '',
+      selectedOption: {}
+    });
+  }
+
+  _handleHideMessage() {
+    this.setState({showAlert: false});
+
+    // not sure about should I save the answer or not in case (recursive)
+    if (this.state.selectedOption.recursive) {
+      this._resetCurrentQuestion();
+    } else {
+      this._handleNext();
+    }
   }
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <ScrollView
-          style={{ flex: 1 }}
-          contentContainerStyle={{ flexGrow: 1 }}
-          showsVerticalScrollIndicator={false}>
+      <>
+        <View style={{ flex: 1 }}>
+          <ScrollView
+            style={{ flex: 1 }}
+            contentContainerStyle={{ flexGrow: 1 }}
+            showsVerticalScrollIndicator={false}>
 
-          <View style={[Style.container, Style.card]}>
-            <QuestionName question={this.props.question } />
+            <View style={[Style.container, Style.card]}>
+              <QuestionName question={this.props.question } />
 
-            { this._renderInputField() }
-          </View>
-        </ScrollView>
+              { this._renderInputField() }
+            </View>
+          </ScrollView>
 
-        <NextButton
-          disabled={false && !this.state.answer}
-          onPress={() => this._onPressNext() }
+          <NextButton
+            disabled={!this.state.answer}
+            onPress={() => this._onPressNext() }
+          />
+        </View>
+
+        <AlertMessage
+          show={this.state.showAlert}
+          warning={this.state.selectedOption.warning}
+          message={this.state.selectedOption.alert_message}
+          onPressAction={() => this._handleHideMessage()}
         />
-      </View>
+      </>
     );
   }
 }
