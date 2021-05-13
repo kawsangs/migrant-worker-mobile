@@ -14,7 +14,6 @@ import { withTranslation } from 'react-i18next';
 
 import Question from '../../models/Question';
 import Answer from '../../models/Answer';
-import Option from '../../models/Option';
 
 import NextButton from '../../components/YourStory/NextButton';
 import QuestionName from './questionName';
@@ -22,12 +21,11 @@ import QuestionName from './questionName';
 import { connect } from 'react-redux';
 import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexAction';
 
-class QuestionsSelectOne extends Component {
+class QuestionsText extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      options: Option.byQuestion(props.question.id),
       answer: ''
     };
   }
@@ -43,11 +41,24 @@ class QuestionsSelectOne extends Component {
   }
 
   _onPressNext() {
-    // Todo: update quizUuid
-    let quizUuid = "123";
-
-    let nextIndex = Question.findIndexNextQuestion(this.props.currentIndex, this.props.questions, quizUuid);
+    this._saveAnswer();
+    let nextIndex = Question.findIndexNextQuestion(this.props.currentIndex, this.props.questions, this.props.currentQuiz.uuid);
     this.props.setCurrentIndex(nextIndex);
+  }
+
+  _saveAnswer() {
+    const { question, currentQuiz } = this.props;
+
+    let data = {
+      uuid: uuidv4(),
+      question_id: question.id,
+      question_code: question.code,
+      value: this.state.answer,
+      user_uuid: currentQuiz.user_uuid,
+      quiz_uuid: currentQuiz.uuid
+    }
+
+    Answer.upsert(data);
   }
 
   render() {
@@ -77,6 +88,7 @@ function mapStateToProps(state) {
   return {
     questions: state.questions,
     currentIndex: state.currentQuestionIndex,
+    currentQuiz: state.currentQuiz,
   };
 }
 
@@ -89,4 +101,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(withTranslation()(QuestionsSelectOne));
+)(withTranslation()(QuestionsText));

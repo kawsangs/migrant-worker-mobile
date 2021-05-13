@@ -12,19 +12,24 @@ import { Icon } from 'react-native-material-ui';
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
 import PlaySound from '../../components/play_sound';
 import Images from '../../utils/images';
-import { addStatistic } from '../../utils/statistic';
-import ProgressCircle from 'react-native-progress-circle';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
 
 import { InjectArray } from '../../utils/math';
 import CardItem from '../../components/YourStory/CardItem';
 import Toolbar from '../../components/SubCategory/Toolbar';
+
 import Form from '../../models/Form';
+import Quiz from '../../models/Quiz';
+
+import { connect } from 'react-redux';
+import { setCurrentQuiz } from '../../actions/currentQuizAction';
+
 import * as Progress from 'react-native-progress';
 import NetInfo from "@react-native-community/netinfo";
 import NoConnection from '../../components/NoConnection';
 import FormService from '../../services/form_service';
+import uuidv4 from '../../utils/uuidv4';
 
 class YourStory extends Component {
   state = {}
@@ -111,20 +116,22 @@ class YourStory extends Component {
     )
   }
 
-  _getProgress() {
-    if (!!this.state.total) {
-      return ((this.state.progress || 0 ) / this.state.total).toFixed(2);
-    } else {
-      return 0;
-    }
+  _onPress(item) {
+    this._createQuiz(item);
+    this.props.navigation.navigate("CreateYourStoryScreen", { title: item.name, form_id: item.id });
   }
 
-  _onPress(item) {
-    if (item.routeName == 'ImageViewScreen') {
-      addStatistic('migration_checklist_view_image', { title: item[`title_${i18n.language}`] })
-    }
+  _createQuiz(item) {
+    let uuid = uuidv4();
+    Quiz.upsert({
+      uuid: uuid,
+      user_uuid: '123',
+      form_id: item.id,
+      quizzed_at: (new Date).toDateString()
+    });
 
-    this.props.navigation.navigate("CreateYourStoryScreen", { title: item.name, form_id: item.id });
+    let quiz = Quiz.find(uuid);
+    this.props.setCurrentQuiz(quiz);
   }
 
   _renderContent() {
@@ -194,4 +201,20 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withTranslation()(YourStory);
+
+function mapStateToProps(state) {
+  return {
+
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setCurrentQuiz: (quiz) => dispatch(setCurrentQuiz(quiz)),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withTranslation()(YourStory));

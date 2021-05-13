@@ -31,7 +31,7 @@ class CreateYourStory extends Component {
     props.setCurrentIndex(0);
 
     // Todo: need to remove, it is used for testing
-    Answer.deleteAll();
+    // Answer.deleteAll();
   }
 
   render() {
@@ -51,7 +51,7 @@ class CreateYourStory extends Component {
         <ProgressHeader />
 
         { !!currentQuestion && Questions(currentQuestion) }
-        { !currentQuestion && <Text>End Questions</Text> }
+        { !currentQuestion && <Text>End question message and click go to another step</Text> }
       </View>
     );
   }

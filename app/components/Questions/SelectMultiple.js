@@ -25,14 +25,14 @@ import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexActio
 
 class QuestionsMultiple extends Component {
   answerOptions = [];
+  alertOptions = [];
+  alertOptionIndex = 0;
 
   constructor(props) {
     super(props)
 
     this.state = {
       options: Option.byQuestion(props.question.id),
-      // Todo: update quizUuid
-      quizUuid: '123',
       answers: [],
       alertOption: {},
     };
@@ -79,9 +79,8 @@ class QuestionsMultiple extends Component {
       question_code: this.props.question.code,
       value: this.answerOptions.map(o => o.value).join(','),
       score: scores,
-      // Todo: update user_uuid and quiz_uuid
-      user_uuid: "123",
-      quiz_uuid: this.state.quizUuid
+      user_uuid: this.props.currentQuiz.user_uuid,
+      quiz_uuid: this.props.currentQuiz.uuid
     }
 
     Answer.upsert(data);
@@ -89,10 +88,10 @@ class QuestionsMultiple extends Component {
 
   _onPressNext() {
     this.answerOptions = this.state.options.filter(o => this.state.answers.includes(o.id.toString()));
-    let alertOption = this.answerOptions.filter(o => !!o.alert_message)[0];
+    this.alertOptions = this.answerOptions.filter(o => !!o.alert_message);
 
-    if (!!alertOption) {
-      return this.setState({showAlert: true, alertOption: alertOption});
+    if (!!this.alertOptions.length) {
+      return this.setState({showAlert: true, alertOption: this.alertOptions[0]});
     }
 
     this._handleNext();
@@ -101,7 +100,7 @@ class QuestionsMultiple extends Component {
   _handleNext() {
     this._saveAnswer();
 
-    let nextIndex = Question.findIndexNextQuestion(this.props.currentIndex, this.props.questions, this.state.quizUuid);
+    let nextIndex = Question.findIndexNextQuestion(this.props.currentIndex, this.props.questions, this.props.currentQuiz.uuid);
     this.props.setCurrentIndex(nextIndex);
   }
 
@@ -116,6 +115,11 @@ class QuestionsMultiple extends Component {
 
   _handleHideMessage() {
     this.setState({showAlert: false});
+    this.alertOptionIndex++;
+
+    if (!!this.alertOptions[this.alertOptionIndex]) {
+      return this.setState({alertOption: this.alertOptions[this.alertOptionIndex], showAlert: true});
+    }
 
     // not sure about should I save the answer or not in case (recursive)
     if (this.state.alertOption.recursive) {
@@ -163,6 +167,7 @@ function mapStateToProps(state) {
   return {
     questions: state.questions,
     currentIndex: state.currentQuestionIndex,
+    currentQuiz: state.currentQuiz,
   };
 }
 

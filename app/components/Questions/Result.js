@@ -20,7 +20,7 @@ import QuestionName from './questionName';
 import { connect } from 'react-redux';
 import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexAction';
 
-class QuestionsSelectOne extends Component {
+class QuestionsResult extends Component {
   _renderMessage() {
     const { question } = this.props;
     const totalScore = Answer.byQuiz('123').sum('score');
@@ -30,15 +30,7 @@ class QuestionsSelectOne extends Component {
   }
 
   _onPressNext() {
-    if ( this.props.currentIndex == this.props.questions.length - 1) {
-      // Todo: enhance message
-      return alert("end questions");
-    }
-
-    // Todo: update quizUuid
-    let quizUuid = "123";
-
-    let nextIndex = Question.findIndexNextQuestion(this.props.currentIndex, this.props.questions, quizUuid);
+    let nextIndex = Question.findIndexNextQuestion(this.props.currentIndex, this.props.questions, this.props.currentQuiz.uuid);
     this.props.setCurrentIndex(nextIndex);
   }
 
@@ -67,6 +59,7 @@ function mapStateToProps(state) {
   return {
     questions: state.questions,
     currentIndex: state.currentQuestionIndex,
+    currentQuiz: state.currentQuiz,
   };
 }
 
@@ -79,4 +72,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(withTranslation()(QuestionsSelectOne));
+)(withTranslation()(QuestionsResult));
