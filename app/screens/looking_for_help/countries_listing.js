@@ -6,6 +6,7 @@ import { Toolbar, Icon } from 'react-native-material-ui';
 import CollapsibleNavbar from '../../components/collapsible_navbar';
 import { withTranslation } from 'react-i18next';
 import countries from '../../data/json/countries';
+import axios from 'axios'
 
 class Country extends React.Component {
   gotoHelp = () => {
@@ -35,7 +36,8 @@ class Country extends React.Component {
 
 class CountriesListing extends React.Component {
   state = {
-    query: ""
+    query: "",
+    countries: []
   }
 
   _renderToolbar() {
@@ -68,6 +70,16 @@ class CountriesListing extends React.Component {
     this.setState({ query: query })
   }
 
+  onSubmit = () => {
+    this.setState({
+      countries: countries
+    })
+  }
+
+  componentDidMount() {
+    console.log("hi")
+  }
+
   _renderContent() {
     return (
       <View style={[{ alignItems: 'flex-start' }]}>
@@ -81,7 +93,11 @@ class CountriesListing extends React.Component {
           alignSelf: 'stretch',
           paddingVertical: 0
         }}>
-          <Icon name="search" style={{marginLeft: 15}} />
+          <TouchableOpacity
+            onPress={this.onSubmit}
+            >
+            <Icon name="search" style={{marginLeft: 15}} />
+          </TouchableOpacity>
 
           <TextInput
             style={{
@@ -104,7 +120,7 @@ class CountriesListing extends React.Component {
           }}>
 
           {
-            countries.map(country => {
+            this.state.countries.map(country => {
               return <Country navigation={this.props.navigation}
                               key={country.id} 
                               country={country} />
