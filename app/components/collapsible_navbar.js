@@ -150,6 +150,8 @@ export default class SafeMigration extends React.Component {
     return (
       <Animated.FlatList
         scrollEventThrottle={1}
+        ListHeaderComponent={ this.props.bodyHeader }
+        ListHeaderComponentStyle={{ marginVertical: 16 }}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: this.state.scrollAnim } } }],
           { useNativeDriver: true },

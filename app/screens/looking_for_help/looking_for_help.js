@@ -26,12 +26,14 @@ import LoadingIndicator from '../../components/loading_indicator';
 import { addStatistic } from '../../utils/statistic';
 import CollapsibleNavbar from '../../components/collapsible_navbar';
 import ContactsList from '../../data/json/service_directories';
+import institutions from '../../data/json/institutions';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
 
 class LookingForHelp extends React.Component {
   state = {
     contacts: ContactsList,
+    institutions: institutions,
     loading: true
   };
 
@@ -84,60 +86,63 @@ class LookingForHelp extends React.Component {
     this.props.navigation.navigate('ViewVideoScreen', { videoId: getVideoId(video.url) });
   }
 
-  _renderItem(item) {
+  _renderItem() {
     return (
       <View style={{ marginHorizontal: 16 }}>
-        <View style={{ flexDirection: 'row', marginVertical: 15, alignItems: 'center', }}>
+        <View style={{ flexDirection: 'row', marginVertical: 0, alignItems: 'center', }}>
           <Image
             source={require("../../assets/images/icons/cambodia_flag.png")}
             style={{ width: 30, height: 30, borderRadius: 15, marginRight: 10 }} />
-          <Text style={{ fontWeight: '700' }}>{item[`country_${i18n.language}`]}</Text>
+          <Text style={{ fontWeight: '700' }}>{this.props.route.params.name}</Text>
         </View>
-        {item?.list && item.list.map((item, index) => this._renderCardBody(item, index))}
       </View>
     )
   }
 
-  _renderCardBody(item, index) {
-    let list_phone_number = item.phones || [];
+  _renderCardBody(item) {
+    let list_phone_number = item.contacts || [];
     return (
-      <TouchableOpacity
-        key={index}
-        // onPress={() => this._onPress(item)}
-        activeOpacity={0.8}
-        style={[Style.card, { flex: 1, }]}
-      >
-        <View style={{ flex: 1, flexDirection: 'row' }}>
-          <View style={{ flex: 1, justifyContent: 'center' }}>
-            <Text style={{ fontWeight: '700' }}>{item[`name_${i18n.language}`]}</Text>
-          </View>
+      <View style={{ marginHorizontal: 16 }}>
+        <View style={{ flexDirection: 'row', marginVertical: 0, alignItems: 'center', }}>
+          <TouchableOpacity
+            key={item.id}
+            // onPress={() => this._onPress(item)}
+            activeOpacity={0.8}
+            style={[Style.card, { flex: 1, }]}
+          >
+            <View style={{ flex: 1, flexDirection: 'row' }}>
+              <View style={{ flex: 1, justifyContent: 'center' }}>
+                <Text style={{ fontWeight: '700' }}>{item.name}</Text>
+              </View>
 
-          <View style={{ marginLeft: 15 }}>
-            <PlaySound
-              fileName={'register'}
-              buttonAudioStyle={{
-                backgroundColor: Color.yellow
-              }}
-              iconStyle={{
-                tintColor: Color.white
-              }}
-              activePlaying={this.state.activePlaying}
-              onPress={(fileName) => this.setState({ activePlaying: fileName })}
-            // style={{ marginTop: 10, marginRight: 10 }}
-            />
-          </View>
+              <View style={{ marginLeft: 15 }}>
+                <PlaySound
+                  fileName={'register'}
+                  buttonAudioStyle={{
+                    backgroundColor: Color.yellow
+                  }}
+                  iconStyle={{
+                    tintColor: Color.white
+                  }}
+                  activePlaying={this.state.activePlaying}
+                  onPress={(fileName) => this.setState({ activePlaying: fileName })}
+                // style={{ marginTop: 10, marginRight: 10 }}
+                />
+              </View>
+            </View>
+            <View style={{ flex: 1, }}>
+
+              {list_phone_number && list_phone_number.map((item, index) => {
+
+                const is_last_item = (index == list_phone_number.length - 1) ? true : false;
+
+                return this._renderPhones(item, index, is_last_item)
+              })}
+
+            </View>
+          </TouchableOpacity>
         </View>
-        <View style={{ flex: 1, }}>
-
-          {list_phone_number && list_phone_number.map((item, index) => {
-
-            const is_last_item = (index == list_phone_number.length - 1) ? true : false;
-
-            return this._renderPhones(item, index, is_last_item)
-          })}
-
-        </View>
-      </TouchableOpacity>
+      </View>
     )
   }
 
@@ -150,8 +155,8 @@ class LookingForHelp extends React.Component {
         alignItems: 'center',
         paddingVertical: 10
       }} key={index}>
-        <Icon name='phone' size={24} color={Color.yellow} />
-        <Text style={{ color: Color.yellow, marginLeft: 15, fontWeight: '700' }}>{item}</Text>
+        <Icon iconSet="FontAwesome" name={item.type.toLowerCase()} size={24} color={Color.yellow} />
+        <Text style={{ color: Color.yellow, marginLeft: 15, fontWeight: '700' }}>{item.value}</Text>
       </View>
     )
   }
@@ -223,14 +228,15 @@ class LookingForHelp extends React.Component {
       <SafeAreaView style={{ flex: 1 }}>
         <StatusBar barStyle={'light-content'} backgroundColor={Color.yellow} />
         <CollapsibleNavbar
+          bodyHeader={this._renderItem()}
           options={{
             header: this._renderToolbar(),
             bodyContentType: 'FlatList',
             bodyContentProps: {
               // contentContainerStyle: styles.flatList,
-              data: this.state.contacts,
-              renderItem: ({ item }) => this._renderItem(item),
-              keyExtractor: item => item.code,
+              data: this.state.institutions,
+              renderItem: ({ item }) => this._renderCardBody(item),
+              keyExtractor: item => item.id,
               // ListHeaderComponent: () => this._renderHeaderComponent()
             },
             noResultContent: !this.state.loading && !this.state.isConnected && this._renderNoInternetConnection()

@@ -1,10 +1,11 @@
 import React from 'react';
-import { SafeAreaView, Text, StatusBar, View, TextInput, StyleSheet } from 'react-native';
+import { SafeAreaView, FlatList, TouchableOpacity, Text, StatusBar, View, TextInput, StyleSheet, Image } from 'react-native';
 import { Color, FontFamily, } from '../../assets/stylesheets/base_style';
 import Toast from 'react-native-easy-toast';
 import { Toolbar, Icon } from 'react-native-material-ui';
 import CollapsibleNavbar from '../../components/collapsible_navbar';
 import { withTranslation } from 'react-i18next';
+import countries from '../../data/json/countries';
 
 class CountriesListing extends React.Component {
   state = {
@@ -41,34 +42,74 @@ class CountriesListing extends React.Component {
     this.setState({ query: query })
   }
 
+  gotoHelp = ({ id, name }) => {
+    this.props.navigation.navigate('LookingForHelpScreen', {
+      id: id,
+      name: name
+    })
+  }
+
+  renderItem = ({item}) => {
+    return (
+      <TouchableOpacity
+        onPress={() => this.gotoHelp(item)}
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center'
+        }}>
+        <Image
+            source={require("../../assets/images/icons/cambodia_flag.png")}
+            style={{ marginHorizontal: 15, width: 30, height: 30, borderRadius: 15, marginRight: 10 }} />
+
+        <Text style={ styles.my }>{item.name}</Text>
+      </TouchableOpacity>
+    )
+  }
+
   _renderContent() {
     return (
       <View style={[{ alignItems: 'flex-start' }]}>
 
-        <Text style={ styles.my }>ស្វែងរក</Text>
+        <Text style={ [styles.my, { marginLeft: 16 }] }>ស្វែងរក</Text>
         <View style={{
           display: 'flex',
           backgroundColor: 'white',
           flexDirection: 'row',
           alignItems: 'center',
-          alignSelf: 'stretch'
+          alignSelf: 'stretch',
+          paddingVertical: 0
         }}>
-          <Icon name="search" />
+          <Icon name="search" style={{marginLeft: 15}} />
 
           <TextInput
-            style={{height: 40,
+            style={{
               margin: 12,
               flexGrow: 1,
-              borderWidth: 1,}}
+              marginVertical: 5,
+              paddingVertical: 0,}}
             onChangeText={this.onChangeQuery}
             value={this.state.query}
-            placeholder="useless placeholder"
+            placeholder="ស្វែងរកប្រទេសចំណាកស្រុក"
             keyboardType="numeric"
           />
         </View>
 
-        <Text style={ styles.my }>ប្រទេស</Text>
+        <Text style={ [styles.my, { marginLeft: 16 }] }>ប្រទេស</Text>
 
+        <View style={{
+            display: 'flex',
+            flexGrow: 1,
+            flexDirection: 'row',
+            backgroundColor: "white"
+          }}>
+
+          <FlatList 
+            data={countries}
+            renderItem={this.renderItem}
+            keyExtractor={item => item.id}
+          />
+        </View>
       </View>
     );
   }
