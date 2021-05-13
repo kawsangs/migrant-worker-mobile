@@ -1,5 +1,8 @@
 {
     "translation": {
+        "CountriesListingScreen": {
+            "HeaderTitle": "Choose migrant countries",
+        },
         "AboutScreen": {
             "HeaderTitle": "About Us",
         },
