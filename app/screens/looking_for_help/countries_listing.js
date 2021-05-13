@@ -1,11 +1,37 @@
 import React from 'react';
-import { SafeAreaView, FlatList, TouchableOpacity, Text, StatusBar, View, TextInput, StyleSheet, Image } from 'react-native';
+import { SafeAreaView, TouchableOpacity, Text, StatusBar, View, TextInput, StyleSheet, Image } from 'react-native';
 import { Color, FontFamily, } from '../../assets/stylesheets/base_style';
 import Toast from 'react-native-easy-toast';
 import { Toolbar, Icon } from 'react-native-material-ui';
 import CollapsibleNavbar from '../../components/collapsible_navbar';
 import { withTranslation } from 'react-i18next';
 import countries from '../../data/json/countries';
+
+class Country extends React.Component {
+  gotoHelp = () => {
+    let { navigation, country } = this.props
+
+    navigation.navigate('LookingForHelpScreen', { ...country })
+  }
+
+  render() {
+    return (
+      <TouchableOpacity
+        onPress={() => this.gotoHelp()}
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center'
+        }}>
+        <Image
+            source={require("../../assets/images/icons/cambodia_flag.png")}
+            style={{ marginHorizontal: 15, width: 30, height: 30, borderRadius: 15, marginRight: 10 }} />
+
+        <Text style={ styles.my }>{this.props.country.name}</Text>
+      </TouchableOpacity>
+    )
+  }
+}
 
 class CountriesListing extends React.Component {
   state = {
@@ -42,31 +68,6 @@ class CountriesListing extends React.Component {
     this.setState({ query: query })
   }
 
-  gotoHelp = ({ id, name }) => {
-    this.props.navigation.navigate('LookingForHelpScreen', {
-      id: id,
-      name: name
-    })
-  }
-
-  renderItem = ({item}) => {
-    return (
-      <TouchableOpacity
-        onPress={() => this.gotoHelp(item)}
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center'
-        }}>
-        <Image
-            source={require("../../assets/images/icons/cambodia_flag.png")}
-            style={{ marginHorizontal: 15, width: 30, height: 30, borderRadius: 15, marginRight: 10 }} />
-
-        <Text style={ styles.my }>{item.name}</Text>
-      </TouchableOpacity>
-    )
-  }
-
   _renderContent() {
     return (
       <View style={[{ alignItems: 'flex-start' }]}>
@@ -98,17 +99,17 @@ class CountriesListing extends React.Component {
         <Text style={ [styles.my, { marginLeft: 16 }] }>ប្រទេស</Text>
 
         <View style={{
-            display: 'flex',
-            flexGrow: 1,
-            flexDirection: 'row',
+            alignSelf: 'stretch',
             backgroundColor: "white"
           }}>
 
-          <FlatList 
-            data={countries}
-            renderItem={this.renderItem}
-            keyExtractor={item => item.id}
-          />
+          {
+            countries.map(country => {
+              return <Country navigation={this.props.navigation}
+                              key={country.id} 
+                              country={country} />
+            })
+          }
         </View>
       </View>
     );
