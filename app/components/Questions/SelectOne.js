@@ -30,8 +30,6 @@ class QuestionsSelectOne extends Component {
     this.state = {
       options: Option.byQuestion(props.question.id),
       answer: '',
-      // Todo: update quizUuid
-      quizUuid: '123',
       selectedOption: {},
     };
   }
@@ -53,7 +51,7 @@ class QuestionsSelectOne extends Component {
 
   _saveAnswer() {
     const { selectedOption } = this.state;
-    const { question } = this.props;
+    const { question, currentQuiz } = this.props;
 
     let data = {
       uuid: uuidv4(),
@@ -61,9 +59,8 @@ class QuestionsSelectOne extends Component {
       question_code: question.code,
       value: selectedOption.value,
       score: selectedOption.score || 0,
-      // Todo: update user_uuid and quiz_uuid
-      user_uuid: "123",
-      quiz_uuid: this.state.quizUuid
+      user_uuid: currentQuiz.user_uuid,
+      quiz_uuid: currentQuiz.uuid
     }
 
     Answer.upsert(data);
@@ -80,7 +77,7 @@ class QuestionsSelectOne extends Component {
   _handleNext() {
     this._saveAnswer();
 
-    let nextIndex = Question.findIndexNextQuestion(this.props.currentIndex, this.props.questions, this.state.quizUuid);
+    let nextIndex = Question.findIndexNextQuestion(this.props.currentIndex, this.props.questions, this.props.currentQuiz.uuid);
     this.props.setCurrentIndex(nextIndex);
   }
 
@@ -139,6 +136,7 @@ function mapStateToProps(state) {
   return {
     questions: state.questions,
     currentIndex: state.currentQuestionIndex,
+    currentQuiz: state.currentQuiz,
   };
 }
 
