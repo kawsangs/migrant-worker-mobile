@@ -108,7 +108,7 @@ class CountriesListing extends React.Component {
             onChangeText={this.onChangeQuery}
             value={this.state.query}
             placeholder="ស្វែងរកប្រទេសចំណាកស្រុក"
-            keyboardType="numeric"
+            keyboardType="default"
           />
         </View>
 
