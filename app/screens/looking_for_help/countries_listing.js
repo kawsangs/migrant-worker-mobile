@@ -16,6 +16,7 @@ class Country extends React.Component {
   }
 
   render() {
+    let { country } = this.props
     return (
       <TouchableOpacity
         onPress={() => this.gotoHelp()}
@@ -25,10 +26,10 @@ class Country extends React.Component {
           alignItems: 'center'
         }}>
         <Image
-            source={require("../../assets/images/icons/cambodia_flag.png")}
+            source={country.flag}
             style={{ marginHorizontal: 15, width: 30, height: 30, borderRadius: 15, marginRight: 10 }} />
 
-        <Text style={ styles.my }>{this.props.country.name}</Text>
+        <Text style={ styles.my }>{country.name}</Text>
       </TouchableOpacity>
     )
   }
@@ -74,10 +75,6 @@ class CountriesListing extends React.Component {
     this.setState({
       countries: countries
     })
-  }
-
-  componentDidMount() {
-    console.log("hi")
   }
 
   _renderContent() {
