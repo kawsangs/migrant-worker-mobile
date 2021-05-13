@@ -1,12 +1,16 @@
 import React from 'react';
-import { SafeAreaView, Text, StatusBar, View } from 'react-native';
+import { SafeAreaView, Text, StatusBar, View, TextInput, StyleSheet } from 'react-native';
 import { Color, FontFamily, } from '../../assets/stylesheets/base_style';
 import Toast from 'react-native-easy-toast';
-import { Toolbar } from 'react-native-material-ui';
+import { Toolbar, Icon } from 'react-native-material-ui';
 import CollapsibleNavbar from '../../components/collapsible_navbar';
 import { withTranslation } from 'react-i18next';
 
 class CountriesListing extends React.Component {
+  state = {
+    query: ""
+  }
+
   _renderToolbar() {
     return (
       <Toolbar
@@ -33,11 +37,37 @@ class CountriesListing extends React.Component {
     );
   }
 
+  onChangeQuery = (query) => {
+    this.setState({ query: query })
+  }
+
   _renderContent() {
     return (
-      <View style={[{ alignItems: 'center' }]}>
+      <View style={[{ alignItems: 'flex-start' }]}>
 
-        <Text style={{ fontFamily: FontFamily.title, marginTop: 16 }}>ក្រោមជំនួយបច្ចេកទេសដោយ</Text>
+        <Text style={ styles.my }>ស្វែងរក</Text>
+        <View style={{
+          display: 'flex',
+          backgroundColor: 'white',
+          flexDirection: 'row',
+          alignItems: 'center',
+          alignSelf: 'stretch'
+        }}>
+          <Icon name="search" />
+
+          <TextInput
+            style={{height: 40,
+              margin: 12,
+              flexGrow: 1,
+              borderWidth: 1,}}
+            onChangeText={this.onChangeQuery}
+            value={this.state.query}
+            placeholder="useless placeholder"
+            keyboardType="numeric"
+          />
+        </View>
+
+        <Text style={ styles.my }>ប្រទេស</Text>
 
       </View>
     );
@@ -51,7 +81,8 @@ class CountriesListing extends React.Component {
           options={{
             header: this._renderToolbar(),
             title: 'អំពីកម្មវិធី',
-            bodyContent: this._renderContent()
+            bodyContent: this._renderContent(),
+            style: { margin: 0 }
           }}
         />
 
@@ -60,5 +91,12 @@ class CountriesListing extends React.Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  my: {
+    marginTop: 16,
+    marginBottom: 16
+  }
+})
 
 export default withTranslation()(CountriesListing);
