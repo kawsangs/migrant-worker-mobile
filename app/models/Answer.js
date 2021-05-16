@@ -8,6 +8,11 @@ const Answer = (() => {
     where,
     deleteAll,
     byQuiz,
+    find,
+  }
+
+  function find(uuid) {
+    return realm.objects('Answer').filtered(`uuid='${uuid}'`)[0];
   }
 
   function getAll() {
