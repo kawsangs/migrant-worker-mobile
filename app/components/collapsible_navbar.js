@@ -151,7 +151,7 @@ export default class SafeMigration extends React.Component {
       <Animated.FlatList
         scrollEventThrottle={1}
         ListHeaderComponent={ this.props.bodyHeader }
-        ListHeaderComponentStyle={{ marginVertical: 16 }}
+        ListHeaderComponentStyle={{ marginVertical: 0 }}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: this.state.scrollAnim } } }],
           { useNativeDriver: true },
@@ -179,7 +179,7 @@ export default class SafeMigration extends React.Component {
         )}
         style={{flex: 1}}>
 
-        <View style={[Style.container, styles.contentContainer, { ...options.style }]}>
+        <View style={[Style.container, styles.contentContainer]}>
           {options.bodyContent}
         </View>
       </Animated.ScrollView>
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Color.primary,
     borderBottomColor: '#dedede',
-    borderBottomWidth: 1,
+    borderBottomWidth: 0,
     height: NAVBAR_HEIGHT,
     zIndex: 1
   },

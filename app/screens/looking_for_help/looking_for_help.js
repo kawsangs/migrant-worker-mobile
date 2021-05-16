@@ -86,10 +86,50 @@ class LookingForHelp extends React.Component {
     this.props.navigation.navigate('ViewVideoScreen', { videoId: getVideoId(video.url) });
   }
 
+  renderBackgroundImage() {
+    return (
+      <View style={{ marginBottom: 16, padding:0 }}>
+        <ImageBackground
+          source={require('../../../app/assets/images/icons/need_for_help.png')}
+          style={{
+            height: 150,
+            backgroundColor: Color.yellow,
+            flex: 1,
+            justifyContent: 'flex-end',
+          }}
+          imageStyle={{
+            resizeMode: "contain",
+          }}>
+
+          <View style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            backgroundColor: '#fff',
+            bottom: 20,
+            marginHorizontal: 16,
+            borderRadius: 10,
+          }}>
+            <TouchableOpacity
+              >
+              <Icon name="search" style={{marginLeft: 15}} />
+            </TouchableOpacity>
+            <TextInput 
+              placeholder="Find help contact in your area"
+              style={{ 
+                fontWeight: 'bold',
+                fontSize: 16,
+                width: '90%' }} />
+          </View>
+        </ImageBackground>
+      </View>
+    )
+  }
+
   _renderItem() {
     return (
-      <View style={{ marginHorizontal: 16 }}>
-        <View style={{ flexDirection: 'row', marginVertical: 0, alignItems: 'center', }}>
+      <View>
+        { this.renderBackgroundImage() }
+        <View style={{ marginHorizontal: 16, flexDirection: 'row', marginVertical: 0, alignItems: 'center', marginBottom: 16 }}>
           <Image
             source={require("../../assets/images/icons/cambodia_flag.png")}
             style={{ width: 30, height: 30, borderRadius: 15, marginRight: 10 }} />
