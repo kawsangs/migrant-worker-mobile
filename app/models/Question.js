@@ -1,6 +1,7 @@
 import realm from '../db/schema';
 import Option from './Option';
 import Answer from './Answer';
+import Criteria from './Criteria';
 
 const Question = (() => {
   return {
@@ -57,6 +58,7 @@ const Question = (() => {
     });
 
     Option.upsertCollection(item.options, item.code);
+    Criteria.upsertCollection(item.criterias);
   }
 
   // Private
@@ -106,9 +108,10 @@ const Question = (() => {
   function findIndexNextQuestion(currentIndex=0, questions=[], quizUuid) {
     let nextIndex = currentIndex + 1;
     let question = questions[nextIndex];
-
     if (!question) { return -1; }
-    if (!question.relevant || _hasRelevantResponse(question, quizUuid)) {
+
+    let criterias = Criteria.byQuestion(question.id);
+    if (!criterias.length || _hasRelevantResponse(question, quizUuid)) {
       return nextIndex;
     }
 
@@ -116,21 +119,44 @@ const Question = (() => {
   }
 
   function _hasRelevantResponse(question, quizUuid) {
-    let questionCode = question.relevant.split('||')[0];
-    let operator = question.relevant.split('||')[1];
-    let values = question.relevant.split('||')[2];
+    let criterias = Criteria.byQuestion(question.id);
+    let isShow = hasResponseValue(criterias[0], quizUuid);
+
+    if (criterias.length == 1) {
+      return isShow;
+    }
+
+    if (question.relevant == "AND") {
+      for(let i=1; i<criterias.length; i++) {
+        isShow = isShow && hasResponseValue(criterias[i], quizUuid);
+      }
+    } else {
+      for(let i=1; i<criterias.length; i++) {
+        isShow = isShow || hasResponseValue(criterias[i], quizUuid);
+      }
+    }
+
+    return isShow;
+  }
+
+  function hasResponseValue(critera, quizUuid) {
+    let questionCode = critera.question_code;
+    let operator = critera.operator;
+    let values = critera.response_value;
+
     let answers = [];
 
     if (["=", "!="].includes(operator)) {
       answers = Answer.where(`question_code='${questionCode}' AND value${operator}'${values}' AND quiz_uuid='${quizUuid}'`);
     } else if (operator == 'in') {
+      console.log("critera========", JSON.stringify(critera));
+      console.log("questionCode=======", questionCode);
+      console.log("quizUuid=======", quizUuid);
+
       values = values.split(',');
       answers = Answer.where(`question_code='${questionCode}' AND quiz_uuid='${quizUuid}'`);
       answers = answers.filter(answer => !!answer.value.split(',').filter(v => values.includes(v)).length );
     }
-
-    // Todo: handle multiple condition (compound operators)
-
     return !!answers.length;
   }
   // -------------------------------Skip Logic end

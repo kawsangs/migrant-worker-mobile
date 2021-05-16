@@ -13,6 +13,7 @@ import OptionSchema from '../migrations/v1/option';
 
 import QuizSchema from '../migrations/v1/quiz';
 import AnswerSchema from '../migrations/v1/answer';
+import CriteriaSchema from '../migrations/v1/criteria';
 
 const schemaNames = [
   "User",
@@ -25,6 +26,7 @@ const schemaNames = [
   "Option",
   "Quiz",
   "Answer",
+  "Criteria",
 ]
 
 const schemaHelper = (() => {
@@ -44,6 +46,7 @@ const schemaHelper = (() => {
       OptionSchema,
       QuizSchema,
       AnswerSchema,
+      CriteriaSchema,
     ];
 
     changedSchemas.map((schema) => {

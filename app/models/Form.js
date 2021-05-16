@@ -2,6 +2,7 @@ import realm from '../db/schema';
 
 import Question from '../models/Question';
 import Option from '../models/Option';
+import Criteria from '../models/Criteria';
 
 const Form = (() => {
   return {
@@ -30,6 +31,7 @@ const Form = (() => {
     deleteAll();
     Question.deleteAll();
     Option.deleteAll();
+    Criteria.deleteAll();
   }
 
   function deleteAll() {

@@ -52,9 +52,10 @@ class QuestionsSelectOne extends Component {
   _saveAnswer() {
     const { selectedOption } = this.state;
     const { question, currentQuiz } = this.props;
+    let uuid = uuidv4();
 
     let data = {
-      uuid: uuidv4(),
+      uuid: uuid,
       question_id: question.id,
       question_code: question.code,
       value: selectedOption.value,

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, StatusBar, Text } from 'react-native';
 
 import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
+import { Button } from 'react-native-material-ui';
 
 import i18n from 'i18next';
 import { withTranslation } from 'react-i18next';
@@ -31,7 +32,19 @@ class CreateYourStory extends Component {
     props.setCurrentIndex(0);
 
     // Todo: need to remove, it is used for testing
-    // Answer.deleteAll();
+    Answer.deleteAll();
+  }
+
+  renderEnd() {
+    return (
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', padding: 20}}>
+        <View style={[Style.card]}>
+          <Text>Todo: End question message and click go to another step</Text>
+        </View>
+
+        <Button primary text="Go Home" onPress={() => this.props.navigation.goBack()} />
+      </View>
+    )
   }
 
   render() {
@@ -51,7 +64,7 @@ class CreateYourStory extends Component {
         <ProgressHeader />
 
         { !!currentQuestion && Questions(currentQuestion) }
-        { !currentQuestion && <Text>End question message and click go to another step</Text> }
+        { !currentQuestion && this.renderEnd() }
       </View>
     );
   }
