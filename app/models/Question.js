@@ -120,43 +120,29 @@ const Question = (() => {
 
   function _hasRelevantResponse(question, quizUuid) {
     let criterias = Criteria.byQuestion(question.id);
-    let isShow = hasResponseValue(criterias[0], quizUuid);
 
-    if (criterias.length == 1) {
-      return isShow;
-    }
+    let isResponse = question.relevant.toLowerCase() == "and" ?
+      criterias.reduce((sum, criteria) => sum && _hasResponseValue(criteria, quizUuid), true) :
+      criterias.reduce((sum, criteria) => sum || _hasResponseValue(criteria, quizUuid), false);
 
-    if (question.relevant == "AND") {
-      for(let i=1; i<criterias.length; i++) {
-        isShow = isShow && hasResponseValue(criterias[i], quizUuid);
-      }
-    } else {
-      for(let i=1; i<criterias.length; i++) {
-        isShow = isShow || hasResponseValue(criterias[i], quizUuid);
-      }
-    }
-
-    return isShow;
+    return isResponse;
   }
 
-  function hasResponseValue(critera, quizUuid) {
-    let questionCode = critera.question_code;
-    let operator = critera.operator;
-    let values = critera.response_value;
-
+  function _hasResponseValue(criteria, quizUuid) {
     let answers = [];
 
-    if (["=", "!="].includes(operator)) {
-      answers = Answer.where(`question_code='${questionCode}' AND value${operator}'${values}' AND quiz_uuid='${quizUuid}'`);
-    } else if (operator == 'in') {
-      console.log("critera========", JSON.stringify(critera));
-      console.log("questionCode=======", questionCode);
-      console.log("quizUuid=======", quizUuid);
-
-      values = values.split(',');
-      answers = Answer.where(`question_code='${questionCode}' AND quiz_uuid='${quizUuid}'`);
-      answers = answers.filter(answer => !!answer.value.split(',').filter(v => values.includes(v)).length );
+    if (["=", "!="].includes(criteria.operator)) {
+      answers = Answer.where(`question_code='${criteria.question_code}' AND value${criteria.operator}'${criteria.response_value}' AND quiz_uuid='${quizUuid}'`);
     }
+    else if (["in", "match_all"].includes(criteria.operator)) {
+      let responseValues = criteria.response_value.split(',');
+      answers = Answer.where(`question_code='${criteria.question_code}' AND quiz_uuid='${quizUuid}'`);
+
+      answers = criteria.operator == 'match_all' ?
+        answers.filter(answer => responseValues.reduce((sum, val) => sum && answer.value.indexOf(val) > -1, true)) :
+        answers.filter(answer => responseValues.reduce((sum, val) => sum || answer.value.indexOf(val) > -1, false));
+    }
+
     return !!answers.length;
   }
   // -------------------------------Skip Logic end

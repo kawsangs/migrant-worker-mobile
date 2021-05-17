@@ -22,8 +22,8 @@ import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexActio
 
 class QuestionsResult extends Component {
   _renderMessage() {
-    const { question } = this.props;
-    const totalScore = Answer.byQuiz('123').sum('score');
+    const { question, currentQuiz } = this.props;
+    const totalScore = Answer.byQuiz(currentQuiz.uuid).sum('score');
     const message = totalScore >= question.passing_score ? question.passing_message : question.failing_message;
 
     return (<Text>{message}</Text>);
