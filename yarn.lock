@@ -6241,6 +6241,11 @@
   "resolved" "https://registry.npmjs.org/react-native-audio/-/react-native-audio-4.3.0.tgz"
   "version" "4.3.0"
 
+"react-native-autocomplete-input@^5.0.0":
+  "integrity" "sha512-JsVm1rLNdyf2mLN0cw8XKTP6xwsCw+laPOxb7j81XOZhsS7nQaWytwp6+YEvSi3bnMRuUpvOUbCiS55av9/0/w=="
+  "resolved" "https://registry.npmjs.org/react-native-autocomplete-input/-/react-native-autocomplete-input-5.0.0.tgz"
+  "version" "5.0.0"
+
 "react-native-easy-toast@1.2.0":
   "integrity" "sha512-UtpxnRn1ME+035Uey4VR+9K0P4aVoTcWNOx5QkioWBe3LBKMPb/kZjrQ1LtvWzOyeGP4TeTUTtMX3IOPWv5MtA=="
   "resolved" "https://registry.npmjs.org/react-native-easy-toast/-/react-native-easy-toast-1.2.0.tgz"

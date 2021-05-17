@@ -5,8 +5,9 @@ import Toast from 'react-native-easy-toast';
 import { Toolbar, Icon } from 'react-native-material-ui';
 import CollapsibleNavbar from '../../components/collapsible_navbar';
 import { withTranslation } from 'react-i18next';
-import countries from '../../data/json/countries';
-import axios from 'axios'
+// import countries from '../../data/json/countries';
+import axios from 'axios';
+import Autocomplete from 'react-native-autocomplete-input';
 
 class Country extends React.Component {
   gotoHelp = () => {
@@ -41,6 +42,21 @@ class CountriesListing extends React.Component {
     countries: []
   }
 
+  async filterData(query) {
+    try {
+      if(query=="") return [];
+
+      const response = await axios.get(`http://eaca0d71d83f.ngrok.io/api/v1/countries/?query=${query}`, {
+        headers: { 'Authorization': 'Bearer 960fc97371f1eaa49961212f8ec78ea8' },
+        timeout: 0
+      })
+      return this.setState({ countries: response.data })
+    } catch (error) {
+      alert(error)
+      return [{ message: 'error', message: error }]
+    }
+  }
+
   _renderToolbar() {
     return (
       <Toolbar
@@ -72,12 +88,19 @@ class CountriesListing extends React.Component {
   }
 
   onSubmit = () => {
+    const {query} = this.state;
+
+    alert("onsubmit")
+
     this.setState({
-      countries: countries
+      countries: this.filterData(query)
     })
   }
 
   _renderContent() {
+    const { query, countries } = this.state;
+    // const data = this.filterData(query);
+    
     return (
       <View style={[{ alignItems: 'flex-start' }]}>
 
@@ -108,6 +131,23 @@ class CountriesListing extends React.Component {
             keyboardType="default"
           />
         </View>
+
+        {/* <View>
+          <View style={styles.autocompleteContainer}>
+            <Autocomplete
+              data={countries}
+              value={query}
+              onChangeText={(text) => this.setState({ query: text })}
+              flatListProps={{
+                keyExtractor: (_, idx) => idx,
+                renderItem: ({ item }) => <Text>{item.name}</Text>,
+              }}
+              />
+          </View>
+          <View>
+            <Text>Some content</Text>
+          </View>
+        </View> */}
 
         <Text style={ [styles.my, { marginLeft: 16 }] }>ប្រទេស</Text>
 
@@ -151,6 +191,14 @@ const styles = StyleSheet.create({
   my: {
     marginTop: 16,
     marginBottom: 16
+  },
+  autocompleteContainer: {
+    flex: 1,
+    left: 0,
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    zIndex: 1
   }
 })
 
