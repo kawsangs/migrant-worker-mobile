@@ -6,11 +6,16 @@ const CountryModel = (() => {
     all,
     create,
     deleteAll,
-    createCollection
+    createCollection,
+    where
   }
 
   function createCollection() {
     countries.forEach(country => create(country))
+  }
+
+  function where(field, query) {
+    return realm.objects("Country").filtered(`${field} BEGINSWITH[c] "${query}"`)
   }
 
   function all() {

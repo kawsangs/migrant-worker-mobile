@@ -35,19 +35,8 @@ class CountriesListing extends React.Component {
     this.setState({ countries: Country.all() })
   }
 
-  async filterData(query) {
-    try {
-      if(query=="") return [];
-
-      const response = await axios.get(`http://d94ee5a0fc5a.ngrok.io/api/v1/countries/?query=${query}`, {
-        headers: { 'Authorization': 'Bearer 960fc97371f1eaa49961212f8ec78ea8' },
-        timeout: 0
-      })
-      return this.setState({ countries: response.data })
-    } catch (error) {
-      alert(error)
-      return [{ message: 'error', message: error }]
-    }
+  filterData(query) {
+    return Country.where('name', query)
   }
 
   _renderToolbar() {
