@@ -23,7 +23,6 @@ import NetInfo from "@react-native-community/netinfo";
 import NoConnection from '../../components/NoConnection';
 
 import * as Progress from 'react-native-progress';
-import Toolbar from '../../components/SubCategory/Toolbar';
 
 class YourDeparture extends Component {
   state = {};
@@ -56,15 +55,6 @@ class YourDeparture extends Component {
     // addStatistic(`goTo${screenName.split('Screen')[0]}`);
     // this.props.navigation.navigate("PreDepartureListScreen", { parent_id: item.id });
     this.props.navigation.navigate("SubCategoryScreen", { parent_id: item.id });
-  }
-
-  _renderToolbar() {
-    return (
-      <Toolbar
-        navigation={this.props.navigation}
-        title={this.props.t("BeforeYouGoScreen.HeaderTitle")}
-      />
-    );
   }
 
   _renderCardItem(item) {
@@ -173,7 +163,6 @@ class YourDeparture extends Component {
       <View style={{ flex: 1 }}>
         <StatusBar barStyle={'light-content'} backgroundColor={Color.red} />
 
-        { this._renderToolbar() }
         { this.state.isDownloaded && this._renderCards() }
         { !this.state.isDownloaded && this._handleRendingNoCategory() }
       </View>

@@ -9,7 +9,7 @@ import {
   Platform
 } from 'react-native';
 
-import { Icon, Toolbar } from 'react-native-material-ui';
+import { Icon } from 'react-native-material-ui';
 import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
 import Audio from '../components/audio';
 import Toast, { DURATION } from 'react-native-easy-toast';
