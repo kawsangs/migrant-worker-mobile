@@ -90,8 +90,6 @@ class CountriesListing extends React.Component {
   onSubmit = () => {
     const {query} = this.state;
 
-    alert("onsubmit")
-
     this.setState({
       countries: this.filterData(query)
     })
@@ -129,6 +127,7 @@ class CountriesListing extends React.Component {
             value={this.state.query}
             placeholder="ស្វែងរកប្រទេសចំណាកស្រុក"
             keyboardType="default"
+            onSubmitEditing={this.onSubmit}
           />
         </View>
 
