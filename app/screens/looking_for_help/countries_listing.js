@@ -5,13 +5,17 @@ import Toast from 'react-native-easy-toast';
 import { Toolbar, Icon } from 'react-native-material-ui';
 import CollapsibleNavbar from '../../components/collapsible_navbar';
 import { withTranslation } from 'react-i18next';
-// import countries from '../../data/json/countries';
-import axios from 'axios';
-import Autocomplete from 'react-native-autocomplete-input';
 import EmptyResult from './empty_result'
 import ViewedCountry from './viewed_country'
 import Country from '../../models/Country'
 
+const Title = ({ children }) => {
+  return (
+  <Text style={[styles.my, styles.ml1em]}>
+    {children}
+  </Text>
+  )
+}
 class CountriesListing extends React.Component {
   state = {
     query: "",
@@ -21,13 +25,6 @@ class CountriesListing extends React.Component {
   componentDidMount() {
     Country.deleteAll()
     Country.createCollection()
-
-    // Country.create({ id: 1, name: 'Cambodia' })
-    // Country.create({ id: 2, name: 'Australia' })
-    // Country.create({ id: 3, name: 'Japan' })
-
-    // alert(Country.all())
-
     this.loadCountries()
   }
 
@@ -66,7 +63,7 @@ class CountriesListing extends React.Component {
   }
 
   onChangeQuery = (query) => {
-    this.setState({ query: query })
+    this.setState({ query })
   }
 
   onSubmit = () => {
@@ -78,15 +75,15 @@ class CountriesListing extends React.Component {
   }
 
   _renderContent() {
+    const { t } = this.props
     const { query, countries } = this.state;
-    // const data = this.filterData(query);
     
     return (
-      <View style={[{ alignItems: 'flex-start' }]}>
+      <View style={{ alignItems: 'flex-start' }}>
+        <Title>
+          {t("CountriesListingScreen.Search")}
+        </Title>
 
-        <Text style={ [styles.my, { marginLeft: 16 }] }>
-          {this.props.t("CountriesListingScreen.Search")}
-        </Text>
         <View style={{
           display: 'flex',
           backgroundColor: 'white',
@@ -96,8 +93,7 @@ class CountriesListing extends React.Component {
           paddingVertical: 0
         }}>
           <TouchableOpacity
-            onPress={this.onSubmit}
-            >
+            onPress={this.onSubmit}>
             <Icon name="search" style={{marginLeft: 15}} />
           </TouchableOpacity>
 
@@ -108,33 +104,16 @@ class CountriesListing extends React.Component {
               marginVertical: 5,
               paddingVertical: 0,}}
             onChangeText={this.onChangeQuery}
-            value={this.state.query}
-            placeholder={this.props.t("CountriesListingScreen.CountrySearch")}
+            value={query}
+            placeholder={t("CountriesListingScreen.CountrySearch")}
             keyboardType="default"
             onSubmitEditing={this.onSubmit}
           />
         </View>
 
-        {/* <View>
-          <View style={styles.autocompleteContainer}>
-            <Autocomplete
-              data={countries}
-              value={query}
-              onChangeText={(text) => this.setState({ query: text })}
-              flatListProps={{
-                keyExtractor: (_, idx) => idx,
-                renderItem: ({ item }) => <Text>{item.name}</Text>,
-              }}
-              />
-          </View>
-          <View>
-            <Text>Some content</Text>
-          </View>
-        </View> */}
-
-        <Text style={ [styles.my, { marginLeft: 16 }] }>
-          {this.props.t("CountriesListingScreen.Country")}
-        </Text>
+        <Title>
+          {t("CountriesListingScreen.Country")}
+        </Title>
 
         <View style={{
             alignSelf: 'stretch',
@@ -147,7 +126,7 @@ class CountriesListing extends React.Component {
               return <ViewedCountry navigation={this.props.navigation}
                                     key={country.id} 
                                     country={country} />
-            }) : <EmptyResult message={this.props.t("CountriesListingScreen.NoCountry")} />
+            }) : <EmptyResult message={t("CountriesListingScreen.NoCountry")} />
           }
         </View>
       </View>
@@ -178,13 +157,8 @@ const styles = StyleSheet.create({
     marginTop: 16,
     marginBottom: 16
   },
-  autocompleteContainer: {
-    flex: 1,
-    left: 0,
-    position: 'absolute',
-    right: 0,
-    top: 0,
-    zIndex: 1
+  ml1em: {
+    marginLeft: 16
   }
 })
 
