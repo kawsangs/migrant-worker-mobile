@@ -10,7 +10,7 @@ import { setCustomText} from 'react-native-global-props';
 import SplashScreen from 'react-native-splash-screen';
 import AppNavigator from './app/navigators/app_navigator';
 import UserWorker from './app/workers/user_worker';
-import Sidekiq from './app/utils/sidekiq';
+import Sidekiq from './app/models/Sidekiq';
 import { Color, FontFamily, FontSize } from './app/assets/stylesheets/base_style';
 
 import configureStore from './app/store/configureStore';

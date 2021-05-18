@@ -19,13 +19,26 @@ import Thumbnail from '../components/thumbnail';
 import NetInfo from "@react-native-community/netinfo";
 import Toast, { DURATION } from 'react-native-easy-toast';
 import LoadingIndicator from '../components/loading_indicator';
+
 import { getVideoId } from '../utils/youtube';
 import i18n from 'i18next';
 import { withTranslation } from 'react-i18next';
+
+import User from '../models/User';
+import uuidv4 from '../utils/uuidv4';
+import welcomeVideoList from '../db/json/welcome_videos';
+
+import { connect } from 'react-redux';
+import { setCurrentUser } from '../actions/currentUserAction';
+
 class Welcome extends React.Component {
-  state = {
-    loading: true,
-    activeSlide: 0
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loading: true,
+      activeSlide: 0
+    };
   }
 
   componentDidMount() {
@@ -42,47 +55,33 @@ class Welcome extends React.Component {
     this.unsubscribe();
   }
 
-  _goTo(screenName) {
-    addStatistic(`goTo${screenName.split('Screen')[0]}`);
-    this.props.navigation.navigate(screenName);
+  _loginAsGuest() {
+    let uuid = uuidv4();
+    User.upsert({uuid: uuid, name: "guest", created_at: new Date()});
+    this.props.setCurrentUser(User.find(uuid));
   }
 
   _renderButtonNavs() {
-    let list = [
-      {
-        title_en: 'Register',
-        title_kh: 'ចុះឈ្មោះ',
-        iconName: 'person',
-        audioFileName: 'register',
-        routeName: 'RegisterScreen',
-        active: true
-      },
-      {
-        title_en: 'Continue as guest',
-        title_kh: 'បន្តចូលមើល ជាភ្ញៀវ',
-        iconName: 'phone',
-        audioFileName: 'contact_1280',
-        routeName: 'HomeScreen',
-        active: false
-      },
-    ];
-
-    let doms = list.map((item, index) => (
-      <ButtonNav
-        key={index}
-        active={item.active}
-        title={item[`title_${i18n.language}`]}
-        icon={item.iconName}
-        audioFileName={item.audioFileName}
-        onPress={() => this._goTo(item.routeName)}
-        activePlaying={this.state.activePlaying}
-        onPressPlaySound={(fileName) => this.setState({ activePlaying: fileName })}
-      />
-    ));
-
     return (
       <View style={{ marginTop: 30 }}>
-        {doms}
+        <ButtonNav
+          active={true}
+          title={"ចុះឈ្មោះ"}
+          icon={"person"}
+          audioFileName={'register'}
+          onPress={() => this.props.navigation.navigate("RegisterScreen")}
+          activePlaying={this.state.activePlaying}
+          onPressPlaySound={(fileName) => this.setState({ activePlaying: fileName })}
+        />
+
+        <ButtonNav
+          title={"បន្តចូលមើល ជាភ្ញៀវ"}
+          icon={"phone"}
+          audioFileName={"contact_1280"}
+          onPress={() => this._loginAsGuest()}
+          activePlaying={this.state.activePlaying}
+          onPressPlaySound={(fileName) => this.setState({ activePlaying: fileName })}
+        />
       </View>
     )
   }
@@ -140,38 +139,11 @@ class Welcome extends React.Component {
   }
 
   _renderHeaderSlide() {
-    let data = [
-      {
-        title_en: "Welcome to",
-        title_kh: "សូមស្វាគមន៍",
-        sub_title_en: "My journey app is help user for find usful information about migration.",
-        sub_title_kh: "ដំណើរឆ្លងដែនរបស់ខ្ញុំគឺជាកម្មវិធីប្រពន្ធ័ទូរសព្ទ័ (អែប) ដើម្បីជួយដល់អ្នកប្រើប្រាស់អាចរកបាននូវព័ត៌មានដែលមានសារ​សំខាន់សម្រាប់ការធ្វើចំណាកស្រុក",
-        imgUrl: require('../assets/images/icons/travel.png'),
-        videoUrl: "https://www.youtube.com/watch?v=ttSsAGmpC_U",
-      },
-      {
-        title_en: "Welcome to",
-        title_kh: "សូមស្វាគមន៍",
-        sub_title_en: "My journey app is help user for find usful information about migration.",
-        sub_title_kh: "ដំណើរឆ្លងដែនរបស់ខ្ញុំគឺជាកម្មវិធីប្រពន្ធ័ទូរសព្ទ័ (អែប) ដើម្បីជួយដល់អ្នកប្រើប្រាស់អាចរកបាននូវព័ត៌មានដែលមានសារ​សំខាន់សម្រាប់ការធ្វើចំណាកស្រុក",
-        imgUrl: require('../assets/images/icons/travel.png'),
-        videoUrl: "https://www.youtube.com/watch?v=Lsd-wDnQC1o",
-      },
-      {
-        title_en: "Welcome to",
-        title_kh: "សូមស្វាគមន៍",
-        sub_title_en: "My journey app is help user for find usful information about migration.",
-        sub_title_kh: "ដំណើរឆ្លងដែនរបស់ខ្ញុំគឺជាកម្មវិធីប្រពន្ធ័ទូរសព្ទ័ (អែប) ដើម្បីជួយដល់អ្នកប្រើប្រាស់អាចរកបាននូវព័ត៌មានដែលមានសារ​សំខាន់សម្រាប់ការធ្វើចំណាកស្រុក",
-        imgUrl: require('../assets/images/icons/travel.png'),
-        videoUrl: "https://www.youtube.com/watch?v=0CVF4Om6KT4",
-      },
-    ];
-
     return (
       <View>
         <Carousel
           loop={true}
-          data={data}
+          data={welcomeVideoList}
           firstItem={this.state.activeSlide}
           ref={(c) => { this._carousel = c; }}
           renderItem={this._renderSlideItem}
@@ -181,7 +153,7 @@ class Welcome extends React.Component {
           useScrollView
         />
         <Pagination
-          dotsLength={data.length}
+          dotsLength={welcomeVideoList.length}
           activeDotIndex={this.state.activeSlide}
           containerStyle={{ paddingVertical: 10 }}
           dotStyle={styles.dotStyle}
@@ -249,4 +221,19 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withTranslation()(Welcome);
+function mapStateToProps(state) {
+  return {
+    currentUser: state.currentUser
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withTranslation()(Welcome));

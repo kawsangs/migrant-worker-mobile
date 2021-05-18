@@ -6,11 +6,14 @@ import {
 
 import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
 import { Dialog, DialogDefaultActions, Icon } from 'react-native-material-ui';
+import PlaySound from './play_sound';
 
 import i18n from 'i18next';
 import { withTranslation } from 'react-i18next';
 
 class AlertMessage extends Component {
+  state = {};
+
   render() {
     if (!this.props.show) {
       return (null);
@@ -30,6 +33,19 @@ class AlertMessage extends Component {
               }
 
               <Text style={{flex: 1}}>{ this.props.message }</Text>
+              <View>
+                <PlaySound
+                  fileName={'register'}
+                  buttonAudioStyle={{
+                    backgroundColor: Color.red
+                  }}
+                  iconStyle={{
+                    tintColor: Color.white
+                  }}
+                  activePlaying={this.state.activePlaying}
+                  onPress={(fileName) => this.setState({ activePlaying: fileName })}
+                />
+              </View>
             </View>
           </Dialog.Content>
 
