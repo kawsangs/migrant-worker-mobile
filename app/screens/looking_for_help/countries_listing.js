@@ -8,6 +8,7 @@ import { withTranslation } from 'react-i18next';
 // import countries from '../../data/json/countries';
 import axios from 'axios';
 import Autocomplete from 'react-native-autocomplete-input';
+import EmptyResult from './empty_result'
 
 class Country extends React.Component {
   gotoHelp = () => {
@@ -36,23 +37,6 @@ class Country extends React.Component {
   }
 }
 
-class Nocountry extends React.Component {
-  render() {
-    return (
-      <View style={{
-        height: 50,
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}>
-        <Text style={{
-          color: '#888',
-        }}>No countries</Text>
-      </View>
-    )
-  }
-}
-
 class CountriesListing extends React.Component {
   state = {
     query: "",
@@ -63,7 +47,7 @@ class CountriesListing extends React.Component {
     try {
       if(query=="") return [];
 
-      const response = await axios.get(`http://e31ad8b39f99.ngrok.io/api/v1/countries/?query=${query}`, {
+      const response = await axios.get(`http://2f29ca31e1ca.ngrok.io/api/v1/countries/?query=${query}`, {
         headers: { 'Authorization': 'Bearer 960fc97371f1eaa49961212f8ec78ea8' },
         timeout: 0
       })
@@ -178,7 +162,7 @@ class CountriesListing extends React.Component {
               return <Country navigation={this.props.navigation}
                               key={country.id} 
                               country={country} />
-            }) : <Nocountry />
+            }) : <EmptyResult message="No country" />
           }
         </View>
       </View>

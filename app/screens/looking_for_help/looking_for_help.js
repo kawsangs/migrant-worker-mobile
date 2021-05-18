@@ -30,6 +30,7 @@ import institutions from '../../data/json/institutions';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
 import axios from 'axios';
+import EmptyResult from './empty_result';
 
 class LookingForHelp extends React.Component {
   state = {
@@ -51,7 +52,7 @@ class LookingForHelp extends React.Component {
   async loadInstitutions() {
     try {
       const { id } = this.props.route.params
-      const response = await axios.get(`http://e31ad8b39f99.ngrok.io/api/v1/countries/${id}/institutions`, {
+      const response = await axios.get(`http://2f29ca31e1ca.ngrok.io/api/v1/countries/${id}/institutions`, {
         headers: { 'Authorization': 'Bearer 960fc97371f1eaa49961212f8ec78ea8' },
       })
       return this.setState({ institutions: response.data })
@@ -140,6 +141,8 @@ class LookingForHelp extends React.Component {
   }
 
   _renderItem() {
+    const { institutions } = this.state
+
     return (
       <View>
         { this.renderBackgroundImage() }
@@ -152,6 +155,8 @@ class LookingForHelp extends React.Component {
           </Text>
           <Text style={{ fontWeight: '700' }}>{this.props.route.params.name}</Text>
         </View>
+        
+        { !institutions.length && <EmptyResult message="No institutions" /> }
       </View>
     )
   }
