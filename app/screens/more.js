@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   SafeAreaView,
+  ScrollView,
   TouchableOpacity,
   Image
 } from 'react-native';
@@ -15,8 +16,14 @@ import i18n from 'i18next';
 import TranslationHelper from '../translations';
 import { withTranslation } from 'react-i18next';
 
-class More extends Component {
+import UserProfile from '../components/More/UserProfile';
+import ListItem from '../components/More/ListItem';
+import moreItemList from '../db/json/more_items';
 
+import { connect } from 'react-redux';
+import { setCurrentUser } from '../actions/currentUserAction';
+
+class More extends Component {
   _goTo(screenName) {
     addStatistic(`goTo${screenName.split('Screen')[0]}`);
     this.props.navigation.navigate(screenName);
@@ -40,26 +47,6 @@ class More extends Component {
         }}
       />
     );
-  }
-
-  _renderUserProfile() {
-    return (
-      <TouchableOpacity style={[Style.boxShadow, styles.profileStyle]}
-        // onPress={() => this._goTo('ProfileScreen')}
-        activeOpacity={0.8}
-      >
-        <View style={styles.profileImageWrapper}>
-          <Image source={Images.female} style={styles.profileImage} />
-        </View>
-        <View style={styles.profileDescription}>
-          <Text style={styles.userName}>Dara</Text>
-          <Text style={styles.userEditText}>{this.props.t('MoreScreen.Edit')}</Text>
-        </View>
-        <View>
-          <Image source={Images.next} style={styles.nextIcon} />
-        </View>
-      </TouchableOpacity>
-    )
   }
 
   _renderChangeLanguage() {
@@ -89,90 +76,31 @@ class More extends Component {
     )
   }
 
-  _renderMenuItem(section, item, index) {
-    let lang = i18n.language == 'kh' ? 'en' : 'kh';
+  _renderMenuItem(item, index) {
     return (
-      <TouchableOpacity
-        style={[Style.boxShadow, styles.menuItem, {
-          //  marginBottom: index == 0 ? 16 : 0, 
-        }]}
+      <ListItem
         key={index}
-        onPress={() => item.routeName ? this._goTo(item.routeName) : null}
-        activeOpacity={0.8}
-      >
-        <View style={styles.menuIconWrapper}>
-          <Image
-            source={item.icon}
-            style={styles.menuIcon} />
-        </View>
-        <View style={styles.menuTitleWrapper}>
-          <Text style={styles.menuTextTitle}>{item[`title_${i18n.language}`]}</Text>
-        </View>
-        <View>
-          {section == 0 && index == 0 ? <TouchableOpacity
-            style={Style.boxShadow}
-            onPress={() => TranslationHelper.changeLanguage(lang)}
-            activeOpacity={0.8}
-          ><Image source={i18n.language === 'kh' ? Images.en : Images.kh} style={{ width: 50, height: 27 }} /></TouchableOpacity> : <Image source={Images.next} style={styles.nextIcon} />}
-        </View>
-      </TouchableOpacity>
+        title={item[`title_${i18n.language}`]}
+        avata={item.icon}
+        onPress={() => {}}
+      />
     )
   }
 
   _renderListMenuItem() {
-
-    let list = [
-      {
-        title_en: "About",
-        title_kh: "អំពី",
-        items: [
-          {
-            title_en: 'Spotlight Initiative',
-            title_kh: 'Spotlight Initiative',
-            icon: Images.info,
-            routeName: 'AboutScreen'
-          },
-          {
-            title_en: 'Safe and Fair App',
-            title_kh: 'Safe and Fair App',
-            icon: Images.info,
-            routeName: 'AboutScreen'
-          },
-        ]
-      },
-      {
-        title_en: "Other",
-        title_kh: "ផ្សេងៗ",
-        items: [
-          {
-            title_en: 'Share App',
-            title_kh: 'ចែកចាយ/ចែករំលែកអែប',
-            icon: Images.share,
-            routeName: ''
-          },
-          {
-            title_en: 'Privacy Policy',
-            title_kh: 'គោលការណ៍អំពីឯកជនភាព',
-            icon: Images.doc,
-            routeName: ''
-          },
-          {
-            title_en: 'Terms Conditions',
-            title_kh: 'គោលការណ៍ និងលក្ខខណ្ឌ',
-            icon: Images.doc,
-            routeName: ''
-          },
-        ]
-      }
-    ];
-
-
-    return list.map((section, index) =>
+    return moreItemList.map((section, index) =>
       <View key={index}>
         <View style={{ paddingHorizontal: 16, paddingTop: 10, paddingBottom: 5 }}>
           <Text>{section[`title_${i18n.language}`]}</Text>
         </View>
-        {section.items.map((i, j) => this._renderMenuItem(index, i, j))}
+
+        { section.items.map((item, index) => this._renderMenuItem(item, index)) }
+
+        <ListItem
+          title={"Logout"}
+          avata={Images.doc}
+          onPress={ () => this.props.setCurrentUser(null) }
+        />
       </View>
     );
   }
@@ -188,100 +116,42 @@ class More extends Component {
   render() {
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        {this._renderToolbar()}
-        {this._renderUserProfile()}
-        {/* {this._renderChangeLanguage()} */}
-        {this._renderListMenuItem()}
-        {this._renderVersion()}
+        { this._renderToolbar() }
+
+        <ScrollView>
+          <UserProfile />
+
+          {/* {this._renderChangeLanguage()} */}
+          {this._renderListMenuItem()}
+          {this._renderVersion()}
+        </ScrollView>
       </SafeAreaView>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  profileStyle: {
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    marginVertical: 16,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: Color.white
-  },
-  profileImageWrapper: {
-    // borderWidth: 1,
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    backgroundColor: Color.primary,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  profileImage: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    // borderWidth: 1,
-    borderColor: 'red'
-  },
-  profileDescription: {
-    flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'column',
-    // borderWidth: 1,
-    marginLeft: 16
-  },
-  userName: {
-    fontSize: 18,
-    fontWeight: '700'
-  },
-  userEditText: {
-    color: Color.gray
-  },
-  nextIcon: {
-    width: 15,
-    height: 15,
-    tintColor: Color.gray
-  },
-  menuItem: {
-    // borderWidth: 1,
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: Color.white,
-    borderBottomWidth: 1,
-    borderBottomColor: Color.border
-  },
-  menuIconWrapper: {
-    // borderWidth: 1,
-    width: 35,
-    height: 35,
-    borderRadius: 10,
-    backgroundColor: Color.primary,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  menuIcon: {
-    width: 20,
-    height: 20,
-    tintColor: Color.white
-  },
-  menuTitleWrapper: {
-    flex: 1,
-    marginLeft: 16
-  },
-  menuTextTitle: {
-    fontSize: 16,
-    fontWeight: '700'
-  },
   appVersion: {
     justifyContent: 'center',
     alignItems: 'center',
-    // borderWidth: 1
     marginTop: 20
   }
 });
 
-export default withTranslation()(More);
+
+function mapStateToProps(state) {
+  return {
+    currentUser: state.currentUser,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withTranslation()(More));

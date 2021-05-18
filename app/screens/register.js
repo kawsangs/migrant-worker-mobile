@@ -17,10 +17,14 @@ import realm from '../db/schema';
 import uuidv4 from '../utils/uuidv4';
 import PlaySound from '../components/play_sound';
 import SexOption from '../components/sex_option';
-import Sidekiq from '../utils/sidekiq';
+import Sidekiq from '../models/Sidekiq';
 import { addStatistic } from '../utils/statistic';
 import color from '../assets/stylesheets/base/color';
 import { withTranslation } from 'react-i18next';
+
+import { connect } from 'react-redux';
+import { setCurrentUser } from '../actions/currentUserAction';
+import User from '../models/User';
 
 const requiredFields = ['uuid', 'name', 'sex', 'age'];
 
@@ -125,28 +129,21 @@ class Register extends Component {
       return this.refs.toast.show(this.props.t("RegisterScreen.WarningFillRequiredInfo"), DURATION.SHORT);
     }
 
-    try {
-      realm.write(() => {
-        realm.create('User', this._buildData(), true);
-        addStatistic('registerSuccess');
-        Sidekiq.createUser(this.state.uuid);
-        this.props.navigation.navigate('ProfileListScreen');
-      });
-    } catch (e) {
-      alert(e);
-    }
+    User.upsert(this._buildData());
+    addStatistic('registerSuccess');
+    Sidekiq.createUser(this.state.uuid);
+    this.props.setCurrentUser(User.find(this.state.uuid));
   }
 
   _buildData() {
-    let fields = requiredFields.concat(['voiceRecord']);
-    let obj = {};
-
-    for (let i = 0; i < fields.length; i++) {
-      obj[fields[i]] = this.state[fields[i]];
+    return {
+      uuid: this.state.uuid,
+      name: this.state.name,
+      sex: this.state.sex,
+      age: this.state.age,
+      voiceRecord: this.state.voiceRecord,
+      created_at: new Date()
     }
-    obj.created_at = new Date();
-
-    return obj;
   }
 
   _checkRequire(field) {
@@ -195,31 +192,6 @@ class Register extends Component {
     )
   }
 
-  _renderToolbar() {
-    return (
-      <Toolbar
-        leftElement={'arrow-back'}
-        onLeftElementPress={() => this.props.navigation.goBack()}
-        centerElement={this.props.t('RegisterScreen.HeaderTitle')}
-        // rightElement={'home'}
-        // onRightElementPress={() => this._goTo('HomeScreen')}
-        size={30}
-        style={{
-          titleText: {
-            fontFamily: FontFamily.title,
-            textAlign: 'center',
-          },
-          centerElementContainer: {
-            marginLeft: 0
-          },
-          container: {
-            width: '100%',
-          },
-        }}
-      />
-    );
-  }
-
   render() {
     let list = [
       { stateName: 'name', iconName: 'person', placeholder: 'EnterYourName', audioFilename: '' },
@@ -228,7 +200,6 @@ class Register extends Component {
 
     return (
       <View style={{ flex: 1 }}>
-        {this._renderToolbar()}
         <ScrollView style={{ flex: 1 }}>
           <View style={styles.container}>
             {this._renderTextInput(list[0])}
@@ -334,4 +305,19 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withTranslation()(Register);
+function mapStateToProps(state) {
+  return {
+    currentUser: state.currentUser
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withTranslation()(Register));

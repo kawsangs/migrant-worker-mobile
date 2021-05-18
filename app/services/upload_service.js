@@ -4,7 +4,7 @@ import realm from '../db/schema';
 import { ApiBlob } from '../utils/api';
 import { environment } from '../config/environment';
 import RNFetchBlob from 'rn-fetch-blob'
-import Sidekiq from '../utils/sidekiq';
+import Sidekiq from '../models/Sidekiq';
 
 export default class UploadServices  {
   static async uploadUser(uuid) {
@@ -12,7 +12,7 @@ export default class UploadServices  {
       if (!state.isConnected) { return; }
 
       ApiBlob.post('/migrants', this._buildData(uuid)).then((resp) => {
-        Sidekiq.delete(uuid);
+        Sidekiq.destroy(uuid);
       })
     });
   }
