@@ -9,38 +9,30 @@ import { withTranslation } from 'react-i18next';
 import axios from 'axios';
 import Autocomplete from 'react-native-autocomplete-input';
 import EmptyResult from './empty_result'
-
-class Country extends React.Component {
-  gotoHelp = () => {
-    let { navigation, country } = this.props
-
-    navigation.navigate('LookingForHelpScreen', { ...country })
-  }
-
-  render() {
-    let { country } = this.props
-    return (
-      <TouchableOpacity
-        onPress={() => this.gotoHelp()}
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center'
-        }}>
-        {/* <Image
-            source={country.flag}
-            style={{ marginHorizontal: 15, width: 30, height: 30, borderRadius: 15, marginRight: 10 }} /> */}
-        <Text style={{ marginHorizontal: 15 }}>{country.emoji_flag}</Text>
-        <Text style={ styles.my }>{country.name}</Text>
-      </TouchableOpacity>
-    )
-  }
-}
+import ViewedCountry from './viewed_country'
+import Country from '../../models/Country'
 
 class CountriesListing extends React.Component {
   state = {
     query: "",
     countries: []
+  }
+
+  componentDidMount() {
+    Country.deleteAll()
+    Country.createCollection()
+
+    // Country.create({ id: 1, name: 'Cambodia' })
+    // Country.create({ id: 2, name: 'Australia' })
+    // Country.create({ id: 3, name: 'Japan' })
+
+    // alert(Country.all())
+
+    this.loadCountries()
+  }
+
+  loadCountries() {
+    this.setState({ countries: Country.all() })
   }
 
   async filterData(query) {
@@ -163,9 +155,9 @@ class CountriesListing extends React.Component {
           {
             countries.length > 0 ?
             countries.map(country => {
-              return <Country navigation={this.props.navigation}
-                              key={country.id} 
-                              country={country} />
+              return <ViewedCountry navigation={this.props.navigation}
+                                    key={country.id} 
+                                    country={country} />
             }) : <EmptyResult message={this.props.t("CountriesListingScreen.NoCountry")} />
           }
         </View>

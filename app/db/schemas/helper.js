@@ -14,6 +14,10 @@ import QuizSchema from '../migrations/v1/quiz';
 import AnswerSchema from '../migrations/v1/answer';
 import CriteriaSchema from '../migrations/v1/criteria';
 
+import CategoryShema from '../migrations/v1/category';
+import CategoryImageShema from '../migrations/v1/category_image';
+import CountrySchema from '../migrations/v1/country';
+
 const schemaNames = [
   "User",
   "Pdf",
@@ -44,6 +48,9 @@ const schemaHelper = (() => {
       QuizSchema,
       AnswerSchema,
       CriteriaSchema,
+      CategoryShema,
+      CategoryImageShema,
+      CountrySchema
     ];
 
     changedSchemas.map((schema) => {
