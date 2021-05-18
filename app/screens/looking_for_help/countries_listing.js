@@ -84,25 +84,13 @@ class CountriesListing extends React.Component {
           {t("CountriesListingScreen.Search")}
         </Title>
 
-        <View style={{
-          display: 'flex',
-          backgroundColor: 'white',
-          flexDirection: 'row',
-          alignItems: 'center',
-          alignSelf: 'stretch',
-          paddingVertical: 0
-        }}>
-          <TouchableOpacity
-            onPress={this.onSubmit}>
-            <Icon name="search" style={{marginLeft: 15}} />
+        <View style={styles.searchContainer}>
+          <TouchableOpacity onPress={this.onSubmit}>
+            <Icon name="search" style={styles.ml1em} />
           </TouchableOpacity>
 
           <TextInput
-            style={{
-              margin: 12,
-              flexGrow: 1,
-              marginVertical: 5,
-              paddingVertical: 0,}}
+            style={styles.searchControl}
             onChangeText={this.onChangeQuery}
             value={query}
             placeholder={t("CountriesListingScreen.CountrySearch")}
@@ -115,11 +103,7 @@ class CountriesListing extends React.Component {
           {t("CountriesListingScreen.Country")}
         </Title>
 
-        <View style={{
-            alignSelf: 'stretch',
-            backgroundColor: "white"
-          }}>
-
+        <View style={styles.countriesContainer}>
           {
             countries.length > 0 ?
             countries.map(country => {
@@ -159,6 +143,24 @@ const styles = StyleSheet.create({
   },
   ml1em: {
     marginLeft: 16
+  },
+  countriesContainer: {
+    alignSelf: 'stretch',
+    backgroundColor: "white"
+  },
+  searchControl: {
+    margin: 12,
+    flexGrow: 1,
+    marginVertical: 5,
+    paddingVertical: 0
+  },
+  searchContainer: {
+    display: 'flex',
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    paddingVertical: 0
   }
 })
 
