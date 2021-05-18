@@ -97,6 +97,13 @@
             "DescriptionI": "ប្រសិនបើអ្នកត្រូវចាកចេញមុនពេលកំណត់",
             "DescriptionII": "ប្រសិនបើអ្នកត្រូវចាកចេញមុនពេលកំណត់",
             "Done": "ធ្វើរួច"
+        },
+        "CountriesListingScreen": {
+            "HeaderTitle": "ជ្រើសរើសប្រទេសចំណាកស្រុក",
+            "CountrySearch": "ស្វែងរកប្រទេសចំណាកស្រុក",
+            "NoCountry": "មិនមានប្រទេស",
+            "Search": "ស្វែងរក",
+            "Country": "ប្រទេស"
         }
     }
 }

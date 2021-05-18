@@ -47,7 +47,7 @@ class CountriesListing extends React.Component {
     try {
       if(query=="") return [];
 
-      const response = await axios.get(`http://2f29ca31e1ca.ngrok.io/api/v1/countries/?query=${query}`, {
+      const response = await axios.get(`http://d94ee5a0fc5a.ngrok.io/api/v1/countries/?query=${query}`, {
         headers: { 'Authorization': 'Bearer 960fc97371f1eaa49961212f8ec78ea8' },
         timeout: 0
       })
@@ -103,7 +103,9 @@ class CountriesListing extends React.Component {
     return (
       <View style={[{ alignItems: 'flex-start' }]}>
 
-        <Text style={ [styles.my, { marginLeft: 16 }] }>ស្វែងរក</Text>
+        <Text style={ [styles.my, { marginLeft: 16 }] }>
+          {this.props.t("CountriesListingScreen.Search")}
+        </Text>
         <View style={{
           display: 'flex',
           backgroundColor: 'white',
@@ -126,7 +128,7 @@ class CountriesListing extends React.Component {
               paddingVertical: 0,}}
             onChangeText={this.onChangeQuery}
             value={this.state.query}
-            placeholder="ស្វែងរកប្រទេសចំណាកស្រុក"
+            placeholder={this.props.t("CountriesListingScreen.CountrySearch")}
             keyboardType="default"
             onSubmitEditing={this.onSubmit}
           />
@@ -149,7 +151,9 @@ class CountriesListing extends React.Component {
           </View>
         </View> */}
 
-        <Text style={ [styles.my, { marginLeft: 16 }] }>ប្រទេស</Text>
+        <Text style={ [styles.my, { marginLeft: 16 }] }>
+          {this.props.t("CountriesListingScreen.Country")}
+        </Text>
 
         <View style={{
             alignSelf: 'stretch',
@@ -162,7 +166,7 @@ class CountriesListing extends React.Component {
               return <Country navigation={this.props.navigation}
                               key={country.id} 
                               country={country} />
-            }) : <EmptyResult message="No country" />
+            }) : <EmptyResult message={this.props.t("CountriesListingScreen.NoCountry")} />
           }
         </View>
       </View>

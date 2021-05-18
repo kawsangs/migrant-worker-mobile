@@ -52,7 +52,7 @@ class LookingForHelp extends React.Component {
   async loadInstitutions() {
     try {
       const { id } = this.props.route.params
-      const response = await axios.get(`http://2f29ca31e1ca.ngrok.io/api/v1/countries/${id}/institutions`, {
+      const response = await axios.get(`http://d94ee5a0fc5a.ngrok.io/api/v1/countries/${id}/institutions`, {
         headers: { 'Authorization': 'Bearer 960fc97371f1eaa49961212f8ec78ea8' },
       })
       return this.setState({ institutions: response.data })

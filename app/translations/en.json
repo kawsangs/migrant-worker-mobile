@@ -102,6 +102,13 @@
             "DescriptionI": "If you have to leave early",
             "DescriptionII": "If you have to leave early",
             "Done": "Done"
+        },
+        "CountriesListingScreen": {
+            "HeaderTitle": "Choose immigrant countries",
+            "CountrySearch": "Search for countries",
+            "NoCountry": "No country",
+            "Search": "Search",
+            "Country": "Country"
         }
     }
 }
