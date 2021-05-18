@@ -29,7 +29,7 @@ class Country extends React.Component {
         <Image
             source={country.flag}
             style={{ marginHorizontal: 15, width: 30, height: 30, borderRadius: 15, marginRight: 10 }} />
-
+        <Text style={{ marginRight: 10 }}>{country.emoji_flag}</Text>
         <Text style={ styles.my }>{country.name}</Text>
       </TouchableOpacity>
     )
