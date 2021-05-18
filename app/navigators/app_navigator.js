@@ -4,6 +4,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { StatusBar } from 'react-native';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
+
 import { Color, FontFamily, FontSize } from '../assets/stylesheets/base_style';
 
 import { connect } from 'react-redux';
@@ -35,6 +38,7 @@ import LookingForHelpScreen from '../screens/looking_for_help/looking_for_help';
 
 import SubCategoryScreen from '../screens/sub_category/sub_category';
 import BottomTabNavigator from './bottom_tab_navigator';
+import HomeButton from '../components/Toolbar/HomeButton';
 
 const Stack = createStackNavigator();
 
@@ -68,25 +72,62 @@ class AppNavigator extends Component {
       <>
         <Stack.Screen name="HomeScreen" component={BottomTabNavigator} options={{ headerShown: false }} />
         <Stack.Screen name="BeforeYouGoScreen" component={BeforeYouGoScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="YourDepartureScreen" component={YourDepartureScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="YourDepartureScreen" component={YourDepartureScreen}
+          options={({route, navigation}) => ({
+            title: this.props.t("BeforeYouGoScreen.HeaderTitle"),
+            headerStyle: { backgroundColor: Color.red },
+            headerRight: (props) => (<HomeButton navigation={navigation}/>),
+          })}
+        />
+
+        <Stack.Screen name="SubCategoryScreen" component={SubCategoryScreen}
+          options={({route, navigation}) => ({
+            title: this.props.t("PrepareYourTripScreen.HeaderTitle"),
+            headerStyle: { backgroundColor: Color.red },
+            headerRight: (props) => (<HomeButton navigation={navigation}/>),
+          })}
+        />
+
+        <Stack.Screen name="ImageViewScreen" component={ImageViewScreen}
+          options={({route, navigation}) => ({
+            title: route.params.title,
+            headerStyle: { backgroundColor: Color.red },
+            headerRight: (props) => (<HomeButton navigation={navigation}/>),
+          })}
+        />
+
         <Stack.Screen name="PreDepartureListScreen" component={PreDepartureListScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="SubCategoryScreen" component={SubCategoryScreen} options={{ headerShown: false }} />
         <Stack.Screen name="MigrationScreen" component={MigrationScreen} options={{ headerShown: false }} />
         <Stack.Screen name="ComingHomeScreen" component={ComingHomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="BeforeYouGoVideoScreen" component={BeforeYouGoVideoScreen} options={{ headerShown: false }} />
         <Stack.Screen name="PrepareYourTripScreen" component={PrepareYourTripScreen} options={{ headerShown: false }} />
+
         <Stack.Screen name="YourSafetyScreen" component={YourSafetyScreen} options={{ headerShown: false }} />
         <Stack.Screen name="YourRightsAndSafetyScreen" component={YourRightsAndSafetyScreen} options={{ headerShown: false }} />
         <Stack.Screen name="SafetyPlanningScreen" component={SafetyPlanningScreen} options={{ headerShown: false }} />
         <Stack.Screen name="YourSafetyVideosScreen" component={YourSafetyVideosScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="YourStoryScreen" component={YourStoryScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="CreateYourStoryScreen" component={CreateYourStoryScreen} options={{ headerShown: false }} />
+
+        <Stack.Screen name="YourStoryScreen" component={YourStoryScreen}
+          options={({route, navigation}) => ({
+            title: this.props.t('YourStoryScreen.HeaderTitle'),
+            headerStyle: { backgroundColor: Color.pink },
+            headerRight: (props) => (<HomeButton navigation={navigation}/>),
+          })}
+        />
+
+        <Stack.Screen name="CreateYourStoryScreen" component={CreateYourStoryScreen}
+          options={({route, navigation}) => ({
+            title: this.props.t('CreateYourStoryScreen.HeaderTitle'),
+            headerStyle: { backgroundColor: Color.pink, elevation: 0 },
+            headerRight: (props) => (<HomeButton navigation={navigation}/>),
+          })}
+        />
+
         <Stack.Screen name="LookingForHelpScreen" component={LookingForHelpScreen} options={{ headerShown: false }} />
 
         <Stack.Screen name="AboutScreen" component={AboutScreen} options={{ title: "អំពីកម្មវិធី", headerShown: false }} />
         <Stack.Screen name="VideosScreen" component={VideosScreen} options={{ title: "វីដេអូ និងករណីចំណាកស្រុក", headerShown: false }} />
         <Stack.Screen name="ViewVideoScreen" component={ViewVideoScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="ImageViewScreen" component={ImageViewScreen} options={({ route }) => ({ title: route.params.title, headerShown: false })} />
       </>
     )
   }
@@ -99,7 +140,8 @@ class AppNavigator extends Component {
           screenOptions={{
             headerStyle: { backgroundColor: Color.primary },
             headerTintColor: '#fff',
-            headerTitleStyle: { fontFamily: FontFamily.title },
+            headerTitleStyle: { fontFamily: FontFamily.title, alignSelf: 'center' },
+            headerTitleAlign: "center",
             headerTitleContainerStyle: { width: '75%' }
           }}>
 
@@ -127,4 +169,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(AppNavigator);
+)(withTranslation()(AppNavigator));

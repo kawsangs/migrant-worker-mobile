@@ -12,7 +12,6 @@ import Question from '../../models/Question';
 import Answer from '../../models/Answer';
 
 // Component
-import Toolbar from '../../components/SubCategory/Toolbar';
 import ProgressHeader from '../../components/YourStory/ProgressHeader';
 import Questions from '../../components/Questions';
 
@@ -54,12 +53,6 @@ class CreateYourStory extends Component {
     return (
       <View style={{ flex: 1 }}>
         <StatusBar barStyle={'light-content'} backgroundColor={Color.pink} />
-
-        <Toolbar
-          title={"Todo: change Story title "}
-          navigation={this.props.navigation}
-          elevation={0}
-          backgroundColor={Color.pink} />
 
         <ProgressHeader />
 

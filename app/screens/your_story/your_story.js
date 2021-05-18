@@ -17,7 +17,6 @@ import i18n from 'i18next';
 
 import { InjectArray } from '../../utils/math';
 import CardItem from '../../components/YourStory/CardItem';
-import Toolbar from '../../components/SubCategory/Toolbar';
 
 import Form from '../../models/Form';
 import Quiz from '../../models/Quiz';
@@ -55,15 +54,6 @@ class YourStory extends Component {
     this.unsubscribe = NetInfo.addEventListener(state => {
       this.setState({ isConnected: state.isConnected });
     });
-  }
-
-  _renderToolbar() {
-    return(
-      <Toolbar
-        title={this.props.t('YourStoryScreen.HeaderTitle')}
-        navigation={this.props.navigation}
-        backgroundColor={Color.pink} />
-    )
   }
 
   _download() {
@@ -125,7 +115,7 @@ class YourStory extends Component {
     let uuid = uuidv4();
     Quiz.upsert({
       uuid: uuid,
-      user_uuid: '123',
+      user_uuid: this.props.currentUser.uuid,
       form_id: item.id,
       quizzed_at: (new Date).toDateString()
     });
@@ -176,7 +166,6 @@ class YourStory extends Component {
       <View style={{ flex: 1, backgroundColor: "#ecedf1" }}>
         <StatusBar barStyle={'light-content'} backgroundColor={Color.pink} />
 
-        { this._renderToolbar() }
         { this.state.isDownloaded && this._renderCards() }
         { !this.state.isDownloaded && this._handleRendingNoData() }
       </View>
@@ -204,7 +193,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-
+    currentUser: state.currentUser
   };
 }
 

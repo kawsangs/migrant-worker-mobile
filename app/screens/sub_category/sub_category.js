@@ -10,7 +10,6 @@ import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
 
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
-import Toolbar from '../../components/SubCategory/Toolbar';
 import CardItem from '../../components/SubCategory/CardItem';
 import HintCard from '../../components/SubCategory/HintCard';
 import ArrowDown from '../../components/SubCategory/ArrowDown';
@@ -25,15 +24,6 @@ class SubCategory extends Component {
     this.state = {
       categories: Departure.getChildren(props.route.params['parent_id'])
     };
-  }
-
-  _renderToolbar() {
-    return (
-      <Toolbar
-        navigation={this.props.navigation}
-        title={this.props.t('PrepareYourTripScreen.HeaderTitle')}
-      />
-    );
   }
 
   _renderContent() {
@@ -80,8 +70,6 @@ class SubCategory extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        { this._renderToolbar() }
-
         <ScrollView
           style={{ flex: 1 }}
           contentContainerStyle={{ flexGrow: 1 }}

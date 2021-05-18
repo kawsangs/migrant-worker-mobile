@@ -15,7 +15,6 @@ import PlaySound from '../components/play_sound';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
 import CategoryImage from '../models/CategoryImage';
-import Toolbar from '../components/SubCategory/Toolbar';
 
 class ImageView extends Component {
   constructor(props) {
@@ -177,10 +176,6 @@ class ImageView extends Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <Toolbar
-          navigation={this.props.navigation}
-          title={this.props.t('PrepareYourTripScreen.HeaderTitle')}/>
-
         <View style={[Style.container, { marginVertical: 0, flex: 1 }]}>
           { this._renderImageNav() }
           { this._renderImagePreview() }
