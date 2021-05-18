@@ -29,16 +29,16 @@ import ContactsList from '../../data/json/service_directories';
 import institutions from '../../data/json/institutions';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
+import axios from 'axios';
 
 class LookingForHelp extends React.Component {
   state = {
-    contacts: ContactsList,
-    institutions: institutions,
+    institutions: [],
     loading: true
   };
 
   componentDidMount() {
-    // alert("hi" + JSON.stringify(this.props.route.params))
+    this.loadInstitutions()
     NetInfo.fetch().then(state => {
       this.setState({ isConnected: state.isConnected, loading: false });
     });
@@ -46,6 +46,19 @@ class LookingForHelp extends React.Component {
     this.unsubscribe = NetInfo.addEventListener(state => {
       this.setState({ isConnected: state.isConnected });
     });
+  }
+
+  async loadInstitutions() {
+    try {
+      const { id } = this.props.route.params
+      const response = await axios.get(`http://e31ad8b39f99.ngrok.io/api/v1/countries/${id}/institutions`, {
+        headers: { 'Authorization': 'Bearer 960fc97371f1eaa49961212f8ec78ea8' },
+      })
+      return this.setState({ institutions: response.data })
+    } catch (error) {
+      alert(error)
+      return [{ message: 'error', message: error }]
+    }
   }
 
   componentWillUnmount() {
