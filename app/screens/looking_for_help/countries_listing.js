@@ -46,7 +46,7 @@ class CountriesListing extends React.Component {
     try {
       if(query=="") return [];
 
-      const response = await axios.get(`http://eaca0d71d83f.ngrok.io/api/v1/countries/?query=${query}`, {
+      const response = await axios.get(`http://e31ad8b39f99.ngrok.io/api/v1/countries/?query=${query}`, {
         headers: { 'Authorization': 'Bearer 960fc97371f1eaa49961212f8ec78ea8' },
         timeout: 0
       })
@@ -157,11 +157,12 @@ class CountriesListing extends React.Component {
           }}>
 
           {
-            this.state.countries.map(country => {
+            countries.length > 0 ?
+            countries.map(country => {
               return <Country navigation={this.props.navigation}
                               key={country.id} 
                               country={country} />
-            })
+            }) : <Text>No countries</Text>
           }
         </View>
       </View>

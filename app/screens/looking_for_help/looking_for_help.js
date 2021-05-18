@@ -38,6 +38,7 @@ class LookingForHelp extends React.Component {
   };
 
   componentDidMount() {
+    // alert("hi" + JSON.stringify(this.props.route.params))
     NetInfo.fetch().then(state => {
       this.setState({ isConnected: state.isConnected, loading: false });
     });
@@ -132,7 +133,10 @@ class LookingForHelp extends React.Component {
         <View style={{ marginHorizontal: 16, flexDirection: 'row', marginVertical: 0, alignItems: 'center', marginBottom: 16 }}>
           <Image
             source={require("../../assets/images/icons/cambodia_flag.png")}
-            style={{ width: 30, height: 30, borderRadius: 15, marginRight: 10 }} />
+            style={{ display: 'none', width: 30, height: 30, borderRadius: 15, marginRight: 10 }} />
+          <Text style={{ marginRight: 10 }}>
+            {this.props.route.params.emoji_flag}
+          </Text>
           <Text style={{ fontWeight: '700' }}>{this.props.route.params.name}</Text>
         </View>
       </View>
