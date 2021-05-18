@@ -179,7 +179,7 @@ export default class SafeMigration extends React.Component {
         )}
         style={{flex: 1}}>
 
-        <View style={[Style.container, styles.contentContainer]}>
+        <View style={[Style.container, styles.contentContainer, options.style]}>
           {options.bodyContent}
         </View>
       </Animated.ScrollView>

@@ -26,12 +26,29 @@ class Country extends React.Component {
           flexDirection: 'row',
           alignItems: 'center'
         }}>
-        <Image
+        {/* <Image
             source={country.flag}
-            style={{ marginHorizontal: 15, width: 30, height: 30, borderRadius: 15, marginRight: 10 }} />
-        <Text style={{ marginRight: 10 }}>{country.emoji_flag}</Text>
+            style={{ marginHorizontal: 15, width: 30, height: 30, borderRadius: 15, marginRight: 10 }} /> */}
+        <Text style={{ marginHorizontal: 15 }}>{country.emoji_flag}</Text>
         <Text style={ styles.my }>{country.name}</Text>
       </TouchableOpacity>
+    )
+  }
+}
+
+class Nocountry extends React.Component {
+  render() {
+    return (
+      <View style={{
+        height: 50,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        <Text style={{
+          color: '#888',
+        }}>No countries</Text>
+      </View>
     )
   }
 }
@@ -161,7 +178,7 @@ class CountriesListing extends React.Component {
               return <Country navigation={this.props.navigation}
                               key={country.id} 
                               country={country} />
-            }) : <Text>No countries</Text>
+            }) : <Nocountry />
           }
         </View>
       </View>
