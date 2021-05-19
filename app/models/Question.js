@@ -13,10 +13,15 @@ const Question = (() => {
     upsert,
     byForm,
     findIndexNextQuestion,
+    find,
   }
 
   function byForm(form_id) {
     return realm.objects('Question').filtered(`form_id=${form_id} SORT(display_order ASC)`);
+  }
+
+  function find(id) {
+    return realm.objects('Question').filtered(`id=${id}`)[0];
   }
 
   function getAll() {

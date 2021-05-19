@@ -19,8 +19,6 @@ import i18n from 'i18next';
 const win = Dimensions.get('window');
 
 class CardItem extends Component {
-  state = {};
-
   render() {
     let { item } = this.props;
     let containerWdith = (win.width - 48) / 2 - 50;
@@ -40,9 +38,7 @@ class CardItem extends Component {
           <PlaySound
             buttonAudioStyle={{ backgroundColor: Color.white }}
             iconStyle={{ tintColor: bgColor }}
-            fileName={item.audioFileName || 'register'}
-            activePlaying={this.state.activePlaying}
-            onPress={(fileName) => this.setState({ activePlaying: fileName })} />
+            filePath={this.props.audio}/>
         </View>
 
         <View style={[styles.coverImage, { backgroundColor: bgColor }]}>

@@ -13,8 +13,6 @@ import i18n from 'i18next';
 import { withTranslation } from 'react-i18next';
 
 class NextButton extends Component {
-  state = {};
-
   render() {
     const { disabled } = this.props;
     let hasSelectedAnswer = false;
@@ -34,11 +32,9 @@ class NextButton extends Component {
           </View>
 
           <PlaySound
-            fileName={'register'}
+            filePath={''}
             buttonAudioStyle={{ backgroundColor: Color.white }}
             iconStyle={{ tintColor: Color.pink }}
-            activePlaying={this.state.activePlaying}
-            onPress={(fileName) => this.setState({ activePlaying: fileName })}
             style={{ marginHorizontal: 10 }}
           />
         </TouchableOpacity>
@@ -73,6 +69,5 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
 });
-
 
 export default withTranslation()(NextButton);

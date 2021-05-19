@@ -81,7 +81,6 @@ export default class Videos extends React.Component {
   _renderItem(video) {
     let { width } = Dimensions.get('window');
     let imageWidth = width/2 - 58;
-    let fileName = video.fileName || 'register';
 
     return (
       <View style={[Style.card, {flexDirection: 'row'}]}>
@@ -97,10 +96,7 @@ export default class Videos extends React.Component {
           </TouchableOpacity>
 
           <View style={{flex: 1, alignItems: 'flex-end', justifyContent: 'flex-end'}}>
-            <PlaySound
-              fileName={fileName}
-              activePlaying={this.state.activePlaying}
-              onPress={(fileName) => this.setState({activePlaying: fileName})}/>
+            <PlaySound filePath={''}/>
           </View>
         </View>
       </View>

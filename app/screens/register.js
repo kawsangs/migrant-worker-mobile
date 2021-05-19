@@ -71,15 +71,13 @@ class Register extends Component {
     )
   }
 
-  _buildButtonAudio(audioFilename, active) {
+  _buildButtonAudio(audio, active) {
     return (
       <PlaySound
         style={styles.buttonAudioWrapper}
         buttonAudioStyle={{ backgroundColor: active ? color.white : color.primary }}
         iconStyle={{ tintColor: active ? color.primary : color.white }}
-        fileName={audioFilename || 'register'}
-        activePlaying={this.state.activePlaying}
-        onPress={(fileName) => this.setState({ activePlaying: fileName })} />
+        filePath={audio}/>
     )
   }
 
@@ -88,7 +86,7 @@ class Register extends Component {
       <View style={{ marginBottom: 24 }}>
         <View style={{ marginBottom: 10, flexDirection: 'row' }}>
           <Text style={{ flex: 1 }}>{this.props.t('RegisterScreen.ChooseGender')}</Text>
-          {this._buildButtonAudio('register')}
+          {this._buildButtonAudio('')}
         </View>
 
         <SexOption
@@ -187,7 +185,7 @@ class Register extends Component {
         <View style={styles.coverRegisterLabel}>
           <Text style={styles.buttonNextText}>{this.props.t("RegisterScreen.ButtonRegister")}</Text>
         </View>
-        {this._buildButtonAudio('register', true)}
+        {this._buildButtonAudio('register.mp3', true)}
       </TouchableOpacity>
     )
   }

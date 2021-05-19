@@ -18,8 +18,6 @@ import i18n from 'i18next';
 import { StackActions } from '@react-navigation/native';
 
 class SubCategory extends Component {
-  state = {};
-
   render() {
     let image = this.props.image || Images.default;
 
@@ -49,16 +47,9 @@ class SubCategory extends Component {
 
               <View>
                 <PlaySound
-                  fileName={'register'}
-                  buttonAudioStyle={{
-                    backgroundColor: Color.red
-                  }}
-                  iconStyle={{
-                    tintColor: Color.white
-                  }}
-                  activePlaying={this.state.activePlaying}
-                  onPress={(fileName) => this.setState({ activePlaying: fileName })}
-                />
+                  filePath={this.props.audio}
+                  buttonAudioStyle={{backgroundColor: Color.red}}
+                  iconStyle={{tintColor: Color.white}}/>
               </View>
             </View>
           </View>

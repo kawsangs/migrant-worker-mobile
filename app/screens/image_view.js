@@ -15,6 +15,7 @@ import PlaySound from '../components/play_sound';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
 import CategoryImage from '../models/CategoryImage';
+import Category from '../models/Departure';
 
 class ImageView extends Component {
   constructor(props) {
@@ -27,6 +28,7 @@ class ImageView extends Component {
       activePlaying: false,
       images: JSON.parse(JSON.stringify(imageList)),
       current_image: imageList[0],
+      category: Category.find(props.route.params.category_id)
     };
   }
 
@@ -133,15 +135,13 @@ class ImageView extends Component {
     );
   }
 
-  _buildButtonAudio(audioFilename, active) {
+  _buildButtonAudio() {
     return (
       <PlaySound
+        filePath={this.state.category.audio}
         style={styles.buttonAudioWrapper}
         buttonAudioStyle={{ backgroundColor: Color.white }}
-        iconStyle={{ tintColor: Color.red }}
-        fileName={audioFilename || 'register'}
-        activePlaying={this.state.activePlaying}
-        onPress={(fileName) => this.setState({ activePlaying: fileName })} />
+        iconStyle={{ tintColor: Color.red }} />
     )
   }
 
@@ -168,7 +168,7 @@ class ImageView extends Component {
         <View style={styles.coverRegisterLabel}>
           <Text style={styles.buttonRotationText}>{this.props.t('ImageViewScreen.Rotate')} {" "} {this.props.route.params.title}</Text>
         </View>
-        {this._buildButtonAudio('register', true)}
+        {this._buildButtonAudio()}
       </TouchableOpacity>
     )
   }

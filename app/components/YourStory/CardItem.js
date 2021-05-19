@@ -39,12 +39,9 @@ class CardItem extends Component {
 
           <View>
             <PlaySound
-              fileName={'register'}
+              filePath={item.audio}
               buttonAudioStyle={{ backgroundColor: Color.pink }}
-              iconStyle={{ tintColor: Color.white }}
-              activePlaying={this.state.activePlaying}
-              onPress={(fileName) => this.setState({ activePlaying: fileName })}
-            />
+              iconStyle={{ tintColor: Color.white }}/>
           </View>
         </View>
 
