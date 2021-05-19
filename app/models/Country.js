@@ -1,21 +1,22 @@
 import realm from '../db/schema'
 import countries from '../data/json/countries'
 
-const CountryModel = (() => {
+const Country = (() => {
   return {
     all,
+    where,
     create,
-    deleteAll,
-    createCollection,
-    where
+    deleteBatch,
+    createBatch,
+    reloadBatch,
   }
 
-  function createCollection() {
+  function createBatch() {
     countries.forEach(country => create(country))
   }
 
   function where(field, query) {
-    return realm.objects("Country").filtered(`${field} BEGINSWITH[c] "${query}"`)
+    return all().filtered(`${field} BEGINSWITH[c] "${query}"`)
   }
 
   function all() {
@@ -29,12 +30,16 @@ const CountryModel = (() => {
     })
   }
 
-  function deleteAll() {
+  function deleteBatch() {
     realm.write(() => {
-      const countries = realm.objects("Country")
-      realm.delete(countries)
+      realm.delete(all())
     })
+  }
+
+  function reloadBatch() {
+    deleteBatch()
+    createBatch()
   }
 })()
 
-export default CountryModel
+export default Country

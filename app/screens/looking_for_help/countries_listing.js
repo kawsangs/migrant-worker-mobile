@@ -23,8 +23,7 @@ class CountriesListing extends React.Component {
   }
 
   componentDidMount() {
-    Country.deleteAll()
-    Country.createCollection()
+    Country.reloadBatch()
     this.loadCountries()
   }
 
