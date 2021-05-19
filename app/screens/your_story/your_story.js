@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import { Icon } from 'react-native-material-ui';
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
-import PlaySound from '../../components/play_sound';
 import Images from '../../utils/images';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';

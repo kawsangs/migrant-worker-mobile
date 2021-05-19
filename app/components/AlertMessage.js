@@ -35,15 +35,9 @@ class AlertMessage extends Component {
               <Text style={{flex: 1}}>{ this.props.message }</Text>
               <View>
                 <PlaySound
-                  fileName={'register'}
-                  buttonAudioStyle={{
-                    backgroundColor: Color.red
-                  }}
-                  iconStyle={{
-                    tintColor: Color.white
-                  }}
-                  activePlaying={this.state.activePlaying}
-                  onPress={(fileName) => this.setState({ activePlaying: fileName })}
+                  filePath={this.props.audio}
+                  buttonAudioStyle={{backgroundColor: Color.red}}
+                  iconStyle={{tintColor: Color.white}}
                 />
               </View>
             </View>

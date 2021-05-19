@@ -8,8 +8,6 @@ import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
 import PlaySound from '../../components/play_sound';
 
 class QuestonName extends Component {
-  state = {};
-
   render() {
     const { question } = this.props;
 
@@ -20,13 +18,9 @@ class QuestonName extends Component {
         </View>
 
         <PlaySound
-          fileName={'register'}
+          filePath={this.props.audio || question.audio}
           buttonAudioStyle={{ backgroundColor: Color.pink }}
-          iconStyle={{ tintColor: Color.white }}
-          activePlaying={this.state.activePlaying}
-          onPress={(fileName) => this.setState({ activePlaying: fileName })}
-          style={{ marginHorizontal: 10 }}
-        />
+          iconStyle={{ tintColor: Color.white }}/>
       </View>
     );
   }

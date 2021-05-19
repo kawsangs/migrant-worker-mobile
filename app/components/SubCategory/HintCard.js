@@ -14,8 +14,6 @@ import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
 
 class HintCard extends Component {
-  state = {};
-
   render() {
     return (
       <View style={[Style.card, { maxHeight: 150, padding: 0, backgroundColor: Color.red }]}>
@@ -32,16 +30,9 @@ class HintCard extends Component {
             </View>
             <View style={{ marginLeft: 20 }}>
               <PlaySound
-                fileName={'register'}
-                buttonAudioStyle={{
-                  backgroundColor: Color.red
-                }}
-                iconStyle={{
-                  tintColor: Color.white
-                }}
-                activePlaying={this.state.activePlaying}
-                onPress={(fileName) => this.setState({ activePlaying: fileName })}
-              />
+                filePath={this.props.audio}
+                buttonAudioStyle={{backgroundColor: Color.red}}
+                iconStyle={{tintColor: Color.white}}/>
             </View>
           </View>
         </ImageBackground>

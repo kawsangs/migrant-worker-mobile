@@ -14,6 +14,11 @@ const Departure = (() => {
     downloadImage,
     downloadAudio,
     isDownloaded,
+    find,
+  }
+
+  function find(id) {
+    return realm.objects('Category').filtered(`id=${id}`)[0];
   }
 
   function getChildren(parent_id) {
