@@ -26,15 +26,29 @@ import LoadingIndicator from '../../components/loading_indicator';
 import { addStatistic } from '../../utils/statistic';
 import CollapsibleNavbar from '../../components/collapsible_navbar';
 import ContactsList from '../../data/json/service_directories';
-import institutions from '../../data/json/institutions';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
 import axios from 'axios';
 import EmptyResult from './empty_result';
+import Country from '../../models/Country';
+
+const imageMap = {
+  '1.jpeg': require('../../../app/assets/images/dummy/1.jpeg'),
+  '2.jpeg': require('../../../app/assets/images/dummy/2.jpeg'),
+  '3.jpeg': require('../../../app/assets/images/dummy/3.jpeg'),
+}
+
+const ContactColor = {
+  Phone: '#555',
+  Facebook: '#3b5998',
+  Whatsapp: '#075e54'
+}
 
 class LookingForHelp extends React.Component {
   state = {
+    country: {},
     institutions: [],
+    query: "",
     loading: true
   };
 
@@ -49,17 +63,12 @@ class LookingForHelp extends React.Component {
     });
   }
 
-  async loadInstitutions() {
-    try {
-      const { id } = this.props.route.params
-      const response = await axios.get(`http://d94ee5a0fc5a.ngrok.io/api/v1/countries/${id}/institutions`, {
-        headers: { 'Authorization': 'Bearer 960fc97371f1eaa49961212f8ec78ea8' },
-      })
-      return this.setState({ institutions: response.data })
-    } catch (error) {
-      alert(error)
-      return [{ message: 'error', message: error }]
-    }
+  loadInstitutions() {
+    const { id } = this.props.route.params
+    const country = Country.find(id);
+
+    this.setState({ country, 
+                    institutions: country.institutions })
   }
 
   componentWillUnmount() {
@@ -101,6 +110,16 @@ class LookingForHelp extends React.Component {
     this.props.navigation.navigate('ViewVideoScreen', { videoId: getVideoId(video.url) });
   }
 
+  onChangeQuery = (query) => {
+    const { country } = this.state
+
+    this.setState({ 
+      query, 
+      institutions: country.institutions.filter( institution => {
+        return institution.name.indexOf(query) != -1
+      }) })
+  }
+
   renderBackgroundImage() {
     return (
       <View style={{ marginBottom: 16, padding:0 }}>
@@ -129,7 +148,9 @@ class LookingForHelp extends React.Component {
               <Icon name="search" style={{marginLeft: 15}} />
             </TouchableOpacity>
             <TextInput 
-              placeholder="Find help contact in your area"
+              onChangeText={this.onChangeQuery}
+              value={this.state.query}
+              placeholder={this.props.t("LookingForHelpScreen.FindHelp")}
               style={{ 
                 fontWeight: 'bold',
                 fontSize: 16,
@@ -141,7 +162,7 @@ class LookingForHelp extends React.Component {
   }
 
   _renderItem() {
-    const { institutions } = this.state
+    const { country, institutions } = this.state
 
     return (
       <View>
@@ -151,9 +172,9 @@ class LookingForHelp extends React.Component {
             source={require("../../assets/images/icons/cambodia_flag.png")}
             style={{ display: 'none', width: 30, height: 30, borderRadius: 15, marginRight: 10 }} />
           <Text style={{ marginRight: 10 }}>
-            {this.props.route.params.emoji_flag}
+            {country.emoji_flag}
           </Text>
-          <Text style={{ fontWeight: '700' }}>{this.props.route.params.name}</Text>
+          <Text style={{ fontWeight: '700' }}>{country.name}</Text>
         </View>
         
         { !institutions.length && <EmptyResult message="No institutions" /> }
@@ -172,24 +193,36 @@ class LookingForHelp extends React.Component {
             activeOpacity={0.8}
             style={[Style.card, { flex: 1, }]}
           >
-            <View style={{ flex: 1, flexDirection: 'row' }}>
-              <View style={{ flex: 1, justifyContent: 'center' }}>
-                <Text style={{ fontWeight: '700' }}>{item.name}</Text>
+            <View style={{ flex: 1 }}>
+              <View style={{ 
+                  flex: 1, 
+                  marginBottom: 16,
+                  alignItems: 'center', 
+                  justifyContent: 'center' }}>
+                <Image 
+                  source={imageMap[item.logo_url]}
+                  style={{width: 48, height: 48}}/>
               </View>
 
-              <View style={{ marginLeft: 15 }}>
-                <PlaySound
-                  fileName={'register'}
-                  buttonAudioStyle={{
-                    backgroundColor: Color.yellow
-                  }}
-                  iconStyle={{
-                    tintColor: Color.white
-                  }}
-                  activePlaying={this.state.activePlaying}
-                  onPress={(fileName) => this.setState({ activePlaying: fileName })}
-                // style={{ marginTop: 10, marginRight: 10 }}
-                />
+              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                <Text style={{ fontWeight: '700' }}>{item.name}</Text>
+
+                {
+                  item.audio_url &&
+                  <PlaySound
+                    fileName={item.audio_url.split('.')[0]}
+                    buttonAudioStyle={{
+                      backgroundColor: Color.yellow
+                    }}
+                    iconStyle={{
+                      tintColor: Color.white
+                    }}
+                    activePlaying={this.state.activePlaying}
+                    onPress={(fileName) => this.setState({ activePlaying: fileName })}
+                  // style={{ marginTop: 10, marginRight: 10 }}
+                  />
+                }
+                
               </View>
             </View>
             <View style={{ flex: 1, }}>
@@ -217,8 +250,11 @@ class LookingForHelp extends React.Component {
         alignItems: 'center',
         paddingVertical: 10
       }} key={index}>
-        <Icon iconSet="FontAwesome" name={item.type.toLowerCase()} size={24} color={Color.yellow} />
-        <Text style={{ color: Color.yellow, marginLeft: 15, fontWeight: '700' }}>{item.value}</Text>
+        <Icon iconSet="FontAwesome" name={item.type.toLowerCase()} size={24} color={ContactColor[item.type]} />
+        <Text style={{ color: Color.yellow, marginLeft: 15, fontWeight: '700' }}>
+          {item.type}
+          {item.value}
+        </Text>
       </View>
     )
   }

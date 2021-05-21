@@ -8,6 +8,7 @@ import { withTranslation } from 'react-i18next';
 import EmptyResult from './empty_result'
 import ViewedCountry from './viewed_country'
 import Country from '../../models/Country'
+import Institution from '../../models/Institution';
 
 const Title = ({ children }) => {
   return (
@@ -23,7 +24,10 @@ class CountriesListing extends React.Component {
   }
 
   componentDidMount() {
-    Country.reloadBatch()
+    Country.reloadBatch(() => {
+      Institution.reloadBatch()
+    })
+
     this.loadCountries()
   }
 

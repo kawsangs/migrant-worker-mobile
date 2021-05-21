@@ -6,7 +6,7 @@ class ViewedCountry extends React.Component {
   gotoHelp = () => {
     let { navigation, country } = this.props
 
-    navigation.navigate('LookingForHelpScreen', { ...country })
+    navigation.navigate('LookingForHelpScreen', { id: country.id })
   }
 
   render() {
