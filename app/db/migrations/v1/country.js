@@ -3,7 +3,9 @@ const CountrySchema = {
   primaryKey: 'id',
   properties: {
     id: 'int',
-    name: 'string'
+    name: 'string',
+    emoji_flag: 'string',
+    institutions: 'Institution[]'
   }
 }
 

@@ -17,6 +17,8 @@ import CriteriaSchema from '../migrations/v1/criteria';
 import CategoryShema from '../migrations/v1/category';
 import CategoryImageShema from '../migrations/v1/category_image';
 import CountrySchema from '../migrations/v1/country';
+import InstitutionSchema from '../migrations/v1/institution';
+import ContactSchema from '../migrations/v1/contact';
 
 const schemaNames = [
   "User",
@@ -29,6 +31,9 @@ const schemaNames = [
   "Quiz",
   "Answer",
   "Criteria",
+  "Country",
+  "Institution",
+  "Contact"
 ]
 
 const schemaHelper = (() => {
@@ -48,9 +53,9 @@ const schemaHelper = (() => {
       QuizSchema,
       AnswerSchema,
       CriteriaSchema,
-      CategoryShema,
-      CategoryImageShema,
-      CountrySchema
+      CountrySchema,
+      InstitutionSchema,
+      ContactSchema
     ];
 
     changedSchemas.map((schema) => {
