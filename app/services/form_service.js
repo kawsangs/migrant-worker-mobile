@@ -3,7 +3,7 @@ import { Api } from '../utils/api';
 import AudioDownloader from '../downloaders/audio_downloader';
 import realm from '../db/schema';
 
-const CategoryService = (()=> {
+const FormService = (()=> {
   return {
     downloadForm,
   }
@@ -49,4 +49,4 @@ const CategoryService = (()=> {
   }
 })();
 
-export default CategoryService;
+export default FormService;

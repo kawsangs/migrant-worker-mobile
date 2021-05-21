@@ -16,6 +16,7 @@ import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
 import CategoryImage from '../models/CategoryImage';
 import Category from '../models/Departure';
+import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 
 class ImageView extends Component {
   constructor(props) {
@@ -26,16 +27,21 @@ class ImageView extends Component {
     this.state = {
       rotation: 0,
       activePlaying: false,
-      images: JSON.parse(JSON.stringify(imageList)),
+      images: imageList,
       current_image: imageList[0],
       category: Category.find(props.route.params.category_id)
     };
   }
 
   componentDidMount() {
-    Image.getSize(`file://${this.state.current_image.image}`, (width, height) => {
-      this.setState({imageWidth: width, imageHeight: height});
-    });
+    if (this.state.current_image.image == "offline") {
+      let image = resolveAssetSource(this.state.current_image.offlineSource);
+      this.setState({imageWidth: image.width, imageHeight: image.height});
+    } else {
+      Image.getSize(`file://${this.state.current_image.image}`, (width, height) => {
+        this.setState({imageWidth: width, imageHeight: height});
+      });
+    }
   }
 
   _onPrevClicked = (image) => {
@@ -121,13 +127,11 @@ class ImageView extends Component {
   }
 
   _renderImagePreview() {
-    let image = {uri: `file://${this.state.current_image.image}`};
-
     return (
       <View style={[Style.card, {flex: 1, justifyContent: 'center', alignItems: 'center'}]} onLayout={(e) => this.setState({containerHeight: e.nativeEvent.layout.height, containerWidth: e.nativeEvent.layout.width})}>
         { !!this.state.imageWidth &&
           <Image
-            source={image}
+            source={this.state.current_image.imageSource}
             style={[this._getImageSize(), { transform: [{ rotate: `${this.state.rotation}deg` }] } ]}
             resizeMode={'contain'} />
         }

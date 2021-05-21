@@ -1,0 +1,1409 @@
+[
+  {
+    "id": 1,
+    "code": "fo_001",
+    "name": "story 1 (សាច់រឿងទី១)",
+    "form_type": null,
+    "questions": [
+      {
+        "id": 1,
+        "code": "f1_qu_001",
+        "name": "១. ជ្រើសរើសប្រទេស - កន្លែងដែលអ្នកចង់ទៅ",
+        "type": "Questions::SelectOne",
+        "hint": null,
+        "audio_url": null,
+        "display_order": 1,
+        "relevant": null,
+        "required": null,
+        "passing_score": null,
+        "passing_message": null,
+        "passing_audio_url": null,
+        "failing_message": null,
+        "failing_audio_url": null,
+        "form_id": 1,
+        "criterias": [
+
+        ],
+        "options": [
+          {
+            "id": 1,
+            "name": "ថៃ",
+            "value": "thai",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 1
+          },
+          {
+            "id": 2,
+            "name": "ម៉ាឡេស៊ី",
+            "value": "malaysia",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 1
+          },
+          {
+            "id": 3,
+            "name": "កូរ៉េខាងត្បូង",
+            "value": "south_korea",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 1
+          },
+          {
+            "id": 4,
+            "name": "ចិន",
+            "value": "china",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 1
+          },
+          {
+            "id": 5,
+            "name": "ជប៉ុន",
+            "value": "japan",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 1
+          },
+          {
+            "id": 6,
+            "name": "អារ៉ាប់",
+            "value": "arab",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 1
+          },
+          {
+            "id": 7,
+            "name": "សាំងហ្គាពួរ",
+            "value": "singapor",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 1
+          },
+          {
+            "id": 8,
+            "name": "វៀតណាម",
+            "value": "vietnam",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 1
+          },
+          {
+            "id": 9,
+            "name": "ប្រទេសផ្សេងទៀត",
+            "value": "other",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 1
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "code": "f1_qu_001_other",
+        "name": "ប្រទេសផ្សេងទៀត",
+        "type": "Questions::Text",
+        "hint": null,
+        "audio_url": null,
+        "display_order": 2,
+        "relevant": null,
+        "required": null,
+        "passing_score": null,
+        "passing_message": null,
+        "passing_audio_url": null,
+        "failing_message": null,
+        "failing_audio_url": null,
+        "form_id": 1,
+        "criterias": [
+          {
+            "id": 1,
+            "question_id": 2,
+            "question_code": "f1_qu_001",
+            "operator": "=",
+            "response_value": "other"
+          }
+        ],
+        "options": [
+
+        ]
+      },
+      {
+        "id": 3,
+        "code": "f1_qu_002",
+        "name": "២. តើអ្នកចំណាកស្រុកទៅទីនោះក្នុងគោលបំណងអ្វី?",
+        "type": "Questions::SelectOne",
+        "hint": null,
+        "audio_url": null,
+        "display_order": 3,
+        "relevant": null,
+        "required": null,
+        "passing_score": null,
+        "passing_message": null,
+        "passing_audio_url": null,
+        "failing_message": null,
+        "failing_audio_url": null,
+        "form_id": 1,
+        "criterias": [
+
+        ],
+        "options": [
+          {
+            "id": 10,
+            "name": "ធ្វើការដើម្បីបានលុយផ្ញើ ត្រលប់មកផ្ទះវិញ",
+            "value": "for_sending_money_back_home",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 3
+          },
+          {
+            "id": 11,
+            "name": "ធ្វើការ និងសន្សំលុយសម្រាប់ធ្វើការរកស៊ីទៅថ្ងៃខាងមុខ",
+            "value": "for_saving_for_business",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 3
+          },
+          {
+            "id": 12,
+            "name": "ធ្វើការ និងបង្កើតជំនាញថ្មី",
+            "value": "for_job_and_skill",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 3
+          },
+          {
+            "id": 13,
+            "name": "ផ្សេងៗ",
+            "value": "other",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 3
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "code": "f1_qu_003",
+        "name": "៣. តើនឹងអ្នកជ្រើសរើសធ្វើចំណាកស្រុកដោយវិធីណា?",
+        "type": "Questions::SelectOne",
+        "hint": null,
+        "audio_url": null,
+        "display_order": 4,
+        "relevant": null,
+        "required": null,
+        "passing_score": null,
+        "passing_message": null,
+        "passing_audio_url": null,
+        "failing_message": null,
+        "failing_audio_url": null,
+        "form_id": 1,
+        "criterias": [
+
+        ],
+        "options": [
+          {
+            "id": 14,
+            "name": "តាមរយៈភ្នាក់ងារជ្រើសរើសពលករ",
+            "value": "agency",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 4
+          },
+          {
+            "id": 15,
+            "name": "តាមបណ្តាញផ្ទាល់ខ្លួន",
+            "value": "own_network",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 4
+          },
+          {
+            "id": 16,
+            "name": "ឈ្មួញកណ្តាល (អ្នកប្លែកមុខ)",
+            "value": "strange_dealer",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 4
+          },
+          {
+            "id": 17,
+            "name": "ឈ្មួញកណ្តាល (អ្នកស្គាល់មុខ)",
+            "value": "known_dealer",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 4
+          },
+          {
+            "id": 18,
+            "name": "ដោយខ្លួនឯងផ្ទាល់",
+            "value": "myself",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 4
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "code": "f1_qu_003_1",
+        "name": "៣.១ តាមរយៈភ្នាក់ងារជ្រើសរើសពលករ",
+        "type": "Questions::SelectOne",
+        "hint": null,
+        "audio_url": null,
+        "display_order": 5,
+        "relevant": null,
+        "required": null,
+        "passing_score": null,
+        "passing_message": null,
+        "passing_audio_url": null,
+        "failing_message": null,
+        "failing_audio_url": null,
+        "form_id": 1,
+        "criterias": [
+          {
+            "id": 2,
+            "question_id": 5,
+            "question_code": "f1_qu_003",
+            "operator": "=",
+            "response_value": "agency"
+          }
+        ],
+        "options": [
+          {
+            "id": 19,
+            "name": "មានវិញ្ញាប័ណ្ណប័ត្រចុះបញ្ជី",
+            "value": "has_certificate",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 5
+          },
+          {
+            "id": 20,
+            "name": "គ្មានវិញ្ញាប័ណ្ណប័ត្រចុះបញ្ជី",
+            "value": "no_certificate",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 5
+          },
+          {
+            "id": 21,
+            "name": "មិនដឹងថាចុះបញ្ជីឬមិនបានចុះបញ្ជី",
+            "value": "unsure_certificate",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 5
+          },
+          {
+            "id": 22,
+            "name": "ផ្សេងៗ",
+            "value": "other",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 5
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "code": "f1_qu_003_2",
+        "name": "៣.២. តាមបណ្តាញផ្ទាល់ខ្លួន",
+        "type": "Questions::SelectOne",
+        "hint": null,
+        "audio_url": null,
+        "display_order": 6,
+        "relevant": null,
+        "required": null,
+        "passing_score": null,
+        "passing_message": null,
+        "passing_audio_url": null,
+        "failing_message": null,
+        "failing_audio_url": null,
+        "form_id": 1,
+        "criterias": [
+          {
+            "id": 3,
+            "question_id": 6,
+            "question_code": "f1_qu_003",
+            "operator": "=",
+            "response_value": "own_network"
+          }
+        ],
+        "options": [
+          {
+            "id": 23,
+            "name": "គ្រួសារ​​ (បងប្អូនបង្កើត ឬម្តាយឪពុក)",
+            "value": "family",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 6
+          },
+          {
+            "id": 24,
+            "name": "សាច់ញាតិបងប្អូន​(ជីដូនមួយ ពូមីង​ អ៊ំ​ ជាដើម)",
+            "value": "relative",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 6
+          },
+          {
+            "id": 25,
+            "name": "មិត្តភក្តិ",
+            "value": "friend",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 6
+          },
+          {
+            "id": 26,
+            "name": "សមាជិកសហគមន៍/អ្នកជិតខាង/អ្នកភូមិ",
+            "value": "community",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 6
+          },
+          {
+            "id": 27,
+            "name": "អ្នកប្លែកមុខ",
+            "value": "stranger",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 6
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "code": "f1_qu_004",
+        "name": "៤. តើអ្នកមាន/បានរៀបចំឯកសារដូចដែរបានរៀបរាប់ខាងក្រោមដែររឺទេ? (លិខិតឆ្លងដែន, ទិដ្ឋាការការងារ, លិខិតអនុញ្ញាតការងារ, ប្រសិនអ្នកទៅកាន់ប្រទេសថៃ (កិច្ចសន្យាជាមួយថៅកែ និងប័ណ្ណពលករកម្ពុជាទៅធ្វើការនៅបរទេស))",
+        "type": "Questions::SelectOne",
+        "hint": null,
+        "audio_url": null,
+        "display_order": 7,
+        "relevant": null,
+        "required": null,
+        "passing_score": null,
+        "passing_message": null,
+        "passing_audio_url": null,
+        "failing_message": null,
+        "failing_audio_url": null,
+        "form_id": 1,
+        "criterias": [
+
+        ],
+        "options": [
+          {
+            "id": 28,
+            "name": "ចាស (២ ពិន្ទុ)",
+            "value": "yes",
+            "score": 2,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 7
+          },
+          {
+            "id": 29,
+            "name": " ទេ (០ ពិន្ទុ)",
+            "value": "no",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 7
+          },
+          {
+            "id": 30,
+            "name": "មានខ្លះដែរ (១ ពិន្ទុ)",
+            "value": "some",
+            "score": 1,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 7
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "code": "f1_qu_005",
+        "name": "៥. តើអ្នកមានជំនឿកំរិតណាដើម្បីធ្វើចំណាកស្រុក?",
+        "type": "Questions::SelectOne",
+        "hint": null,
+        "audio_url": null,
+        "display_order": 8,
+        "relevant": null,
+        "required": null,
+        "passing_score": null,
+        "passing_message": null,
+        "passing_audio_url": null,
+        "failing_message": null,
+        "failing_audio_url": null,
+        "form_id": 1,
+        "criterias": [
+
+        ],
+        "options": [
+          {
+            "id": 31,
+            "name": "ជឿជាក់ខ្លាំង (៣ ពិន្ទុ)",
+            "value": "strong_believe",
+            "score": 3,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 8
+          },
+          {
+            "id": 32,
+            "name": "ជឿជាក់ (២ ពិន្ទុ)",
+            "value": "believe",
+            "score": 2,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 8
+          },
+          {
+            "id": 33,
+            "name": "ជឿជាក់ខ្លះៗ (១ ពិន្ទុ)",
+            "value": "some_believe",
+            "score": 1,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 8
+          },
+          {
+            "id": 34,
+            "name": "មិនជឿជាក់ (០ ពិន្ទុ)",
+            "value": "do_not_believe",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 8
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "code": "f1_qu_result",
+        "name": "បូកសរុបពិន្ទុ​ យោងទៅលើចម្លើយរបស់អ្នកប្រើប្រាស់អែប",
+        "type": "Questions::Result",
+        "hint": null,
+        "audio_url": null,
+        "display_order": 9,
+        "relevant": null,
+        "required": null,
+        "passing_score": 3,
+        "passing_message": "ពិន្ទុចាប់ពី ៣ ពិន្ទុឡើង បង្ហាញថាៈ អ្នកហាក់ដូចជាបានត្រៀមខ្លួនរួចរាល់ក្នុងការធ្វើចំណាកស្រុក ប៉ុន្តែអ្នកត្រូវប្រាកដថាអ្នកមាន៖\nស្គាល់ច្បាស់ពីបុគ្គល /​ ភ្នាក់ងារដែលនាំអ្នកទៅកាន់ប្រទេសគោលដៅនោះ\nមានឯកសារគ្រប់គ្រាន់ ដូចជា៖ លិខិតឆ្លងដែន ទិដ្ឋាការ លិខិតអនុញ្ញាតការងារ និងអ្នកជឿជាក់ថាអ្នកនឹងធ្វើចំណាកស្រុក",
+        "passing_audio_url": null,
+        "failing_message": "ពិន្ទុក្រោម ៣ ពិន្ទុ បង្ហាញថាៈ អ្នកហាក់ដូចជាមិនទាន់បានត្រៀមខ្លួនរួចរាល់នៅឡើយទេក្នុងការធ្វើចំណាកស្រុកនោះទេ។​ ប្រសិនបើអ្នកត្រូវការពត៌មានបន្ថែមអំពីការធ្វើចំណាកស្រុកដោយសុវត្ថិភាព សូមទាក់ទងមកកាន់លេខ ១២៨០ សម្រាប់ការប្រឹក្សាយោបល់ ឬ អ្នកអាចស្វែងរកព័ត៌មានបន្ថែមពី អ៊ែប ដំណើរឆ្លងដែនរបស់ខ្ញុំ",
+        "failing_audio_url": null,
+        "form_id": 1,
+        "criterias": [
+
+        ],
+        "options": [
+
+        ]
+      },
+      {
+        "id": 10,
+        "code": "f1_qu_006",
+        "name": "តើអ្នកសម្រេចចិត្តថាទៅដែររឺទេ?",
+        "type": "Questions::SelectOne",
+        "hint": null,
+        "audio_url": null,
+        "display_order": 10,
+        "relevant": null,
+        "required": null,
+        "passing_score": null,
+        "passing_message": null,
+        "passing_audio_url": null,
+        "failing_message": null,
+        "failing_audio_url": null,
+        "form_id": 1,
+        "criterias": [
+
+        ],
+        "options": [
+          {
+            "id": 35,
+            "name": " ចាស (បញ្ចប់សាច់រឿង ហើយត្រឡប់ទៅកាន់ចំណុចអិនធ៊ើហ្វែស ៦)",
+            "value": "yes",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 10
+          },
+          {
+            "id": 36,
+            "name": "ទេ (បញ្ចប់សាច់រឿង ហើយត្រឡប់ទៅកាន់ចំណុចអិនធ៊ើហ្វែស ២)",
+            "value": "no",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 10
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "code": "fo_002",
+    "name": "story 2 (សាច់រឿងទី២)",
+    "form_type": null,
+    "questions": [
+      {
+        "id": 11,
+        "code": "f2_qu_001",
+        "name": "១. តើអ្នកធ្វើដំណើរដោយរបៀបណា? (គ្មានពិន្ទុ)",
+        "type": "Questions::SelectOne",
+        "hint": null,
+        "audio_url": null,
+        "display_order": 1,
+        "relevant": null,
+        "required": null,
+        "passing_score": null,
+        "passing_message": null,
+        "passing_audio_url": null,
+        "failing_message": null,
+        "failing_audio_url": null,
+        "form_id": 2,
+        "criterias": [
+
+        ],
+        "options": [
+          {
+            "id": 37,
+            "name": "តាមផ្លូវគោក",
+            "value": "by_land",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 11
+          },
+          {
+            "id": 38,
+            "name": "តាមផ្លូវអាកាស",
+            "value": "by_air",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 11
+          },
+          {
+            "id": 39,
+            "name": "មធ្យោបាយផ្សេងទៀត (សូមបញ្ជាក់ពីមធ្យោបាយ)",
+            "value": "other",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 11
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "code": "f2_qu_001_other",
+        "name": "មធ្យោបាយផ្សេងទៀត (សូមបញ្ជាក់ពីមធ្យោបាយ)",
+        "type": "Questions::Text",
+        "hint": null,
+        "audio_url": null,
+        "display_order": 2,
+        "relevant": null,
+        "required": null,
+        "passing_score": null,
+        "passing_message": null,
+        "passing_audio_url": null,
+        "failing_message": null,
+        "failing_audio_url": null,
+        "form_id": 2,
+        "criterias": [
+          {
+            "id": 4,
+            "question_id": 12,
+            "question_code": "f2_qu_001",
+            "operator": "=",
+            "response_value": "other"
+          }
+        ],
+        "options": [
+
+        ]
+      },
+      {
+        "id": 13,
+        "code": "f2_qu_002",
+        "name": "២. តើអ្នកយករបស់របរអ្វីខ្លះទៅជាមួយ?",
+        "type": "Questions::SelectMultiple",
+        "hint": null,
+        "audio_url": null,
+        "display_order": 3,
+        "relevant": null,
+        "required": null,
+        "passing_score": null,
+        "passing_message": null,
+        "passing_audio_url": null,
+        "failing_message": null,
+        "failing_audio_url": null,
+        "form_id": 2,
+        "criterias": [
+
+        ],
+        "options": [
+          {
+            "id": 40,
+            "name": "អាស័យដ្ឋានស្នាក់នៅ (១ ពិន្ទុ)",
+            "value": "living_address",
+            "score": 1,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 13
+          },
+          {
+            "id": 41,
+            "name": "លេខទូរស័ព្ទទំនាក់ទំនងរបស់បុគ្គលដែលអ្នកអាចជឿទុកចិត្តបាននៅប្រទេសគោលដៅ (១ ពិន្ទុ)",
+            "value": "contact_number",
+            "score": 1,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 13
+          },
+          {
+            "id": 42,
+            "name": "ទូរស័ព្ទជាមួយស៊ីមកាតដែលអាចប្រើប្រាស់បាននៅប្រទេសគោលដៅ (១ ពិន្ទុ)",
+            "value": "useable_phone",
+            "score": 1,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 13
+          },
+          {
+            "id": 43,
+            "name": "លុយមួយចំនួន និងកាតដាក់តាមខ្លួនអោយបានគ្រប់ពេលជានិច្ច (១ ពិន្ទុ)",
+            "value": "money_and_card",
+            "score": 1,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 13
+          },
+          {
+            "id": 44,
+            "name": "ប័ណ្ណសំគាល់ខ្លួនយកដាក់តាមខ្លួនគ្រប់ពេលជានិច្ច (១ ពិន្ទុ)",
+            "value": "id_card",
+            "score": 1,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 13
+          },
+          {
+            "id": 45,
+            "name": "លិខិតឆ្លងដែនមានទិដ្ឋាការយកដាក់តាមខ្លួនគ្រប់ពេលជានិច្ច (១ ពិន្ទុ)",
+            "value": "passport",
+            "score": 1,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 13
+          },
+          {
+            "id": 46,
+            "name": "ទឹក និងនំចំណី (មិនមានពិន្ទុ)",
+            "value": "food_and_drink",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 13
+          },
+          {
+            "id": 47,
+            "name": "សំឡីអនាម័យ (មិនមានពិន្ទុ)",
+            "value": "sanitary_pad",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 13
+          },
+          {
+            "id": 48,
+            "name": "ឪសថដែលចាំបាច់ត្រូវប្រើប្រាស់ (មិនមានពិន្ទុ)",
+            "value": "medicine",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 13
+          },
+          {
+            "id": 49,
+            "name": "សំលៀកបំពាក់មួយចំនួន (មិនមានពិន្ទុ)",
+            "value": "clothes",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 13
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "code": "f2_qu_003",
+        "name": "៣. នៅពេលដែលអ្នកទៅដល់ប្រទេសគោលដៅ​ មានជនមួយចំនួនដើរសំដៅមកកាន់អ្នក ហើយសន្យាជាមួយអ្នក ថានឹងផ្តល់ការងារដែលមានប្រាក់ខែខ្ពស់អោយអ្នក។ តើអ្នកនឹងទៅជាមួយគេដែរឬទេ?",
+        "type": "Questions::SelectOne",
+        "hint": null,
+        "audio_url": null,
+        "display_order": 4,
+        "relevant": null,
+        "required": null,
+        "passing_score": null,
+        "passing_message": null,
+        "passing_audio_url": null,
+        "failing_message": null,
+        "failing_audio_url": null,
+        "form_id": 2,
+        "criterias": [
+
+        ],
+        "options": [
+          {
+            "id": 50,
+            "name": "បាទ/ចាស - បញ្ចប់ បង្ហាញសញ្ញាបំរាមជាមួយនឹងសារ ",
+            "value": "yes",
+            "score": null,
+            "alert_message": "អ្នកអាចនឹងស្ថិតក្នុងហានិភ័យ",
+            "alert_audio_url": null,
+            "warning": true,
+            "recursive": true,
+            "question_id": 14
+          },
+          {
+            "id": 51,
+            "name": "ទេ -  បន្តសំនួរ",
+            "value": "no",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 14
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "code": "f2_qu_004",
+        "name": "៤. អ្នកទទួលបានឪកាសការងារ ថៅកែរបស់អ្នកបានស្នើសុំឲ្យអ្នកមកធ្វើការនៅភ្លាមៗនៅថ្ញៃបន្ទាប់។​ តើអ្នកព្រមទទួលសំណើរដែលឬទេ?",
+        "type": "Questions::SelectOne",
+        "hint": null,
+        "audio_url": null,
+        "display_order": 5,
+        "relevant": null,
+        "required": null,
+        "passing_score": null,
+        "passing_message": null,
+        "passing_audio_url": null,
+        "failing_message": null,
+        "failing_audio_url": null,
+        "form_id": 2,
+        "criterias": [
+
+        ],
+        "options": [
+          {
+            "id": 52,
+            "name": "បាទ/ចាស ខ្ញុំព្រមទទួលយកសំណើ​​ និងទៅធ្វើការភ្លាមៗ។ --បង្ហាញសញ្ញាបំរាមជាមួយនឹងសារ។​ បន្តទៅសំនួរបន្ទាប់គឺទី៥",
+            "value": "yes",
+            "score": null,
+            "alert_message": "អ្នកអាចនឹងស្ថិតក្នុងហានិភ័យ។ សូមពិចារណាគិតពីការស្នើសុំកិច្ចសន្យាការងារ។​ បន្តទៅសំនួរបន្ទាប់គឺទី៥",
+            "alert_audio_url": null,
+            "warning": true,
+            "recursive": null,
+            "question_id": 15
+          },
+          {
+            "id": 53,
+            "name": "បាទ/ចាស ប៉ុន្តែខ្ញុំត្រូវការមើលកិច្ចសន្យាការងារជាមុនសិន។ បន្តទៅសំនួរបន្ទាប់គឺទី៥",
+            "value": "yes_and_read_contract",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 15
+          },
+          {
+            "id": 54,
+            "name": "ទេ ខ្ញុំមិនចង់ធ្វើការនៅទីនេះទេ។ បន្តទៅសំនួរទី៧",
+            "value": "no",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 15
+          }
+        ]
+      },
+      {
+        "id": 16,
+        "code": "f2_qu_005",
+        "name": "៥. អ្នកមិនយល់ពីកិច្ចសន្យា។ តើអ្នកត្រូវការធ្វើអ្វីខ្លះ?",
+        "type": "Questions::SelectMultiple",
+        "hint": null,
+        "audio_url": null,
+        "display_order": 6,
+        "relevant": null,
+        "required": null,
+        "passing_score": null,
+        "passing_message": null,
+        "passing_audio_url": null,
+        "failing_message": null,
+        "failing_audio_url": null,
+        "form_id": 2,
+        "criterias": [
+          {
+            "id": 5,
+            "question_id": 16,
+            "question_code": "f2_qu_004",
+            "operator": "in",
+            "response_value": "yes,yes_and_read_contract"
+          }
+        ],
+        "options": [
+          {
+            "id": 55,
+            "name": "ស្វែងរកសេវាបកប្រែ (១ ពិន្ទុ)",
+            "value": "find_translation",
+            "score": 1,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 16
+          },
+          {
+            "id": 56,
+            "name": "ថតកិច្ចសន្យាការងារ​ (រូបភាពថត) និងផ្ញើទៅកាន់បុគ្គលដែលអាចជឿទុកចិត្តបាន ដើម្បីអោយគាត់អានអោយអ្នក (១ ពិន្ទុ)",
+            "value": "take_contract_photo",
+            "score": 1,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 16
+          },
+          {
+            "id": 57,
+            "name": " ស្វែងរកការពន្យល់បកស្រាយជាមុន ជាមួយថៅកែរបស់អ្នក (១ ពិន្ទុ)",
+            "value": "find_explaining",
+            "score": 1,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 16
+          },
+          {
+            "id": 58,
+            "name": "ខ្ញុំមិនដឹងថាខ្ញុំត្រូវធ្វើអ្វីទេ ហើយសំរេចចិត្តចុះហត្ថលេខាលើកិច្ចសន្យាការងារ។ បង្ហាញ សញ្ញាបំរាមជាមួយនឹងសារ",
+            "value": "sign_contract",
+            "score": null,
+            "alert_message": "អ្នកអាចនឹងស្ថិតក្នុងហានិភ័យ។ អ្នកត្រូវប្រាកដថាអ្នកបានយល់ច្បាស់ពីកិច្ចសន្យាការងារ មុនពេលចុះហត្ថលេខា” ត្រលប់ទៅកាន់សំនួរទី៥",
+            "alert_audio_url": null,
+            "warning": true,
+            "recursive": true,
+            "question_id": 16
+          }
+        ]
+      },
+      {
+        "id": 17,
+        "code": "f2_qu_006",
+        "name": "៦. បន្ទាប់ពីយល់ច្បាស់ពីកិច្ចសន្យាការងារហើយ តើអ្នកនឹងចុះហត្ថលេខាដែរឬទេ?",
+        "type": "Questions::SelectOne",
+        "hint": null,
+        "audio_url": null,
+        "display_order": 7,
+        "relevant": null,
+        "required": null,
+        "passing_score": null,
+        "passing_message": null,
+        "passing_audio_url": null,
+        "failing_message": null,
+        "failing_audio_url": null,
+        "form_id": 2,
+        "criterias": [
+          {
+            "id": 6,
+            "question_id": 17,
+            "question_code": "f2_qu_005",
+            "operator": "in",
+            "response_value": "find_translation,take_contract_photo,find_explaining"
+          }
+        ],
+        "options": [
+          {
+            "id": 59,
+            "name": "បាទ/ចាស -- អ្នកទទួលបានការងារ! (បញ្ចប់សាច់រឿង និងត្រឡប់ទៅ interface ៦)",
+            "value": "yes",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 17
+          },
+          {
+            "id": 60,
+            "name": " ទេ បន្តទៅសំនួរបន្ទាប់ទី៧",
+            "value": "no",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 17
+          }
+        ]
+      },
+      {
+        "id": 18,
+        "code": "f2_qu_007",
+        "name": "៧. តើអ្នកចង់ធ្វើអ្វីបន្តទៅទៀត?",
+        "type": "Questions::SelectOne",
+        "hint": null,
+        "audio_url": null,
+        "display_order": 8,
+        "relevant": "OR",
+        "required": null,
+        "passing_score": null,
+        "passing_message": null,
+        "passing_audio_url": null,
+        "failing_message": null,
+        "failing_audio_url": null,
+        "form_id": 2,
+        "criterias": [
+          {
+            "id": 7,
+            "question_id": 18,
+            "question_code": "f2_qu_004",
+            "operator": "=",
+            "response_value": "no"
+          },
+          {
+            "id": 8,
+            "question_id": 18,
+            "question_code": "f2_qu_006",
+            "operator": "=",
+            "response_value": "no"
+          }
+        ],
+        "options": [
+          {
+            "id": 61,
+            "name": "រង់ចាំឪកាសថ្មីបន្ទាប់ទៀត ",
+            "value": "wait_new_opportunity",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 18
+          },
+          {
+            "id": 62,
+            "name": "ទទួលធ្វើការងារដោយគ្មានកិច្ចសន្យាការងារ។​ បង្ហាញសញ្ញាសញ្ញាបំរាមជាមួយនឹងសារ",
+            "value": "work_with_no_contract",
+            "score": null,
+            "alert_message": "អ្នកអាចត្រូវបានគេកេងប្រវ័ញ្ច ឬប្រឈមនឹងហានិភ័យផ្សេងៗ",
+            "alert_audio_url": null,
+            "warning": true,
+            "recursive": null,
+            "question_id": 18
+          },
+          {
+            "id": 63,
+            "name": "ត្រឡប់ទៅផ្ទះវិញ",
+            "value": "go_home",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 18
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "code": "fo_003",
+    "name": "story 3 (សាច់រឿងទី៣)",
+    "form_type": null,
+    "questions": [
+      {
+        "id": 19,
+        "code": "f3_qu_001",
+        "name": "១. ក្នុងអំឡុងពេលធ្វើចំណាកស្រុក ក្រុមគ្រួសាររបស់អ្នកមានអាសន្នកើតឡើង ដែលតម្រូវអោយអ្នកត្រលប់មកផ្ទះភ្លាមៗ។ តើអ្នកនឹងត្រលប់មកផ្ទះភ្លាមៗដែរឬទេ?",
+        "type": "Questions::SelectOne",
+        "hint": null,
+        "audio_url": null,
+        "display_order": 1,
+        "relevant": null,
+        "required": null,
+        "passing_score": null,
+        "passing_message": null,
+        "passing_audio_url": null,
+        "failing_message": null,
+        "failing_audio_url": null,
+        "form_id": 3,
+        "criterias": [
+
+        ],
+        "options": [
+          {
+            "id": 64,
+            "name": "ចាស",
+            "value": "yes",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 19
+          },
+          {
+            "id": 65,
+            "name": "ទេ",
+            "value": "no",
+            "score": null,
+            "alert_message": "ជាការពិត បើយោងតាមច្បាប់ការងារ អ្នកអាចត្រឡប់មកផ្ទះបានគ្រប់ពេលដែលអ្នកចង់មក ប្រសិនបើអ្នកមានទិដ្ឋាការចេញចូលប្រទេសបានច្រើនលើក។ ប៉ុន្តែ អ្នកត្រូវពិភាក្សាជាមួយថៅកែឬ អ្នកគ្រប់គ្រងរបស់អ្នក តើអ្នកអាចឈប់បានប៉ុន្មានថ្ងៃ។",
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 19
+          }
+        ]
+      },
+      {
+        "id": 20,
+        "code": "f3_qu_002",
+        "name": "២. ប្រសិនបើអ្នកសំរេចចិត្តថានឹងត្រលប់មកផ្ទះភ្លាមៗ តើអ្នកចាំបាច់ត្រូវមានអ្វីខ្លះ?",
+        "type": "Questions::SelectMultiple",
+        "hint": null,
+        "audio_url": null,
+        "display_order": 2,
+        "relevant": null,
+        "required": null,
+        "passing_score": null,
+        "passing_message": null,
+        "passing_audio_url": null,
+        "failing_message": null,
+        "failing_audio_url": null,
+        "form_id": 3,
+        "criterias": [
+
+        ],
+        "options": [
+          {
+            "id": 66,
+            "name": "a. ត្រូវប្រាកដថាអ្នកមានទិដ្ឋាការចេញចូលប្រទេសគោលដៅបានច្រើនលើក។",
+            "value": "have_visa",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 20
+          },
+          {
+            "id": 67,
+            "name": "b. អ្នកបានកក់សំបុត្រយន្តហោះ/សំបុត្រឡាន",
+            "value": "book_ticket",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 20
+          },
+          {
+            "id": 68,
+            "name": "c. លុយមួយចំនួនសម្រាប់ការធ្វើដំណើរ",
+            "value": "money_for_travel",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 20
+          },
+          {
+            "id": 69,
+            "name": "d. លិខិតអនុញ្ញាតពីថៅកែឬអ្នកគ្រប់គ្រងរបស់អ្នកដើម្បីចាកចេញពីប្រទេសដែលអ្នកកំពុងធ្វើការ",
+            "value": "permission_letter",
+            "score": null,
+            "alert_message": "ប្រហែលជាត្រូវការ បុន្តែមិនចាំបាច់មាន => ដើម្បីចាកចេញបាន អ្នកត្រូវតែមានលិខិតឆ្លងដែនដែលមានសុពលភាព។ ប៉ុន្តែទោះបីជាយ៉ាងណាក៏ដោយ អ្នកប្រហែលជាត្រូវទទួលបានការយល់ព្រមពីថៅកែរបស់អ្នកជាមុនសិន ដើម្បីអោយប្រាកដថាអ្នកអាចត្រឡប់មកធ្វើការវិញបាន។",
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 20
+          },
+          {
+            "id": 70,
+            "name": "e. អោយលុយទៅឈ្មួញកណ្តាលដើម្បីបានត្រលប់មកផ្ទះ បង្ហាញសញ្ញាហាមបំរាមជាមួយនឹងសារ ",
+            "value": "give_money_to_dealer",
+            "score": null,
+            "alert_message": "វាពិតជាប្រថុយប្រថាន អ្នកអាចប្រឈមនឹងការជួញដូរ។",
+            "alert_audio_url": null,
+            "warning": true,
+            "recursive": null,
+            "question_id": 20
+          }
+        ]
+      },
+      {
+        "id": 21,
+        "code": "f3_qu_003",
+        "name": "៣. អ្នកសំរេចចិត្តត្រលប់មកផ្ទះ ប៉ុន្តែអ្នកមិនច្បាស់ថាវានឹងមានអ្វីកើតឡើង ឬអ្វីប្រែប្រួលខ្លះនៅប្រទេសកំណើតរបស់អ្នក ។ ប្រសិនបើអ្នកស្ថិតនៅក្នុងស្ថានភាពស្រពិចស្រពិល  តើអ្នកអាចធ្វើអ្វីបានខ្លះ?",
+        "type": "Questions::SelectMultiple",
+        "hint": null,
+        "audio_url": null,
+        "display_order": 3,
+        "relevant": null,
+        "required": null,
+        "passing_score": null,
+        "passing_message": null,
+        "passing_audio_url": null,
+        "failing_message": null,
+        "failing_audio_url": null,
+        "form_id": 3,
+        "criterias": [
+
+        ],
+        "options": [
+          {
+            "id": 71,
+            "name": "a. ប្រឹក្សាជាមួយក្រុមគ្រួសារ និងមិត្តភ័ក្តិរបស់អ្នកអំពីគម្រោងត្រលប់មកផ្ទះវិញ",
+            "value": "consult_with_family",
+            "score": null,
+            "alert_message": "ក្រុមគ្រួសារ និងមិត្តភ័ក្តិរបស់អ្នកអាចប្រាប់ពត៌មានអំពីស្ថានភាពបច្ចុប្បន្នដែលកើតមាននៅក្នុងប្រទេកំណើតរបស់អ្នកថា មានអ្វីខ្លះដែលផ្លាស់ប្តូរ និងអ្វីខ្លះដែលអាចនឹងកើតឡើង",
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 21
+          },
+          {
+            "id": 72,
+            "name": "b. ស្វែងរកព័ត៌មាន​បន្ថែមទៀតពីទីភ្នាក់ងារជាតិមុខរបរ និងការងារ និង​ព័ត៌មានបន្ថែមនៅក្នុង អ៊ែប ដំណើរឆ្លងដែនរបស់ខ្ញុំ",
+            "value": "find_more_info",
+            "score": null,
+            "alert_message": "ទីភ្នាក់ងារជាតិមុខរបរ និងការងារមានលទ្ធភាពផ្តល់នូវពត៌មានទាក់ទងនឹងឪកាសការងារនៅក្នុងស្រុកដែលអាចត្រូវទៅនឹងជំនាញ និងបទពិសោធន៍របស់អ្នកបាន",
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 21
+          },
+          {
+            "id": 73,
+            "name": "c. អត់ធ្វើអ្វីទាំងអស់",
+            "value": "do_nothing",
+            "score": null,
+            "alert_message": "វាមិនខុសទេ ដែលត្រលប់មកផ្ទះដោយគ្មានគម្រោង   មុន។ សូមមេត្តាគិតពីគម្រោងត្រឡប់មកផ្ទះ យ៉ាងហោចណាស់ការធ្វើដំណើររបស់អ្នកមានសុវត្ថិភាព",
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 21
+          }
+        ]
+      },
+      {
+        "id": 22,
+        "code": "f3_qu_004",
+        "name": "៤. តើអ្នកអាចប្រឹក្សាជាមួយអ្នកណា នៅពេលដែលអ្នកធ្លាប់ត្រូវបានបំពាន​ បៀតបៀនផ្លូវភេទ និងរងអំពើហិង្សាក្នុងពេលត្រលប់មកផ្ទះវិញ​ ឬពេលមកដល់ប្រទេសកំណើតរបស់អ្នក?",
+        "type": "Questions::SelectMultiple",
+        "hint": null,
+        "audio_url": null,
+        "display_order": 4,
+        "relevant": null,
+        "required": null,
+        "passing_score": null,
+        "passing_message": null,
+        "passing_audio_url": null,
+        "failing_message": null,
+        "failing_audio_url": null,
+        "form_id": 3,
+        "criterias": [
+
+        ],
+        "options": [
+          {
+            "id": 74,
+            "name": "a. សមាជិកក្រុមគ្រួសារ និងមិត្តភ័ក្តិជិតស្និទ្ធទុកចិត្តបាន",
+            "value": "family",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 22
+          },
+          {
+            "id": 75,
+            "name": "b. អាជ្ញាធរ និងនគរបាលក្នុងតំបន់",
+            "value": "local__authority",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 22
+          },
+          {
+            "id": 76,
+            "name": "c. ទាក់ទងទៅកាន់លេខ ១២៨០ (បណ្តាញទូរស័ព្ទជំនួយសម្រាប់ប្រឹក្សាយោបល់)",
+            "value": "contact_1280",
+            "score": null,
+            "alert_message": null,
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 22
+          },
+          {
+            "id": 77,
+            "name": "d. អត់ទាក់ទងទៅអ្នកណាទាំងអស់ (សម្គាល់សារគឺជាសម្លេង៖មានស្រ្តីជាច្រើន ដែលមិនបានរាយការណ៍អំពីអំពើហិង្សាដែលពួកគាត់ធ្លាប់បានជួបប្រទះ ទៅកាន់នរណាម្នាក់ឡើយ ពីព្រោះពួកគាត់ខ្លាចគេស្តីបន្ទោស ឬដាក់កំហុសដោយសារបទពិសោធអំពើហិង្សារបស់អ្នក។ ប្រសិនបើអ្នកភ័យខ្លាច ឬព្រួយបារម្មណ៍ អ្នកអាចទាក់ទងទៅកាន់លេខ ១២៨០ ពួកគាត់នឹងធានារក្សាការសម្ងាត់សម្រាប់អ្នក។)",
+            "value": "contact_no_one",
+            "score": null,
+            "alert_message": "មានស្រ្តីជាច្រើន ដែលមិនបានរាយការណ៍អំពីអំពើហិង្សាដែលពួកគាត់ធ្លាប់បានជួបប្រទះ ទៅកាន់នរណាម្នាក់ឡើយ ពីព្រោះពួកគាត់ខ្លាចគេស្តីបន្ទោស ឬដាក់កំហុសដោយសារបទពិសោធអំពើហិង្សារបស់អ្នក។ ប្រសិនបើអ្នកភ័យខ្លាច ឬព្រួយបារម្មណ៍ អ្នកអាចទាក់ទងទៅកាន់លេខ ១២៨០ ពួកគាត់នឹងធានារក្សាការសម្ងាត់សម្រាប់អ្នក។",
+            "alert_audio_url": null,
+            "warning": null,
+            "recursive": null,
+            "question_id": 22
+          }
+        ]
+      }
+    ]
+  }
+]

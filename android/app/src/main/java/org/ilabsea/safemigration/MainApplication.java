@@ -9,7 +9,6 @@ import com.reactnativecommunity.webview.RNCWebViewPackage;
 import io.realm.react.RealmReactPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.rnim.rn.audio.ReactNativeAudioPackage;
-import com.johnsonsu.rnsoundplayer.RNSoundPlayerPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;

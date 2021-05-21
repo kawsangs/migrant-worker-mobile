@@ -145,8 +145,8 @@ class AppNavigator extends Component {
             headerTitleContainerStyle: { width: '75%' }
           }}>
 
-          { !this.props.currentUser && this._authStack() }
-          { !!this.props.currentUser && this._appStack() }
+          { !this.props.currentUser.uuid && this._authStack() }
+          { !!this.props.currentUser.uuid && this._appStack() }
 
         </Stack.Navigator>
       </NavigationContainer>

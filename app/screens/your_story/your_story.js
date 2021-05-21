@@ -7,6 +7,7 @@ import {
   ScrollView,
   StatusBar,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import { Icon } from 'react-native-material-ui';
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
@@ -30,10 +31,11 @@ import FormService from '../../services/form_service';
 import uuidv4 from '../../utils/uuidv4';
 
 class YourStory extends Component {
-  state = {}
+  state = { loading: true };
 
   componentDidMount() {
     // Form.deleteAllWithDependency();
+    Form.seedData(() => this.setState({loading: false}));
     this._initState();
     this._checkConnection();
   }
@@ -157,6 +159,14 @@ class YourStory extends Component {
           {this._renderContent()}
         </View>
       </ScrollView>
+    )
+  }
+
+  _renderLoading() {
+    return (
+      <View style={{flex: 1, justifyContent: "center"}}>
+        <ActivityIndicator />
+      </View>
     )
   }
 
