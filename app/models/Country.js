@@ -1,14 +1,20 @@
 import realm from '../db/schema'
 import countries from '../data/json/countries'
 
+const MODEL_NAME = 'Country'
 const Country = (() => {
   return {
     all,
+    find,
     where,
     create,
     deleteBatch,
     createBatch,
     reloadBatch,
+  }
+
+  function find(id) {
+    return realm.objectForPrimaryKey(MODEL_NAME, id)
   }
 
   function createBatch() {
@@ -20,13 +26,12 @@ const Country = (() => {
   }
 
   function all() {
-    return realm.objects('Country')
+    return realm.objects(MODEL_NAME)
   }
 
   function create(country) {
     realm.write(() => {
-      const attr = (({id, flag, name}) => ({id, name}))(country)
-      realm.create('Country', attr);
+      realm.create(MODEL_NAME, country);
     })
   }
 
@@ -36,9 +41,10 @@ const Country = (() => {
     })
   }
 
-  function reloadBatch() {
+  function reloadBatch(callback) {
     deleteBatch()
     createBatch()
+    callback()
   }
 })()
 

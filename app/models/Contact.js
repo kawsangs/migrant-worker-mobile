@@ -1,7 +1,7 @@
 import realm from '../db/schema'
 import contacts from '../data/json/contacts'
 
-const ModelName = 'Contact'
+const MODEL_NAME = 'Contact'
 const Contact = (() => {
   return {
     all,
@@ -12,7 +12,7 @@ const Contact = (() => {
   }
 
   function createBatch() {
-    contacts.forEach(contact => create(contact))
+    [].forEach(contact => create(contact))
   }
 
   function where(field, query) {
@@ -20,12 +20,12 @@ const Contact = (() => {
   }
 
   function all() {
-    return realm.objects(ModelName)
+    return realm.objects(MODEL_NAME)
   }
 
   function create(contact) {
     realm.write(() => {
-      realm.create(ModelName, contact);
+      realm.create(MODEL_NAME, contact);
     })
   }
 
