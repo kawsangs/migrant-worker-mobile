@@ -4,8 +4,6 @@ import {
   Text,
   StyleSheet,
   SafeAreaView,
-  FlatList,
-  Dimensions,
   Button,
   ActivityIndicator,
   TouchableOpacity,
@@ -15,34 +13,21 @@ import {
   TextInput,
 } from 'react-native';
 
-import Thumbnail from '../../components/thumbnail';
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
 import PlaySound from '../../components/play_sound';
 import { getVideoId } from '../../utils/youtube';
 import NetInfo from "@react-native-community/netinfo";
-import Toast, { DURATION } from 'react-native-easy-toast';
+import Toast from 'react-native-easy-toast';
 import { Icon, Toolbar } from 'react-native-material-ui';
 import LoadingIndicator from '../../components/loading_indicator';
 import { addStatistic } from '../../utils/statistic';
 import CollapsibleNavbar from '../../components/collapsible_navbar';
 import ContactsList from '../../data/json/service_directories';
 import { withTranslation } from 'react-i18next';
-import i18n from 'i18next';
-import axios from 'axios';
 import EmptyResult from './empty_result';
 import Country from '../../models/Country';
 
-const imageMap = {
-  '1.jpeg': require('../../../app/assets/images/dummy/1.jpeg'),
-  '2.jpeg': require('../../../app/assets/images/dummy/2.jpeg'),
-  '3.jpeg': require('../../../app/assets/images/dummy/3.jpeg'),
-}
-
-const ContactColor = {
-  Phone: '#555',
-  Facebook: '#3b5998',
-  Whatsapp: '#075e54'
-}
+import * as mapping from './mapping'
 
 class LookingForHelp extends React.Component {
   state = {
@@ -125,36 +110,18 @@ class LookingForHelp extends React.Component {
       <View style={{ marginBottom: 16, padding:0 }}>
         <ImageBackground
           source={require('../../../app/assets/images/icons/need_for_help.png')}
-          style={{
-            height: 150,
-            backgroundColor: Color.yellow,
-            flex: 1,
-            justifyContent: 'flex-end',
-          }}
-          imageStyle={{
-            resizeMode: "contain",
-          }}>
+          style={styles.backgroundImage}
+          imageStyle={{ resizeMode: "contain" }}>
 
-          <View style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            backgroundColor: '#fff',
-            bottom: 20,
-            marginHorizontal: 16,
-            borderRadius: 10,
-          }}>
-            <TouchableOpacity
-              >
-              <Icon name="search" style={{marginLeft: 15}} />
+          <View style={styles.searchContainer}>
+            <TouchableOpacity>
+              <Icon name="search" style={{ marginLeft: 15 }} />
             </TouchableOpacity>
             <TextInput 
               onChangeText={this.onChangeQuery}
               value={this.state.query}
               placeholder={this.props.t("LookingForHelpScreen.FindHelp")}
-              style={{ 
-                fontWeight: 'bold',
-                fontSize: 16,
-                width: '90%' }} />
+              style={styles.searchInput} />
           </View>
         </ImageBackground>
       </View>
@@ -167,18 +134,21 @@ class LookingForHelp extends React.Component {
     return (
       <View>
         { this.renderBackgroundImage() }
-        <View style={{ marginHorizontal: 16, flexDirection: 'row', marginVertical: 0, alignItems: 'center', marginBottom: 16 }}>
-          <Image
-            source={require("../../assets/images/icons/cambodia_flag.png")}
-            style={{ display: 'none', width: 30, height: 30, borderRadius: 15, marginRight: 10 }} />
-          <Text style={{ marginRight: 10 }}>
-            {country.emoji_flag}
-          </Text>
-          <Text style={{ fontWeight: '700' }}>{country.name}</Text>
-        </View>
-        
-        { !institutions.length && <EmptyResult message="No institutions" /> }
+        { this.header(country) }
+        { !institutions.length && <EmptyResult message={this.props.t("LookingForHelpScreen.NotFound")} /> }
       </View>
+    )
+  }
+
+  header(country) {
+    return (
+    <View style={styles.countryContainer}>
+      {
+        country.name && <Image  source={mapping.flags[country.name.toLowerCase()]}
+                                style={styles.flag} />
+      }
+      <Text style={{ fontWeight: '700' }}>{country.name}</Text>
+    </View>
     )
   }
 
@@ -186,37 +156,29 @@ class LookingForHelp extends React.Component {
     let list_phone_number = item.contacts || [];
     return (
       <View style={{ marginHorizontal: 16 }}>
-        <View style={{ flexDirection: 'row', marginVertical: 0, alignItems: 'center', }}>
+        <View style={styles.institutionContainer}>
           <TouchableOpacity
             key={item.id}
             // onPress={() => this._onPress(item)}
             activeOpacity={0.8}
-            style={[Style.card, { flex: 1, }]}
+            style={[Style.card, {flex: 1}]}
           >
-            <View style={{ flex: 1 }}>
-              <View style={{ 
-                  flex: 1, 
-                  marginBottom: 16,
-                  alignItems: 'center', 
-                  justifyContent: 'center' }}>
+            <View style={{flex: 1}}>
+              <View style={styles.institutionImageContainer}>
                 <Image 
-                  source={imageMap[item.logo_url]}
+                  source={mapping.images[item.logo_url]}
                   style={{width: 48, height: 48}}/>
               </View>
 
-              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                <Text style={{ fontWeight: '700' }}>{item.name}</Text>
+              <View style={styles.institutionNameContainer}>
+                <Text style={{fontWeight: '700'}}>{item.name}</Text>
 
                 {
                   item.audio_url &&
                   <PlaySound
                     fileName={item.audio_url.split('.')[0]}
-                    buttonAudioStyle={{
-                      backgroundColor: Color.yellow
-                    }}
-                    iconStyle={{
-                      tintColor: Color.white
-                    }}
+                    buttonAudioStyle={{backgroundColor: Color.yellow}}
+                    iconStyle={{tintColor: Color.white}}
                     activePlaying={this.state.activePlaying}
                     onPress={(fileName) => this.setState({ activePlaying: fileName })}
                   // style={{ marginTop: 10, marginRight: 10 }}
@@ -225,15 +187,11 @@ class LookingForHelp extends React.Component {
                 
               </View>
             </View>
-            <View style={{ flex: 1, }}>
-
+            <View style={{flex: 1}}>
               {list_phone_number && list_phone_number.map((item, index) => {
-
                 const is_last_item = (index == list_phone_number.length - 1) ? true : false;
-
-                return this._renderPhones(item, index, is_last_item)
+                return this._renderContacts(item, index, is_last_item)
               })}
-
             </View>
           </TouchableOpacity>
         </View>
@@ -241,18 +199,17 @@ class LookingForHelp extends React.Component {
     )
   }
 
-  _renderPhones(item, index, is_last_item) {
+  _renderContacts(item, index, is_last_item) {
     return (
-      <View style={{
-        flexDirection: 'row',
-        borderBottomWidth: is_last_item ? 0 : 1,
-        borderBottomColor: Color.border,
-        alignItems: 'center',
-        paddingVertical: 10
-      }} key={index}>
-        <Icon iconSet="FontAwesome" name={item.type.toLowerCase()} size={24} color={ContactColor[item.type]} />
-        <Text style={{ color: Color.yellow, marginLeft: 15, fontWeight: '700' }}>
-          {item.type}
+      <View style={[
+        styles.contactContainer,
+        { borderBottomWidth: is_last_item ? 0 : 1, }]} key={index}>
+        <Icon iconSet="FontAwesome"
+              name={item.type.toLowerCase()}
+              size={24}
+              color={mapping.colors[item.type]} />
+
+        <Text style={styles.contact}>
           {item.value}
         </Text>
       </View>
@@ -369,6 +326,66 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     zIndex: 1
+  },
+  backgroundImage: {
+    height: 150,
+    backgroundColor: Color.yellow,
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    bottom: 20,
+    marginHorizontal: 16,
+    borderRadius: 10,
+  },
+  searchInput: {
+    fontWeight: 'bold',
+    fontSize: 16,
+    width: '90%'
+  },
+  countryContainer: {
+    marginHorizontal: 16,
+    flexDirection: 'row',
+    marginVertical: 0,
+    alignItems: 'center',
+    marginBottom: 16
+  },
+  flag: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    marginRight: 10
+  },
+  institutionContainer: {
+    flexDirection: 'row',
+    marginVertical: 0,
+    alignItems: 'center',
+  },
+  institutionImageContainer: {
+    flex: 1,
+    marginBottom: 16,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  institutionNameContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  contactContainer: {
+    flexDirection: 'row',
+    borderBottomColor: Color.border,
+    alignItems: 'center',
+    paddingVertical: 10
+  },
+  contact: {
+    color: Color.yellow,
+    marginLeft: 15,
+    fontWeight: '700'
   }
 });
 
