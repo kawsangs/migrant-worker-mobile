@@ -1,6 +1,7 @@
 import realm from '../db/schema';
 import ImageDownloader from '../downloaders/image_downloader';
 import CategoryImage from '../models/CategoryImage';
+import categoryList from '../db/json/categories';
 
 const Departure = (() => {
   return {
@@ -15,6 +16,16 @@ const Departure = (() => {
     downloadAudio,
     isDownloaded,
     find,
+    seedData,
+  }
+
+  function seedData(callback) {
+    if (!getAll().length) {
+      let categories = categoryList.filter(cat => cat.type == "Categories::Departure")
+      upsertCollection(categories);
+    }
+
+    !!callback && callback();
   }
 
   function find(id) {
@@ -58,20 +69,28 @@ const Departure = (() => {
   }
 
   function _buildData(category) {
-    return ({
+    let params = {
       uuid: category.uuid,
       id: category.id,
       name: category.name,
       image_url: category.image_url,
+      audio: category.audio,
       audio_url: category.audio_url,
       description: category.description,
       type: 'Departure',
       parent_id: category.parent_id,
-      last: category.last,
-      leaf: category.leaf,
+      last: !!category.last,
+      leaf: !!category.leaf,
       lft: category.lft,
       rgt: category.rgt,
-    });
+      video: !!category.is_video,
+    };
+
+    if (!!category.offline && !!category.image_url) {
+      params.image = 'offline'
+    }
+
+    return params;
   }
 
   function getPendingDownload() {

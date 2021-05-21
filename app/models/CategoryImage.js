@@ -44,12 +44,18 @@ const CategoryImage = (() => {
   }
 
   function _buildData(category_image) {
-    return {
+    let params = {
       id: category_image.id,
       name: category_image.name,
       image_url: category_image.image_url,
       category_id: category_image.category_id,
     }
+
+    if(!!category_image.offline && !!category_image.image_url) {
+      params.image = 'offline'
+    }
+
+    return params;
   }
 
 })();

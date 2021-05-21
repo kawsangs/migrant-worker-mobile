@@ -44,14 +44,12 @@ class SubCategory extends Component {
   }
 
   _renderCard(item, index) {
-    let image = !!item.image ? { uri: `file://${item.image}` } : "";
-
     return (
       <CardItem
         key={index}
         onPress={() => this._onPress(item)}
         title={item.name}
-        image={image}
+        image={item.imageSource}
         number={index + 1}
         hideArrow={!CategoryImage.byCategory(item.id).length}
       />

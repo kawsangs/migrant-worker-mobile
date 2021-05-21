@@ -60,9 +60,10 @@ const Option = (() => {
       value: item.value,
       score: item.score || 0,
       alert_message: item.alert_message,
+      alert_audio: item.alert_audio,
       alert_audio_url: item.alert_audio_url,
-      warning: item.warning,
-      recursive: item.recursive,
+      warning: !!item.warning,
+      recursive: !!item.recursive,
       question_id: item.question_id,
       question_code: question_code,
     });

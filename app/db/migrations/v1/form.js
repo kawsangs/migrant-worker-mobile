@@ -5,8 +5,8 @@ const FormSchema = {
   primaryKey: 'id',
   properties: {
     id: 'int',
+    code: 'string',
     name: 'string',
-    form_type: 'string?',
     version: 'string?',
     question_count: 'int?'
   }

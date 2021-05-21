@@ -25,11 +25,13 @@ import NoConnection from '../../components/NoConnection';
 import * as Progress from 'react-native-progress';
 
 class YourDeparture extends Component {
-  state = {};
+  state = {loading: true};
 
   componentDidMount() {
     // Departure.deleteAll();
     // CategoryImage.deleteAll();
+    Departure.seedData(() => this.setState({loading: false}));
+
     this._initState();
     this._checkConnection();
   }
@@ -66,7 +68,7 @@ class YourDeparture extends Component {
         item={item}
         backgroundColor={Color.red}
         title={item.name}
-        image={image}
+        image={item.imageSource}
         onPress={() => this._goToSubCategory(item)}
       />
     )
