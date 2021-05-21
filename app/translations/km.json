@@ -72,7 +72,8 @@
         },
         "LookingForHelpScreen": {
             "HeaderTitle": "ស្វែងរកជំនួយ",
-            "FindHelp": "ស្វែងរកជំនួយក្នុងតំបន់របស់អ្នក"
+            "FindHelp": "ស្វែងរកជំនួយក្នុងតំបន់របស់អ្នក",
+            "NotFound": "មិនមានស្ថាប័ន"
         },
         "YourStoryScreen": {
             "HeaderCard": {

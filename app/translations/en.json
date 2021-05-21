@@ -77,7 +77,8 @@
         },
         "LookingForHelpScreen": {
             "HeaderTitle": "Looking for help",
-            "FindHelp": "Find help contact in your area"
+            "FindHelp": "Find help contact in your area",
+            "NotFound": "No institutions"
         },
         "YourStoryScreen": {
             "HeaderCard": {
