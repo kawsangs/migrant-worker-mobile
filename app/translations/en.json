@@ -76,7 +76,8 @@
             "PleaseCheckYourInternetConnection": "Please check your internet connection first"
         },
         "LookingForHelpScreen": {
-            "HeaderTitle": "Looking for help"
+            "HeaderTitle": "Looking for help",
+            "FindHelp": "Find help contact in your area"
         },
         "YourStoryScreen": {
             "HeaderCard": {

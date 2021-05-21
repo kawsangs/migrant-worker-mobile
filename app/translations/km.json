@@ -71,7 +71,8 @@
             "PleaseCheckYourInternetConnection": "សូមភ្ជាប់បណ្តាញអ៊ិនធឺណេតជាមុនសិន!"
         },
         "LookingForHelpScreen": {
-            "HeaderTitle": "រកជំនួយ"
+            "HeaderTitle": "ស្វែងរកជំនួយ",
+            "FindHelp": "ស្វែងរកជំនួយក្នុងតំបន់របស់អ្នក"
         },
         "YourStoryScreen": {
             "HeaderCard": {
