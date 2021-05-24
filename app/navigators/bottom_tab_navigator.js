@@ -10,6 +10,9 @@ import CustomHeaderHome from '../components/custom_header_home';
 import CustomBottomTab from '../components/custom_bottom_tab';
 import HomeScreen from '../screens/home';
 
+import HomeButton from '../components/Toolbar/HomeButton';
+import { Color, FontFamily, FontSize } from '../assets/stylesheets/base_style';
+
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
 
@@ -21,6 +24,52 @@ function HomeTab() {
         component={HomeScreen}
         options={({ }) => ({
           header: () => <CustomHeaderHome />,
+        })}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function MoreTab() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: Color.primary },
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontFamily: FontFamily.title, alignSelf: 'center' },
+        headerTitleAlign: "center",
+        headerTitleContainerStyle: { width: '75%' }
+      }}>
+
+      <Stack.Screen
+        name="More"
+        component={MoreScreen}
+        options={({route, navigation}) => ({
+          title: "បន្ថែម",
+          headerStyle: { backgroundColor: Color.primary },
+        })}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function VideoTab() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: Color.primary },
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontFamily: FontFamily.title, alignSelf: 'center' },
+        headerTitleAlign: "center",
+        headerTitleContainerStyle: { width: '75%' }
+      }}>
+
+      <Stack.Screen
+        name="Video"
+        component={ListVideosScreen}
+        options={({route, navigation}) => ({
+          title: "វីដេអូ",
+          headerStyle: { backgroundColor: Color.primary },
         })}
       />
     </Stack.Navigator>
@@ -41,14 +90,14 @@ const BottomTabNavigator = () => {
       />
       <BottomTab.Screen
         name="VideosScreen"
-        component={ListVideosScreen}
+        component={VideoTab}
         options={{
           tabBarLabel: 'Videos',
         }}
       />
       <BottomTab.Screen
         name="MoreScreen"
-        component={MoreScreen}
+        component={MoreTab}
         options={{
           tabBarLabel: 'More',
         }}

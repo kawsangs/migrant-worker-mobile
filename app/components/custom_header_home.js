@@ -8,9 +8,8 @@ import {
   SafeAreaView,
   TouchableOpacity
 } from 'react-native';
-import { Color, FontSize } from '../assets/stylesheets/base_style';
+import { Color, FontSize, FontFamily } from '../assets/stylesheets/base_style';
 import Images from '../utils/images';
-
 
 const CustomHeaderHome = withTranslation()((props) => {
   return (
@@ -59,12 +58,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   welcomeText: {
+    fontFamily: FontFamily.title,
     fontSize: FontSize.body,
-    fontWeight: '700',
   },
   homepageText: {
+    fontFamily: FontFamily.title,
     fontSize: FontSize.title - 8,
-    fontWeight: '700'
   },
   headerRight: {
     flex: 1,

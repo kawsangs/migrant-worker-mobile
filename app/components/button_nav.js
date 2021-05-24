@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
   buttonText: {
     marginLeft: 20,
     fontFamily: FontFamily.title,
-    fontWeight: '700'
   },
   buttonAudioWrapper: {
     padding: 12,

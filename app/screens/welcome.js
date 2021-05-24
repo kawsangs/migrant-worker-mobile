@@ -4,12 +4,10 @@ import {
   Text,
   ScrollView,
   StyleSheet,
-  Button,
-  ActivityIndicator
 } from 'react-native';
 
 import { Icon } from 'react-native-material-ui';
-import { Color, Style } from '../assets/stylesheets/base_style';
+import { Color, Style, FontFamily } from '../assets/stylesheets/base_style';
 import ButtonNav from '../components/button_nav';
 import { addStatistic } from '../utils/statistic';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
@@ -68,7 +66,7 @@ class Welcome extends React.Component {
           active={true}
           title={"ចុះឈ្មោះ"}
           icon={"person"}
-          audioFileName={'register'}
+          audio={'register.mp3'}
           onPress={() => this.props.navigation.navigate("RegisterScreen")}
           activePlaying={this.state.activePlaying}
           onPressPlaySound={(fileName) => this.setState({ activePlaying: fileName })}
@@ -76,8 +74,8 @@ class Welcome extends React.Component {
 
         <ButtonNav
           title={"បន្តចូលមើល ជាភ្ញៀវ"}
-          icon={"phone"}
-          audioFileName={"contact_1280"}
+          icon={"accessibility"}
+          audio={""}
           onPress={() => this._loginAsGuest()}
           activePlaying={this.state.activePlaying}
           onPressPlaySound={(fileName) => this.setState({ activePlaying: fileName })}
@@ -182,11 +180,10 @@ const styles = StyleSheet.create({
   },
   slideTitle: {
     fontSize: 25,
-    fontWeight: '700'
+    fontFamily: FontFamily.title
   },
   slideSubTitle: {
     fontSize: 17,
-    fontWeight: '600',
     textAlign: 'center',
   },
   dotStyle: {

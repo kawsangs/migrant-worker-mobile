@@ -8,7 +8,7 @@ import {
   StyleSheet
 } from 'react-native';
 
-import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
+import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
 import PlaySound from '../../components/play_sound';
 import Images from '../../utils/images';
 import uuidv4 from '../../utils/uuidv4';
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: FontFamily.title,
-    fontWeight: '700'
+    fontSize: FontSize.small
   },
 });
 

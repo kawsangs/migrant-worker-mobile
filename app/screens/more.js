@@ -24,58 +24,6 @@ import { connect } from 'react-redux';
 import { setCurrentUser } from '../actions/currentUserAction';
 
 class More extends Component {
-  _goTo(screenName) {
-    addStatistic(`goTo${screenName.split('Screen')[0]}`);
-    this.props.navigation.navigate(screenName);
-  }
-
-  _renderToolbar() {
-    return (
-      <Toolbar
-        centerElement={this.props.t('MoreScreen.More')}
-        rightElement={'home'}
-        onRightElementPress={() => this._goTo('HomeScreen')}
-        size={30}
-        style={{
-          titleText: {
-            fontFamily: FontFamily.title,
-            textAlign: 'center',
-          },
-          container: {
-            width: '100%',
-          }
-        }}
-      />
-    );
-  }
-
-  _renderChangeLanguage() {
-    return (
-      <TouchableOpacity
-        style={[Style.boxShadow, styles.menuItem, { marginBottom: 16 }]}
-        onPress={null}
-        activeOpacity={0.8}
-      >
-        <View style={styles.menuIconWrapper}>
-          <Image
-            source={Images.info}
-            style={styles.menuIcon} />
-        </View>
-        <View style={styles.menuTitleWrapper}>
-          <Text style={styles.menuTextTitle}>{'English'}</Text>
-        </View>
-        <View>
-          <Image
-            source={Images.en}
-            style={{
-              width: 48,
-              height: 25,
-            }} />
-        </View>
-      </TouchableOpacity>
-    )
-  }
-
   _renderMenuItem(item, index) {
     return (
       <ListItem
@@ -96,11 +44,7 @@ class More extends Component {
 
         { section.items.map((item, index) => this._renderMenuItem(item, index)) }
 
-        <ListItem
-          title={"Logout"}
-          avata={Images.doc}
-          onPress={ () => this.props.setCurrentUser(null) }
-        />
+
       </View>
     );
   }
@@ -116,14 +60,19 @@ class More extends Component {
   render() {
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        { this._renderToolbar() }
-
         <ScrollView>
           <UserProfile />
 
-          {/* {this._renderChangeLanguage()} */}
-          {this._renderListMenuItem()}
+          { this._renderListMenuItem() }
+
+          <ListItem
+            title={"ចាកចេញ"}
+            avata={Images.doc}
+            onPress={ () => this.props.setCurrentUser(null) }
+          />
+
           {this._renderVersion()}
+
         </ScrollView>
       </SafeAreaView>
     )

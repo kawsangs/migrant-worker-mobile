@@ -6,7 +6,7 @@ import {
   Text,
   Image
 } from 'react-native';
-import { Color, Style } from '../assets/stylesheets/base_style';
+import { Color, Style, FontFamily } from '../assets/stylesheets/base_style';
 import images from '../utils/images';
 import { withTranslation } from 'react-i18next';
 
@@ -72,7 +72,7 @@ const CustomBottomTab = withTranslation()((props) => {
             key={index}
           >
             <Image source={icon} style={[styles.tabIcon, { tintColor: activeColor }]} />
-            <Text style={{ color: activeColor, fontWeight: isFocused ? '700' : '400', fontSize: 13 }}>
+            <Text style={{ color: activeColor, fontFamily: isFocused ? FontFamily.title : FontFamily.body, fontSize: 13 }}>
               {props.t("HomeScreen." + label)}
             </Text>
           </TouchableOpacity>
