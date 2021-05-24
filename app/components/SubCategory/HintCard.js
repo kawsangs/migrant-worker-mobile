@@ -19,15 +19,17 @@ class HintCard extends Component {
       <View style={[Style.card, { maxHeight: 150, padding: 0, backgroundColor: Color.red }]}>
         <ImageBackground
           source={this.props.image}
-          style={{ width: '100%', height: '100%', resizeMode: "cover", }}>
+          style={{ width: '100%', height: '100%', resizeMode: "cover"}}>
 
           <View style={[Style.cardContent, styles.mainCardContent]}>
             <View style={{ marginRight: 10, paddingHorizontal: 10, justifyContent: "center" }}>
               <Text style={styles.mainCardNumber}>{this.props.totalItem}</Text>
             </View>
+
             <View style={{ flex: 1, justifyContent: "center" }}>
               <Text style={styles.mainCardLabel}>{this.props.label}</Text>
             </View>
+
             <View style={{ marginLeft: 20 }}>
               <PlaySound
                 filePath={this.props.audio}
@@ -49,14 +51,13 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   mainCardNumber: {
-    fontWeight: '700',
+    fontFamily: FontFamily.title,
     fontSize: FontSize.title + 30,
-    lineHeight: FontSize.title + 30,
     color: Color.white,
   },
   mainCardLabel: {
-    fontSize: FontSize.title - 7,
-    fontWeight: '700',
+    fontSize: FontSize.hintTitle,
+    fontFamily: FontFamily.title,
     color: Color.white,
   },
 });

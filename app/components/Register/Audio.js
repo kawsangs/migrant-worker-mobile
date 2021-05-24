@@ -13,15 +13,15 @@ import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Sound from 'react-native-sound';
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
-import uuidv4 from '../utils/uuidv4';
+import uuidv4 from '../../utils/uuidv4';
 import * as Progress from 'react-native-progress';
-import { Color, Style } from '../assets/stylesheets/base_style';
+import { Color, Style } from '../../assets/stylesheets/base_style';
 
 export default class Audio extends Component {
   constructor(props) {
     super(props);
 
-    let audioPath = props.audioPath || (AudioUtils.DocumentDirectoryPath + '/' + uuidv4() + '.aac');
+    let audioPath = props.audioPath || (AudioUtils.DocumentDirectoryPath + '/' + props.user.uuid + '.aac');
 
     this.state = {
       currentTime: 0.0,
@@ -88,6 +88,7 @@ export default class Audio extends Component {
   }
 
   _prepareRecordingPath(audioPath) {
+    console.log("--------------------------------audioPath", audioPath);
     AudioRecorder.prepareRecordingAtPath(audioPath, {
       SampleRate: 22050,
       Channels: 1,
@@ -153,6 +154,8 @@ export default class Audio extends Component {
     // These timeouts are a hacky workaround for some issues with react-native-sound.
     // See https://github.com/zmxv/react-native-sound/issues/89.
     setTimeout(() => {
+
+      // this.sound = new Sound("/data/user/0/org.ilabsea.safemigration/files/bf86cef7-f10b-4efc-847d-eed7e713eb5c.aac", '', (error) => {
       this.sound = new Sound(this.state.audioPath, '', (error) => {
         if (error) {
           console.log('failed to load the sound', error);

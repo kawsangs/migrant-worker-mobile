@@ -6,7 +6,6 @@ export default [
     title_km: 'ដំណើរឆ្លងដែនរបស់អ្នក',
     name: 'ដំណើរឆ្លងដែនរបស់អ្នក',
     image: require('../../assets/images/icons/before_you_go.png'),
-    // screenName: 'BeforeYouGoScreen',
     screenName: 'YourDepartureScreen',
     imageWidth: '480',
     imageHeight: '360',

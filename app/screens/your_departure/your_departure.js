@@ -84,7 +84,9 @@ class YourDeparture extends Component {
       <View style={[Style.container, { flex: 1 }]}>
         <View style={{ flex: 1 }}>
           <View style={{ marginBottom: 16 }}>
-            <Text style={{ fontWeight: '700' }}>{this.props.t('BeforeYouGoScreen.CheckListForDeparture')}</Text>
+            <Text style={{ fontFamily: FontFamily.title }}>
+              { this.props.t('BeforeYouGoScreen.CheckListForDeparture') }
+            </Text>
           </View>
 
           <View style={Style.row}>
@@ -122,11 +124,11 @@ class YourDeparture extends Component {
   }
 
   _getProgress() {
-    if (!!this.state.total) {
-      return ((this.state.progress || 0 ) / this.state.total).toFixed(2);
-    } else {
+    if (!this.state.total) {
       return 0;
     }
+
+    return ((this.state.progress || 0 ) / this.state.total).toFixed(2);
   }
 
   _renderDownloadButton() {

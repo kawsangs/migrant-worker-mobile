@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   cardNumber: {
-    fontWeight: '700',
+    fontFamily: FontFamily.title,
     fontSize: FontSize.title + 15,
     color: Color.red,
     marginBottom: 5
@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: FontFamily.title,
     color: Color.textBlack,
-    fontWeight: '700'
   },
 });
 
