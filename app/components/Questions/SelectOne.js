@@ -15,7 +15,7 @@ import Question from '../../models/Question';
 import Answer from '../../models/Answer';
 import Option from '../../models/Option';
 
-import { RadioButton } from 'react-native-material-ui';
+import RadioButton from './radioButton';
 import NextButton from '../../components/YourStory/NextButton';
 import QuestionName from './questionName';
 import AlertMessage from '../../components/AlertMessage';
@@ -45,6 +45,7 @@ class QuestionsSelectOne extends Component {
           let option = this.state.options.filter(o => o.id.toString() == id)[0];
           this.setState({answer: id, selectedOption: option});
         }}
+        avata={item.imageSource}
       />
     );
   }
@@ -127,6 +128,7 @@ class QuestionsSelectOne extends Component {
           warning={this.state.selectedOption.warning}
           message={this.state.selectedOption.alert_message}
           onPressAction={() => this._handleHideMessage()}
+          audio={this.state.selectedOption.alert_audio}
         />
       </>
     );

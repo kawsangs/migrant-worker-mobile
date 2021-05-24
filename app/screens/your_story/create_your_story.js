@@ -54,7 +54,7 @@ class CreateYourStory extends Component {
       <View style={{ flex: 1 }}>
         <StatusBar barStyle={'light-content'} backgroundColor={Color.pink} />
 
-        <ProgressHeader />
+        { currentIndex > -1 && <ProgressHeader /> }
 
         { !!currentQuestion && Questions(currentQuestion) }
         { !currentQuestion && this.renderEnd() }

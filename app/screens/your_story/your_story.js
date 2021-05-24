@@ -8,6 +8,7 @@ import {
   StatusBar,
   TouchableOpacity,
   ActivityIndicator,
+  FlatList,
 } from 'react-native';
 import { Icon } from 'react-native-material-ui';
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
@@ -16,7 +17,7 @@ import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
 
 import { InjectArray } from '../../utils/math';
-import CardItem from '../../components/YourStory/CardItem';
+import CardItem from '../../components/YourSafety/CardItem';
 
 import Form from '../../models/Form';
 import Quiz from '../../models/Quiz';
@@ -125,19 +126,18 @@ class YourStory extends Component {
     this.props.setCurrentQuiz(quiz);
   }
 
-  _renderContent() {
-    let cards = this.state.forms.map((item, index) => <CardItem key={index} item={item} onPress={() => this._onPress(item)}/>);
-    let verticalLine = <View style={styles.verticalLine}><Image source={Images.vertical_line} style={[styles.cardFolder, { tintColor: Color.gray }]} /></View>;
-
+  _renderItem(item, index) {
     return (
-      <View style={Style.container}>
-        <View style={{ marginBottom: 16 }}>
-          <Text style={styles.testStoryTitle}>{this.props.t('YourStoryScreen.Title')}</Text>
-        </View>
-
-        { InjectArray(cards, verticalLine) }
-      </View>
-    )
+      <CardItem
+        key={index}
+        title={item.name}
+        audio={item.audio}
+        image={item.imageSource}
+        onPress={() => this._onPress(item)}
+        buttonAudioStyle={{backgroundColor: Color.pink}}
+        audioIconStyle={{tintColor: Color.white}}
+      />
+    );
   }
 
   _handleRendingNoData() {
@@ -150,15 +150,12 @@ class YourStory extends Component {
 
   _renderCards() {
     return (
-      <ScrollView
-        style={{ flex: 1 }}
-        contentContainerStyle={{ flexGrow: 1 }}
-        showsVerticalScrollIndicator={false}>
-
-        <View style={{ flex: 1, marginBottom: 0 }}>
-          {this._renderContent()}
-        </View>
-      </ScrollView>
+      <FlatList
+        data={this.state.forms}
+        renderItem={(item, i) => this._renderItem(item.item, i)}
+        keyExtractor={item => item.id}
+        contentContainerStyle={{padding: 8}}
+      />
     )
   }
 
@@ -171,12 +168,16 @@ class YourStory extends Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return this._renderLoading();
+    }
+
     return (
       <View style={{ flex: 1, backgroundColor: "#ecedf1" }}>
         <StatusBar barStyle={'light-content'} backgroundColor={Color.pink} />
 
-        { this.state.isDownloaded && this._renderCards() }
-        { !this.state.isDownloaded && this._handleRendingNoData() }
+        { this._renderCards() }
+        { false && this._handleRendingNoData() }
       </View>
     );
   }

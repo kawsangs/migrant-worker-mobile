@@ -18,7 +18,7 @@ class HintCard extends Component {
     return (
       <View style={[Style.card, { maxHeight: 150, padding: 0, backgroundColor: Color.red }]}>
         <ImageBackground
-          source={Images.six_things_prepare_your_trip}
+          source={this.props.image}
           style={{ width: '100%', height: '100%', resizeMode: "cover", }}>
 
           <View style={[Style.cardContent, styles.mainCardContent]}>

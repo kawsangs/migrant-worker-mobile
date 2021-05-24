@@ -26,7 +26,8 @@ export default class PlaySound extends Component {
     }
 
     Sound.setCategory('Playback');
-    let folder = this.props.isExternalAsset ? '' : Sound.MAIN_BUNDLE;
+
+    let folder = this.props.filePath.split('/').length > 1 ? '' : Sound.MAIN_BUNDLE;
 
     this.sound = new Sound(this.props.filePath, folder, (error) => {
       if (error) { return console.log('failed to load the sound', error); }
