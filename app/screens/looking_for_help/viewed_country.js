@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity,
 Text, StyleSheet } from 'react-native';
+import { Style } from '../../assets/stylesheets/base_style';
 
 class ViewedCountry extends React.Component {
   gotoHelp = () => {
@@ -22,7 +23,7 @@ class ViewedCountry extends React.Component {
         {/* <Image
             source={country.flag}
             style={{ marginHorizontal: 15, width: 30, height: 30, borderRadius: 15, marginRight: 10 }} /> */}
-        <Text style={{ marginHorizontal: 15 }}>{country.emoji_flag}</Text>
+        <Text style={styles.flag}>{country.emoji_flag}</Text>
         <Text style={ styles.my }>{country.name}</Text>
       </TouchableOpacity>
     )
@@ -33,6 +34,14 @@ const styles = StyleSheet.create({
   my: {
     marginTop: 16,
     marginBottom: 16
+  },
+  flag: {
+    ...Style.card,
+    borderRadius: 50,
+    padding: 10,
+    marginHorizontal: 16,
+    marginBottom: 0,
+    backgroundColor: '#fff'
   },
 })
 

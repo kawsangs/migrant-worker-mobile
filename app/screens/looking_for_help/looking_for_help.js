@@ -143,11 +143,10 @@ class LookingForHelp extends React.Component {
   header(country) {
     return (
     <View style={styles.countryContainer}>
-      {
-        country.name && <Image  source={mapping.flags[country.name.toLowerCase()]}
-                                style={styles.flag} />
-      }
-      <Text style={{ fontWeight: '700' }}>{country.name}</Text>
+      <View style={styles.flag}>
+        <Text>{country.emoji_flag}</Text>
+      </View>
+      <Text style={{fontWeight: '700'}}>{country.name}</Text>
     </View>
     )
   }
@@ -354,10 +353,12 @@ const styles = StyleSheet.create({
     marginBottom: 16
   },
   flag: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    marginRight: 10
+    ...Style.card,
+    borderRadius: 50,
+    padding: 10,
+    marginRight: 16,
+    marginBottom: 0,
+    backgroundColor: '#fff'
   },
   institutionContainer: {
     flexDirection: 'row',
