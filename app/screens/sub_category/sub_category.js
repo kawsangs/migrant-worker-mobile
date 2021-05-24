@@ -22,12 +22,9 @@ class SubCategory extends Component {
     super(props);
 
     this.state = {
+      category: Departure.find(props.route.params['parent_id']),
       categories: Departure.getChildren(props.route.params['parent_id'])
     };
-  }
-
-  _renderContent() {
-    return this.state.categories.map((item, index) => this._renderCard(item, index));
   }
 
   _onPress(item) {
@@ -39,28 +36,34 @@ class SubCategory extends Component {
       return this.props.navigation.navigate('ImageViewScreen', { title: item.name, category_id: item.id });
     }
 
-    const pushAction = StackActions.push('SubCategoryScreen', { parent_id: item.id });
+    const pushAction = StackActions.push('SubCategoryScreen', { title: item.name, parent_id: item.id });
     this.props.navigation.dispatch(pushAction);
   }
 
-  _renderCard(item, index) {
-    return (
+  _renderCards() {
+    let doms = this.state.categories.map((item, index) =>
       <CardItem
         key={index}
         onPress={() => this._onPress(item)}
         title={item.name}
         image={item.imageSource}
+        audio={item.audio}
         number={index + 1}
         hideArrow={!CategoryImage.byCategory(item.id).length}
       />
-    )
+    );
+
+    return doms;
   }
 
   _renderHintCard() {
+    const { category, categories } = this.state;
     return (
       <HintCard
-        totalItem={this.state.categories.length}
-        label={this.props.t('PrepareYourTripScreen.Descriptions')}
+        totalItem={ categories.length }
+        label={ category.hint }
+        image={ category.hintImageSource }
+        audio={ category.hint_audio }
       />
     )
   }
@@ -74,11 +77,11 @@ class SubCategory extends Component {
           showsVerticalScrollIndicator={false}>
 
           <View style={[Style.container, { flex: 1, marginBottom: 0 }]}>
-            {this._renderHintCard()}
+            { this._renderHintCard() }
 
             <ArrowDown />
 
-            {this._renderContent()}
+            { this._renderCards() }
           </View>
         </ScrollView>
       </View>

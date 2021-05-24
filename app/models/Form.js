@@ -61,13 +61,20 @@ const Form = (() => {
   }
 
   function _buildData(item) {
-    return ({
+    let params = {
       id: item.id,
       code: item.code,
       name: item.name,
+      audio: item.audio,
       version: item.version,
       question_count: item.questions.length
-    });
+    };
+
+    if (!!item.offline && !!item.image_url) {
+      params.image = 'offline'
+    }
+
+    return params;
   }
 
   function seedData(callback) {

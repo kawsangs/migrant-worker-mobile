@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function getSupportLanguages() {
   return [
-    { code: 'kh', title: 'ភាសាខ្មែរ', getSource: () => require('./kh.json') },
+    { code: 'km', title: 'ភាសាខ្មែរ', getSource: () => require('./km.json') },
     { code: 'en', title: 'English', getSource: () => require('./en.json') }
   ];
 }
@@ -47,10 +47,12 @@ async function changeLanguage(lang) {
 }
 
 async function loadLanguage() {
-  await AsyncStorage.getItem('lang').then(async lang => {
-    setMomentLocale(lang || 'en');
-    await i18n.changeLanguage(lang || 'en');
-  });
+  setMomentLocale('km');
+  await i18n.changeLanguage('km');
+  // await AsyncStorage.getItem('lang').then(async lang => {
+  //   setMomentLocale(lang || 'km');
+  //   await i18n.changeLanguage(lang || 'km');
+  // });
 }
 
 const TranslationHelper = {

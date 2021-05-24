@@ -1,6 +1,23 @@
 'use strict';
 
-const OptionSchema = {
+import formList from '../../json/form_stories';
+const questionList = formList.reduce((sum, item) => sum.concat(item.questions), []);
+const optionList = questionList.reduce((sum, item) => sum.concat(item.options), []);
+
+class Option {
+  get imageSource() {
+    if (!this.image) { return "" }
+
+    if (this.image == 'offline') {
+      let option = optionList.filter(option => option.id == this.id)[0];
+      return !!option && option.image;
+    }
+
+    return { uri: `file://${this.image}` };
+  }
+}
+
+Option.schema = {
   name: 'Option',
   primaryKey: 'id',
   properties: {
@@ -15,7 +32,9 @@ const OptionSchema = {
     recursive: { type: 'bool', default: false },
     question_id: 'int',
     question_code: 'string',
+    image: 'string?',
+    image_url: 'string?',
   }
 };
 
-export default OptionSchema;
+export default Option;

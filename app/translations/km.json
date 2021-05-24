@@ -1,0 +1,99 @@
+{
+    "translation": {
+        "AboutScreen": {
+            "HeaderTitle": "អំពីអែបនេះ",
+        },
+        "RegisterScreen": {
+            "HeaderTitle": "ចុះឈ្មោះ",
+            "EnterYourName": "បញ្ចូលឈ្មោះរបស់អ្នក",
+            "ChooseGender": "ជ្រើសរើសយេនឌ័រ / ភេទ",
+            "EnterYourAge": "បញ្ចូលអាយុរបស់អ្នក",
+            "OR": "ឬ",
+            "RecordVoice": "ថតសម្លេងរបស់អ្នក",
+            "ButtonRegister": "ចុះឈ្មោះ",
+            "CanNotBeBlank": "មិនអាចទទេបានទេ",
+            "WarningFillRequiredInfo": "សូមបំពេញព័ត៌មានជាមុនសិន...!",
+            "Gender": {
+                "Male": "ប្រុស",
+                "Female": "ស្រី"
+            }
+        },
+        "MoreScreen": {
+            "More": "បន្ថែមទៀត",
+            "Edit": "កែរសំរួល",
+            "AppVersion": "កំណែ"
+        },
+        "HomeScreen": {
+            "WelcomeTo": "សូមស្វាគមន៍",
+            "Homepage": "ដំណើរឆ្លងដែរបស់ខ្ញុំ",
+            "Home": "ទំព័រដើម",
+            "Videos": "វិដេអូ",
+            "More": "បន្ថែម"
+        },
+        "BeforeYouGoScreen": {
+            "HeaderTitle": "ដំណើរឆ្លងដែនរបស់អ្នក",
+            "CheckListForDeparture": "បញ្ជីផ្ទៀងផ្ទាត់សម្រាប់ការចាកចេញ"
+        },
+        "PrepareYourTripScreen": {
+            "HeaderTitle": "រៀបចំដំណើររបស់អ្នក",
+            "Descriptions": "ចំនុចគួររៀបចំមុនចេញដំណើរ"
+        },
+        "MigrationScreen": {
+            "HeaderTitle": "ចំណាកស្រុក",
+            "Descriptions": "ចំនុចគួររៀបចំសម្រាប់ចំណាកស្រុក"
+        },
+        "ComingHomeScreen": {
+            "HeaderTitle": "ដំណើរវិលត្រឡប់",
+            "Descriptions": "ចំនុចដើម្បីរៀបចំវិលត្រលប់មកស្រុកវិញ"
+        },
+        "ImageViewScreen": {
+            "Rotate": "បង្វិល"
+        },
+        "YourSafetyScreen": {
+            "HeaderTitle": "សុវត្ថិភាពរបស់អ្នក"
+        },
+        "YourRightSafetyScreen": {
+            "HeaderTitle": "សិទ្ធិរបស់អ្នក និង សុវត្ថិភាពអ្នក"
+        },
+        "SafetyPlanningScreen": {
+            "HeaderTitle": "ផែនការសុវត្ថិភាព",
+            "ViewDetail": "មើលលម្អិត"
+        },
+        "VideosScreen": {
+            "HeaderTitle": "វីដេអូ"
+        },
+        "InternetConnection": {
+            "NoInternetConnection": "មិនមានការតភ្ជាប់បណ្តាញទេឥឡូវនេះ។",
+            "PleaseRetry": "សូមព្យាយាម​ម្តង​ទៀត​",
+            "PleaseCheckYourInternetConnection": "សូមភ្ជាប់បណ្តាញអ៊ិនធឺណេតជាមុនសិន!"
+        },
+        "LookingForHelpScreen": {
+            "HeaderTitle": "រកជំនួយ"
+        },
+        "YourStoryScreen": {
+            "HeaderCard": {
+                "Title": "ចំណាកស្រុកសុវត្ថិភាព",
+                "Description": "ចំនួនភាគរយនៃការធ្វើតេស្ត"
+            },
+            "HeaderTitle": "បង្កើតរឿងរបស់អ្នក",
+            "Title": "សាកល្បងរឿងរបស់អ្នក",
+            "StartTest": "ចាប់ផ្តើមតេស្ត",
+            "Start": "ចាប់ផ្តើម"
+        },
+        "CreateYourStoryScreen": {
+            "HeaderTitle": "បង្កើតរឿងរបស់អ្នក",
+            "Progress": "រីកចម្រើន",
+            "Next": "បន្ទាប់"
+        },
+        "TestResultScreen": {
+            "Title": "អបអរសាទរ",
+            "OptionI": "អ្នកមានហានិភ័យខ្ពស់…",
+            "OptionII": "អ្នករៀបនឹងធ្វើចំណាកស្រុក…",
+            "OptionIII": "ភាគរយនៃចំណាកស្រុកសុវត្ថិភាពរបស់អ្នក…",
+            "SubTitle": "ដំបូន្មានសម្រាប់លទ្ធផលរបស់អ្នក",
+            "DescriptionI": "ប្រសិនបើអ្នកត្រូវចាកចេញមុនពេលកំណត់",
+            "DescriptionII": "ប្រសិនបើអ្នកត្រូវចាកចេញមុនពេលកំណត់",
+            "Done": "ធ្វើរួច"
+        }
+    }
+}

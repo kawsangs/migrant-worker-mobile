@@ -156,6 +156,7 @@ class QuestionsMultiple extends Component {
           warning={this.state.alertOption.warning}
           message={this.state.alertOption.alert_message}
           onPressAction={() => this._handleHideMessage()}
+          audio={this.state.alertOption.alert_audio}
         />
 
       </>

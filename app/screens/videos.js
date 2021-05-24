@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   SafeAreaView,
-  FlatList,
   Dimensions,
   Button,
   ActivityIndicator,
@@ -14,7 +13,6 @@ import {
 import Thumbnail from '../components/thumbnail';
 import videoList from '../data/json/videos';
 import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_style';
-import PlaySound from '../components/play_sound';
 import { getVideoId } from '../utils/youtube';
 import NetInfo from "@react-native-community/netinfo";
 import Toast, { DURATION } from 'react-native-easy-toast';
@@ -22,8 +20,10 @@ import { Icon, Toolbar } from 'react-native-material-ui';
 import LoadingIndicator from '../components/loading_indicator';
 import { addStatistic } from '../utils/statistic';
 import CollapsibleNavbar from '../components/collapsible_navbar';
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
-export default class Videos extends React.Component {
+class Videos extends Component {
   state = {
     videos: videoList,
     loading: true
@@ -31,11 +31,11 @@ export default class Videos extends React.Component {
 
   componentDidMount() {
     NetInfo.fetch().then(state => {
-      this.setState({isConnected: state.isConnected, loading: false});
+      this.setState({ isConnected: state.isConnected, loading: false });
     });
 
     this.unsubscribe = NetInfo.addEventListener(state => {
-      this.setState({isConnected: state.isConnected});
+      this.setState({ isConnected: state.isConnected });
     });
   }
 
@@ -43,103 +43,97 @@ export default class Videos extends React.Component {
     this.unsubscribe();
   }
 
+  _goTo(screenName) {
+    addStatistic(`goTo${screenName.split('Screen')[0]}`);
+    this.props.navigation.navigate(screenName);
+  }
+
   _renderNoInternetConnection() {
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <View style={{flexDirection: 'row'}}>
-          <Icon name='info-outline' color='#111' size={24} style={{marginRight: 8}} iconSet='MaterialIcons'/>
-          <Text>មិនមានការតភ្ជាប់បណ្តាញទេឥឡូវនេះ។</Text>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{ flexDirection: 'row' }}>
+          <Icon name='info-outline' color='#111' size={24} style={{ marginRight: 8 }} iconSet='MaterialIcons' />
+          <Text>{this.props.t('InternetConnection.NoInternetConnection')}</Text>
         </View>
-        <Text>សូមព្យាយាម​ម្តង​ទៀត​</Text>
+        <Text>{this.props.t('InternetConnection.PleaseRetry')}</Text>
 
-        { this.state.showLoading && <ActivityIndicator size="small" /> }
+        { this.state.showLoading && <ActivityIndicator size="small" />}
 
-        <View style={{marginTop: 20}}>
-          <Button title='ព្យាយាមម្តងទៀត' onPress={() => this._retryConnection()}/>
+        <View style={{ marginTop: 20 }}>
+          <Button title={this.props.t('InternetConnection.PleaseRetry')} onPress={() => this._retryConnection()} />
         </View>
       </View>
     )
   }
 
   _retryConnection() {
-    this.setState({showLoading: true})
+    this.setState({ showLoading: true })
 
     NetInfo.fetch().then(state => {
-      this.setState({isConnected: state.isConnected, showLoading: false});
+      this.setState({ isConnected: state.isConnected, showLoading: false });
     });
   }
 
   _onPressItem(video) {
     if (!this.state.isConnected) {
-      return this.refs.toast.show('សូមភ្ជាប់បណ្តាញអ៊ិនធឺណេតជាមុនសិន!', DURATION.SHORT);
+      return this.refs.toast.show(this.props.t('InternetConnection.PleaseCheckYourInternetConnection'), DURATION.SHORT);
     }
 
-    addStatistic('ViewVideo', { videoId: getVideoId(video.url), title: video.title });
+    addStatistic('ViewVideo', { videoId: getVideoId(video.url), title: video[`title_${i18n.language}`] });
     this.props.navigation.navigate('ViewVideoScreen', { videoId: getVideoId(video.url) });
   }
 
   _renderItem(video) {
     let { width } = Dimensions.get('window');
-    let imageWidth = width/2 - 58;
+    let fileName = video.fileName || 'register';
 
     return (
-      <View style={[Style.card, {flexDirection: 'row'}]}>
+      <View style={[Style.card, { flexDirection: 'column' }]}>
         <Thumbnail
           onPress={() => this._onPressItem(video)}
-          imageWidth={imageWidth}
+          imageWidth={'100%'}
           imageHeight={150}
+          backgroundPlayIcon={Color.red}
           url={video.url} />
 
         <View style={styles.textContainer}>
           <TouchableOpacity onPress={() => this._onPressItem(video)}>
-            <Text style={{fontFamily: FontFamily.title}}>{video.title}</Text>
+            <Text style={{ fontFamily: FontFamily.title, fontWeight: '700' }}>{video[`title_${i18n.language}`]}</Text>
           </TouchableOpacity>
-
-          <View style={{flex: 1, alignItems: 'flex-end', justifyContent: 'flex-end'}}>
-            <PlaySound filePath={''}/>
-          </View>
         </View>
       </View>
     )
   }
 
-  _onChangeText(val) {
-    if (!val) {
-      this._onRefresh();
-    }
-
-    if (val.length > 1) {
-      let list = videoList.filter((video) => {
-        return video.title.toLowerCase().indexOf(val.toLowerCase()) > -1
-      })
-      this.setState({videos: list});
-    }
-  }
-
-  _onRefresh() {
-    this.setState({videos: videoList});
-  }
-
   _renderToolbar() {
     return (
       <Toolbar
-        leftElement={ 'arrow-back' }
-        centerElement={'វីដេអូ និងករណីចំណាកស្រុក'}
-        searchable={{
-          autoFocus: true,
-          placeholder: 'ស្វែងរក',
-          onChangeText: this._onChangeText.bind(this),
-          onSearchClosed: this._onRefresh.bind(this)
-        }}
+        leftElement={'arrow-back'}
         onLeftElementPress={() => this.props.navigation.goBack()}
-        style={{titleText: {fontFamily: FontFamily.title}, container: {width: '100%'}}}
+        centerElement={this.props.t('VideosScreen.HeaderTitle')}
+        rightElement={'home'}
+        onRightElementPress={() => this._goTo('HomeScreen')}
+        size={30}
+        style={{
+          titleText: {
+            fontFamily: FontFamily.title,
+            textAlign: 'center',
+          },
+          centerElementContainer: {
+            marginLeft: 0
+          },
+          container: {
+            width: '100%',
+            backgroundColor: Color.red,
+          },
+        }}
       />
     );
   }
 
   render() {
     return (
-      <SafeAreaView style={{flex: 1}}>
+      <SafeAreaView style={{ flex: 1 }}>
         <CollapsibleNavbar
           options={{
             header: this._renderToolbar(),
@@ -156,11 +150,11 @@ export default class Videos extends React.Component {
 
         { this.state.loading &&
           <View style={styles.loadingWrapper}>
-            <LoadingIndicator loading={true}/>
+            <LoadingIndicator loading={true} />
           </View>
         }
 
-        <Toast ref='toast' position='top' positionValue={ Platform.OS == 'ios' ? 120 : 140 }/>
+        <Toast ref='toast' position='top' positionValue={Platform.OS == 'ios' ? 120 : 140} />
       </SafeAreaView>
     )
   }
@@ -177,7 +171,7 @@ const styles = StyleSheet.create({
     marginLeft: 12,
     marginRight: 12,
     marginTop: 10,
-    marginBottom: 12
+    marginBottom: 12,
   },
   loadingWrapper: {
     position: 'absolute',
@@ -188,3 +182,5 @@ const styles = StyleSheet.create({
     zIndex: 1
   }
 });
+
+export default withTranslation()(Videos);

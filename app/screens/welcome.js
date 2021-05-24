@@ -86,32 +86,6 @@ class Welcome extends React.Component {
     )
   }
 
-  _renderNoInternetConnection() {
-    return (
-      <View style={styles.noInternetView}>
-        <View style={{ flexDirection: 'row' }}>
-          <Icon name='info-outline' color='#111' size={24} style={{ marginRight: 8 }} iconSet='MaterialIcons' />
-          <Text>មិនមានការតភ្ជាប់បណ្តាញទេឥឡូវនេះ។</Text>
-        </View>
-        <Text>សូមព្យាយាម​ម្តង​ទៀត​</Text>
-
-        { this.state.showLoading && <ActivityIndicator size="small" />}
-
-        <View style={{ marginTop: 20 }}>
-          <Button title='ព្យាយាមម្តងទៀត' onPress={() => this._retryConnection()} />
-        </View>
-      </View>
-    )
-  }
-
-  _retryConnection() {
-    this.setState({ showLoading: true })
-
-    NetInfo.fetch().then(state => {
-      this.setState({ isConnected: state.isConnected, showLoading: false });
-    });
-  }
-
   _onPressItem(video) {
     if (!this.state.isConnected) {
       return this.refs.toast.show('សូមភ្ជាប់បណ្តាញអ៊ិនធឺណេតជាមុនសិន!', DURATION.SHORT);
@@ -168,10 +142,12 @@ class Welcome extends React.Component {
   _renderBodyContent() {
     return (
       <View>
-        {this._renderHeaderSlide()}
+        { this._renderHeaderSlide() }
+
         <View style={Style.container}>
           {this._renderButtonNavs()}
         </View>
+
         {
           this.state.loading &&
           <View style={styles.loadingWrapper}>
@@ -186,7 +162,7 @@ class Welcome extends React.Component {
   render() {
     return (
       <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1 }}>
-        {!this.state.loading && !this.state.isConnected ? this._renderNoInternetConnection() : this._renderBodyContent()}
+        { this._renderBodyContent() }
       </ScrollView>
     );
   }

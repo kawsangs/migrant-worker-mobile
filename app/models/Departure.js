@@ -1,6 +1,5 @@
 import realm from '../db/schema';
 import ImageDownloader from '../downloaders/image_downloader';
-import CategoryImage from '../models/CategoryImage';
 import categoryList from '../db/json/categories';
 
 const Departure = (() => {
@@ -61,7 +60,7 @@ const Departure = (() => {
       realm.create('Category', _buildData(category), 'modified');
     });
 
-    CategoryImage.upsertCollection(category.category_images);
+    if (!category.children) { return; }
 
     for (let i=0; i<category.children.length; i++) {
       upsert(category.children[i]);
@@ -84,19 +83,28 @@ const Departure = (() => {
       lft: category.lft,
       rgt: category.rgt,
       video: !!category.is_video,
+      hint: category.hint,
+      hint_audio: category.hint_audio,
+      hint_audio_url: category.hint_audio_url,
+      hint_image_url: category.hint_image_url,
     };
+    if (!category.offline) {
+      return params;
+    }
 
-    if (!!category.offline && !!category.image_url) {
-      params.image = 'offline'
+    if (!!category.image_url) {
+      params.image = 'offline';
+    }
+
+    if (!!category.hint_image_url) {
+      params.hint_image = 'offline';
     }
 
     return params;
   }
 
   function getPendingDownload() {
-    let collection = byPendingImage().concat(byPendingAudio());
-
-    return collection.concat(CategoryImage.getPendingDownload());
+    return byPendingImage().concat(byPendingAudio());
   }
 
   function parseJson(realmObjects) {

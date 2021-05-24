@@ -29,7 +29,6 @@ class YourDeparture extends Component {
 
   componentDidMount() {
     // Departure.deleteAll();
-    // CategoryImage.deleteAll();
     Departure.seedData(() => this.setState({loading: false}));
 
     this._initState();
@@ -53,15 +52,15 @@ class YourDeparture extends Component {
     });
   }
 
-  _goToSubCategory(item) {
-    // addStatistic(`goTo${screenName.split('Screen')[0]}`);
-    // this.props.navigation.navigate("PreDepartureListScreen", { parent_id: item.id });
-    this.props.navigation.navigate("SubCategoryScreen", { parent_id: item.id });
+  _onPress(item) {
+    if(!!item.video) {
+      return this.props.navigation.navigate("YourDepartureVideoScreen");
+    }
+
+    this.props.navigation.navigate("SubCategoryScreen", { title: item.name, parent_id: item.id });
   }
 
   _renderCardItem(item) {
-    let image = !!item.image ? { uri: `file://${item.image}` } : "";
-
     return (
       <CardItem
         key={uuidv4()}
@@ -69,7 +68,8 @@ class YourDeparture extends Component {
         backgroundColor={Color.red}
         title={item.name}
         image={item.imageSource}
-        onPress={() => this._goToSubCategory(item)}
+        audio={item.audio}
+        onPress={() => this._onPress(item)}
       />
     )
   }

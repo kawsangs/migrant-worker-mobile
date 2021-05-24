@@ -54,7 +54,7 @@ const Option = (() => {
   }
 
   function _buildData(item, question_code) {
-    return ({
+    let params = {
       id: item.id,
       name: item.name,
       value: item.value,
@@ -66,7 +66,13 @@ const Option = (() => {
       recursive: !!item.recursive,
       question_id: item.question_id,
       question_code: question_code,
-    });
+    };
+
+    if (!!item.offline && !!item.image_url) {
+      params.image = 'offline'
+    }
+
+    return params;
   }
 })();
 
