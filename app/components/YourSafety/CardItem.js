@@ -65,7 +65,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: FontFamily.title,
     color: Color.textBlack,
-    fontWeight: '700'
   },
 });
 

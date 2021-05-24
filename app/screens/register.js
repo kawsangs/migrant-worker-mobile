@@ -13,7 +13,7 @@ import { Icon } from 'react-native-material-ui';
 import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
 import Audio from '../components/audio';
 import Toast, { DURATION } from 'react-native-easy-toast';
-import realm from '../db/schema';
+
 import uuidv4 from '../utils/uuidv4';
 import PlaySound from '../components/play_sound';
 import SexOption from '../components/sex_option';
@@ -255,7 +255,6 @@ const styles = StyleSheet.create({
   buttonNextText: {
     color: color.white,
     fontFamily: FontFamily.title,
-    fontWeight: '700'
   },
   errorText: {
     color: Color.errorText,

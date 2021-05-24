@@ -18,7 +18,7 @@ export default function ListVideos() {
   const { t, i18n } = useTranslation();
   const [index, setIndex] = React.useState(0);
   const initialLayout = { width: Dimensions.get('window').width };
-  const states = listData.map((item) => ({ key: item.stepCode, title_en: item.stepTitle_en, title_kh: item.stepTitle_kh }));
+  const states = listData.map((item) => ({ key: item.stepCode, title_en: item.stepTitle_en, title_km: item.stepTitle_km }));
   const [routes] = React.useState(states);
   const [isConnected, setIsConnected] = React.useState(false);
   const [showLoading, setShowLoading] = React.useState(false);
@@ -62,23 +62,6 @@ export default function ListVideos() {
       setIsConnected(state.isConnected);
       setShowLoading(false)
     });
-  }
-
-  const renderToolBar = () => {
-    return (
-      <Toolbar
-        centerElement={t('VideosScreen.HeaderTitle')}
-        onRightElementPress={() => this._goTo('HomeScreen')}
-        size={30}
-        style={{
-          titleText: {
-            fontFamily: FontFamily.title,
-            textAlign: 'center',
-          },
-          container: { width: '100%' }
-        }}
-      />
-    )
   }
 
   const onPressItem = (video) => {
@@ -147,7 +130,6 @@ export default function ListVideos() {
 
   return (
     <View style={{ flex: 1 }}>
-      {renderToolBar()}
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}

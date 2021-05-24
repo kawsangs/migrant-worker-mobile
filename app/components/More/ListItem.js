@@ -73,7 +73,6 @@ const styles = StyleSheet.create({
   },
   menuTextTitle: {
     fontSize: 16,
-    fontWeight: '700'
   },
 });
 
