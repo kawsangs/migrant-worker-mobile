@@ -55,7 +55,7 @@ class Welcome extends React.Component {
 
   _loginAsGuest() {
     let uuid = uuidv4();
-    User.upsert({uuid: uuid, name: "guest", created_at: new Date()});
+    User.upsert({uuid: uuid, name: "Guest", created_at: new Date()});
     this.props.setCurrentUser(User.find(uuid));
   }
 

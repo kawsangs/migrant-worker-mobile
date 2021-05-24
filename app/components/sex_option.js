@@ -72,8 +72,8 @@ class SexOption extends Component {
       {
         title_en: 'Hidden',
         title_kh: 'មិនបញ្ចេញ',
-        value: 'none',
-        iconName: 'hidden_sex'
+        value: 'other',
+        iconName: 'other'
       },
     ];
     let space = <View style={{ width: 10 }} />;

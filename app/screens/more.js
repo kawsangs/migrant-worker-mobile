@@ -61,7 +61,7 @@ class More extends Component {
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView>
-          <UserProfile />
+          <UserProfile navigation={this.props.navigation}/>
 
           { this._renderListMenuItem() }
 

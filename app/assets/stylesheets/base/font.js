@@ -6,5 +6,6 @@ export const FontFamily = {
 export const FontSize = {
   body: 16,
   title: 28,
-  small: 14
+  small: 14,
+  hintTitle: 20,
 };
