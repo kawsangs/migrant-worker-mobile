@@ -16,7 +16,8 @@ import { connect } from 'react-redux';
 
 class UserProfile extends Component {
   render() {
-    let sex = this.props.currentUser.sex || "other";
+    let currentUser = this.props.currentUser || {};
+    let sex = currentUser.sex || "other";
 
     return (
       <TouchableOpacity style={[Style.boxShadow, styles.profileStyle]}

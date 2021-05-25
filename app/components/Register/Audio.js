@@ -47,19 +47,6 @@ export default class Audio extends Component {
   componentDidMount() {
     this._checkPermission().then((hasPermission) => {
       this.setState({ hasPermission });
-
-      if (!hasPermission) return;
-
-      this._prepareRecordingPath(this.state.audioPath);
-
-      AudioRecorder.onProgress = this._onProgress;
-
-      AudioRecorder.onFinished = (data) => {
-        // Android callback comes in the form of a promise instead.
-        if (Platform.OS === 'ios') {
-          this._finishRecording(data.status === "OK", data.audioFileURL);
-        }
-      };
     });
 
     this._handleRenderingPlayButton();
@@ -88,7 +75,6 @@ export default class Audio extends Component {
   }
 
   _prepareRecordingPath(audioPath) {
-    console.log("--------------------------------audioPath", audioPath);
     AudioRecorder.prepareRecordingAtPath(audioPath, {
       SampleRate: 22050,
       Channels: 1,
@@ -121,10 +107,7 @@ export default class Audio extends Component {
       return;
     }
 
-    this.setState({
-      isPlaying: false,
-      recording: false
-    });
+    this.setState({ isPlaying: false, recording: false });
 
     try {
       const filePath = await AudioRecorder.stopRecording();
@@ -154,8 +137,6 @@ export default class Audio extends Component {
     // These timeouts are a hacky workaround for some issues with react-native-sound.
     // See https://github.com/zmxv/react-native-sound/issues/89.
     setTimeout(() => {
-
-      // this.sound = new Sound("/data/user/0/org.ilabsea.safemigration/files/bf86cef7-f10b-4efc-847d-eed7e713eb5c.aac", '', (error) => {
       this.sound = new Sound(this.state.audioPath, '', (error) => {
         if (error) {
           console.log('failed to load the sound', error);
@@ -186,6 +167,8 @@ export default class Audio extends Component {
     }
 
     this._prepareRecordingPath(this.state.audioPath);
+    AudioRecorder.onProgress = this._onProgress;
+
     this.setState({recording: true});
 
     try {
