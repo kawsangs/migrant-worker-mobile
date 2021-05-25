@@ -1,7 +1,7 @@
 import { environment } from '../config/environment';
 import RNFS from 'react-native-fs';
 
-const AudioDownloader = (()=> {
+const FileDownloader = (()=> {
   return {
     download: download
   }
@@ -21,4 +21,4 @@ const AudioDownloader = (()=> {
   }
 })();
 
-export default AudioDownloader;
+export default FileDownloader;

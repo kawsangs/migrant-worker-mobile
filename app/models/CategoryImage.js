@@ -1,5 +1,4 @@
 import realm from '../db/schema';
-import ImageDownloader from '../downloaders/image_downloader';
 
 const CategoryImage = (() => {
   return {
