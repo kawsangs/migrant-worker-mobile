@@ -65,7 +65,6 @@ const styles = StyleSheet.create({
   nextText: {
     color: Color.white,
     fontFamily: FontFamily.title,
-    fontWeight: '700',
     textTransform: 'uppercase',
   },
 });

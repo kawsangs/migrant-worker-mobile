@@ -67,7 +67,7 @@ class Welcome extends React.Component {
           title={"ចុះឈ្មោះ"}
           icon={"person"}
           audio={'register.mp3'}
-          onPress={() => this.props.navigation.navigate("RegisterScreen")}
+          onPress={() => this.props.navigation.navigate("RegisterScreen", {action: 'register'})}
           activePlaying={this.state.activePlaying}
           onPressPlaySound={(fileName) => this.setState({ activePlaying: fileName })}
         />

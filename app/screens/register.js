@@ -123,7 +123,7 @@ class Register extends Component {
       <View style={styles.voiceRecord}>
         <Text>{this.props.t('RegisterScreen.RecordVoice')}</Text>
         <Audio
-          user={this.props.currentUser}
+          user={this.props.currentUser || {}}
           callback={(path) => this.setState({ voiceRecord: path })}
           audioPath={this.state.voiceRecord} />
       </View>
@@ -153,7 +153,7 @@ class Register extends Component {
       voiceRecord: this.state.voiceRecord,
     };
 
-    if (this.action != 'register') {
+    if (this.action == 'register') {
       params.created_at = new Date();
     }
 
