@@ -20,16 +20,18 @@ const CustomHeaderHome = withTranslation()((props) => {
         <Text style={styles.homepageText}>{props.t('HomeScreen.Homepage')}</Text>
       </View>
 
-      <View style={styles.headerRight}>
-        <TouchableOpacity
-          style={styles.notificationButton}
-          onPress={() => null}
-          activeOpacity={0.8}
-        >
-          <Image source={Images.notification} style={styles.notificationIcon} />
-          <View style={styles.notificationBadge} />
-        </TouchableOpacity>
-      </View>
+      { false &&
+        <View style={styles.headerRight}>
+          <TouchableOpacity
+            style={styles.notificationButton}
+            onPress={() => null}
+            activeOpacity={0.8}
+          >
+            <Image source={Images.notification} style={styles.notificationIcon} />
+            <View style={styles.notificationBadge} />
+          </TouchableOpacity>
+        </View>
+      }
 
     </SafeAreaView>
   )

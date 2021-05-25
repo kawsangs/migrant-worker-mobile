@@ -1,12 +1,21 @@
 import * as React from 'react';
-import { View, Dimensions, ScrollView, Text, TouchableOpacity, Button, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Dimensions,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  Button,
+  ActivityIndicator,
+  FlatList
+} from 'react-native';
+
 import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { Icon } from 'react-native-material-ui';
 import listData from '../data/json/list_videos';
-import uuidv4 from '../utils/uuidv4';
+
 import { addStatistic } from '../utils/statistic';
-import { Toolbar } from 'react-native-material-ui';
 import Thumbnail from '../components/thumbnail';
 import { getVideoId } from '../utils/youtube';
 import { useNavigation } from '@react-navigation/native';
@@ -14,9 +23,11 @@ import NetInfo from "@react-native-community/netinfo";
 import Toast, { DURATION } from 'react-native-easy-toast';
 import { useTranslation } from 'react-i18next';
 
-export default function ListVideos() {
+export default function ListVideos(props) {
   const { t, i18n } = useTranslation();
-  const [index, setIndex] = React.useState(0);
+  const stepIndex = !!props.route.params && !!props.route.params.type ? listData.findIndex(d => d.stepCode == props.route.params.type) : 0;
+
+  const [index, setIndex] = React.useState(stepIndex);
   const initialLayout = { width: Dimensions.get('window').width };
   const states = listData.map((item) => ({ key: item.stepCode, title_en: item.stepTitle_en, title_km: item.stepTitle_km }));
   const [routes] = React.useState(states);
@@ -69,11 +80,11 @@ export default function ListVideos() {
     navigation.navigate('ViewVideoScreen', { videoId: getVideoId(video.url) });
   }
 
-  const renderCard = (video) => {
+  const _renderItem = (video, index) => {
     return (
       <View
-        key={uuidv4()}
-        style={[Style.card, { flexDirection: 'column' }]}>
+        key={index}
+        style={[Style.card, { flexDirection: 'column', margin: 8, marginBottom: 8 }]}>
         <Thumbnail
           onPress={() => onPressItem(video)}
           imageWidth={'100%'}
@@ -82,31 +93,38 @@ export default function ListVideos() {
 
         <View style={{ flex: 1, marginLeft: 12, marginRight: 12, marginTop: 10, marginBottom: 12 }}>
           <TouchableOpacity onPress={() => onPressItem(video)}>
-            <Text style={{ fontFamily: FontFamily.title, fontWeight: '700' }}>{video[`title_${i18n.language}`]}</Text>
+            <Text style={{ fontFamily: FontFamily.title }}>{video[`title_${i18n.language}`]}</Text>
           </TouchableOpacity>
         </View>
       </View>
     );
   }
 
-  const StepRoute = (props) => {
+  const sreenList = (props) => {
     let step = listData.filter(l => l.stepCode == props.route.key)[0];
-    let list = step.list.map((list) => renderCard(list));
-    return (
-      <ScrollView style={{ flex: 1 }}>
-        <View style={Style.container}>
-          {!isConnected && !showLoading ? <View style={{ flex: 1, justifyContent: 'center', marginTop: 170 }}>
-            {renderNoInternetConnection()}
-          </View> : list}
+
+    if (!isConnected && !showLoading) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center', marginTop: 170 }}>
+          { renderNoInternetConnection() }
         </View>
-      </ScrollView>
+      )
+    }
+
+    return (
+      <FlatList
+        data={step.list}
+        renderItem={(item, i) => _renderItem(item.item, i)}
+        keyExtractor={item => item.stepCode}
+        contentContainerStyle={{padding: 8}}
+      />
     )
   };
 
   const scenMap = () => {
     let obj = {};
     for (let i = 0; i < states.length; i++) {
-      obj[states[i].key] = StepRoute
+      obj[states[i].key] = sreenList
     }
     return obj;
   }

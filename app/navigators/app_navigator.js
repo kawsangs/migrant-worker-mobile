@@ -17,16 +17,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import WelcomeScreen from '../screens/welcome';
 import RegisterScreen from '../screens/register';
 import AboutScreen from '../screens/about';
-import VideosScreen from '../screens/videos';
 import ViewVideoScreen from '../screens/view_video';
 import ImageViewScreen from '../screens/image_view';
+import ListVideosScreen from '../screens/list_videos';
 
 import YourDepartureScreen from '../screens/your_departure/your_departure';
-import YourDepartureVideoScreen from '../screens/your_departure/videos';
 
 import YourSafetyScreen from '../screens/your_safety/your_safety';
 import YourSafetySubCategoryScreen from '../screens/your_safety/sub_category';
-import YourSafetyVideosScreen from '../screens/your_safety/videos';
 
 import YourStoryScreen from '../screens/your_story/your_story';
 import CreateYourStoryScreen from '../screens/your_story/create_your_story';
@@ -79,7 +77,8 @@ class AppNavigator extends Component {
           })}
         />
 
-        <Stack.Screen name="YourDepartureVideoScreen" component={YourDepartureVideoScreen}
+        <Stack.Screen name="YourDepartureVideoScreen" component={ListVideosScreen}
+          initialParams={{ type: 'before_you_go' }}
           options={({route, navigation}) => ({
             title: this.props.t("VideosScreen.HeaderTitle"),
             headerStyle: { backgroundColor: Color.red },
@@ -119,7 +118,14 @@ class AppNavigator extends Component {
           })}
         />
 
-        <Stack.Screen name="YourSafetyVideosScreen" component={YourSafetyVideosScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="YourSafetyVideosScreen" component={ListVideosScreen}
+          initialParams={{ type: 'your_safety' }}
+          options={({route, navigation}) => ({
+            title: this.props.t("VideosScreen.HeaderTitle"),
+            headerStyle: { backgroundColor: Color.primary },
+            headerRight: (props) => (<HomeButton navigation={navigation}/>),
+          })}
+        />
 
         <Stack.Screen name="YourStoryScreen" component={YourStoryScreen}
           options={({route, navigation}) => ({
@@ -140,7 +146,6 @@ class AppNavigator extends Component {
         <Stack.Screen name="LookingForHelpScreen" component={LookingForHelpScreen} options={{ headerShown: false }} />
 
         <Stack.Screen name="AboutScreen" component={AboutScreen} options={{ title: "អំពីកម្មវិធី", headerShown: false }} />
-        <Stack.Screen name="VideosScreen" component={VideosScreen} options={{ title: "វីដេអូ និងករណីចំណាកស្រុក", headerShown: false }} />
         <Stack.Screen name="ViewVideoScreen" component={ViewVideoScreen} options={{ headerShown: false }} />
         <Stack.Screen name="UserFormScreen" component={RegisterScreen} options={{ title: "កែតម្រូវគណនី" }} />
       </>

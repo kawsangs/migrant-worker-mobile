@@ -125,7 +125,7 @@ class Welcome extends React.Component {
           useScrollView
         />
         <Pagination
-          dotsLength={welcomeVideoList.length}
+          dotsLength={welcomeVideoList.length > 1}
           activeDotIndex={this.state.activeSlide}
           containerStyle={{ paddingVertical: 10 }}
           dotStyle={styles.dotStyle}
