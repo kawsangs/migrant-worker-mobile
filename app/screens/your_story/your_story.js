@@ -1,209 +1,163 @@
 import React, { Component } from 'react';
 import {
   View,
-  TouchableOpacity,
   Text,
   StyleSheet,
   Image,
   ScrollView,
   StatusBar,
+  TouchableOpacity,
 } from 'react-native';
-import { Icon, Toolbar } from 'react-native-material-ui';
+import { Icon } from 'react-native-material-ui';
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
 import PlaySound from '../../components/play_sound';
 import Images from '../../utils/images';
-import { addStatistic } from '../../utils/statistic';
-import ProgressCircle from 'react-native-progress-circle';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
+
+import { InjectArray } from '../../utils/math';
+import CardItem from '../../components/YourStory/CardItem';
+
+import Form from '../../models/Form';
+import Quiz from '../../models/Quiz';
+
+import { connect } from 'react-redux';
+import { setCurrentQuiz } from '../../actions/currentQuizAction';
+
+import * as Progress from 'react-native-progress';
+import NetInfo from "@react-native-community/netinfo";
+import NoConnection from '../../components/NoConnection';
+import FormService from '../../services/form_service';
+import uuidv4 from '../../utils/uuidv4';
 
 class YourStory extends Component {
   state = {}
 
-  _goTo(screenName) {
-    addStatistic(`goTo${screenName.split('Screen')[0]}`);
-    this.props.navigation.navigate(screenName);
+  componentDidMount() {
+    // Form.deleteAllWithDependency();
+    this._initState();
+    this._checkConnection();
   }
 
-  _renderToolbar() {
+  _initState() {
+    this.setState({
+      forms: Form.getAll(),
+      isDownloaded: Form.isDownloaded(),
+    })
+  }
+
+  _checkConnection() {
+    NetInfo.fetch().then(state => {
+      this.setState({ isConnected: state.isConnected });
+    });
+
+    this.unsubscribe = NetInfo.addEventListener(state => {
+      this.setState({ isConnected: state.isConnected });
+    });
+  }
+
+  _download() {
+    this.setState({progress: 0});
+
+    FormService.downloadForm(this._updateTotoal, this._incrementProgress);
+  }
+
+  _incrementProgress = () => {
+    let num = this.state.progress + 1;
+    this.setState({progress: num});
+
+    // When progress reach 100%, let user see the full progress before hiding it.
+    if (num == this.state.total) {
+      setTimeout(() => {
+        this._initState();
+      }, 1000);
+    }
+  }
+
+  _updateTotoal = (total) => {
+    this.setState({total: total});
+  }
+
+  _getProgress() {
+    if (!!this.state.total && !!this.state.progress) {
+      return (this.state.progress/this.state.total).toFixed(2);
+    } else {
+      return 0;
+    }
+  }
+
+  _renderDownloadButton() {
     return (
-      <Toolbar
-        leftElement={'arrow-back'}
-        onLeftElementPress={() => this.props.navigation.goBack()}
-        centerElement={this.props.t('YourStoryScreen.HeaderTitle')}
-        rightElement={'home'}
-        onRightElementPress={() => this._goTo('HomeScreen')}
-        size={30}
-        style={{
-          titleText: {
-            fontFamily: FontFamily.title,
-            textAlign: 'center',
-          },
-          centerElementContainer: {
-            marginLeft: 0
-          },
-          container: {
-            width: '100%',
-            backgroundColor: Color.pink,
-            elevation: 0,
-          },
-        }}
-      />
-    );
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        { this.state.progress >= 0 && <Progress.Bar progress={this._getProgress()} width={200} style={{marginBottom: 20}} /> }
+
+        { true &&
+          <View>
+            <Text>Form: {Form.getAll().length}</Text>
+            <Text>Pending download: {Form.getPendingDownload().length}</Text>
+            <Text>Progress: {this._getProgress()}</Text>
+          </View>
+        }
+
+        <TouchableOpacity onPress={() => this._download()} style={{backgroundColor: Color.primary, padding: 10, borderRadius: 5}}>
+          <Text style={{color: '#fff'}}>Download</Text>
+        </TouchableOpacity>
+      </View>
+    )
   }
 
   _onPress(item) {
-    if (item.routeName == 'ImageViewScreen') {
-      addStatistic('migration_checklist_view_image', { title: item[`title_${i18n.language}`] })
-    }
+    this._createQuiz(item);
+    this.props.navigation.navigate("CreateYourStoryScreen", { title: item.name, form_id: item.id });
+  }
 
-    this.props.navigation.navigate(item.screenName, { title: { title_en: item.title_en, title_kh: item.title_kh } });
+  _createQuiz(item) {
+    let uuid = uuidv4();
+    Quiz.upsert({
+      uuid: uuid,
+      user_uuid: this.props.currentUser.uuid,
+      form_id: item.id,
+      quizzed_at: (new Date).toDateString()
+    });
+
+    let quiz = Quiz.find(uuid);
+    this.props.setCurrentQuiz(quiz);
   }
 
   _renderContent() {
-    let list = [
-      {
-        title_en: '1st Story',
-        title_kh: 'រឿងទី ១',
-        subTitle_en: '6 questions',
-        subTitle_kh: '៦ សំណួរ',
-        screenName: 'CreateYourStoryScreen',
-        fileName: '',
-      },
-      {
-        title_en: '2nd Story',
-        title_kh: 'រឿងទី ២',
-        subTitle_en: '6 questions',
-        subTitle_kh: '៦ សំណួរ',
-        screenName: 'CreateYourStoryScreen',
-        fileName: '',
-      },
-      {
-        title_en: '3rd Story',
-        title_kh: 'រឿងទី ៣',
-        subTitle_en: '6 questions',
-        subTitle_kh: '៦ សំណួរ',
-        screenName: 'CreateYourStoryScreen',
-        fileName: '',
-      },
-    ];
+    let cards = this.state.forms.map((item, index) => <CardItem key={index} item={item} onPress={() => this._onPress(item)}/>);
+    let verticalLine = <View style={styles.verticalLine}><Image source={Images.vertical_line} style={[styles.cardFolder, { tintColor: Color.gray }]} /></View>;
 
-    return <View style={Style.container}>
-      <View style={{ marginBottom: 16 }}>
-        <Text style={styles.testStoryTitle}>{this.props.t('YourStoryScreen.Title')}</Text>
-      </View>
-      {list.map((item, index) => {
-        const is_last_item = (index !== list.length - 1) ? true : false;
-        return this._renderCard(item, index, is_last_item)
-      })}
-    </View>;
-  }
-
-  _renderCard(item, index, last_item) {
     return (
-      <View key={index}>
-        <TouchableOpacity
-          style={[Style.card, { marginBottom: 10, padding: 15 }]}
-          onPress={() => this._onPress(item)}
-          activeOpacity={0.8}
-        >
-          <View style={styles.cardContent}>
-            <View style={styles.cardIcon}>
-              <Image source={Images.folder} style={styles.cardFolder} />
-            </View>
-
-            <View style={styles.cardDescription}>
-              <Text style={styles.cardTitle}>{item[`title_${i18n.language}`]}</Text>
-              <Text style={styles.cardSubTitle}>{item[`subTitle_title_${i18n.language}`]}</Text>
-            </View>
-
-            <View>
-              <PlaySound
-                fileName={'register'}
-                buttonAudioStyle={{ backgroundColor: Color.pink }}
-                iconStyle={{ tintColor: Color.white }}
-                activePlaying={this.state.activePlaying}
-                onPress={(fileName) => this.setState({ activePlaying: fileName })}
-              />
-            </View>
-          </View>
-
-          <View style={{ flexDirection: 'row', }}>
-            <Text style={[styles.title]}>{this.props.t('YourStoryScreen.StartTest')}</Text>
-            <Icon name='keyboard-arrow-right' size={24} style={{ color: Color.gray }} />
-          </View>
-        </TouchableOpacity>
-        {
-          !last_item ? null : <View style={styles.verticalLine}>
-            <Image source={Images.vertical_line} style={[styles.cardFolder, { tintColor: Color.gray }]} />
-          </View>
-        }
-      </View>
-    )
-  }
-
-  _renderHeader() {
-    return (
-      <View style={{ backgroundColor: Color.pink }}>
-        <View style={[Style.card, styles.cardHeaderContent]}>
-          <View>
-            <ProgressCircle
-              percent={70}
-              radius={40}
-              borderWidth={10}
-              color="#0bc763"
-              shadowColor="#e4e6e9"
-              bgColor="#fff"
-            // containerStyle={{
-            //   transform: [{ rotate: '60deg' }]
-            // }}
-            // outerCircleStyle={{
-            //   transform: [{ rotate: '-60deg' }]
-            // }}
-            >
-              <Text style={{ fontSize: 18, fontWeight: '700' }}>{'70%'}</Text>
-            </ProgressCircle>
-          </View>
-          <View style={styles.headerCardTitle}>
-            <Text style={styles.headerCardMainTitle}>{this.props.t('YourStoryScreen.HeaderCard.Title')}</Text>
-            <Text style={styles.headerCardSubTitle}>{this.props.t('YourStoryScreen.HeaderCard.Description')}</Text>
-          </View>
-          <View>
-            <PlaySound
-              fileName={'register'}
-              buttonAudioStyle={{ backgroundColor: Color.pink }}
-              iconStyle={{ tintColor: Color.white }}
-              activePlaying={this.state.activePlaying}
-              onPress={(fileName) => this.setState({ activePlaying: fileName })}
-            />
-          </View>
+      <View style={Style.container}>
+        <View style={{ marginBottom: 16 }}>
+          <Text style={styles.testStoryTitle}>{this.props.t('YourStoryScreen.Title')}</Text>
         </View>
+
+        { InjectArray(cards, verticalLine) }
       </View>
     )
   }
 
-  _renderStartButton() {
+  _handleRendingNoData() {
+    if (this.state.isConnected) {
+      return this._renderDownloadButton();
+    } else {
+      return (<NoConnection onPress={() => this._checkConnection()}/>);
+    }
+  }
+
+  _renderCards() {
     return (
-      <View style={[Style.boxShadow, styles.startButton]}>
-        <TouchableOpacity
-          onPress={() => this._goTo('CreateYourStoryScreen')}
-          style={styles.startBtnAction}
-          activeOpacity={0.8}
-        >
-          <View style={{ width: 58 }} />
-          <View style={styles.coverStartText}>
-            <Text style={styles.startText}>{this.props.t('YourStoryScreen.Start')}</Text>
-          </View>
-          <PlaySound
-            fileName={'register'}
-            buttonAudioStyle={{ backgroundColor: Color.white }}
-            iconStyle={{ tintColor: Color.pink }}
-            activePlaying={this.state.activePlaying}
-            onPress={(fileName) => this.setState({ activePlaying: fileName })}
-            style={{ marginHorizontal: 10 }}
-          />
-        </TouchableOpacity>
-      </View>
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={{ flexGrow: 1 }}
+        showsVerticalScrollIndicator={false}>
+
+        <View style={{ flex: 1, marginBottom: 0 }}>
+          {this._renderContent()}
+        </View>
+      </ScrollView>
     )
   }
 
@@ -211,64 +165,22 @@ class YourStory extends Component {
     return (
       <View style={{ flex: 1, backgroundColor: "#ecedf1" }}>
         <StatusBar barStyle={'light-content'} backgroundColor={Color.pink} />
-        {this._renderToolbar()}
-        <ScrollView
-          style={{ flex: 1 }}
-          contentContainerStyle={{ flexGrow: 1 }}
-          showsVerticalScrollIndicator={false}>
-          <View style={{ flex: 1, marginBottom: 0 }}>
-            {this._renderHeader()}
-            {this._renderContent()}
-          </View>
-        </ScrollView>
-        {this._renderStartButton()}
+
+        { this.state.isDownloaded && this._renderCards() }
+        { !this.state.isDownloaded && this._handleRendingNoData() }
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  cardContent: {
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderColor: '#efefef',
-    marginBottom: 10,
-    paddingBottom: 10,
-  },
-  cardIcon: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: Color.pink,
-  },
-  cardDescription: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: 14
-  },
   cardFolder: {
     width: 30,
     height: 30,
     tintColor: Color.yellow
   },
-  title: {
-    flex: 1,
-    color: Color.gray,
-    fontWeight: '700',
-    textTransform: 'uppercase'
-  },
   testStoryTitle: {
     fontSize: 23,
-    fontWeight: '700'
-  },
-  cardTitle: {
-    fontSize: 18,
-    fontWeight: '700'
-  },
-  cardSubTitle: {
-    fontSize: 14,
     fontWeight: '700'
   },
   verticalLine: {
@@ -276,50 +188,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 10
   },
-  cardHeaderContent: {
-    flexDirection: 'row',
-    margin: 16,
-    padding: 13,
-    backgroundColor: Color.white,
-  },
-  headerCardTitle: {
-    flex: 1,
-    marginHorizontal: 10,
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-  headerCardMainTitle: {
-    fontSize: FontSize.title - 9,
-    fontWeight: '700'
-  },
-  headerCardSubTitle: {
-    fontSize: FontSize.body - 4,
-    color: Color.gray
-  },
-  startButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    backgroundColor: Color.white,
-  },
-  startBtnAction: {
-    height: 60,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: Color.pink,
-    flexDirection: 'row'
-  },
-  coverStartText: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  startText: {
-    color: Color.white,
-    fontFamily: FontFamily.title,
-    fontWeight: '700',
-    textTransform: 'uppercase',
-  }
 });
 
-export default withTranslation()(YourStory);
+
+function mapStateToProps(state) {
+  return {
+    currentUser: state.currentUser
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setCurrentQuiz: (quiz) => dispatch(setCurrentQuiz(quiz)),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withTranslation()(YourStory));
