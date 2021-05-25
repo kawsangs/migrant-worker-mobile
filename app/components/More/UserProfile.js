@@ -29,7 +29,7 @@ class UserProfile extends Component {
         </View>
 
         <View style={styles.profileDescription}>
-          <Text style={styles.userName}>{this.props.currentUser.name}</Text>
+          <Text style={styles.userName}>{currentUser.name}</Text>
           <Text style={styles.userEditText}>{this.props.t('MoreScreen.Edit')}</Text>
         </View>
 
