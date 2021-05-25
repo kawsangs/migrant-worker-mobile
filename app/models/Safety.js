@@ -1,6 +1,4 @@
 import realm from '../db/schema';
-import ImageDownloader from '../downloaders/image_downloader';
-import CategoryImage from '../models/CategoryImage';
 import categoryList from '../db/json/categories';
 
 const Safety = (() => {
@@ -12,8 +10,6 @@ const Safety = (() => {
     update,
     upsertCollection,
     deleteAll,
-    downloadImage,
-    downloadAudio,
     isDownloaded,
     find,
     seedData,
@@ -41,13 +37,9 @@ const Safety = (() => {
   }
 
   function deleteAll() {
-    let categories = realm.objects('Category').filtered(`type = 'Safety'`);
-
-    if (categories.length > 0) {
-      realm.write(() => {
-        realm.delete(categories);
-      });
-    }
+    realm.write(() => {
+      realm.delete(getAll());
+    });
   }
 
   function upsertCollection(categories) {
@@ -96,9 +88,7 @@ const Safety = (() => {
   }
 
   function getPendingDownload() {
-    let collection = byPendingImage().concat(byPendingAudio());
-
-    return collection.concat(CategoryImage.getPendingDownload());
+    return byPendingImage().concat(byPendingAudio());
   }
 
   function byPendingImage() {
@@ -127,19 +117,6 @@ const Safety = (() => {
 
   function getAll() {
     return realm.objects('Category').filtered(`type='Safety'`);
-  }
-
-  function downloadImage(category={}, successCallback, failsCallback) {
-    ImageDownloader.download(_getFileName(category), category.url, successCallback, failsCallback);
-  }
-
-  function downloadAudio(category={}, successCallback, failsCallback) {
-    AudioDownloader.download(_getFileName(category), category.url, successCallback, failsCallback);
-  }
-
-  function _getFileName(category={}) {
-    let fileNames = category.url.split('/');
-    return `${category.type}_${category.uuid}_${fileNames[fileNames.length - 1]}`;
   }
 })();
 

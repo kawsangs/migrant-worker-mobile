@@ -3,53 +3,35 @@ import {
   View,
   Text,
   StatusBar,
-  TouchableOpacity,
+  FlatList,
 } from 'react-native';
 
 import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
-import { InjectArray } from '../../utils/math';
 import { addStatistic } from '../../utils/statistic';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
 
-import uuidv4 from '../../utils/uuidv4';
-import CardItem from '../../components/Home/CardItem';
+import CardItem from '../../components/YourDeparture/CardItem';
 import Departure from '../../models/Departure';
-import CategoryImage from '../../models/CategoryImage';
 
 import CategoryService from '../../services/category_service';
 import { connect } from 'react-redux';
 import NetInfo from "@react-native-community/netinfo";
-import NoConnection from '../../components/NoConnection';
-
-import * as Progress from 'react-native-progress';
 
 class YourDeparture extends Component {
-  state = {loading: true};
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      categories: Departure.getRoots(),
+      isFetching: false,
+      loading: true,
+    };
+  }
 
   componentDidMount() {
     // Departure.deleteAll();
     Departure.seedData(() => this.setState({loading: false}));
-
-    this._initState();
-    this._checkConnection();
-  }
-
-  _initState() {
-    this.setState({
-      categories: Departure.getRoots(),
-      isDownloaded: Departure.isDownloaded(),
-    })
-  }
-
-  _checkConnection() {
-    NetInfo.fetch().then(state => {
-      this.setState({ isConnected: state.isConnected });
-    });
-
-    this.unsubscribe = NetInfo.addEventListener(state => {
-      this.setState({ isConnected: state.isConnected });
-    });
   }
 
   _onPress(item) {
@@ -60,10 +42,10 @@ class YourDeparture extends Component {
     this.props.navigation.navigate("SubCategoryScreen", { title: item.name, parent_id: item.id });
   }
 
-  _renderCardItem(item) {
+  _renderItem(item, index) {
     return (
       <CardItem
-        key={uuidv4()}
+        key={index}
         item={item}
         backgroundColor={Color.red}
         title={item.name}
@@ -74,92 +56,19 @@ class YourDeparture extends Component {
     )
   }
 
-  _renderCards() {
-    let list = this.state.categories;
-    let row1 = list.slice(0, 2).map((item) => this._renderCardItem(item));
-    let row2 = list.slice(2, 4).map((item) => this._renderCardItem(item));
-    let space = <View key={uuidv4()} style={{ width: 16 }}></View>;
+  _onRefresh() {
+    this.setState({isFetching: true});
 
-    return (
-      <View style={[Style.container, { flex: 1 }]}>
-        <View style={{ flex: 1 }}>
-          <View style={{ marginBottom: 16 }}>
-            <Text style={{ fontFamily: FontFamily.title }}>
-              { this.props.t('BeforeYouGoScreen.CheckListForDeparture') }
-            </Text>
-          </View>
+    NetInfo.fetch().then(state => {
+      if (!state.isConnected) {
+        this.setState({isFetching: false});
+        return alert("no connection");
+      }
 
-          <View style={Style.row}>
-            { InjectArray(row1, space) }
-          </View>
-
-          <View style={{ height: 16 }}></View>
-
-          <View style={Style.row}>
-            { InjectArray(row2, space) }
-          </View>
-        </View>
-      </View>
-    );
-  }
-
-  _download() {
-    this.setState({progress: 0});
-
-    CategoryService.downloadDeparture(this._updateTotoal, this._incrementProgress);
-    this.setState({total: Departure.getPendingDownload().length + 1});
-  }
-
-  _incrementProgress = () => {
-    let num = this.state.progress + 1
-    this.setState({progress: num});
-
-    if (num == this.state.total) {
-      this._initState();
-    }
-  }
-
-  _updateTotoal = (total) => {
-    this.setState({total: total});
-  }
-
-  _getProgress() {
-    if (!this.state.total) {
-      return 0;
-    }
-
-    return ((this.state.progress || 0 ) / this.state.total).toFixed(2);
-  }
-
-  _renderDownloadButton() {
-    return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        { this.state.progress >= 0 &&
-          <Progress.Bar progress={this._getProgress()} width={200} style={{marginBottom: 20}} />
-        }
-
-        { false &&
-          <View>
-            <Text>Departure category: {Departure.getAll().length}</Text>
-            <Text>Category Image: {CategoryImage.getAll().length}</Text>
-            <Text>Pending category: {Departure.getPendingDownload().length}</Text>
-            <Text>Progress: {this._getProgress()}</Text>
-          </View>
-        }
-
-        <TouchableOpacity onPress={() => this._download()} style={{backgroundColor: Color.primary, padding: 10, borderRadius: 5}}>
-          <Text style={{color: '#fff'}}>Download</Text>
-        </TouchableOpacity>
-      </View>
-    )
-  }
-
-  _handleRendingNoCategory() {
-    if (this.state.isConnected) {
-      return this._renderDownloadButton();
-    } else {
-      return (<NoConnection onPress={() => this._checkConnection()}/>);
-    }
+      CategoryService.updateDepartures(() => {
+        this.setState({isFetching: false});
+      })
+    });
   }
 
   render() {
@@ -167,8 +76,21 @@ class YourDeparture extends Component {
       <View style={{ flex: 1 }}>
         <StatusBar barStyle={'light-content'} backgroundColor={Color.red} />
 
-        { this.state.isDownloaded && this._renderCards() }
-        { !this.state.isDownloaded && this._handleRendingNoCategory() }
+        <View style={{ margin: 16, marginBottom: 0 }}>
+          <Text style={{ fontFamily: FontFamily.title }}>
+            { this.props.t('BeforeYouGoScreen.CheckListForDeparture') }
+          </Text>
+        </View>
+
+        <FlatList
+          data={this.state.categories}
+          renderItem={(item, i) => this._renderItem(item.item, i)}
+          keyExtractor={item => item.id}
+          contentContainerStyle={{padding: 8, alignSelf: 'stretch'}}
+          numColumns={2}
+          onRefresh={ () => this._onRefresh() }
+          refreshing={ this.state.isFetching }
+        />
       </View>
     );
   }

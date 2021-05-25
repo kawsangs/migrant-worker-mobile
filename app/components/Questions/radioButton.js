@@ -35,7 +35,7 @@ const propTypes = {
   /**
    * Event that is called when state is changed
    */
-  onCheck: PropTypes.func.isRequired,
+  // onCheck: PropTypes.func.isRequired,
   /**
    * Name of Icon set that should be use. From react-native-vector-icons
    */

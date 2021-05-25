@@ -28,12 +28,9 @@ class SubCategory extends Component {
   }
 
   _onPress(item) {
-    if (item.leaf || item.last) {
-      if(!CategoryImage.byCategory(item.id).length) {
-        return;
-      }
-
-      return this.props.navigation.navigate('ImageViewScreen', { title: item.name, category_id: item.id });
+    if (item.leaf) {
+      return;
+      // return this.props.navigation.navigate('ImageViewScreen', { title: item.name, category_id: item.id });
     }
 
     const pushAction = StackActions.push('SubCategoryScreen', { title: item.name, parent_id: item.id });
