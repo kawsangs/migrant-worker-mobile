@@ -9,7 +9,6 @@ import i18n from 'i18next';
 
 import Safety from '../../models/Safety';
 import CardItem from '../../components/YourSafety/CardItem';
-import CategoryImage from '../../models/CategoryImage';
 
 class YourSafetySubCategory extends Component {
   constructor(props) {
@@ -21,12 +20,8 @@ class YourSafetySubCategory extends Component {
   }
 
   _onPress(item) {
-    if (item.leaf || item.last) {
-      if(!CategoryImage.byCategory(item.id).length) {
-        return;
-      }
-
-      return this.props.navigation.navigate('ImageViewScreen', { title: item.name, category_id: item.id });
+    if (item.leaf) {
+      return ;
     }
 
     const pushAction = StackActions.push('YourSafetySubCategoryScreen', { title: item.name, parent_id: item.id });
@@ -43,7 +38,6 @@ class YourSafetySubCategory extends Component {
         onPress={() => this._onPress(item)}
         buttonAudioStyle={{backgroundColor: Color.primary}}
         audioIconStyle={{tintColor: Color.white}}
-        hideArrow={!CategoryImage.byCategory(item.id).length}
       />
     )
   }

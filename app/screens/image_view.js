@@ -14,7 +14,7 @@ import { autoImageHeight, autoImageWidth } from '../utils/image_style';
 import PlaySound from '../components/play_sound';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
-import CategoryImage from '../models/CategoryImage';
+// import CategoryImage from '../models/CategoryImage';
 import Category from '../models/Departure';
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 
@@ -22,7 +22,8 @@ class ImageView extends Component {
   constructor(props) {
     super(props);
 
-    let imageList = CategoryImage.byCategory(props.route.params.category_id);
+    // let imageList = CategoryImage.byCategory(props.route.params.category_id);
+    let imageList = [];
 
     this.state = {
       rotation: 0,

@@ -15,7 +15,6 @@ import HintCard from '../../components/SubCategory/HintCard';
 import ArrowDown from '../../components/SubCategory/ArrowDown';
 import Departure from '../../models/Departure';
 import Images from '../../utils/images';
-import CategoryImage from '../../models/CategoryImage';
 
 class SubCategory extends Component {
   constructor(props) {
@@ -46,7 +45,6 @@ class SubCategory extends Component {
         image={item.imageSource}
         audio={item.audio}
         number={index + 1}
-        hideArrow={!CategoryImage.byCategory(item.id).length}
       />
     );
 
