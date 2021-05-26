@@ -149,7 +149,6 @@ class AppNavigator extends Component {
           options={({route, navigation}) => ({
             title: route.params.title || "អំពី",
             headerStyle: { backgroundColor: Color.primary },
-            headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
         />
         <Stack.Screen name="ViewVideoScreen" component={ViewVideoScreen} options={{ headerShown: false }} />
