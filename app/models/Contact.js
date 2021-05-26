@@ -1,5 +1,4 @@
 import realm from '../db/schema'
-import contacts from '../data/json/contacts'
 
 const MODEL_NAME = 'Contact'
 const Contact = (() => {
@@ -8,11 +7,6 @@ const Contact = (() => {
     where,
     create,
     deleteBatch,
-    createBatch,
-  }
-
-  function createBatch() {
-    [].forEach(contact => create(contact))
   }
 
   function where(field, query) {
