@@ -19,11 +19,9 @@ import aboutList from '../db/json/abouts';
 class About extends Component {
   constructor(props) {
     super(props);
-    let about = aboutList.filter(o => o.type == this.props.route.params.type)[0];
 
-    this.state = {
-      about: about
-    };
+    let about = aboutList.filter(o => o.type == this.props.route.params.type)[0];
+    this.state = { about: about };
 
     props.navigation.setParams({title: about.title});
   }
@@ -64,7 +62,6 @@ class About extends Component {
   _renderCollaborations() {
     let logos = [
       { name: 'unwomen', url: '', containerWidth: '194', width: '247', height: '70' },
-      { name: 'instedd_logo', url: '', containerWidth: '260', width: '908', height: '272' },
       { name: 'chc_logo', url: '', containerWidth: '212', width: '896', height: '296' },
     ];
 
@@ -95,20 +92,12 @@ class About extends Component {
     )
   }
 
-  _renderContent() {
+  _renderTechnical() {
     return (
-      <View style={[{ alignItems: 'center' }]}>
-        { this._renderDescription() }
-
-        <Text style={{fontFamily: FontFamily.title, marginTop: 14}}>សហការផលិតដោយ</Text>
-
-        { this._renderCollaborations() }
-
-        <Text style={{ fontFamily: FontFamily.title, marginTop: 16 }}>ក្រោមជំនួយបច្ចេកទេសដោយ</Text>
-
-        { this._renderFunders() }
+      <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+        { this._renderLogo({ name: 'instedd_logo', url: '', containerWidth: '260', width: '908', height: '272' }) }
       </View>
-    );
+    )
   }
 
   render() {
@@ -116,11 +105,14 @@ class About extends Component {
       <ScrollView contentContainerStyle={{padding: 16}}>
         { this._renderDescription() }
 
-        <Text style={{ fontFamily: FontFamily.title, marginTop: 16, textAlign: 'center' }}>ក្រោមជំនួយបច្ចេកទេសដោយ</Text>
+        <Text style={{ fontFamily: FontFamily.title, marginTop: 16, textAlign: 'center' }}>ក្រោមជំនួយថវិកាដោយ</Text>
         { this._renderFunders()}
 
         <Text style={{fontFamily: FontFamily.title, marginTop: 16, marginBottom: 10, textAlign: 'center'}}>សហការផលិតដោយ</Text>
         { this._renderCollaborations() }
+
+        <Text style={{fontFamily: FontFamily.title, marginTop: 16, marginBottom: 10, textAlign: 'center'}}>ក្រោមជំនួយបច្ចេកទេសដោយ</Text>
+        { this._renderTechnical() }
       </ScrollView>
     );
   }
