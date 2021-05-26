@@ -5,7 +5,6 @@ import PdfSchema from '../migrations/v1/pdf';
 import SidekiqSchema from '../migrations/v1/sidekiq';
 
 import CategorySchema from '../migrations/v1/category';
-import CategoryImageSchema from '../migrations/v1/category_image';
 
 import FormSchema from '../migrations/v1/form';
 import QuestionSchema from '../migrations/v1/question';
@@ -20,7 +19,6 @@ const schemaNames = [
   "Pdf",
   "Sidekiq",
   "Category",
-  "CategoryImage",
   "Form",
   "Question",
   "Option",
@@ -40,7 +38,6 @@ const schemaHelper = (() => {
       PdfSchema,
       SidekiqSchema,
       CategorySchema,
-      CategoryImageSchema,
       FormSchema,
       QuestionSchema,
       OptionSchema,
