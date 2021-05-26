@@ -1,0 +1,76 @@
+import React, { Component } from 'react';
+import { View, Text, Share, Linking } from 'react-native';
+
+import Images from '../../utils/images';
+import { addStatistic } from '../../utils/statistic';
+import i18n from 'i18next';
+import TranslationHelper from '../../translations';
+import { withTranslation } from 'react-i18next';
+import { environment } from '../../config/environment';
+
+import ListItem from './ListItem';
+
+class Other extends Component {
+  onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: environment.domain,
+        url: environment.domain,
+      });
+
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  openLink(url) {
+    if (!url) { return; }
+
+    Linking.canOpenURL(url).then(supported => {
+      if (supported) {
+        Linking.openURL(url);
+      } else {
+        alert("Don't know how to open URI: " + url);
+      }
+    });
+  }
+
+  render() {
+    return (
+      <View>
+        <View style={{ paddingHorizontal: 16, paddingTop: 10, paddingBottom: 5 }}>
+          <Text>ផ្សេងៗ</Text>
+        </View>
+
+        <ListItem
+          title={"ចែកចាយ/ចែករំលែកអែប"}
+          avata={Images.share}
+          onPress={() => this.onShare() }
+        />
+
+        <ListItem
+          title={"គោលការណ៍អំពីឯកជនភាព"}
+          avata={Images.doc}
+          onPress={() => this.openLink(`${environment.domain}/private_policy`)}
+        />
+
+        <ListItem
+          title={"គោលការណ៍ និងលក្ខខណ្ឌ"}
+          avata={Images.doc}
+          onPress={() => this.openLink(`${environment.domain}/term_and_condition`)}
+        />
+      </View>
+    );
+  }
+}
+
+export default withTranslation()(Other);
