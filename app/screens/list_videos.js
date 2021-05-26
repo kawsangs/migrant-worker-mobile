@@ -2,7 +2,6 @@ import * as React from 'react';
 import {
   View,
   Dimensions,
-  ScrollView,
   Text,
   TouchableOpacity,
   Button,
@@ -22,6 +21,7 @@ import { useNavigation } from '@react-navigation/native';
 import NetInfo from "@react-native-community/netinfo";
 import Toast, { DURATION } from 'react-native-easy-toast';
 import { useTranslation } from 'react-i18next';
+import uuidv4 from '../utils/uuidv4';
 
 export default function ListVideos(props) {
   const { t, i18n } = useTranslation();
@@ -44,9 +44,7 @@ export default function ListVideos(props) {
       setIsConnected(state.isConnected);
     });
 
-    return () => {
-      unsubscribe
-    }
+    return () => { unsubscribe }
   }, [NetInfo]);
 
   const renderNoInternetConnection = () => {
@@ -56,6 +54,7 @@ export default function ListVideos(props) {
           <Icon name='info-outline' color='#111' size={24} style={{ marginRight: 8 }} iconSet='MaterialIcons' />
           <Text>{t('InternetConnection.NoInternetConnection')}</Text>
         </View>
+
         <Text>{t('InternetConnection.PleaseRetry')}</Text>
 
         { showLoading && <ActivityIndicator size="small" />}
@@ -83,19 +82,17 @@ export default function ListVideos(props) {
   const _renderItem = (video, index) => {
     return (
       <View
-        key={index}
-        style={[Style.card, { flexDirection: 'column', margin: 8, marginBottom: 8 }]}>
+        key={uuidv4()}
+        style={[Style.card, { flexDirection: 'column', margin: 8, marginBottom: 8, padding: 0 }]}>
         <Thumbnail
           onPress={() => onPressItem(video)}
           imageWidth={'100%'}
           imageHeight={150}
           url={video.url} />
 
-        <View style={{ flex: 1, marginLeft: 12, marginRight: 12, marginTop: 10, marginBottom: 12 }}>
-          <TouchableOpacity onPress={() => onPressItem(video)}>
-            <Text style={{ fontFamily: FontFamily.title }}>{video[`title_${i18n.language}`]}</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={() => onPressItem(video)}>
+          <Text style={{ fontFamily: FontFamily.title, padding: 10 }}>{video[`title_${i18n.language}`]}</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -104,11 +101,7 @@ export default function ListVideos(props) {
     let step = listData.filter(l => l.stepCode == props.route.key)[0];
 
     if (!isConnected && !showLoading) {
-      return (
-        <View style={{ flex: 1, justifyContent: 'center', marginTop: 170 }}>
-          { renderNoInternetConnection() }
-        </View>
-      )
+      return renderNoInternetConnection();
     }
 
     return (

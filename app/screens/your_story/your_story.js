@@ -91,7 +91,7 @@ class YourStory extends Component {
         <FlatList
           data={this.state.forms}
           renderItem={(item, i) => this._renderItem(item.item, i)}
-          keyExtractor={item => item.id}
+          keyExtractor={item => uuidv4()}
           contentContainerStyle={{padding: 8}}
           onRefresh={ () => this._onRefresh() }
           refreshing={ this.state.isFetching }

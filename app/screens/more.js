@@ -43,8 +43,6 @@ class More extends Component {
         </View>
 
         { section.items.map((item, index) => this._renderMenuItem(item, index)) }
-
-
       </View>
     );
   }
@@ -57,12 +55,34 @@ class More extends Component {
     )
   }
 
+  _renderAbouts() {
+    return (
+      <View>
+        <View style={{ paddingHorizontal: 16, paddingTop: 10, paddingBottom: 5 }}>
+          <Text>អំពី</Text>
+        </View>
+
+        <ListItem
+          title={"Spotlight Initiative"}
+          avata={Images.info}
+          onPress={() => this.props.navigation.navigate('AboutScreen', {type: 'spotlight_initiative'})}
+        />
+
+        <ListItem
+          title={"Safe and Fair App"}
+          avata={Images.info}
+          onPress={() => this.props.navigation.navigate('AboutScreen', {type: 'safe_and_fair_app'})}
+        />
+      </View>
+    );
+  }
+
   render() {
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView>
           <UserProfile navigation={this.props.navigation}/>
-
+          { this._renderAbouts() }
           { this._renderListMenuItem() }
 
           <ListItem

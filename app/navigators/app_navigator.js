@@ -145,7 +145,13 @@ class AppNavigator extends Component {
 
         <Stack.Screen name="LookingForHelpScreen" component={LookingForHelpScreen} options={{ headerShown: false }} />
 
-        <Stack.Screen name="AboutScreen" component={AboutScreen} options={{ title: "អំពីកម្មវិធី", headerShown: false }} />
+        <Stack.Screen name="AboutScreen" component={AboutScreen}
+          options={({route, navigation}) => ({
+            title: route.params.title || "អំពី",
+            headerStyle: { backgroundColor: Color.primary },
+            headerRight: (props) => (<HomeButton navigation={navigation}/>),
+          })}
+        />
         <Stack.Screen name="ViewVideoScreen" component={ViewVideoScreen} options={{ headerShown: false }} />
         <Stack.Screen name="UserFormScreen" component={RegisterScreen} options={{ title: "កែតម្រូវគណនី" }} />
       </>
