@@ -20,6 +20,7 @@ class ViewedCountry extends React.Component {
           flexDirection: 'row',
           alignItems: 'center'
         }}>
+        {/* Currently, country's flag is not provided. So, render country's emoji flag instead */}
         {/* <Image
             source={country.flag}
             style={{ marginHorizontal: 15, width: 30, height: 30, borderRadius: 15, marginRight: 10 }} /> */}
