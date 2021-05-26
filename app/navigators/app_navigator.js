@@ -31,6 +31,7 @@ import CreateYourStoryScreen from '../screens/your_story/create_your_story';
 import LookingForHelpScreen from '../screens/looking_for_help/looking_for_help';
 
 import SubCategoryScreen from '../screens/sub_category/sub_category';
+import LeafCategoryScreen from '../screens/leaf_category/leaf_category';
 import BottomTabNavigator from './bottom_tab_navigator';
 import HomeButton from '../components/Toolbar/HomeButton';
 import LoadingIndicator from '../components/loading_indicator';
@@ -87,6 +88,14 @@ class AppNavigator extends Component {
         />
 
         <Stack.Screen name="SubCategoryScreen" component={SubCategoryScreen}
+          options={({route, navigation}) => ({
+            title: route.params.title,
+            headerStyle: { backgroundColor: Color.red },
+            headerRight: (props) => (<HomeButton navigation={navigation}/>),
+          })}
+        />
+
+        <Stack.Screen name="LeafCategoryScreen" component={LeafCategoryScreen}
           options={({route, navigation}) => ({
             title: route.params.title,
             headerStyle: { backgroundColor: Color.red },
