@@ -10,7 +10,7 @@ const Country = (() => {
     create,
     deleteBatch,
     createBatch,
-    reloadBatch,
+    loadIfNotExists,
   }
 
   function find(id) {
@@ -41,10 +41,15 @@ const Country = (() => {
     })
   }
 
-  function reloadBatch(callback) {
-    deleteBatch()
-    createBatch()
-    callback()
+  function loadIfNotExists(callback) {
+    if( !isExist() ) {
+      createBatch()
+      callback()
+    }
+  }
+
+  function isExist() {
+    return all().length > 0
   }
 })()
 
