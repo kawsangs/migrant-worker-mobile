@@ -9,6 +9,7 @@ import CardItem from '../../components/YourSafety/CardItem';
 import Safety from '../../models/Safety';
 import NetInfo from "@react-native-community/netinfo";
 import CategoryService from '../../services/category_service';
+import uuidv4 from '../../utils/uuidv4';
 
 class YourSafety extends Component {
   constructor(props) {
@@ -53,7 +54,7 @@ class YourSafety extends Component {
   _renderItem(item, index) {
     return (
       <CardItem
-        key={index}
+        key={uuidv4()}
         title={item.name}
         audio={item.audio}
         image={item.imageSource}

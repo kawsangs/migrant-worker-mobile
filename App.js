@@ -57,7 +57,7 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <ThemeContext.Provider value={getTheme(uiTheme)}>
-          <AppNavigator ref="app"/>
+          <AppNavigator/>
         </ThemeContext.Provider>
       </Provider>
     )
