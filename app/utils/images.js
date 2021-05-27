@@ -37,4 +37,8 @@ export default Images = {
   undp: require('../assets/images/logos/undp.png'),
   global_support: require('../assets/images/logos/global_support.png'),
   gender_equality: require('../assets/images/logos/gender_equality.jpg'),
+
+  // Welcome
+  welcome_bg: require('../assets/images/icons/welcome_bg.png'),
+  spotlight_one_line: require('../assets/images/logos/spotlight_one_line.png'),
 };
