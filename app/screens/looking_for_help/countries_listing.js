@@ -85,7 +85,7 @@ class CountriesListing extends React.Component {
     const { query, countries, isFetching } = this.state;
     
     return (
-      <View style={{ alignItems: 'flex-start' }}>
+      <View style={{ flex: 1, alignItems: 'flex-start' }}>
         <Title>
           {t("CountriesListingScreen.Search")}
         </Title>
@@ -182,6 +182,7 @@ const styles = StyleSheet.create({
     marginLeft: 16
   },
   countriesContainer: {
+    flex: 1,
     alignSelf: 'stretch',
     backgroundColor: "white"
   },
