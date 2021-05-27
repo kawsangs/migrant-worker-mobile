@@ -19,7 +19,7 @@ import Thumbnail from '../components/thumbnail';
 import { getVideoId } from '../utils/youtube';
 import { useNavigation } from '@react-navigation/native';
 import NetInfo from "@react-native-community/netinfo";
-import Toast, { DURATION } from 'react-native-easy-toast';
+
 import { useTranslation } from 'react-i18next';
 import uuidv4 from '../utils/uuidv4';
 

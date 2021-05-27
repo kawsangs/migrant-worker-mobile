@@ -4,6 +4,7 @@ import {
   Text,
   ScrollView,
   StyleSheet,
+  ToastAndroid,
 } from 'react-native';
 
 import { Icon } from 'react-native-material-ui';
@@ -15,7 +16,6 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 
 import Thumbnail from '../components/thumbnail';
 import NetInfo from "@react-native-community/netinfo";
-import Toast, { DURATION } from 'react-native-easy-toast';
 import LoadingIndicator from '../components/loading_indicator';
 
 import { getVideoId } from '../utils/youtube';
@@ -86,7 +86,7 @@ class Welcome extends React.Component {
 
   _onPressItem(video) {
     if (!this.state.isConnected) {
-      return this.refs.toast.show('សូមភ្ជាប់បណ្តាញអ៊ិនធឺណេតជាមុនសិន!', DURATION.SHORT);
+      return ToastAndroid.show("សូមភ្ជាប់បណ្តាញអ៊ិនធឺណេតជាមុនសិន!", ToastAndroid.SHORT);
     }
 
     addStatistic('ViewVideo', { videoId: getVideoId(video.videoUrl), title: video.title });
@@ -152,7 +152,6 @@ class Welcome extends React.Component {
             <LoadingIndicator loading={true} />
           </View>
         }
-        <Toast ref='toast' position='top' positionValue={Platform.OS == 'ios' ? 120 : 140} />
       </View>
     )
   }

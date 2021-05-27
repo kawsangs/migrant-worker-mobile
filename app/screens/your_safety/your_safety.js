@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, ToastAndroid } from 'react-native';
 
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
 import { addStatistic } from '../../utils/statistic';
@@ -40,7 +40,8 @@ class YourSafety extends Component {
     NetInfo.fetch().then(state => {
       if (!state.isConnected) {
         this.setState({isFetching: false});
-        return alert("no connection");
+
+        return ToastAndroid.show("សូមភ្ជាប់បណ្តាញអ៊ិនធឺណេតជាមុនសិន!", ToastAndroid.SHORT);
       }
 
       CategoryService.updateSafeties(() => {
