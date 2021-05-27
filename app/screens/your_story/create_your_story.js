@@ -10,6 +10,7 @@ import { withTranslation } from 'react-i18next';
 // Model
 import Question from '../../models/Question';
 import Answer from '../../models/Answer';
+import Quiz from '../../models/Quiz';
 
 // Component
 import ProgressHeader from '../../components/YourStory/ProgressHeader';
@@ -31,7 +32,12 @@ class CreateYourStory extends Component {
     props.setCurrentIndex(0);
 
     // Todo: need to remove, it is used for testing
-    Answer.deleteAll();
+    // Answer.deleteAll();
+  }
+
+  _onPress() {
+    this.props.navigation.goBack();
+    Quiz.uploadAsync(this.props.currentQuiz.uuid);
   }
 
   renderEnd() {
@@ -41,7 +47,7 @@ class CreateYourStory extends Component {
           <Text>Todo: End question message and click go to another step</Text>
         </View>
 
-        <Button primary text="Go Home" onPress={() => this.props.navigation.goBack()} />
+        <Button primary text="Go Home" onPress={() => this._onPress()} />
       </View>
     )
   }
@@ -67,6 +73,7 @@ function mapStateToProps(state) {
   return {
     questions: state.questions,
     currentIndex: state.currentQuestionIndex,
+    currentQuiz: state.currentQuiz,
   };
 }
 

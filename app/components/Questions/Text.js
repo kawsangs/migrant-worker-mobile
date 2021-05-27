@@ -21,12 +21,16 @@ import QuestionName from './questionName';
 import { connect } from 'react-redux';
 import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexAction';
 
+import Audio from '../Register/Audio';
+
 class QuestionsText extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      answer: ''
+      answer: '',
+      voice: '',
+      uuid: uuidv4(),
     };
   }
 
@@ -50,12 +54,13 @@ class QuestionsText extends Component {
     const { question, currentQuiz } = this.props;
 
     let data = {
-      uuid: uuidv4(),
+      uuid: this.state.uuid,
       question_id: question.id,
       question_code: question.code,
       value: this.state.answer,
       user_uuid: currentQuiz.user_uuid,
-      quiz_uuid: currentQuiz.uuid
+      quiz_uuid: currentQuiz.uuid,
+      voice: this.state.voice,
     }
 
     Answer.upsert(data);
@@ -73,11 +78,16 @@ class QuestionsText extends Component {
             <QuestionName question={this.props.question } />
 
             { this._renderInputField() }
+
+            <Audio
+              uuid={this.state.uuid}
+              callback={(path) => this.setState({ voice: path })}
+              audioPath={this.state.voice} />
           </View>
         </ScrollView>
 
         <NextButton
-          disabled={!this.state.answer}
+          disabled={!this.state.answer && !this.state.voice}
           onPress={() => this._onPressNext() } />
       </View>
     );

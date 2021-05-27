@@ -13,6 +13,8 @@ import CardItem from '../../components/YourSafety/CardItem';
 
 import Form from '../../models/Form';
 import Quiz from '../../models/Quiz';
+import Answer from '../../models/Answer';
+import Sidekiq from '../../models/Sidekiq';
 
 import { connect } from 'react-redux';
 import { setCurrentQuiz } from '../../actions/currentQuizAction';

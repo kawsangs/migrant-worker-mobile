@@ -1,5 +1,7 @@
 import realm from '../db/schema';
 import uuidv4 from '../utils/uuidv4';
+import Sidekiq from './Sidekiq';
+import UserWorker from '../workers/user_worker';
 
 const User = (() => {
   return {
@@ -7,6 +9,7 @@ const User = (() => {
     upsert,
     deleteAll,
     find,
+    uploadAsync,
   }
 
   function find(uuid) {
@@ -31,6 +34,12 @@ const User = (() => {
         realm.delete(collection);
       });
     }
+  }
+
+  function uploadAsync(uuid) {
+    Sidekiq.upsert({paramUuid: uuid, tableName: 'User', version: '1'});
+
+    UserWorker.performAsync(uuid);
   }
 })();
 
