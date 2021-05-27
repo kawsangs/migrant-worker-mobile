@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, TouchableOpacity, Text, StatusBar, View, TextInput, StyleSheet, Image } from 'react-native';
+import { SafeAreaView, FlatList, TouchableOpacity, Text, StatusBar, View, TextInput, StyleSheet, Image } from 'react-native';
 import { Color, FontFamily, } from '../../assets/stylesheets/base_style';
 import Toast from 'react-native-easy-toast';
 import { Toolbar, Icon } from 'react-native-material-ui';
@@ -9,6 +9,8 @@ import EmptyResult from './empty_result'
 import ViewedCountry from './viewed_country'
 import Country from '../../models/Country'
 import Institution from '../../models/Institution';
+import NetInfo from "@react-native-community/netinfo";
+import CountryService from '../../services/country_service';
 
 const Title = ({ children }) => {
   return (
@@ -20,11 +22,12 @@ const Title = ({ children }) => {
 class CountriesListing extends React.Component {
   state = {
     query: "",
+    isFetching: false,
     countries: []
   }
 
   componentDidMount() {
-    Country.loadIfNotExists(() => {
+    Country.reloadBatch(() => {
       Institution.reloadBatch()
     })
 
@@ -78,8 +81,8 @@ class CountriesListing extends React.Component {
   }
 
   _renderContent() {
-    const { t } = this.props
-    const { query, countries } = this.state;
+    const { t, navigation } = this.props
+    const { query, countries, isFetching } = this.state;
     
     return (
       <View style={{ alignItems: 'flex-start' }}>
@@ -107,33 +110,64 @@ class CountriesListing extends React.Component {
         </Title>
 
         <View style={styles.countriesContainer}>
-          {
-            countries.length > 0 ?
-            countries.map(country => {
-              return <ViewedCountry navigation={this.props.navigation}
-                                    key={country.id} 
-                                    country={country} />
-            }) : <EmptyResult message={t("CountriesListingScreen.NoCountry")} />
-          }
+          <FlatList
+            data={countries}
+            renderItem={(country, i) => {
+              return <ViewedCountry navigation={navigation}
+                                    key={i} 
+                                    country={country.item} />
+            }}
+            keyExtractor={country => country.id}
+            contentContainerStyle={{padding: 8, alignSelf: 'stretch'}}
+            numColumns={1}
+            onRefresh={ () => this._onRefresh() }
+            refreshing={ isFetching }
+          />
         </View>
       </View>
     );
+  }
+
+  _onRefresh() {
+    this.setState({isFetching: true});
+    this.checkInternet(async () => {
+      let updatedCount = await CountryService.fetch()
+      this.toast.show('New counties found ' + JSON.stringify(updatedCount));
+      this.setState({isFetching: false});
+    })
+  }
+
+  checkInternet(callback) {
+    NetInfo.fetch().then(state => {
+      if (!state.isConnected) {
+        this.setState({isFetching: false});
+        alert("No internet connection");
+        return
+      }
+
+      callback();
+    });
   }
 
   render() {
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <StatusBar barStyle={'light-content'} backgroundColor={Color.yellow} />
-        <CollapsibleNavbar
+        {/* <CollapsibleNavbar
           options={{
             header: this._renderToolbar(),
             title: 'អំពីកម្មវិធី',
             bodyContent: this._renderContent(),
             style: { margin: 0 }
           }}
-        />
+        /> */}
 
-        <Toast ref='toast' position='top' positionValue={Platform.OS == 'ios' ? 120 : 140} />
+        {
+          this._renderContent()
+        }
+
+        <Toast ref={(toast) => this.toast = toast} 
+                positionValue={Platform.OS == 'ios' ? 120 : 140} />
       </SafeAreaView>
     )
   }

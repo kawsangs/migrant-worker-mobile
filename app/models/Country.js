@@ -9,6 +9,7 @@ const Country = (() => {
     where,
     create,
     deleteBatch,
+    reloadBatch,
     createBatch,
     loadIfNotExists,
   }
@@ -17,8 +18,8 @@ const Country = (() => {
     return realm.objectForPrimaryKey(MODEL_NAME, id)
   }
 
-  function createBatch() {
-    countries.forEach(country => create(country))
+  function createBatch(collection) {
+    collection.forEach(country => create(country))
   }
 
   function where(field, query) {
@@ -41,9 +42,15 @@ const Country = (() => {
     })
   }
 
+  function reloadBatch(callback) {
+    deleteBatch()
+    createBatch(countries)
+    callback();
+  }
+
   function loadIfNotExists(callback) {
     if( !isExist() ) {
-      createBatch()
+      createBatch(countries)
       callback()
     }
   }
