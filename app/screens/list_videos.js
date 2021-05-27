@@ -106,6 +106,7 @@ export default function ListVideos(props) {
 
     return (
       <FlatList
+        key={uuidv4()}
         data={step.list}
         renderItem={(item, i) => _renderItem(item.item, i)}
         keyExtractor={item => item.stepCode}
