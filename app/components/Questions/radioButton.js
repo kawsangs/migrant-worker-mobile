@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { IconToggle, RippleFeedback } from 'react-native-material-ui';
 import withTheme from 'react-native-material-ui/src/styles/withTheme';
 import { Color } from '../../assets/stylesheets/base_style';
+import uuidv4 from '../../utils/uuidv4';
 
 const propTypes = {
   /**

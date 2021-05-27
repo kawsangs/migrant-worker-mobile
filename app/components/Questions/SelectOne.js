@@ -37,7 +37,7 @@ class QuestionsSelectOne extends Component {
   _renderInputField() {
     return this.state.options.map((item, index) =>
       <RadioButton
-        key={index}
+        key={uuidv4()}
         label={item.name}
         checked={item.id.toString() == this.state.answer}
         value={item.id.toString()}

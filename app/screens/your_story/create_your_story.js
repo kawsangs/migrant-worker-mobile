@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StatusBar, Text } from 'react-native';
+import { View, StatusBar, Text, TouchableOpacity } from 'react-native';
 
 import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
 import { Button } from 'react-native-material-ui';
@@ -44,10 +44,16 @@ class CreateYourStory extends Component {
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', padding: 20}}>
         <View style={[Style.card]}>
-          <Text>Todo: End question message and click go to another step</Text>
+          <Text>អបអរសារទរ អ្នកបានដឹងគន្លឹះសំខាន់ខ្លះៗ ដែលគាំទ្រអ្នកក្នុងការទទួលបានការងារដោយសុវត្ថិភាពនៅប្រទេសគោលដៅ</Text>
         </View>
 
-        <Button primary text="Go Home" onPress={() => this._onPress()} />
+        <TouchableOpacity
+          activeOpacity={0.8}
+          style={{backgroundColor: Color.primary, padding: 8, borderRadius: 8, width: 90}}
+          onPress={() => this._onPress()}>
+
+          <Text style={{fontFamily: FontFamily.title, color: '#fff', textAlign: 'center'}}>រួចរាល់</Text>
+        </TouchableOpacity>
       </View>
     )
   }
