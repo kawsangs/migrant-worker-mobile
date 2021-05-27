@@ -1,4 +1,13 @@
-const InstitutionSchema = {
+import institutions from '../../../data/json/institutions'
+
+class Institution {
+  get logoSource() {
+    let institution = institutions.find(({ institution }) => institution.id == this.id)
+    return institution && institution.institution.logo
+  }
+}
+
+Institution.schema = {
   name: 'Institution',
   primaryKey: 'id',
   properties: {
@@ -12,4 +21,4 @@ const InstitutionSchema = {
   }
 }
 
-export default InstitutionSchema;
+export default Institution;
