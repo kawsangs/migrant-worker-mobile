@@ -25,7 +25,6 @@ class CountriesListing extends React.Component {
 
   componentDidMount() {
     Country.loadIfNotExists(() => {
-      alert("Load")
       Institution.reloadBatch()
     })
 

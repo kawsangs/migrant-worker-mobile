@@ -146,7 +146,7 @@ class LookingForHelp extends React.Component {
       <View style={styles.flag}>
         <Text>{country.emoji_flag}</Text>
       </View>
-      <Text style={{fontWeight: '700'}}>{country.name}</Text>
+      <Text style={{fontFamily: FontFamily.title}}>{country.name}</Text>
     </View>
     )
   }
@@ -165,7 +165,7 @@ class LookingForHelp extends React.Component {
             <View style={{flex: 1}}>
               <View style={styles.institutionImageContainer}>
                 <Image 
-                  source={mapping.images[item.logo_url]}
+                  source={item.logoSource}
                   style={{width: 48, height: 48}}/>
               </View>
 
