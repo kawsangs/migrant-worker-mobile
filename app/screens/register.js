@@ -6,13 +6,13 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  Platform
+  Platform,
+  ToastAndroid,
 } from 'react-native';
 
 import { Icon } from 'react-native-material-ui';
 import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
 import Audio from '../components/Register/Audio';
-import Toast, { DURATION } from 'react-native-easy-toast';
 
 import uuidv4 from '../utils/uuidv4';
 import PlaySound from '../components/play_sound';
@@ -132,7 +132,7 @@ class Register extends Component {
 
   _submit() {
     if (!this._isFormValid()) {
-      return this.refs.toast.show(this.props.t("RegisterScreen.WarningFillRequiredInfo"), DURATION.SHORT);
+      return ToastAndroid.show(this.props.t("RegisterScreen.WarningFillRequiredInfo"), ToastAndroid.SHORT);
     }
 
     User.upsert(this._buildData());
@@ -213,20 +213,16 @@ class Register extends Component {
     ]
 
     return (
-      <View style={{ flex: 1 }}>
-        <ScrollView style={{ flex: 1 }}>
-          <View style={styles.container}>
-            {this._renderTextInput(list[0])}
-            {this._renderSexOption()}
-            {this._renderTextInput(list[1])}
-            {this._renderSeparator()}
-            {this._renderVoiceRecord()}
-            {this._renderButtonNext()}
-          </View>
-        </ScrollView>
-
-        <Toast ref='toast' position='top' positionValue={Platform.OS == 'ios' ? 120 : 140} />
-      </View>
+      <ScrollView style={{ flex: 1 }}>
+        <View style={styles.container}>
+          {this._renderTextInput(list[0])}
+          {this._renderSexOption()}
+          {this._renderTextInput(list[1])}
+          {this._renderSeparator()}
+          {this._renderVoiceRecord()}
+          {this._renderButtonNext()}
+        </View>
+      </ScrollView>
     );
   }
 }
