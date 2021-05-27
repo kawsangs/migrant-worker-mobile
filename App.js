@@ -9,8 +9,7 @@ import { ThemeContext, getTheme } from 'react-native-material-ui';
 import { setCustomText} from 'react-native-global-props';
 import SplashScreen from 'react-native-splash-screen';
 import AppNavigator from './app/navigators/app_navigator';
-import UserWorker from './app/workers/user_worker';
-import Sidekiq from './app/models/Sidekiq';
+import IndexWorker from './app/workers/index_worker';
 import { Color, FontFamily, FontSize } from './app/assets/stylesheets/base_style';
 
 import configureStore from './app/store/configureStore';
@@ -51,8 +50,7 @@ export default class App extends React.Component {
 
   componentDidMount() {
     SplashScreen.hide();
-    UserWorker.init();
-    Sidekiq.uploadAllUsers();
+    IndexWorker.init();
   }
 
   render() {

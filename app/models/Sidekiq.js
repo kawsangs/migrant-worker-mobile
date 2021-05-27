@@ -1,23 +1,25 @@
 import realm from '../db/schema';
 import UserWorker from '../workers/user_worker';
+import QuizWorker from '../workers/quiz_worker';
+import AnswerWorker from '../workers/answer_worker';
 
 const Sidekiq = (() => {
   return {
-    createUser,
+    upsert,
     destroy,
-    uploadAllUsers
+    uploadAll,
+    getAll,
+    deleteAll,
   }
 
-  function createUser(uuid) {
-    realm.write(() => {
-      realm.create('Sidekiq', {
-        paramUuid: uuid,
-        tableName: 'User',
-        version: '1'
-      }, true)
-    });
+  function getAll() {
+    return realm.objects("Sidekiq");
+  }
 
-    UserWorker.performAsync(uuid);
+  function upsert(data) {
+    realm.write(() => {
+      realm.create('Sidekiq', data, 'modified');
+    });
   }
 
   function destroy(paramUuid) {
@@ -27,11 +29,23 @@ const Sidekiq = (() => {
     });
   }
 
-  function uploadAllUsers() {
-    let users = realm.objects('Sidekiq').filtered('tableName="User"');
+  function deleteAll() {
+    realm.write(() => {
+      realm.delete(getAll());
+    });
+  }
 
-    for(let i=0; i<users.length; i++) {
-      UserWorker.performAsync(users[i].paramUuid);
+  function uploadAll() {
+    let worker = {
+      User: UserWorker,
+      Quiz: QuizWorker,
+      Answer: AnswerWorker,
+    }
+
+    let data = getAll();
+
+    for(let i=0; i<data.length; i++) {
+      worker[data[i].tableName].performAsync(data[i].paramUuid);
     }
   }
 })();

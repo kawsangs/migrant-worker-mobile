@@ -1,5 +1,7 @@
 import realm from '../db/schema';
 import uuidv4 from '../utils/uuidv4';
+import Sidekiq from './Sidekiq';
+import AnswerWorker from '../workers/answer_worker';
 
 const Answer = (() => {
   return {
@@ -9,6 +11,7 @@ const Answer = (() => {
     deleteAll,
     byQuiz,
     find,
+    uploadVoiceAnsync,
   }
 
   function find(uuid) {
@@ -41,6 +44,20 @@ const Answer = (() => {
         realm.delete(collection);
       });
     }
+  }
+
+  function uploadVoiceAnsync(quizUuid) {
+    let voiceAnswers = byQuiz(quizUuid).filter(o => !!o.voice);
+
+    for(let i=0; i<voiceAnswers.length; i++) {
+      uploadAsync(voiceAnswers[i].uuid);
+    }
+  }
+
+  function uploadAsync(uuid) {
+    Sidekiq.upsert({paramUuid: uuid, tableName: 'Answer', version: '1'});
+
+    AnswerWorker.performAsync(uuid);
   }
 })();
 

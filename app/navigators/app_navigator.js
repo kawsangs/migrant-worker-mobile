@@ -34,6 +34,7 @@ import SubCategoryScreen from '../screens/sub_category/sub_category';
 import BottomTabNavigator from './bottom_tab_navigator';
 import HomeButton from '../components/Toolbar/HomeButton';
 import LoadingIndicator from '../components/loading_indicator';
+import Sidekiq from '../models/Sidekiq';
 
 const Stack = createStackNavigator();
 
@@ -42,6 +43,7 @@ class AppNavigator extends Component {
 
   componentDidMount() {
     this.getUser();
+    Sidekiq.uploadAll();
   }
 
   getUser = async () => {

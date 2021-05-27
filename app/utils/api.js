@@ -16,13 +16,10 @@ export const ApiBlob = {
       'Content-Type' : 'multipart/form-data',
     }, data)
   },
-  downloadPdf: function(pdfFilename) {
-    return RNFetchBlob
-      .config({
-        path : `${RNFetchBlob.fs.dirs.DocumentDir}/${pdfFilename}.pdf`
-      })
-      .fetch('GET', `${environment.apiUrl}/pdfs/download?filename=${pdfFilename}.pdf`, {
-        Authorization : `Bearer ${environment.access_token}`
-      });
+  put: function(endpint, data) {
+    return RNFetchBlob.fetch('PUT', `${environment.apiUrl}${endpint}`, {
+      Authorization : `Bearer ${environment.access_token}`,
+      'Content-Type' : 'multipart/form-data',
+    }, data)
   }
 }

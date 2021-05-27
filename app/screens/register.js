@@ -123,7 +123,7 @@ class Register extends Component {
       <View style={styles.voiceRecord}>
         <Text>{this.props.t('RegisterScreen.RecordVoice')}</Text>
         <Audio
-          user={this.props.currentUser || {}}
+          uuid={this.props.currentUser && this.props.currentUser.uuid }
           callback={(path) => this.setState({ voiceRecord: path })}
           audioPath={this.state.voiceRecord} />
       </View>
@@ -136,7 +136,7 @@ class Register extends Component {
     }
 
     User.upsert(this._buildData());
-    Sidekiq.createUser(this.state.uuid);
+    User.uploadAsync(this.state.uuid);
     this.props.setCurrentUser(User.find(this.state.uuid));
 
     if (this.action == 'edit') {

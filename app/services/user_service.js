@@ -1,44 +1,39 @@
 import React, {Component} from 'react';
 import NetInfo from "@react-native-community/netinfo";
-import realm from '../db/schema';
 import { ApiBlob } from '../utils/api';
-import { environment } from '../config/environment';
 import RNFetchBlob from 'rn-fetch-blob'
 import Sidekiq from '../models/Sidekiq';
+import User from '../models/User';
 
-export default class UploadServices  {
-  static async uploadUser(uuid) {
+export default class UserService  {
+  static async upload(uuid) {
     NetInfo.fetch().then(state => {
       if (!state.isConnected) { return; }
+      let user = User.find(uuid);
 
-      ApiBlob.post('/migrants', this._buildData(uuid)).then((resp) => {
+      if(!user) return;
+
+      ApiBlob.post('/users', this._buildData(user)).then((resp) => {
         Sidekiq.destroy(uuid);
       })
     });
   }
 
-  static _buildData(uuid) {
-    let user = realm.objects('User').filtered('uuid="' + uuid + '"')[0];
-
-    if (!user) {
-      return [];
-    }
-
+  static _buildData(user) {
     let attributes = {
       uuid: user.uuid,
       full_name: user.name,
       age: user.age,
       sex: user.sex,
-      phone_number: user.phoneNumber,
-      voice: user.voiceRecord,
+      audio: user.voiceRecord,
       registered_at: user.created_at
     }
 
-    let data = [{ name : 'migrant', data : JSON.stringify(attributes)}];
+    let data = [{ name : 'user', data : JSON.stringify(attributes)}];
 
     if (!!user.voiceRecord) {
       data.push({
-        name: 'voice',
+        name: 'audio',
         filename : 'voiceRecord.aac',
         type:'audio/aac',
         data: RNFetchBlob.wrap('file://'+ user.voiceRecord)

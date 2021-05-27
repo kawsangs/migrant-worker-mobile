@@ -360,7 +360,7 @@ export default [
   },
   {
     "id": 19,
-    "name": "សិទ្ធិរបស់អ្នក និង សុវត្ថិភាពអ្នក",
+    "name": "សិទ្ធិ និងសុវត្ថិភាពរបស់អ្នក",
     "description": null,
     "image_url": "/uploads/categories/safety/image/19/your_safety_safety_planning.png",
     "audio_url": null,
@@ -530,7 +530,7 @@ export default [
   },
   {
     "id": 28,
-    "name": "ចំនុចដែលត្រូវដឹង",
+    "name": "ចំនុចដែលគួរដឹង",
     "description": null,
     "image_url": null,
     "audio_url": null,
@@ -548,7 +548,7 @@ export default [
   },
   {
     "id": 29,
-    "name": "យុទ្ធសាស្ត្រសុវត្ថិភាពបន្ថែម",
+    "name": "យុទ្ធសាស្រ្តដើម្បីសុវត្ថិភាពផ្សេងទៀត",
     "description": null,
     "image_url": "/uploads/categories/safety/image/29/safety_more_strategy.png",
     "audio_url": null,
