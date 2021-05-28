@@ -5,6 +5,14 @@ class Institution {
     let institution = institutions.find(({ institution }) => institution.id == this.id)
     return institution && institution.institution.logo
   }
+
+  get logoName() {
+    return this.logoUrl ? this.logoUrl.split(/\//g).pop() : '';
+  }
+
+  get logoUrl() {
+    return this.logo_url;
+  }
 }
 
 Institution.schema = {

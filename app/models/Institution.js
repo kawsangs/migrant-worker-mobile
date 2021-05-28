@@ -2,6 +2,7 @@ import realm from '../db/schema'
 import Country from './Country'
 import institutions from '../data/json/institutions'
 import Contact from './Contact'
+import _ from 'underscore'
 
 const MODEL_NAME = 'Institution'
 const Institution = (() => {
@@ -15,7 +16,7 @@ const Institution = (() => {
   }
 
   function createBatch() {
-    institutions.forEach(serializer => create(serializer))
+    return _.map( institutions, serializer => create(serializer))
   }
 
   function where(field, query) {
@@ -27,15 +28,18 @@ const Institution = (() => {
   }
 
   function create(serializer) {
+    let institution
+
     realm.write(() => {
       const country = Country.find(serializer.country_id)
       if(country != undefined) {
         // Android: files under `android/app/src/main/res/raw`
         // must be lowercase and underscored
-        const institution = realm.create(MODEL_NAME, serializer.institution, 'modified');
+        institution = realm.create(MODEL_NAME, serializer.institution, 'modified');
         country.institutions.push(institution);
       }
     })
+    return institution;
   }
 
   function deleteBatch() {

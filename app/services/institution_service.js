@@ -1,6 +1,7 @@
 import Institution from '../models/Institution';
 import { Api } from '../utils/api';
 import {reject, contains, map} from 'underscore';
+import ImageDownloader from '../downloaders/image_downloader'
 
 const InstitutionService = (() => {
   return {
@@ -13,14 +14,25 @@ const InstitutionService = (() => {
       .then(data => {
         const newInstitutions = reject(data, d => contains(existingIds(), d.institution.id))
         // alert( JSON.stringify(newInstitutions) )
-        Institution.createBatch(newInstitutions)
-        // upsert to realm & download assets
+        const batches = Institution.createBatch(newInstitutions)
+        batches.forEach(downloadAsset)
+
         return newInstitutions.length
       })
       .catch( err => {
         alert(err); 
         return 0; 
       })
+  }
+
+  function downloadAsset(institution) {
+    if( institution.logoUrl != undefined ) {
+      ImageDownloader.download(institution.logoName, institution.logoUrl, function(fileUrl) {
+        alert(`success download ${fileUrl}`)
+        // realm.write(() => { institution.logo_url = fileUrl })
+      }),
+      () => { alert('error') }
+    }
   }
 
   function existingIds() {
