@@ -32,7 +32,7 @@ const Country = (() => {
 
   function create(country) {
     realm.write(() => {
-      realm.create(MODEL_NAME, country);
+      realm.create(MODEL_NAME, country, 'modified');
     })
   }
 

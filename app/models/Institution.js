@@ -32,7 +32,7 @@ const Institution = (() => {
       if(country != undefined) {
         // Android: files under `android/app/src/main/res/raw`
         // must be lowercase and underscored
-        const institution = realm.create(MODEL_NAME, serializer.institution);
+        const institution = realm.create(MODEL_NAME, serializer.institution, 'modified');
         country.institutions.push(institution);
       }
     })

@@ -11,6 +11,8 @@ import {
   Image,
   ImageBackground,
   TextInput,
+  RefreshControl,
+  FlatList
 } from 'react-native';
 
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
@@ -26,6 +28,7 @@ import ContactsList from '../../data/json/service_directories';
 import { withTranslation } from 'react-i18next';
 import EmptyResult from './empty_result';
 import Country from '../../models/Country';
+import InstitutionService from '../../services/institution_service'
 
 import * as mapping from './mapping'
 
@@ -34,7 +37,9 @@ class LookingForHelp extends React.Component {
     country: {},
     institutions: [],
     query: "",
-    loading: true
+    loading: true,
+    isFetching: false,
+    isConnected: false
   };
 
   componentDidMount() {
@@ -277,11 +282,31 @@ class LookingForHelp extends React.Component {
     )
   }
 
+  pullToReload() {
+    this.setState({isFetching: true});
+    this.checkInternet(async () => {
+      let updatedCount = await InstitutionService.fetch(this.state.country.id)
+      this.setState({isFetching: false});
+    })
+  }
+
+  checkInternet(callback) {
+    NetInfo.fetch().then(state => {
+      if (!state.isConnected) {
+        this.setState({isFetching: false});
+        alert("No internet connection");
+        return
+      }
+
+      callback();
+    });
+  }
+
   render() {
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <StatusBar barStyle={'light-content'} backgroundColor={Color.yellow} />
-        <CollapsibleNavbar
+        {/* <CollapsibleNavbar
           bodyHeader={this._renderItem()}
           options={{
             header: this._renderToolbar(),
@@ -295,6 +320,20 @@ class LookingForHelp extends React.Component {
             },
             noResultContent: !this.state.loading && !this.state.isConnected && this._renderNoInternetConnection()
           }}
+        /> */}
+
+        { this._renderToolbar() }
+
+        <FlatList 
+          data={this.state.institutions}
+          ListHeaderComponent={ this._renderItem() }
+          ListHeaderComponentStyle={{ marginVertical: 0 }}
+          renderItem={({ item }) => this._renderCardBody(item)}
+          keyExtractor={item => item.id}
+          // contentContainerStyle={{padding: 8, alignSelf: 'stretch'}}
+          numColumns={1}
+          onRefresh={ () => this.pullToReload() }
+          refreshing={ this.state.isFetching }
         />
 
         { this.state.loading &&
@@ -303,7 +342,8 @@ class LookingForHelp extends React.Component {
           </View>
         }
 
-        <Toast ref='toast' position='top' positionValue={Platform.OS == 'ios' ? 120 : 140} />
+        <Toast ref={(toast) => this.toast = toast} 
+                positionValue={Platform.OS == 'ios' ? 120 : 140} />
       </SafeAreaView>
     )
   }

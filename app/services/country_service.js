@@ -1,4 +1,3 @@
-import countries from '../data/json/countries';
 import Country from '../models/Country';
 import { Api } from '../utils/api';
 import {reject, contains, map} from 'underscore';

@@ -132,7 +132,6 @@ class CountriesListing extends React.Component {
     this.setState({isFetching: true});
     this.checkInternet(async () => {
       let updatedCount = await CountryService.fetch()
-      this.toast.show('New counties found ' + JSON.stringify(updatedCount));
       this.setState({isFetching: false});
     })
   }
