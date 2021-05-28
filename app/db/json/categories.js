@@ -363,7 +363,7 @@ export default [
     "name": "សិទ្ធិ និងសុវត្ថិភាពរបស់អ្នក",
     "description": null,
     "image_url": "/uploads/categories/safety/image/19/your_safety_safety_planning.png",
-    "audio_url": null,
+    "audio_url": "/uploads/categories/safety/audio/19/right_and_your_safety.mp3",
     "parent_id": null,
     "uuid": "sa_001",
     "leaf": false,
@@ -375,6 +375,7 @@ export default [
     "hint_image_url": null,
     "hint_audio_url": null,
     "image": require('../../assets/images/category/your_safety_safety_planning.png'),
+    "audio": "right_and_your_safety.mp3",
     "offline": true
   },
   {
@@ -382,7 +383,7 @@ export default [
     "name": "អំពើហិង្សាលើស្រ្តី",
     "description": null,
     "image_url": "/uploads/categories/safety/image/20/violence_on_women.png",
-    "audio_url": null,
+    "audio_url": "/uploads/categories/safety/audio/20/violence_on_women.mp3",
     "parent_id": 19,
     "uuid": "sa_001_1",
     "leaf": true,
@@ -394,6 +395,7 @@ export default [
     "hint_image_url": null,
     "hint_audio_url": null,
     "image": require('../../assets/images/category/violence_on_women.png'),
+    "audio": "violence_on_women.mp3",
     "offline": true
   },
   {
@@ -401,7 +403,7 @@ export default [
     "name": "ការបៀតបៀនផ្លូវភេទ",
     "description": null,
     "image_url": "/uploads/categories/safety/image/21/harassment.png",
-    "audio_url": null,
+    "audio_url": "/uploads/categories/safety/audio/21/harassment.mp3",
     "parent_id": 19,
     "uuid": "sa_001_2",
     "leaf": true,
@@ -413,6 +415,7 @@ export default [
     "hint_image_url": null,
     "hint_audio_url": null,
     "image": require('../../assets/images/category/harassment.png'),
+    "audio": "harassment.mp3",
     "offline": true
   },
   {
@@ -420,7 +423,7 @@ export default [
     "name": "សុខភាពរបស់អ្នក",
     "description": null,
     "image_url": "/uploads/categories/safety/image/22/your_health.png",
-    "audio_url": null,
+    "audio_url": "/uploads/categories/safety/audio/22/your_health.mp3",
     "parent_id": 19,
     "uuid": "sa_001_3",
     "leaf": true,
@@ -432,6 +435,7 @@ export default [
     "hint_image_url": null,
     "hint_audio_url": null,
     "image": require('../../assets/images/category/your_health.png'),
+    "audio": "your_health.mp3",
     "offline": true
   },
   {
@@ -439,7 +443,7 @@ export default [
     "name": "ស្វែងយល់អំពីការកេងប្រវញ្ច័​និងការជួញដូរ",
     "description": null,
     "image_url": null,
-    "audio_url": null,
+    "audio_url": "/uploads/categories/safety/audio/23/understand__exploitation_and_human_traficking.mp3",
     "parent_id": 19,
     "uuid": "sa_001_4",
     "leaf": true,
@@ -450,6 +454,7 @@ export default [
     "hint": null,
     "hint_image_url": null,
     "hint_audio_url": null,
+    "audio": "understand_exploitation_and_human_traficking.mp3",
     "offline": true
   },
   {
@@ -476,7 +481,7 @@ export default [
     "name": "ផែនការសុវត្ថិភាព",
     "description": null,
     "image_url": "/uploads/categories/safety/image/25/safety_planning_tips.png",
-    "audio_url": null,
+    "audio_url": "/uploads/categories/safety/audio/25/my_body_my_choice_safety_planning_tips.mp3",
     "parent_id": null,
     "uuid": "sa_002",
     "leaf": false,
@@ -488,6 +493,7 @@ export default [
     "hint_image_url": null,
     "hint_audio_url": null,
     "image": require('../../assets/images/category/safety_planning_tips.png'),
+    "audio": "my_body_my_choice_safety_planning_tips.mp3",
     "offline": true
   },
   {
