@@ -11,7 +11,6 @@ import {
   Image,
   ImageBackground,
   TextInput,
-  RefreshControl,
   FlatList
 } from 'react-native';
 
@@ -23,7 +22,6 @@ import Toast from 'react-native-easy-toast';
 import { Icon, Toolbar } from 'react-native-material-ui';
 import LoadingIndicator from '../../components/loading_indicator';
 import { addStatistic } from '../../utils/statistic';
-import CollapsibleNavbar from '../../components/collapsible_navbar';
 import ContactsList from '../../data/json/service_directories';
 import { withTranslation } from 'react-i18next';
 import EmptyResult from './empty_result';
@@ -134,13 +132,10 @@ class LookingForHelp extends React.Component {
   }
 
   _renderItem() {
-    const { country, institutions } = this.state
-
     return (
       <View>
         { this.renderBackgroundImage() }
-        { this.header(country) }
-        { !institutions.length && <EmptyResult message={this.props.t("LookingForHelpScreen.NotFound")} /> }
+        { this.header(this.state.country) }
       </View>
     )
   }
@@ -306,21 +301,6 @@ class LookingForHelp extends React.Component {
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <StatusBar barStyle={'light-content'} backgroundColor={Color.yellow} />
-        {/* <CollapsibleNavbar
-          bodyHeader={this._renderItem()}
-          options={{
-            header: this._renderToolbar(),
-            bodyContentType: 'FlatList',
-            bodyContentProps: {
-              // contentContainerStyle: styles.flatList,
-              data: this.state.institutions,
-              renderItem: ({ item }) => this._renderCardBody(item),
-              keyExtractor: item => item.id,
-              // ListHeaderComponent: () => this._renderHeaderComponent()
-            },
-            noResultContent: !this.state.loading && !this.state.isConnected && this._renderNoInternetConnection()
-          }}
-        /> */}
 
         <FlatList 
           data={this.state.institutions}
@@ -328,7 +308,7 @@ class LookingForHelp extends React.Component {
           ListHeaderComponentStyle={{ marginVertical: 0 }}
           renderItem={({ item }) => this._renderCardBody(item)}
           keyExtractor={item => item.id}
-          // contentContainerStyle={{padding: 8, alignSelf: 'stretch'}}
+          ListEmptyComponent={<EmptyResult message={this.props.t("LookingForHelpScreen.NotFound")} />}
           numColumns={1}
           onRefresh={ () => this.pullToReload() }
           refreshing={ this.state.isFetching }

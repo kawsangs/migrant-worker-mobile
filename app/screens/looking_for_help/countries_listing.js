@@ -3,7 +3,6 @@ import { SafeAreaView, FlatList, TouchableOpacity, Text, StatusBar, View, TextIn
 import { Color, FontFamily, } from '../../assets/stylesheets/base_style';
 import Toast from 'react-native-easy-toast';
 import { Toolbar, Icon } from 'react-native-material-ui';
-import CollapsibleNavbar from '../../components/collapsible_navbar';
 import { withTranslation } from 'react-i18next';
 import EmptyResult from './empty_result'
 import ViewedCountry from './viewed_country'
@@ -86,9 +85,7 @@ class CountriesListing extends React.Component {
     
     return (
       <View style={{ flex: 1, alignItems: 'flex-start' }}>
-        <Title>
-          {t("CountriesListingScreen.Search")}
-        </Title>
+        <Title>{t("CountriesListingScreen.Search")}</Title>
 
         <View style={styles.searchContainer}>
           <TouchableOpacity onPress={this.onSubmit}>
@@ -118,6 +115,7 @@ class CountriesListing extends React.Component {
                                     country={country.item} />
             }}
             keyExtractor={country => country.id}
+            ListEmptyComponent={<EmptyResult message={t("CountriesListingScreen.NoCountry")} />}
             contentContainerStyle={{padding: 8, alignSelf: 'stretch'}}
             numColumns={1}
             onRefresh={ () => this._onRefresh() }
@@ -152,19 +150,7 @@ class CountriesListing extends React.Component {
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <StatusBar barStyle={'light-content'} backgroundColor={Color.yellow} />
-        {/* <CollapsibleNavbar
-          options={{
-            header: this._renderToolbar(),
-            title: 'អំពីកម្មវិធី',
-            bodyContent: this._renderContent(),
-            style: { margin: 0 }
-          }}
-        /> */}
-
-        {
-          this._renderContent()
-        }
-
+        { this._renderContent() }
         <Toast ref={(toast) => this.toast = toast} 
                 positionValue={Platform.OS == 'ios' ? 120 : 140} />
       </SafeAreaView>
