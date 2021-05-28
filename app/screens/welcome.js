@@ -3,20 +3,18 @@ import {
   View,
   Text,
   ScrollView,
-  StyleSheet,
+  ToastAndroid,
+  ImageBackground,
+  Image,
+  TouchableOpacity,
 } from 'react-native';
 
 import { Icon } from 'react-native-material-ui';
-import { Color, Style, FontFamily } from '../assets/stylesheets/base_style';
+import { Color, Style, FontFamily, FontSize } from '../assets/stylesheets/base_style';
 import ButtonNav from '../components/button_nav';
-import { addStatistic } from '../utils/statistic';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
-import Thumbnail from '../components/thumbnail';
 import NetInfo from "@react-native-community/netinfo";
-import Toast, { DURATION } from 'react-native-easy-toast';
-import LoadingIndicator from '../components/loading_indicator';
+import Images from '../utils/images';
+import LinearGradient from 'react-native-linear-gradient';
 
 import { getVideoId } from '../utils/youtube';
 import i18n from 'i18next';
@@ -24,175 +22,109 @@ import { withTranslation } from 'react-i18next';
 
 import User from '../models/User';
 import uuidv4 from '../utils/uuidv4';
-import welcomeVideoList from '../db/json/welcome_videos';
 
 import { connect } from 'react-redux';
 import { setCurrentUser } from '../actions/currentUserAction';
 
 class Welcome extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      loading: true,
-      activeSlide: 0
-    };
-  }
-
-  componentDidMount() {
-    NetInfo.fetch().then(state => {
-      this.setState({ isConnected: state.isConnected, loading: false });
-    });
-
-    this.unsubscribe = NetInfo.addEventListener(state => {
-      this.setState({ isConnected: state.isConnected });
-    });
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
   _loginAsGuest() {
     let uuid = uuidv4();
     User.upsert({uuid: uuid, name: "Guest", created_at: new Date()});
+    User.uploadAsync(uuid);
+
     this.props.setCurrentUser(User.find(uuid));
   }
 
   _renderButtonNavs() {
     return (
-      <View style={{ marginTop: 30 }}>
+      <View style={[Style.container, {marginTop: 0}]}>
         <ButtonNav
           active={true}
           title={"ចុះឈ្មោះ"}
           icon={"person"}
           audio={'register.mp3'}
           onPress={() => this.props.navigation.navigate("RegisterScreen", {action: 'register'})}
-          activePlaying={this.state.activePlaying}
-          onPressPlaySound={(fileName) => this.setState({ activePlaying: fileName })}
         />
 
         <ButtonNav
           title={"បន្តចូលមើល ជាភ្ញៀវ"}
-          icon={"accessibility"}
+          icon={"face-profile"}
+          iconSet={'MaterialCommunityIcons'}
           audio={""}
           onPress={() => this._loginAsGuest()}
-          activePlaying={this.state.activePlaying}
-          onPressPlaySound={(fileName) => this.setState({ activePlaying: fileName })}
         />
       </View>
     )
   }
 
   _onPressItem(video) {
-    if (!this.state.isConnected) {
-      return this.refs.toast.show('សូមភ្ជាប់បណ្តាញអ៊ិនធឺណេតជាមុនសិន!', DURATION.SHORT);
-    }
+    NetInfo.fetch().then(state => {
+      if (!state.isConnected) {
+        return ToastAndroid.show("សូមភ្ជាប់បណ្តាញអ៊ិនធឺណេតជាមុនសិន!", ToastAndroid.SHORT);
+      }
 
-    addStatistic('ViewVideo', { videoId: getVideoId(video.videoUrl), title: video.title });
-    this.props.navigation.navigate('ViewVideoScreen', { videoId: getVideoId(video.videoUrl) });
+      this.props.navigation.navigate('ViewVideoScreen', { videoId: getVideoId("https://www.youtube.com/watch?v=ttSsAGmpC_U") });
+    });
   }
 
-  _renderSlideItem = ({ item, index }) => {
+  _renderContent() {
     return (
-      <View style={{ flex: 1 }} key={index}>
-        <Thumbnail
-          onPress={() => this._onPressItem(item)}
-          imageWidth={wp('100%')}
-          imageHeight={300}
-          url={item.videoUrl}
-        />
-        <View style={styles.slideDescription}>
-          <Text style={styles.slideTitle}>{item[`title_${i18n.language}`]}</Text>
-          <Text style={styles.slideSubTitle} numberOfLines={3} >{item[`sub_title_${i18n.language}`]}</Text>
-        </View>
-      </View>
-    );
-  }
+      <View style={{flex: 1}}>
+        <ImageBackground
+          source={Images.welcome_bg}
+          style={{ width: '100%', height: '100%', resizeMode: "cover" }} >
 
-  _renderHeaderSlide() {
-    return (
-      <View>
-        <Carousel
-          loop={true}
-          data={welcomeVideoList}
-          firstItem={this.state.activeSlide}
-          ref={(c) => { this._carousel = c; }}
-          renderItem={this._renderSlideItem}
-          onSnapToItem={index => this.setState({ activeSlide: index })}
-          sliderWidth={wp('100%')}
-          itemWidth={wp('100%')}
-          useScrollView
-        />
-        <Pagination
-          dotsLength={welcomeVideoList.length > 1}
-          activeDotIndex={this.state.activeSlide}
-          containerStyle={{ paddingVertical: 10 }}
-          dotStyle={styles.dotStyle}
-          inactiveDotStyle={{ backgroundColor: Color.lightGray }}
-          inactiveDotOpacity={1}
-          inactiveDotScale={1}
-        />
+          <LinearGradient colors={['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, 0.01)',  '#fff']} style={{flex: 1}}>
+            <View style={{flex: 1}}>
+              <Image source={Images.spotlight_one_line} style={{width: "100%", height: 100, resizeMode: 'cover'}}/>
+            </View>
+
+            { this._renderVideoButton() }
+
+            <Text style={{fontFamily: FontFamily.title, fontSize: FontSize.title, textAlign: 'center'}}>សូមស្វាគមន៍</Text>
+          </LinearGradient>
+        </ImageBackground>
       </View>
     )
   }
 
-  _renderBodyContent() {
+  _renderVideoButton() {
     return (
-      <View>
-        { this._renderHeaderSlide() }
+      <View style={{width: '100%', height: '100%', position: 'absolute', alignItems: 'center', justifyContent: 'center'}}>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          style={{backgroundColor: '#fff', width: 50, height: 50, borderRadius: 25, justifyContent: 'center', alignItems: 'center'}}
+          onPress={() => this._onPressItem()}>
 
-        <View style={Style.container}>
-          {this._renderButtonNavs()}
-        </View>
-
-        {
-          this.state.loading &&
-          <View style={styles.loadingWrapper}>
-            <LoadingIndicator loading={true} />
+          <View style={{
+            backgroundColor: Color.primary,
+            width: 40,
+            height: 40,
+            borderRadius: 20,
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+            <Icon name='play-arrow' size={30} color={Color.white} iconSet='MaterialIcons' />
           </View>
-        }
-        <Toast ref='toast' position='top' positionValue={Platform.OS == 'ios' ? 120 : 140} />
+        </TouchableOpacity>
       </View>
     )
   }
 
   render() {
     return (
-      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1 }}>
-        { this._renderBodyContent() }
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1, backgroundColor: '#fff' }}>
+        { this._renderContent() }
+
+        <Text style={{padding: 16, textAlign: 'center'}}>
+          ដំណើរឆ្លងដែនរបស់ខ្ញុំគឺជាកម្មវិធីប្រពន្ធ័ទូរស័ព្ទ (អែប) ដើម្បីជួយដល់អ្នកប្រើប្រាស់អាចរកបាននូវព័ត៌មានដែលមានសារ​សំខាន់សម្រាប់ការធ្វើចំណាកស្រុក
+        </Text>
+
+        { this._renderButtonNavs() }
       </ScrollView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  noInternetView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  slideDescription: {
-    marginVertical: 20,
-    marginHorizontal: 20,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  slideTitle: {
-    fontSize: 25,
-    fontFamily: FontFamily.title
-  },
-  slideSubTitle: {
-    fontSize: 17,
-    textAlign: 'center',
-  },
-  dotStyle: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: Color.primary,
-  }
-});
 
 function mapStateToProps(state) {
   return {

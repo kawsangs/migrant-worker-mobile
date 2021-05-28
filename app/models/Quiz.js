@@ -1,5 +1,7 @@
 import realm from '../db/schema';
 import uuidv4 from '../utils/uuidv4';
+import Sidekiq from './Sidekiq';
+import QuizWorker from '../workers/quiz_worker';
 
 const Quiz = (() => {
   return {
@@ -7,6 +9,7 @@ const Quiz = (() => {
     upsert,
     find,
     deleteAll,
+    uploadAsync,
   }
 
   function find(uuid) {
@@ -19,7 +22,7 @@ const Quiz = (() => {
 
   function upsert(data) {
     realm.write(() => {
-      return realm.create('Quiz', data, 'modified');
+      realm.create('Quiz', data, 'modified');
     });
   }
 
@@ -31,6 +34,12 @@ const Quiz = (() => {
         realm.delete(collection);
       });
     }
+  }
+
+  function uploadAsync(uuid) {
+    Sidekiq.upsert({paramUuid: uuid, tableName: 'Quiz', version: '1'});
+
+    QuizWorker.performAsync(uuid);
   }
 })();
 

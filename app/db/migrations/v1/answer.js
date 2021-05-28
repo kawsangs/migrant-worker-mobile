@@ -11,6 +11,7 @@ const AnswerSchema = {
     score: { type: 'int', default: 0 },
     user_uuid: 'string',
     quiz_uuid: 'string',
+    voice: 'string?',
   }
 };
 

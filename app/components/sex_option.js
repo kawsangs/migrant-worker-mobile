@@ -63,7 +63,7 @@ class SexOption extends Component {
       },
       {
         title_en: 'Hidden',
-        title_km: 'មិនបញ្ចេញ',
+        title_km: 'សូមមិនប្រាប់',
         value: 'other',
         iconName: 'other'
       },

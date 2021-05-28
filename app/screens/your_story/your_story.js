@@ -4,6 +4,7 @@ import {
   Text,
   FlatList,
   StatusBar,
+  ToastAndroid,
 } from 'react-native';
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
 import { withTranslation } from 'react-i18next';
@@ -13,6 +14,8 @@ import CardItem from '../../components/YourSafety/CardItem';
 
 import Form from '../../models/Form';
 import Quiz from '../../models/Quiz';
+import Answer from '../../models/Answer';
+import Sidekiq from '../../models/Sidekiq';
 
 import { connect } from 'react-redux';
 import { setCurrentQuiz } from '../../actions/currentQuizAction';
@@ -75,7 +78,7 @@ class YourStory extends Component {
     NetInfo.fetch().then(state => {
       if (!state.isConnected) {
         this.setState({isFetching: false});
-        return alert("no connection");
+        return ToastAndroid.show("សូមភ្ជាប់បណ្តាញអ៊ិនធឺណេតជាមុនសិន!", ToastAndroid.SHORT);
       }
 
       FormService.updateForm(() => {

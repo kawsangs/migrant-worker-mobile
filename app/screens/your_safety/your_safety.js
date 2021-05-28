@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, ToastAndroid } from 'react-native';
 
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
 import { addStatistic } from '../../utils/statistic';
@@ -9,6 +9,7 @@ import CardItem from '../../components/YourSafety/CardItem';
 import Safety from '../../models/Safety';
 import NetInfo from "@react-native-community/netinfo";
 import CategoryService from '../../services/category_service';
+import uuidv4 from '../../utils/uuidv4';
 
 class YourSafety extends Component {
   constructor(props) {
@@ -40,7 +41,8 @@ class YourSafety extends Component {
     NetInfo.fetch().then(state => {
       if (!state.isConnected) {
         this.setState({isFetching: false});
-        return alert("no connection");
+
+        return ToastAndroid.show("សូមភ្ជាប់បណ្តាញអ៊ិនធឺណេតជាមុនសិន!", ToastAndroid.SHORT);
       }
 
       CategoryService.updateSafeties(() => {
@@ -52,7 +54,7 @@ class YourSafety extends Component {
   _renderItem(item, index) {
     return (
       <CardItem
-        key={index}
+        key={uuidv4()}
         title={item.name}
         audio={item.audio}
         image={item.imageSource}

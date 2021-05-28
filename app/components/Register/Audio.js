@@ -21,7 +21,7 @@ export default class Audio extends Component {
   constructor(props) {
     super(props);
 
-    let audioPath = props.audioPath || (AudioUtils.DocumentDirectoryPath + '/' + props.user.uuid + '.aac');
+    let audioPath = props.audioPath || (AudioUtils.DocumentDirectoryPath + '/' + props.uuid + '.aac');
 
     this.state = {
       currentTime: 0.0,

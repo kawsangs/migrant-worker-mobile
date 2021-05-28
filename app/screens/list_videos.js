@@ -19,7 +19,7 @@ import Thumbnail from '../components/thumbnail';
 import { getVideoId } from '../utils/youtube';
 import { useNavigation } from '@react-navigation/native';
 import NetInfo from "@react-native-community/netinfo";
-import Toast, { DURATION } from 'react-native-easy-toast';
+
 import { useTranslation } from 'react-i18next';
 import uuidv4 from '../utils/uuidv4';
 
@@ -32,11 +32,12 @@ export default function ListVideos(props) {
   const states = listData.map((item) => ({ key: item.stepCode, title_en: item.stepTitle_en, title_km: item.stepTitle_km }));
   const [routes] = React.useState(states);
   const [isConnected, setIsConnected] = React.useState(false);
-  const [showLoading, setShowLoading] = React.useState(false);
+  const [showLoading, setShowLoading] = React.useState(true);
   const navigation = useNavigation();
 
   React.useEffect(() => {
     NetInfo.fetch().then(state => {
+      setShowLoading(false);
       setIsConnected(state.isConnected);
     });
 
@@ -106,6 +107,7 @@ export default function ListVideos(props) {
 
     return (
       <FlatList
+        key={uuidv4()}
         data={step.list}
         renderItem={(item, i) => _renderItem(item.item, i)}
         keyExtractor={item => item.stepCode}

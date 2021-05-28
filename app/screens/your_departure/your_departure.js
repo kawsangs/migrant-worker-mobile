@@ -4,6 +4,7 @@ import {
   Text,
   StatusBar,
   FlatList,
+  ToastAndroid,
 } from 'react-native';
 
 import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
@@ -62,7 +63,8 @@ class YourDeparture extends Component {
     NetInfo.fetch().then(state => {
       if (!state.isConnected) {
         this.setState({isFetching: false});
-        return alert("no connection");
+
+        return ToastAndroid.show("សូមភ្ជាប់បណ្តាញអ៊ិនធឺណេតជាមុនសិន!", ToastAndroid.SHORT);
       }
 
       CategoryService.updateDepartures(() => {

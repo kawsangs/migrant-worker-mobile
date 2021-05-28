@@ -22,7 +22,7 @@ export default class ButtonNav extends React.Component {
           onPress={() => this.props.onPress()}
           style={[styles.buttonTextWrapper]}
         >
-          <Icon name={this.props.icon} color={textColor} size={24} />
+          <Icon name={this.props.icon} color={textColor} size={24} iconSet={this.props.iconSet || "MaterialIcons"} />
           <Text style={[styles.buttonText, { color: textColor }]}>{this.props.title}</Text>
         </TouchableOpacity>
 
@@ -39,7 +39,7 @@ export default class ButtonNav extends React.Component {
 const styles = StyleSheet.create({
   buttonWrapper: {
     flexDirection: 'row',
-    marginBottom: 16,
+    marginTop: 16,
     borderRadius: 10,
     overflow: 'hidden',
     borderWidth: 3,
