@@ -32,11 +32,12 @@ export default function ListVideos(props) {
   const states = listData.map((item) => ({ key: item.stepCode, title_en: item.stepTitle_en, title_km: item.stepTitle_km }));
   const [routes] = React.useState(states);
   const [isConnected, setIsConnected] = React.useState(false);
-  const [showLoading, setShowLoading] = React.useState(false);
+  const [showLoading, setShowLoading] = React.useState(true);
   const navigation = useNavigation();
 
   React.useEffect(() => {
     NetInfo.fetch().then(state => {
+      setShowLoading(false);
       setIsConnected(state.isConnected);
     });
 

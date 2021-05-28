@@ -63,7 +63,13 @@ class AppNavigator extends Component {
       <>
         <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={{ title: "ចុះឈ្មោះ" }} />
-        <Stack.Screen name="ViewVideoScreen" component={ViewVideoScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="ViewVideoScreen" component={ViewVideoScreen}
+          options={({route, navigation}) => ({
+            title: "វីដេអូ",
+            headerStyle: { backgroundColor: Color.primary },
+            headerRight: (props) => (<HomeButton navigation={navigation}/>),
+          })}
+        />
       </>
     )
   }
@@ -154,7 +160,13 @@ class AppNavigator extends Component {
             headerStyle: { backgroundColor: Color.primary },
           })}
         />
-        <Stack.Screen name="ViewVideoScreen" component={ViewVideoScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="ViewVideoScreen" component={ViewVideoScreen}
+          options={({route, navigation}) => ({
+            title: "វីដេអូ",
+            headerStyle: { backgroundColor: Color.primary },
+            headerRight: (props) => (<HomeButton navigation={navigation}/>),
+          })}
+        />
         <Stack.Screen name="UserFormScreen" component={RegisterScreen} options={{ title: "កែតម្រូវគណនី" }} />
       </>
     )
