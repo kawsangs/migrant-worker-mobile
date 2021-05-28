@@ -322,8 +322,6 @@ class LookingForHelp extends React.Component {
           }}
         /> */}
 
-        { this._renderToolbar() }
-
         <FlatList 
           data={this.state.institutions}
           ListHeaderComponent={ this._renderItem() }

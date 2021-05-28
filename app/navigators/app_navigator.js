@@ -3,11 +3,12 @@ import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { StatusBar } from 'react-native';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
 
+import { StatusBar } from 'react-native';
 import { Color, FontFamily, FontSize } from '../assets/stylesheets/base_style';
+import { Icon } from 'react-native-material-ui';
 
 import { connect } from 'react-redux';
 import { setCurrentUser } from '../actions/currentUserAction';
@@ -163,8 +164,6 @@ class AppNavigator extends Component {
           })}
         />
 
-        <Stack.Screen name="LookingForHelpScreen" component={LookingForHelpScreen} options={{ headerShown: false }} />
-
         <Stack.Screen name="AboutScreen" component={AboutScreen}
           options={({route, navigation}) => ({
             title: route.params.title || "អំពី",
@@ -179,7 +178,19 @@ class AppNavigator extends Component {
           })}
         />
         <Stack.Screen name="UserFormScreen" component={RegisterScreen} options={{ title: "កែតម្រូវគណនី" }} />
-        <Stack.Screen name="CountriesListingScreen" component={CountriesListingScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="LookingForHelpScreen" component={LookingForHelpScreen}
+          options={({route, navigation}) => ({
+            title: 'ស្វែងរកជំនួយ',
+            headerStyle: { backgroundColor: Color.yellow },
+            headerRight: (props) => (<HomeButton navigation={navigation}/>),
+          })} />
+
+        <Stack.Screen name="CountriesListingScreen" component={CountriesListingScreen}
+          options={({route, navigation}) => ({
+            title: 'ជ្រើសរើសប្រទេសចំណាកស្រុក',
+            headerStyle: { backgroundColor: Color.yellow },
+            headerRight: (props) => (<HomeButton navigation={navigation}/>),
+          })} />
       </>
     )
   }
