@@ -1,8 +1,17 @@
 import React from 'react';
-import { SafeAreaView, FlatList, TouchableOpacity, Text, StatusBar, View, TextInput, StyleSheet, Image } from 'react-native';
+import {
+  SafeAreaView,
+  FlatList,
+  TouchableOpacity,
+  Text,
+  StatusBar,
+  View,
+  TextInput,
+  StyleSheet,
+  Image
+} from 'react-native';
 import { Color, FontFamily, } from '../../assets/stylesheets/base_style';
-import Toast from 'react-native-easy-toast';
-import { Toolbar, Icon } from 'react-native-material-ui';
+import { Icon } from 'react-native-material-ui';
 import { withTranslation } from 'react-i18next';
 import EmptyResult from './empty_result'
 import ViewedCountry from './viewed_country'
@@ -10,6 +19,7 @@ import Country from '../../models/Country'
 import Institution from '../../models/Institution';
 import NetInfo from "@react-native-community/netinfo";
 import CountryService from '../../services/country_service';
+import uuidv4 from '../../utils/uuidv4';
 
 const Title = ({ children }) => {
   return (
@@ -39,32 +49,6 @@ class CountriesListing extends React.Component {
 
   filterData(query) {
     return Country.where('name', query)
-  }
-
-  _renderToolbar() {
-    return (
-      <Toolbar
-        leftElement={'arrow-back'}
-        onLeftElementPress={() => this.props.navigation.goBack()}
-        centerElement={this.props.t('CountriesListingScreen.HeaderTitle')}
-        rightElement={'home'}
-        onRightElementPress={() => this._goTo('HomeScreen')}
-        size={30}
-        style={{
-          titleText: {
-            fontFamily: FontFamily.title,
-            textAlign: 'center',
-          },
-          centerElementContainer: {
-            marginLeft: 0
-          },
-          container: {
-            width: '100%',
-            backgroundColor: Color.yellow,
-          },
-        }}
-      />
-    );
   }
 
   onChangeQuery = (query) => {
@@ -97,6 +81,7 @@ class CountriesListing extends React.Component {
             onChangeText={this.onChangeQuery}
             value={query}
             placeholder={t("CountriesListingScreen.CountrySearch")}
+            placeholderStyle={{fontFamily: FontFamily.body}}
             keyboardType="default"
             onSubmitEditing={this.onSubmit}
           />
@@ -109,15 +94,10 @@ class CountriesListing extends React.Component {
         <View style={styles.countriesContainer}>
           <FlatList
             data={countries}
-            renderItem={(country, i) => {
-              return <ViewedCountry navigation={navigation}
-                                    key={i} 
-                                    country={country.item} />
-            }}
-            keyExtractor={country => country.id}
+            renderItem={(country, i) => <ViewedCountry navigation={navigation} country={country.item} /> }
+            keyExtractor={country => uuidv4()}
             ListEmptyComponent={<EmptyResult message={t("CountriesListingScreen.NoCountry")} />}
             contentContainerStyle={{padding: 8, alignSelf: 'stretch'}}
-            numColumns={1}
             onRefresh={ () => this._onRefresh() }
             refreshing={ isFetching }
           />
@@ -151,8 +131,6 @@ class CountriesListing extends React.Component {
       <SafeAreaView style={{ flex: 1 }}>
         <StatusBar barStyle={'light-content'} backgroundColor={Color.yellow} />
         { this._renderContent() }
-        <Toast ref={(toast) => this.toast = toast} 
-                positionValue={Platform.OS == 'ios' ? 120 : 140} />
       </SafeAreaView>
     )
   }

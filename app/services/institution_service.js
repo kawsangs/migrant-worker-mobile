@@ -1,7 +1,7 @@
 import Institution from '../models/Institution';
 import { Api } from '../utils/api';
 import {reject, contains, map} from 'underscore';
-import ImageDownloader from '../downloaders/image_downloader'
+import FileDownloader from '../downloaders/file_downloader'
 
 const InstitutionService = (() => {
   return {
@@ -27,7 +27,7 @@ const InstitutionService = (() => {
 
   function downloadAsset(institution) {
     if( institution.logoUrl != undefined ) {
-      ImageDownloader.download(institution.logoName, institution.logoUrl, function(fileUrl) {
+      FileDownloader.download(institution.logoName, institution.logoUrl, function(fileUrl) {
         alert(`success download ${fileUrl}`)
         // realm.write(() => { institution.logo_url = fileUrl })
       }),
