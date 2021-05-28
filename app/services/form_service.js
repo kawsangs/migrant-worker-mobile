@@ -1,45 +1,41 @@
 import Form from '../models/Form';
 import { Api } from '../utils/api';
-import AudioDownloader from '../downloaders/audio_downloader';
+import FileDownloader from '../downloaders/file_downloader';
 import realm from '../db/schema';
+import formList from '../db/json/form_stories';
 
-const CategoryService = (()=> {
+const FormService = (()=> {
   return {
-    downloadForm,
+    updateForm,
   }
 
-  function downloadForm(updateTotalCountCallback, increaseProgressCallback) {
+  function updateForm(callback) {
     Api.get('/forms')
       .then(response => response.data)
       .then(data => {
-        // Upsert to db
-        Form.upsertCollection(data);
+        let newForms = data.filter(form => !formList.filter(x => x.id == form.id).length)
+        Form.upsertCollection(newForms);
 
-        // Find in db where pending for download
         let items = Form.getPendingDownload();
-
-        // Update progress state
-        updateTotalCountCallback(items.length + 1);
-        increaseProgressCallback();
-
-        // Call to download first pending
-        download(0, items, increaseProgressCallback);
+        download(0, items, callback);
       })
   }
 
   // Private
-
-  function download(index, items, increaseProgressCallback) {
-    if(index == items.length) { return; }
+  function download(index, items, callback) {
+    if(index == items.length) {
+      !!callback && callback();
+      return;
+    }
 
     let item = items[index];
-    AudioDownloader.download(_getFileName(item), item.url, function(fileUrl) {
+
+    FileDownloader.download(_getFileName(item), item.url, function(fileUrl) {
       realm.write(() => {
         item.obj[item.type] = fileUrl
       });
 
-      increaseProgressCallback();
-      download(index + 1, items, increaseProgressCallback);
+      download(index + 1, items, callback);
     })
   }
 
@@ -49,4 +45,4 @@ const CategoryService = (()=> {
   }
 })();
 
-export default CategoryService;
+export default FormService;

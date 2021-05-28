@@ -11,15 +11,14 @@ import {
 
 import { Icon } from 'react-native-material-ui';
 import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
-import Audio from '../components/audio';
+import Audio from '../components/Register/Audio';
 import Toast, { DURATION } from 'react-native-easy-toast';
-import realm from '../db/schema';
+
 import uuidv4 from '../utils/uuidv4';
 import PlaySound from '../components/play_sound';
 import SexOption from '../components/sex_option';
 import Sidekiq from '../models/Sidekiq';
 import { addStatistic } from '../utils/statistic';
-import color from '../assets/stylesheets/base/color';
 import { withTranslation } from 'react-i18next';
 
 import { connect } from 'react-redux';
@@ -29,16 +28,24 @@ import User from '../models/User';
 const requiredFields = ['uuid', 'name', 'sex', 'age'];
 
 class Register extends Component {
-  state = {
-    uuid: uuidv4(),
-    name: '',
-    sex: '',
-    age: '',
-    voiceRecord: '',
-    errors: {}
-  };
-
   formError = {};
+
+  constructor(props) {
+    super(props);
+
+    let currentUser = props.currentUser || {};
+
+    this.state = {
+      uuid: currentUser.uuid || uuidv4(),
+      name: currentUser.name,
+      sex: currentUser.sex,
+      age: currentUser.age,
+      voiceRecord: currentUser.voiceRecord || "",
+      errors: {}
+    };
+
+    this.action = props.route.params.action || "register";
+  }
 
   _setState(stateName, value) {
     let obj = {};
@@ -71,15 +78,13 @@ class Register extends Component {
     )
   }
 
-  _buildButtonAudio(audioFilename, active) {
+  _buildButtonAudio(audio, active) {
     return (
       <PlaySound
         style={styles.buttonAudioWrapper}
-        buttonAudioStyle={{ backgroundColor: active ? color.white : color.primary }}
-        iconStyle={{ tintColor: active ? color.primary : color.white }}
-        fileName={audioFilename || 'register'}
-        activePlaying={this.state.activePlaying}
-        onPress={(fileName) => this.setState({ activePlaying: fileName })} />
+        buttonAudioStyle={{ backgroundColor: active ? Color.white : Color.primary }}
+        iconStyle={{ tintColor: active ? Color.primary : Color.white }}
+        filePath={audio}/>
     )
   }
 
@@ -88,7 +93,7 @@ class Register extends Component {
       <View style={{ marginBottom: 24 }}>
         <View style={{ marginBottom: 10, flexDirection: 'row' }}>
           <Text style={{ flex: 1 }}>{this.props.t('RegisterScreen.ChooseGender')}</Text>
-          {this._buildButtonAudio('register')}
+          {this._buildButtonAudio('')}
         </View>
 
         <SexOption
@@ -118,6 +123,7 @@ class Register extends Component {
       <View style={styles.voiceRecord}>
         <Text>{this.props.t('RegisterScreen.RecordVoice')}</Text>
         <Audio
+          user={this.props.currentUser || {}}
           callback={(path) => this.setState({ voiceRecord: path })}
           audioPath={this.state.voiceRecord} />
       </View>
@@ -130,20 +136,28 @@ class Register extends Component {
     }
 
     User.upsert(this._buildData());
-    addStatistic('registerSuccess');
     Sidekiq.createUser(this.state.uuid);
     this.props.setCurrentUser(User.find(this.state.uuid));
+
+    if (this.action == 'edit') {
+      this.props.navigation.goBack();
+    }
   }
 
   _buildData() {
-    return {
+    let params = {
       uuid: this.state.uuid,
       name: this.state.name,
       sex: this.state.sex,
       age: this.state.age,
       voiceRecord: this.state.voiceRecord,
-      created_at: new Date()
+    };
+
+    if (this.action == 'register') {
+      params.created_at = new Date();
     }
+
+    return params;
   }
 
   _checkRequire(field) {
@@ -187,7 +201,7 @@ class Register extends Component {
         <View style={styles.coverRegisterLabel}>
           <Text style={styles.buttonNextText}>{this.props.t("RegisterScreen.ButtonRegister")}</Text>
         </View>
-        {this._buildButtonAudio('register', true)}
+        {this._buildButtonAudio('register.mp3', true)}
       </TouchableOpacity>
     )
   }
@@ -255,9 +269,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   buttonNextText: {
-    color: color.white,
+    color: Color.white,
     fontFamily: FontFamily.title,
-    fontWeight: '700'
   },
   errorText: {
     color: Color.errorText,
@@ -277,11 +290,11 @@ const styles = StyleSheet.create({
   line: {
     flex: 1,
     height: 1,
-    backgroundColor: color.border
+    backgroundColor: Color.border
   },
   separatorLabel: {
     fontWeight: '700',
-    color: color.gray
+    color: Color.gray
   },
   separatorCoverLabel: {
     paddingHorizontal: 10,

@@ -21,12 +21,16 @@ import { connect } from 'react-redux';
 import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexAction';
 
 class QuestionsResult extends Component {
-  _renderMessage() {
-    const { question, currentQuiz } = this.props;
-    const totalScore = Answer.byQuiz(currentQuiz.uuid).sum('score');
-    const message = totalScore >= question.passing_score ? question.passing_message : question.failing_message;
+  constructor(props) {
+    super(props);
 
-    return (<Text>{message}</Text>);
+    const { question, currentQuiz } = props;
+    let totalScore = Answer.byQuiz(currentQuiz.uuid).sum('score');
+
+    this.state = {
+      audio: totalScore >= question.passing_score ? question.passing_audio : question.failing_audio,
+      message: totalScore >= question.passing_score ? question.passing_message : question.failing_message
+    };
   }
 
   _onPressNext() {
@@ -43,9 +47,9 @@ class QuestionsResult extends Component {
           showsVerticalScrollIndicator={false}>
 
           <View style={[Style.container, Style.card]}>
-            <QuestionName question={this.props.question } />
+            <QuestionName question={this.props.question } audio={this.state.audio} />
 
-            { this._renderMessage() }
+            <Text style={{marginTop: 10}}>{this.state.message}</Text>
           </View>
         </ScrollView>
 

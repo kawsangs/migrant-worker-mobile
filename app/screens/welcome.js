@@ -4,12 +4,10 @@ import {
   Text,
   ScrollView,
   StyleSheet,
-  Button,
-  ActivityIndicator
 } from 'react-native';
 
 import { Icon } from 'react-native-material-ui';
-import { Color, Style } from '../assets/stylesheets/base_style';
+import { Color, Style, FontFamily } from '../assets/stylesheets/base_style';
 import ButtonNav from '../components/button_nav';
 import { addStatistic } from '../utils/statistic';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
@@ -57,7 +55,7 @@ class Welcome extends React.Component {
 
   _loginAsGuest() {
     let uuid = uuidv4();
-    User.upsert({uuid: uuid, name: "guest", created_at: new Date()});
+    User.upsert({uuid: uuid, name: "Guest", created_at: new Date()});
     this.props.setCurrentUser(User.find(uuid));
   }
 
@@ -68,48 +66,22 @@ class Welcome extends React.Component {
           active={true}
           title={"ចុះឈ្មោះ"}
           icon={"person"}
-          audioFileName={'register'}
-          onPress={() => this.props.navigation.navigate("RegisterScreen")}
+          audio={'register.mp3'}
+          onPress={() => this.props.navigation.navigate("RegisterScreen", {action: 'register'})}
           activePlaying={this.state.activePlaying}
           onPressPlaySound={(fileName) => this.setState({ activePlaying: fileName })}
         />
 
         <ButtonNav
           title={"បន្តចូលមើល ជាភ្ញៀវ"}
-          icon={"phone"}
-          audioFileName={"contact_1280"}
+          icon={"accessibility"}
+          audio={""}
           onPress={() => this._loginAsGuest()}
           activePlaying={this.state.activePlaying}
           onPressPlaySound={(fileName) => this.setState({ activePlaying: fileName })}
         />
       </View>
     )
-  }
-
-  _renderNoInternetConnection() {
-    return (
-      <View style={styles.noInternetView}>
-        <View style={{ flexDirection: 'row' }}>
-          <Icon name='info-outline' color='#111' size={24} style={{ marginRight: 8 }} iconSet='MaterialIcons' />
-          <Text>មិនមានការតភ្ជាប់បណ្តាញទេឥឡូវនេះ។</Text>
-        </View>
-        <Text>សូមព្យាយាម​ម្តង​ទៀត​</Text>
-
-        { this.state.showLoading && <ActivityIndicator size="small" />}
-
-        <View style={{ marginTop: 20 }}>
-          <Button title='ព្យាយាមម្តងទៀត' onPress={() => this._retryConnection()} />
-        </View>
-      </View>
-    )
-  }
-
-  _retryConnection() {
-    this.setState({ showLoading: true })
-
-    NetInfo.fetch().then(state => {
-      this.setState({ isConnected: state.isConnected, showLoading: false });
-    });
   }
 
   _onPressItem(video) {
@@ -153,7 +125,7 @@ class Welcome extends React.Component {
           useScrollView
         />
         <Pagination
-          dotsLength={welcomeVideoList.length}
+          dotsLength={welcomeVideoList.length > 1}
           activeDotIndex={this.state.activeSlide}
           containerStyle={{ paddingVertical: 10 }}
           dotStyle={styles.dotStyle}
@@ -168,10 +140,12 @@ class Welcome extends React.Component {
   _renderBodyContent() {
     return (
       <View>
-        {this._renderHeaderSlide()}
+        { this._renderHeaderSlide() }
+
         <View style={Style.container}>
           {this._renderButtonNavs()}
         </View>
+
         {
           this.state.loading &&
           <View style={styles.loadingWrapper}>
@@ -186,7 +160,7 @@ class Welcome extends React.Component {
   render() {
     return (
       <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1 }}>
-        {!this.state.loading && !this.state.isConnected ? this._renderNoInternetConnection() : this._renderBodyContent()}
+        { this._renderBodyContent() }
       </ScrollView>
     );
   }
@@ -206,11 +180,10 @@ const styles = StyleSheet.create({
   },
   slideTitle: {
     fontSize: 25,
-    fontWeight: '700'
+    fontFamily: FontFamily.title
   },
   slideSubTitle: {
     fontSize: 17,
-    fontWeight: '600',
     textAlign: 'center',
   },
   dotStyle: {

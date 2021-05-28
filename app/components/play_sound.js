@@ -6,52 +6,71 @@ import {
   Image
 } from 'react-native';
 
-import SoundPlayer from 'react-native-sound-player';
+import Sound from 'react-native-sound';
+import { Icon } from 'react-native-material-ui';
 import { Color } from '../assets/stylesheets/base_style';
 import Images from '../utils/images';
 
 export default class PlaySound extends Component {
-  _onFinishedPlayingSubscription = null;
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      fileName: props.fileName
-    };
-  }
-
-  componentDidMount() {
-    this._onFinishedPlayingSubscription = SoundPlayer.addEventListener('FinishedPlaying', ({ success }) => {
-      this.props.onPress('');
-    })
-  }
+  state = {}
 
   componentWillUnmount() {
-    this._onFinishedPlayingSubscription.remove();
+    if (this.sound) this.sound.release();
   }
 
   _playAudio() {
-    this.props.onPress(this.state.fileName);
+    if (this.state.playing) {
+      this.setState({playing: false});
+      if (this.sound) this.sound.release();
+      return;
+    }
 
-    SoundPlayer.playSoundFile(this.state.fileName, 'mp3');
+    Sound.setCategory('Playback');
+
+    let folder = this.props.filePath.split('/').length > 1 ? '' : Sound.MAIN_BUNDLE;
+
+    this.sound = new Sound(this.props.filePath, folder, (error) => {
+      if (error) { return console.log('failed to load the sound', error); }
+
+      this.setState({playing: true});
+      this.sound.play(this.playComplete);
+    });
+  }
+
+  playComplete = (success) => {
+    if (success) {
+      this.setState({playing: false});
+      console.log('successfully finished playing');
+    } else {
+      console.log('playback failed due to audio decoding errors');
+    }
+  }
+
+  renderVolumeOff() {
+    return (
+      <View style={this.props.style}>
+        <View style={[styles.buttonAudio, {backgroundColor: Color.gray}]}>
+          <Icon name={"md-volume-off"} color={"#fff"} iconSet={"Ionicons"} />
+        </View>
+      </View>
+    )
   }
 
   render() {
-    let isActive = (this.props.activePlaying == this.state.fileName);
-    let iconName = this.props.iconName || Images.audio;
-    let playIconName = this.props.playIconName || Images.active_play;
-    let getBtnAudioStyle = this.props.buttonAudioStyle;
-    let getIconStyle = this.props.iconStyle;
+    if (!this.props.filePath) {
+      return this.renderVolumeOff();
+    }
+
+    let icon = this.state.playing ? Images.active_play : Images.audio;
 
     return (
       <TouchableOpacity
         onPress={() => this._playAudio()}
         style={this.props.style}
-        activeOpacity={0.7}
-      >
-        <View style={[styles.buttonAudio, getBtnAudioStyle]}>
-          {(!isActive) && <Image source={iconName} style={[styles.iconStyle, getIconStyle]} />}
-          {isActive && <Image source={playIconName} style={[styles.iconStyle, getIconStyle]} />}
+        activeOpacity={0.7}>
+
+        <View style={[styles.buttonAudio, this.props.buttonAudioStyle]}>
+          <Image source={icon} style={[styles.iconStyle, this.props.iconStyle]} />
         </View>
       </TouchableOpacity>
     )

@@ -1,6 +1,5 @@
 import realm from '../db/schema';
-import ImageDownloader from '../downloaders/image_downloader';
-import CategoryImage from '../models/CategoryImage';
+import categoryList from '../db/json/categories';
 
 const Departure = (() => {
   return {
@@ -11,9 +10,22 @@ const Departure = (() => {
     update,
     upsertCollection,
     deleteAll,
-    downloadImage,
-    downloadAudio,
     isDownloaded,
+    find,
+    seedData,
+  }
+
+  function seedData(callback) {
+    if (!getAll().length) {
+      let categories = categoryList.filter(cat => cat.type == "Categories::Departure")
+      upsertCollection(categories);
+    }
+
+    !!callback && callback();
+  }
+
+  function find(id) {
+    return realm.objects('Category').filtered(`id=${id}`)[0];
   }
 
   function getChildren(parent_id) {
@@ -25,13 +37,9 @@ const Departure = (() => {
   }
 
   function deleteAll() {
-    let categories = realm.objects('Category').filtered(`type = 'Departure'`);
-
-    if (categories.length > 0) {
-      realm.write(() => {
-        realm.delete(categories);
-      });
-    }
+    realm.write(() => {
+      realm.delete(getAll());
+    });
   }
 
   function upsertCollection(categories) {
@@ -45,7 +53,7 @@ const Departure = (() => {
       realm.create('Category', _buildData(category), 'modified');
     });
 
-    CategoryImage.upsertCollection(category.category_images);
+    if (!category.children) { return; }
 
     for (let i=0; i<category.children.length; i++) {
       upsert(category.children[i]);
@@ -53,30 +61,43 @@ const Departure = (() => {
   }
 
   function _buildData(category) {
-    return ({
+    let params = {
       uuid: category.uuid,
       id: category.id,
       name: category.name,
       image_url: category.image_url,
+      audio: category.audio,
       audio_url: category.audio_url,
       description: category.description,
       type: 'Departure',
       parent_id: category.parent_id,
-      last: category.last,
-      leaf: category.leaf,
+      last: !!category.last,
+      leaf: !!category.leaf,
       lft: category.lft,
       rgt: category.rgt,
-    });
+      video: !!category.is_video,
+      hint: category.hint,
+      hint_audio: category.hint_audio,
+      hint_audio_url: category.hint_audio_url,
+      hint_image_url: category.hint_image_url,
+    };
+    if (!category.offline) {
+      return params;
+    }
+
+    if (!!category.image_url) {
+      params.image = 'offline';
+    }
+
+    if (!!category.hint_image_url) {
+      params.hint_image = 'offline';
+    }
+
+    return params;
   }
 
   function getPendingDownload() {
-    let collection = byPendingImage().concat(byPendingAudio());
-
-    return collection.concat(CategoryImage.getPendingDownload());
-  }
-
-  function parseJson(realmObjects) {
-    return JSON.parse(JSON.stringify(realmObjects));
+    return byPendingImage().concat(byPendingAudio());
   }
 
   function byPendingImage() {
@@ -105,19 +126,6 @@ const Departure = (() => {
 
   function getAll() {
     return realm.objects('Category').filtered(`type='Departure'`);
-  }
-
-  function downloadImage(category={}, successCallback, failsCallback) {
-    ImageDownloader.download(_getFileName(category), category.url, successCallback, failsCallback);
-  }
-
-  function downloadAudio(category={}, successCallback, failsCallback) {
-    AudioDownloader.download(_getFileName(category), category.url, successCallback, failsCallback);
-  }
-
-  function _getFileName(category={}) {
-    let fileNames = category.url.split('/');
-    return `${category.type}_${category.uuid}_${fileNames[fileNames.length - 1]}`;
   }
 })();
 

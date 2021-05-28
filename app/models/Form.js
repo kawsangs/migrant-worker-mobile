@@ -3,6 +3,7 @@ import realm from '../db/schema';
 import Question from '../models/Question';
 import Option from '../models/Option';
 import Criteria from '../models/Criteria';
+import formList from '../db/json/form_stories';
 
 const Form = (() => {
   return {
@@ -13,6 +14,7 @@ const Form = (() => {
     getPendingDownload,
     upsertCollection,
     upsert,
+    seedData,
   }
 
   function getPendingDownload() {
@@ -59,13 +61,28 @@ const Form = (() => {
   }
 
   function _buildData(item) {
-    return ({
+    let params = {
       id: item.id,
+      code: item.code,
       name: item.name,
-      form_type: item.form_type,
+      audio: item.audio,
       version: item.version,
       question_count: item.questions.length
-    });
+    };
+
+    if (!!item.offline && !!item.image_url) {
+      params.image = 'offline'
+    }
+
+    return params;
+  }
+
+  function seedData(callback) {
+    if (!getAll().length) {
+      upsertCollection(formList);
+    }
+
+    !!callback && callback();
   }
 
 })();

@@ -14,26 +14,35 @@ import { autoImageHeight, autoImageWidth } from '../utils/image_style';
 import PlaySound from '../components/play_sound';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
-import CategoryImage from '../models/CategoryImage';
+// import CategoryImage from '../models/CategoryImage';
+import Category from '../models/Departure';
+import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 
 class ImageView extends Component {
   constructor(props) {
     super(props);
 
-    let imageList = CategoryImage.byCategory(props.route.params.category_id);
+    // let imageList = CategoryImage.byCategory(props.route.params.category_id);
+    let imageList = [];
 
     this.state = {
       rotation: 0,
       activePlaying: false,
-      images: JSON.parse(JSON.stringify(imageList)),
+      images: imageList,
       current_image: imageList[0],
+      category: Category.find(props.route.params.category_id)
     };
   }
 
   componentDidMount() {
-    Image.getSize(`file://${this.state.current_image.image}`, (width, height) => {
-      this.setState({imageWidth: width, imageHeight: height});
-    });
+    if (this.state.current_image.image == "offline") {
+      let image = resolveAssetSource(this.state.current_image.offlineSource);
+      this.setState({imageWidth: image.width, imageHeight: image.height});
+    } else {
+      Image.getSize(`file://${this.state.current_image.image}`, (width, height) => {
+        this.setState({imageWidth: width, imageHeight: height});
+      });
+    }
   }
 
   _onPrevClicked = (image) => {
@@ -119,13 +128,11 @@ class ImageView extends Component {
   }
 
   _renderImagePreview() {
-    let image = {uri: `file://${this.state.current_image.image}`};
-
     return (
       <View style={[Style.card, {flex: 1, justifyContent: 'center', alignItems: 'center'}]} onLayout={(e) => this.setState({containerHeight: e.nativeEvent.layout.height, containerWidth: e.nativeEvent.layout.width})}>
         { !!this.state.imageWidth &&
           <Image
-            source={image}
+            source={this.state.current_image.imageSource}
             style={[this._getImageSize(), { transform: [{ rotate: `${this.state.rotation}deg` }] } ]}
             resizeMode={'contain'} />
         }
@@ -133,15 +140,13 @@ class ImageView extends Component {
     );
   }
 
-  _buildButtonAudio(audioFilename, active) {
+  _buildButtonAudio() {
     return (
       <PlaySound
+        filePath={this.state.category.audio}
         style={styles.buttonAudioWrapper}
         buttonAudioStyle={{ backgroundColor: Color.white }}
-        iconStyle={{ tintColor: Color.red }}
-        fileName={audioFilename || 'register'}
-        activePlaying={this.state.activePlaying}
-        onPress={(fileName) => this.setState({ activePlaying: fileName })} />
+        iconStyle={{ tintColor: Color.red }} />
     )
   }
 
@@ -168,7 +173,7 @@ class ImageView extends Component {
         <View style={styles.coverRegisterLabel}>
           <Text style={styles.buttonRotationText}>{this.props.t('ImageViewScreen.Rotate')} {" "} {this.props.route.params.title}</Text>
         </View>
-        {this._buildButtonAudio('register', true)}
+        {this._buildButtonAudio()}
       </TouchableOpacity>
     )
   }

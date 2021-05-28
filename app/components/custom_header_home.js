@@ -8,9 +8,8 @@ import {
   SafeAreaView,
   TouchableOpacity
 } from 'react-native';
-import { Color, FontSize } from '../assets/stylesheets/base_style';
+import { Color, FontSize, FontFamily } from '../assets/stylesheets/base_style';
 import Images from '../utils/images';
-
 
 const CustomHeaderHome = withTranslation()((props) => {
   return (
@@ -21,16 +20,18 @@ const CustomHeaderHome = withTranslation()((props) => {
         <Text style={styles.homepageText}>{props.t('HomeScreen.Homepage')}</Text>
       </View>
 
-      <View style={styles.headerRight}>
-        <TouchableOpacity
-          style={styles.notificationButton}
-          onPress={() => null}
-          activeOpacity={0.8}
-        >
-          <Image source={Images.notification} style={styles.notificationIcon} />
-          <View style={styles.notificationBadge} />
-        </TouchableOpacity>
-      </View>
+      { false &&
+        <View style={styles.headerRight}>
+          <TouchableOpacity
+            style={styles.notificationButton}
+            onPress={() => null}
+            activeOpacity={0.8}
+          >
+            <Image source={Images.notification} style={styles.notificationIcon} />
+            <View style={styles.notificationBadge} />
+          </TouchableOpacity>
+        </View>
+      }
 
     </SafeAreaView>
   )
@@ -59,12 +60,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   welcomeText: {
+    fontFamily: FontFamily.title,
     fontSize: FontSize.body,
-    fontWeight: '700',
   },
   homepageText: {
+    fontFamily: FontFamily.title,
     fontSize: FontSize.title - 8,
-    fontWeight: '700'
   },
   headerRight: {
     flex: 1,

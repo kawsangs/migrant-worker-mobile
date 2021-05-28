@@ -12,20 +12,24 @@ import { withTranslation } from 'react-i18next';
 
 import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
 import Images from '../../utils/images';
+import { connect } from 'react-redux';
 
 class UserProfile extends Component {
   render() {
+    let currentUser = this.props.currentUser || {};
+    let sex = currentUser.sex || "other";
+
     return (
       <TouchableOpacity style={[Style.boxShadow, styles.profileStyle]}
-        // onPress={() => this._goTo('ProfileScreen')}
-        activeOpacity={0.8}
-      >
+        onPress={() => this.props.navigation.navigate('UserFormScreen', {action: "edit"})}
+        activeOpacity={0.8}>
+
         <View style={styles.profileImageWrapper}>
-          <Image source={Images.female} style={styles.profileImage} />
+          <Image source={Images[sex]} style={styles.profileImage} />
         </View>
 
         <View style={styles.profileDescription}>
-          <Text style={styles.userName}>Dara</Text>
+          <Text style={styles.userName}>{currentUser.name}</Text>
           <Text style={styles.userEditText}>{this.props.t('MoreScreen.Edit')}</Text>
         </View>
 
@@ -73,7 +77,8 @@ const styles = StyleSheet.create({
     fontWeight: '700'
   },
   userEditText: {
-    color: Color.gray
+    color: Color.gray,
+    fontSize: 14
   },
   nextIcon: {
     width: 15,
@@ -82,4 +87,18 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withTranslation()(UserProfile);
+
+function mapStateToProps(state) {
+  return {
+    currentUser: state.currentUser,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {};
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withTranslation()(UserProfile));

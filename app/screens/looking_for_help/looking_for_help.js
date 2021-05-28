@@ -16,7 +16,6 @@ import {
 } from 'react-native';
 
 import Thumbnail from '../../components/thumbnail';
-import videoList from '../../data/json/videos';
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
 import PlaySound from '../../components/play_sound';
 import { getVideoId } from '../../utils/youtube';

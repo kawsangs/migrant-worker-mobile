@@ -17,32 +17,30 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import WelcomeScreen from '../screens/welcome';
 import RegisterScreen from '../screens/register';
 import AboutScreen from '../screens/about';
-import VideosScreen from '../screens/videos';
 import ViewVideoScreen from '../screens/view_video';
 import ImageViewScreen from '../screens/image_view';
+import ListVideosScreen from '../screens/list_videos';
 
-import BeforeYouGoScreen from '../screens/before_you_go/before_you_go';
 import YourDepartureScreen from '../screens/your_departure/your_departure';
-import MigrationScreen from '../screens/before_you_go/migration';
-import PreDepartureListScreen from '../screens/before_you_go/predeparture_list';
-import ComingHomeScreen from '../screens/before_you_go/coming_home';
-import BeforeYouGoVideoScreen from '../screens/before_you_go/videos';
-import PrepareYourTripScreen from '../screens/before_you_go/prepare_your_trip';
+
 import YourSafetyScreen from '../screens/your_safety/your_safety';
-import YourRightsAndSafetyScreen from '../screens/your_safety/your_rights_and_safety';
-import SafetyPlanningScreen from '../screens/your_safety/safety_planning';
-import YourSafetyVideosScreen from '../screens/your_safety/videos';
+import YourSafetySubCategoryScreen from '../screens/your_safety/sub_category';
+
 import YourStoryScreen from '../screens/your_story/your_story';
 import CreateYourStoryScreen from '../screens/your_story/create_your_story';
 import LookingForHelpScreen from '../screens/looking_for_help/looking_for_help';
 
 import SubCategoryScreen from '../screens/sub_category/sub_category';
+import LeafCategoryScreen from '../screens/leaf_category/leaf_category';
 import BottomTabNavigator from './bottom_tab_navigator';
 import HomeButton from '../components/Toolbar/HomeButton';
+import LoadingIndicator from '../components/loading_indicator';
 
 const Stack = createStackNavigator();
 
 class AppNavigator extends Component {
+  state = { loading: true };
+
   componentDidMount() {
     this.getUser();
   }
@@ -53,6 +51,7 @@ class AppNavigator extends Component {
       if(value !== null) {
         this.props.setCurrentUser(JSON.parse(value));
       }
+      this.setState({loading: false});
     } catch(e) {
       // error reading value
     }
@@ -71,7 +70,6 @@ class AppNavigator extends Component {
     return (
       <>
         <Stack.Screen name="HomeScreen" component={BottomTabNavigator} options={{ headerShown: false }} />
-        <Stack.Screen name="BeforeYouGoScreen" component={BeforeYouGoScreen} options={{ headerShown: false }} />
         <Stack.Screen name="YourDepartureScreen" component={YourDepartureScreen}
           options={({route, navigation}) => ({
             title: this.props.t("BeforeYouGoScreen.HeaderTitle"),
@@ -80,9 +78,26 @@ class AppNavigator extends Component {
           })}
         />
 
+        <Stack.Screen name="YourDepartureVideoScreen" component={ListVideosScreen}
+          initialParams={{ type: 'before_you_go' }}
+          options={({route, navigation}) => ({
+            title: this.props.t("VideosScreen.HeaderTitle"),
+            headerStyle: { backgroundColor: Color.red },
+            headerRight: (props) => (<HomeButton navigation={navigation}/>),
+          })}
+        />
+
         <Stack.Screen name="SubCategoryScreen" component={SubCategoryScreen}
           options={({route, navigation}) => ({
-            title: this.props.t("PrepareYourTripScreen.HeaderTitle"),
+            title: route.params.title,
+            headerStyle: { backgroundColor: Color.red },
+            headerRight: (props) => (<HomeButton navigation={navigation}/>),
+          })}
+        />
+
+        <Stack.Screen name="LeafCategoryScreen" component={LeafCategoryScreen}
+          options={({route, navigation}) => ({
+            title: route.params.title,
             headerStyle: { backgroundColor: Color.red },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
@@ -96,16 +111,30 @@ class AppNavigator extends Component {
           })}
         />
 
-        <Stack.Screen name="PreDepartureListScreen" component={PreDepartureListScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="MigrationScreen" component={MigrationScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="ComingHomeScreen" component={ComingHomeScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="BeforeYouGoVideoScreen" component={BeforeYouGoVideoScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="PrepareYourTripScreen" component={PrepareYourTripScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="YourSafetyScreen" component={YourSafetyScreen}
+          options={({route, navigation}) => ({
+            title: this.props.t('YourSafetyScreen.HeaderTitle'),
+            headerStyle: { backgroundColor: Color.primary },
+            headerRight: (props) => (<HomeButton navigation={navigation}/>),
+          })}
+        />
 
-        <Stack.Screen name="YourSafetyScreen" component={YourSafetyScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="YourRightsAndSafetyScreen" component={YourRightsAndSafetyScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="SafetyPlanningScreen" component={SafetyPlanningScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="YourSafetyVideosScreen" component={YourSafetyVideosScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="YourSafetySubCategoryScreen" component={YourSafetySubCategoryScreen}
+          options={({route, navigation}) => ({
+            title: route.params.title,
+            headerStyle: { backgroundColor: Color.primary },
+            headerRight: (props) => (<HomeButton navigation={navigation}/>),
+          })}
+        />
+
+        <Stack.Screen name="YourSafetyVideosScreen" component={ListVideosScreen}
+          initialParams={{ type: 'your_safety' }}
+          options={({route, navigation}) => ({
+            title: this.props.t("VideosScreen.HeaderTitle"),
+            headerStyle: { backgroundColor: Color.primary },
+            headerRight: (props) => (<HomeButton navigation={navigation}/>),
+          })}
+        />
 
         <Stack.Screen name="YourStoryScreen" component={YourStoryScreen}
           options={({route, navigation}) => ({
@@ -125,14 +154,21 @@ class AppNavigator extends Component {
 
         <Stack.Screen name="LookingForHelpScreen" component={LookingForHelpScreen} options={{ headerShown: false }} />
 
-        <Stack.Screen name="AboutScreen" component={AboutScreen} options={{ title: "អំពីកម្មវិធី", headerShown: false }} />
-        <Stack.Screen name="VideosScreen" component={VideosScreen} options={{ title: "វីដេអូ និងករណីចំណាកស្រុក", headerShown: false }} />
+        <Stack.Screen name="AboutScreen" component={AboutScreen}
+          options={({route, navigation}) => ({
+            title: route.params.title || "អំពី",
+            headerStyle: { backgroundColor: Color.primary },
+          })}
+        />
         <Stack.Screen name="ViewVideoScreen" component={ViewVideoScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="UserFormScreen" component={RegisterScreen} options={{ title: "កែតម្រូវគណនី" }} />
       </>
     )
   }
 
-  render() {
+  _rendAppNavigation() {
+    const currentUser = !!this.props.currentUser && !!this.props.currentUser.uuid;
+
     return (
       <NavigationContainer>
         <StatusBar backgroundColor={Color.primary} />
@@ -145,11 +181,21 @@ class AppNavigator extends Component {
             headerTitleContainerStyle: { width: '75%' }
           }}>
 
-          { !this.props.currentUser && this._authStack() }
-          { !!this.props.currentUser && this._appStack() }
+          { !currentUser && this._authStack() }
+          { !!currentUser && this._appStack() }
 
         </Stack.Navigator>
       </NavigationContainer>
+    )
+  }
+
+  render() {
+    if (this.state.loading) {
+      return <LoadingIndicator loading={this.state.loading} />
+    }
+
+    return (
+      this._rendAppNavigation()
     );
   }
 }

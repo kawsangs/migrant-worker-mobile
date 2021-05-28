@@ -35,14 +35,6 @@ class SexOption extends Component {
 
           {isSelected ? <Image source={Images.checked} style={styles.checkedIconStyle} /> : null}
 
-          {/* <Image source={Images[item.iconName]}
-          style={{
-            width: '100%',
-            height: '100%',
-            resizeMode: 'cover',
-            // borderWidth: 1,
-            borderColor: "red"
-          }} /> */}
           <Text style={{
             fontFamily: textFont,
             color: Color.white,
@@ -59,21 +51,21 @@ class SexOption extends Component {
     let list = [
       {
         title_en: 'Male',
-        title_kh: 'ប្រុស',
+        title_km: 'ប្រុស',
         value: 'male',
         iconName: 'male'
       },
       {
         title_en: 'Female',
-        title_kh: 'ស្រី',
+        title_km: 'ស្រី',
         value: 'female',
         iconName: 'female'
       },
       {
         title_en: 'Hidden',
-        title_kh: 'មិនបញ្ចេញ',
-        value: 'none',
-        iconName: 'hidden_sex'
+        title_km: 'មិនបញ្ចេញ',
+        value: 'other',
+        iconName: 'other'
       },
     ];
     let space = <View style={{ width: 10 }} />;
@@ -102,10 +94,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 0,
     backgroundColor: '#fff',
-    // borderWidth: 3,
     borderColor: '#fff',
-    // paddingTop: 10,
-    // paddingBottom: 10,
     height: 110,
     borderRadius: 8,
     overflow: 'hidden'

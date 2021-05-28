@@ -13,10 +13,15 @@ const Question = (() => {
     upsert,
     byForm,
     findIndexNextQuestion,
+    find,
   }
 
   function byForm(form_id) {
     return realm.objects('Question').filtered(`form_id=${form_id} SORT(display_order ASC)`);
+  }
+
+  function find(id) {
+    return realm.objects('Question').filtered(`id=${id}`)[0];
   }
 
   function getAll() {
@@ -72,12 +77,15 @@ const Question = (() => {
       display_order: item.display_order,
       hint: item.hint,
       relevant: item.relevant,
-      required: item.required,
+      required: !!item.required,
+      audio: item.audio,
       audio_url: item.audio_url,
       passing_score: item.passing_score,
       passing_message: item.passing_message,
+      passing_audio: item.passing_audio,
       passing_audio_url: item.passing_audio_url,
       failing_message: item.failing_message,
+      failing_audio: item.failing_audio,
       failing_audio_url: item.failing_audio_url,
       form_id: item.form_id,
     });
@@ -121,7 +129,7 @@ const Question = (() => {
   function _hasRelevantResponse(question, quizUuid) {
     let criterias = Criteria.byQuestion(question.id);
 
-    let isResponse = question.relevant.toLowerCase() == "and" ?
+    let isResponse = !!question.relevant && question.relevant.toLowerCase() == "and" ?
       criterias.reduce((sum, criteria) => sum && _hasResponseValue(criteria, quizUuid), true) :
       criterias.reduce((sum, criteria) => sum || _hasResponseValue(criteria, quizUuid), false);
 

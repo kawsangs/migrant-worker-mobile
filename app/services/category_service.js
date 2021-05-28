@@ -1,46 +1,57 @@
 import Departure from '../models/Departure';
+import Safety from '../models/Safety';
 import { Api } from '../utils/api';
-import ImageDownloader from '../downloaders/image_downloader';
-import AudioDownloader from '../downloaders/audio_downloader';
+import FileDownloader from '../downloaders/file_downloader';
 import realm from '../db/schema';
+import categoryList from '../db/json/categories';
+
+const departureList = categoryList.filter(cat => cat.type == "Categories::Departure");
+const safetyList = categoryList.filter(cat => cat.type == "Categories::Safety");
 
 const CategoryService = (()=> {
   return {
-    downloadDeparture,
+    updateDepartures,
+    updateSafeties,
   }
 
-  function downloadDeparture(updateTotalCountCallback, increaseProgressCallback) {
+  function updateDepartures(callback) {
     Api.get('/departures')
       .then(response => response.data)
       .then(data => {
-        // Upsert to db
-        Departure.upsertCollection(data);
+        let newCategories = data.filter(cat => !departureList.filter(x => x.id == cat.id).length)
+        Departure.upsertCollection(newCategories);
 
-        // Find in db where pending for download
-        let categories = Departure.getPendingDownload();
-
-        // Update progress state
-        updateTotalCountCallback(categories.length + 1);
-        increaseProgressCallback();
-
-        // Call to download first pending
-        download(0, categories, increaseProgressCallback);
+        let items = Departure.getPendingDownload();
+        download(0, items, callback);
       })
   }
 
-  function download(index, categories, increaseProgressCallback) {
-    if(index == categories.length) { return; }
+  function updateSafeties(callback) {
+    Api.get('/safeties')
+      .then(response => response.data)
+      .then(data => {
+        let newCategories = data.filter(cat => !safetyList.filter(x => x.id == cat.id).length)
+        Safety.upsertCollection(newCategories);
 
-    let category = categories[index];
-    let downloader = category.type == 'image' ? ImageDownloader : AudioDownloader;
+        let items = Safety.getPendingDownload();
+        download(0, items, callback);
+      })
+  }
 
-    downloader.download(_getFileName(category), category.url, function(fileUrl) {
+  function download(index, items, callback) {
+    if(index == items.length) {
+      !!callback && callback();
+      return;
+    }
+
+    let item = items[index];
+
+    FileDownloader.download(_getFileName(item), item.url, function(fileUrl) {
       realm.write(() => {
-        category.obj[category.type] = fileUrl
+        item.obj[item.type] = fileUrl
       });
 
-      increaseProgressCallback();
-      download(index + 1, categories, increaseProgressCallback);
+      download(index + 1, items, callback);
     })
   }
 

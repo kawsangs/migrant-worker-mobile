@@ -30,9 +30,7 @@ export default class ButtonNav extends React.Component {
           style={[styles.buttonAudioWrapper]}
           buttonAudioStyle={{ backgroundColor: textColor }}
           iconStyle={{ tintColor: iconTintColor }}
-          fileName={this.props.audioFileName}
-          activePlaying={this.props.activePlaying}
-          onPress={(fileName) => this.props.onPressPlaySound(fileName)} />
+          filePath={this.props.audio} />
       </View>
     )
   }
@@ -56,7 +54,6 @@ const styles = StyleSheet.create({
   buttonText: {
     marginLeft: 20,
     fontFamily: FontFamily.title,
-    fontWeight: '700'
   },
   buttonAudioWrapper: {
     padding: 12,
