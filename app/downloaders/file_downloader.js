@@ -13,6 +13,13 @@ const FileDownloader = (()=> {
       toFile: `${RNFS.DocumentDirectoryPath}/${fileName}`,
     };
 
+    const isFileExist = await RNFS.exists(options.toFile);
+
+    if (isFileExist) {
+      !!successCallback && successCallback(options.toFile);
+      return;
+    }
+
     await RNFS.downloadFile(options).promise.then(res => {
       !!successCallback && successCallback(options.toFile);
     }).catch(err => {

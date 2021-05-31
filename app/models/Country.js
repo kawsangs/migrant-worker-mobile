@@ -8,6 +8,7 @@ const Country = (() => {
     find,
     where,
     create,
+    update,
     deleteBatch,
     reloadBatch,
     createBatch,
@@ -34,6 +35,12 @@ const Country = (() => {
     realm.write(() => {
       realm.create(MODEL_NAME, country, 'modified');
     })
+  }
+
+  function update(id, params) {
+    realm.write(() => {
+      realm.create(MODEL_NAME, Object.assign(params, {id: id}), 'modified');
+    });
   }
 
   function deleteBatch() {

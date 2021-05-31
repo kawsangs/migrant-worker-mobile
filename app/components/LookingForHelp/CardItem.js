@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
+  ImageBackground,
 } from 'react-native';
 
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
@@ -35,9 +36,11 @@ class CardItem extends React.Component {
           >
             <View style={{flex: 1}}>
               <View style={styles.institutionImageContainer}>
-                <Image
-                  source={item.logoSource}
-                  style={{width: 48, height: 48}}/>
+                <ImageBackground
+                  source={{ uri: `file:${item.logo_url}` }}
+                  style={{width: 80, height: 80}}
+                  resizeMode='contain'
+                  />
               </View>
 
               <View style={styles.institutionNameContainer}>

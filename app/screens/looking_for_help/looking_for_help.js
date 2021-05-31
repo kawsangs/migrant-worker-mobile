@@ -13,6 +13,7 @@ import NetInfo from "@react-native-community/netinfo";
 import { withTranslation } from 'react-i18next';
 import EmptyResult from './empty_result';
 import Country from '../../models/Country';
+import Institution from '../../models/Institution';
 import InstitutionService from '../../services/institution_service'
 import Flag from '../../components/LookingForHelp/Flag';
 import CardItem from '../../components/LookingForHelp/CardItem';
@@ -21,13 +22,28 @@ import Filter from '../../components/LookingForHelp/Filter';
 class LookingForHelp extends React.Component {
   constructor(props) {
     super(props);
+
     let country = Country.find(props.route.params.id);
 
     this.state = {
       country: country,
       isFetching: false,
-      institutions: country.institutions,
+      institutions: [],
     }
+  }
+
+  componentDidMount() {
+    this.loadInstitution();
+  }
+
+
+  loadLocalInstitution() {
+    const country = Country.find(this.props.route.params.id);
+
+    this.setState({
+      institutions: country.institutions,
+      isFetching: false,
+    });
   }
 
   _renderHeader() {
@@ -45,19 +61,36 @@ class LookingForHelp extends React.Component {
     )
   }
 
-  pullToReload() {
+  loadInstitution() {
     this.setState({isFetching: true});
-    this.checkInternet(async () => {
-      let updatedCount = await InstitutionService.fetch(this.state.country.id)
-      this.setState({isFetching: false});
-    })
+
+    // Fetch the institution from server when have the internet connection
+    // and get the instituion from realm when doesn't have internet connection
+    this.checkInternet(() => {
+      InstitutionService.fetch(this.state.country.id, (res) => {
+        this.setState({
+          institutions: res,
+          isFetching: false
+        });
+      }, (error) => {
+        this.setState({isFetching: false});
+      });
+    }, () => this.loadLocalInstitution())
   }
 
-  checkInternet(callback) {
+  checkInternet(callback, noConnectionCallback) {
     NetInfo.fetch().then(state => {
       if (!state.isConnected) {
         this.setState({isFetching: false});
-        alert("No internet connection");
+        noConnectionCallback();
+
+        ToastAndroid.showWithGravityAndOffset(
+          'មិនមានសេវាអ៊ីនធឺណិត',
+          ToastAndroid.SHORT,
+          ToastAndroid.BOTTOM,
+          0,
+          150
+        );
         return
       }
 
@@ -77,7 +110,7 @@ class LookingForHelp extends React.Component {
           renderItem={({ item }) => <CardItem institute={item}/>}
           keyExtractor={item => item.id}
           ListEmptyComponent={<EmptyResult message={this.props.t("LookingForHelpScreen.NotFound")} />}
-          onRefresh={ () => this.pullToReload() }
+          onRefresh={ () => this.loadInstitution() }
           refreshing={ this.state.isFetching }
         />
       </SafeAreaView>
