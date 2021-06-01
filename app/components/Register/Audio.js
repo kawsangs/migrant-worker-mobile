@@ -91,7 +91,7 @@ export default class Audio extends Component {
 
     const rationale = {
       'title': 'ការអនុញ្ញាតប្ើរមីក្រូហ្វូន',
-      'message': 'កម្មវិធីនេះ សុំសិទ្ធិចូលប្រើមីក្រូហ្វូនរបស់អ្នក ដូច្នេះទើបអ្នកអាចថតសំលេង។'
+      'message': 'កម្មវិធីនេះ សុំសិទ្ធិចូលប្រើមីក្រូហ្វូនរបស់អ្នក ដូច្នេះទើបអ្នកអាចថតសម្លេង។'
     };
 
     return PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.RECORD_AUDIO, rationale)
@@ -222,7 +222,7 @@ export default class Audio extends Component {
 
     return (
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
-        { this.state.showHint && <Text style={styles.hint}>ចុចនិងសង្កត់ដើម្បីថតសំលេង</Text> }
+        { this.state.showHint && <Text style={styles.hint}>ចុចនិងសង្កត់ដើម្បីថតសម្លេង</Text> }
 
         <TouchableOpacity
           style={[styles.button]}

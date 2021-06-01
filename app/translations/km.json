@@ -18,7 +18,7 @@
             "WarningFillRequiredInfo": "សូមបំពេញព័ត៌មានជាមុនសិន...!",
             "Gender": {
                 "Male": "ប្រុស",
-                "Female": "ស្រី"
+                "Female": "ស្ត្រី"
             }
         },
         "MoreScreen": {
@@ -28,7 +28,7 @@
         },
         "HomeScreen": {
             "WelcomeTo": "សូមស្វាគមន៍",
-            "Homepage": "ដំណើរឆ្លងដែរបស់ខ្ញុំ",
+            "Homepage": "ដំណើរឆ្លងដែនរបស់ខ្ញុំ",
             "Home": "ទំព័រដើម",
             "Videos": "វិដេអូ",
             "More": "បន្ថែម"
@@ -47,7 +47,7 @@
         },
         "ComingHomeScreen": {
             "HeaderTitle": "ដំណើរវិលត្រឡប់",
-            "Descriptions": "ចំនុចដើម្បីរៀបចំវិលត្រលប់មកស្រុកវិញ"
+            "Descriptions": "ចំនុចដើម្បីរៀបចំវិលត្រឡប់មកស្រុកវិញ"
         },
         "ImageViewScreen": {
             "Rotate": "បង្វិល"
@@ -80,13 +80,13 @@
                 "Title": "ចំណាកស្រុកសុវត្ថិភាព",
                 "Description": "ចំនួនភាគរយនៃការធ្វើតេស្ត"
             },
-            "HeaderTitle": "បង្កើតរឿងរបស់អ្នក",
+            "HeaderTitle": "សាច់រឿងរបស់អ្នក",
             "Title": "សាកល្បងរឿងរបស់អ្នក",
             "StartTest": "ចាប់ផ្តើមតេស្ត",
             "Start": "ចាប់ផ្តើម"
         },
         "CreateYourStoryScreen": {
-            "HeaderTitle": "បង្កើតរឿងរបស់អ្នក",
+            "HeaderTitle": "បង្កើតសាច់រឿងផ្ទាល់ខ្លួនរបស់អ្នក",
             "Progress": "រីកចម្រើន",
             "Next": "បន្ទាប់"
         },
