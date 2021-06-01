@@ -89,7 +89,7 @@ export default class ProfileCard extends React.Component {
   _renderNoVoice() {
     return (
       <View style={styles.buttonNoVoice}>
-        <Text>មិនមានសាជាសំលេង</Text>
+        <Text>មិនមានសារជាសម្លេង</Text>
       </View>
     )
   }

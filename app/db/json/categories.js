@@ -43,7 +43,7 @@ export default [
   },
   {
     "id": 3,
-    "name": "ទិដ្ឋការ",
+    "name": "ទិដ្ឋាការ",
     "description": null,
     "image_url": "/uploads/categories/departure/image/3/pre_departure_list_visa.png",
     "audio_url": "/uploads/categories/departure/audio/3/visa.mp3",
@@ -83,7 +83,7 @@ export default [
   },
   {
     "id": 5,
-    "name": "ប្រភេទនៅមធ្យោបាយធ្វើដំណើរ",
+    "name": "ប្រភេទមធ្យោបាយធ្វើដំណើរ",
     "description": null,
     "image_url": "/uploads/categories/departure/image/5/pre_departure_list_transportation.png",
     "audio_url": "/uploads/categories/departure/audio/5/transportation.mp3",
@@ -273,7 +273,7 @@ export default [
     "rgt": 34,
     "type": "Categories::Departure",
     "is_video": null,
-    "hint": "ចំនុចដើម្បីរៀបចំវិលត្រលប់មកស្រុកវិញ",
+    "hint": "ចំនុចដើម្បីរៀបចំវិលត្រឡប់មកស្រុកវិញ",
     "hint_image_url": "/uploads/categories/departure/hint_image/14/3_things_coming_home_hint.png",
     "hint_audio_url": "/uploads/categories/departure/hint_audio/14/three_thing_coming_home_hint.mp3",
     "image": require('../../assets/images/category/before_you_go_coming_home.png'),
@@ -302,7 +302,7 @@ export default [
   },
   {
     "id": 16,
-    "name": "ត្រលប់ចូលក្នុងគ្រួសារ",
+    "name": "ត្រឡប់ចូលក្នុងគ្រួសារ",
     "description": null,
     "image_url": "/uploads/categories/departure/image/16/coming_home_women_migrant_worker.png",
     "audio_url": "/uploads/categories/departure/audio/16/coming_home_back_home.mp3",

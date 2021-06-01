@@ -1,5 +1,8 @@
 {
     "translation": {
+        "CountriesListingScreen": {
+            "HeaderTitle": "ជ្រើសរើសប្រទេសចំណាកស្រុក",
+        },
         "AboutScreen": {
             "HeaderTitle": "អំពីអែបនេះ",
         },
@@ -25,7 +28,7 @@
         },
         "HomeScreen": {
             "WelcomeTo": "សូមស្វាគមន៍",
-            "Homepage": "ដំណើរឆ្លងដែរបស់ខ្ញុំ",
+            "Homepage": "ដំណើរឆ្លងដែនរបស់ខ្ញុំ",
             "Home": "ទំព័រដើម",
             "Videos": "វិដេអូ",
             "More": "បន្ថែម"
@@ -44,7 +47,7 @@
         },
         "ComingHomeScreen": {
             "HeaderTitle": "ដំណើរវិលត្រឡប់",
-            "Descriptions": "ចំនុចដើម្បីរៀបចំវិលត្រលប់មកស្រុកវិញ"
+            "Descriptions": "ចំនុចដើម្បីរៀបចំវិលត្រឡប់មកស្រុកវិញ"
         },
         "ImageViewScreen": {
             "Rotate": "បង្វិល"
@@ -68,20 +71,22 @@
             "PleaseCheckYourInternetConnection": "សូមភ្ជាប់បណ្តាញអ៊ិនធឺណេតជាមុនសិន!"
         },
         "LookingForHelpScreen": {
-            "HeaderTitle": "រកជំនួយ"
+            "HeaderTitle": "ស្វែងរកជំនួយ",
+            "FindHelp": "ស្វែងរកជំនួយក្នុងតំបន់របស់អ្នក",
+            "NotFound": "មិនមានស្ថាប័ន"
         },
         "YourStoryScreen": {
             "HeaderCard": {
                 "Title": "ចំណាកស្រុកសុវត្ថិភាព",
                 "Description": "ចំនួនភាគរយនៃការធ្វើតេស្ត"
             },
-            "HeaderTitle": "បង្កើតរឿងរបស់អ្នក",
+            "HeaderTitle": "សាច់រឿងរបស់អ្នក",
             "Title": "សាកល្បងរឿងរបស់អ្នក",
             "StartTest": "ចាប់ផ្តើមតេស្ត",
             "Start": "ចាប់ផ្តើម"
         },
         "CreateYourStoryScreen": {
-            "HeaderTitle": "បង្កើតរឿងរបស់អ្នក",
+            "HeaderTitle": "បង្កើតសាច់រឿងផ្ទាល់ខ្លួនរបស់អ្នក",
             "Progress": "រីកចម្រើន",
             "Next": "បន្ទាប់"
         },
@@ -94,6 +99,13 @@
             "DescriptionI": "ប្រសិនបើអ្នកត្រូវចាកចេញមុនពេលកំណត់",
             "DescriptionII": "ប្រសិនបើអ្នកត្រូវចាកចេញមុនពេលកំណត់",
             "Done": "ធ្វើរួច"
+        },
+        "CountriesListingScreen": {
+            "HeaderTitle": "ជ្រើសរើសប្រទេសចំណាកស្រុក",
+            "CountrySearch": "ស្វែងរកប្រទេសចំណាកស្រុក",
+            "NoCountry": "មិនមានប្រទេស",
+            "Search": "ស្វែងរក",
+            "Country": "ប្រទេស"
         }
     }
 }

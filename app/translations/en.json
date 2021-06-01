@@ -1,5 +1,8 @@
 {
     "translation": {
+        "CountriesListingScreen": {
+            "HeaderTitle": "Choose migrant countries",
+        },
         "AboutScreen": {
             "HeaderTitle": "About Us",
         },
@@ -73,7 +76,9 @@
             "PleaseCheckYourInternetConnection": "Please check your internet connection first"
         },
         "LookingForHelpScreen": {
-            "HeaderTitle": "Looking for help"
+            "HeaderTitle": "Looking for help",
+            "FindHelp": "Find help contact in your area",
+            "NotFound": "No institutions"
         },
         "YourStoryScreen": {
             "HeaderCard": {
@@ -99,6 +104,13 @@
             "DescriptionI": "If you have to leave early",
             "DescriptionII": "If you have to leave early",
             "Done": "Done"
+        },
+        "CountriesListingScreen": {
+            "HeaderTitle": "Choose immigrant countries",
+            "CountrySearch": "Search for countries",
+            "NoCountry": "No country",
+            "Search": "Search",
+            "Country": "Country"
         }
     }
 }

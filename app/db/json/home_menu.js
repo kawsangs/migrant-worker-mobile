@@ -25,10 +25,10 @@ export default [
   },
   {
     title_en: 'Looking for help?',
-    title_km: 'ស្វែងរកជំនួយ?',
-    name: 'ស្វែងរកជំនួយ?',
+    title_km: 'ស្វែងរកជំនួយ',
+    name: 'ស្វែងរកជំនួយ',
     image: require('../../assets/images/icons/looking_for_help.png'),
-    screenName: 'LookingForHelpScreen',
+    screenName: 'CountriesListingScreen',
     imageWidth: '440',
     imageHeight: '344',
     audioFileName: '',
