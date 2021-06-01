@@ -78,12 +78,6 @@ class YourDeparture extends Component {
       <View style={{ flex: 1 }}>
         <StatusBar barStyle={'light-content'} backgroundColor={Color.red} />
 
-        <View style={{ margin: 16, marginBottom: 0 }}>
-          <Text style={{ fontFamily: FontFamily.title }}>
-            { this.props.t('BeforeYouGoScreen.CheckListForDeparture') }
-          </Text>
-        </View>
-
         <FlatList
           data={this.state.categories}
           renderItem={(item, i) => this._renderItem(item.item, i)}
