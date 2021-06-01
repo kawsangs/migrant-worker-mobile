@@ -108,7 +108,7 @@ class LookingForHelp extends React.Component {
           ListHeaderComponent={ this._renderHeader() }
           ListHeaderComponentStyle={{ marginVertical: 0 }}
           renderItem={({ item }) => <CardItem institute={item}/>}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item.id.toString()}
           ListEmptyComponent={<EmptyResult message={this.props.t("LookingForHelpScreen.NotFound")} />}
           onRefresh={ () => this.loadInstitution() }
           refreshing={ this.state.isFetching }
