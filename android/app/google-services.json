@@ -1,41 +1,34 @@
 {
   "project_info": {
-    "project_number": "736567559934",
-    "project_id": "my-first-project-edd8a",
-    "storage_bucket": "my-first-project-edd8a.appspot.com"
+    "project_number": "508834138520",
+    "firebase_url": "https://chc-safemigration-dev.firebaseio.com",
+    "project_id": "chc-safemigration-dev",
+    "storage_bucket": "chc-safemigration-dev.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:736567559934:android:700e70e32f7ae093dec7af",
+        "mobilesdk_app_id": "1:508834138520:android:25316f93bcb0308afac3ed",
         "android_client_info": {
           "package_name": "org.ilabsea.safemigration"
         }
       },
       "oauth_client": [
         {
-          "client_id": "736567559934-k0f2aaqtusku15bpipggf3jb8re6j65f.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "org.ilabsea.safemigration",
-            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
-          }
-        },
-        {
-          "client_id": "736567559934-ger8ffrs6hts6gbgagaqakmjec8i8ljr.apps.googleusercontent.com",
+          "client_id": "508834138520-maqlei7mpimvm50n8689ketm75bkvc0h.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAAekxyDvy6uKcYCCIxjuyMBttvKsH3PZQ"
+          "current_key": "AIzaSyCH8cjaSMEHe3aShR95NuJCHKTZ0e6jDYU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "736567559934-ger8ffrs6hts6gbgagaqakmjec8i8ljr.apps.googleusercontent.com",
+              "client_id": "508834138520-h45aoli1itfp1nvobfigjtv6800tdr0i.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

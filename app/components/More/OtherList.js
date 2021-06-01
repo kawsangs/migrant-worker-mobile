@@ -60,13 +60,13 @@ class Other extends Component {
         <ListItem
           title={"គោលការណ៍អំពីឯកជនភាព"}
           avata={Images.doc}
-          onPress={() => this.openLink(`${environment.domain}/private_policy`)}
+          onPress={() => this.openLink(`${environment.domain}/privacy-policy`)}
         />
 
         <ListItem
           title={"គោលការណ៍ និងលក្ខខណ្ឌ"}
           avata={Images.doc}
-          onPress={() => this.openLink(`${environment.domain}/term_and_condition`)}
+          onPress={() => this.openLink(`${environment.domain}/terms-and-conditions`)}
         />
       </View>
     );
