@@ -57,7 +57,7 @@ class SexOption extends Component {
       },
       {
         title_en: 'Female',
-        title_km: 'ស្ត្រី',
+        title_km: 'ស្រី',
         value: 'female',
         iconName: 'female'
       },

@@ -5,10 +5,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
-
 import { StatusBar } from 'react-native';
+
 import { Color, FontFamily, FontSize } from '../assets/stylesheets/base_style';
 import { Icon } from 'react-native-material-ui';
+
+import { connect } from 'react-redux';
+import { setCurrentUser } from '../actions/currentUserAction';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { connect } from 'react-redux';
 import { setCurrentUser } from '../actions/currentUserAction';
@@ -177,6 +181,7 @@ class AppNavigator extends Component {
           })}
         />
         <Stack.Screen name="UserFormScreen" component={RegisterScreen} options={{ title: "កែតម្រូវគណនី" }} />
+
         <Stack.Screen name="LookingForHelpScreen" component={LookingForHelpScreen}
           options={({route, navigation}) => ({
             title: 'ស្វែងរកជំនួយ',
