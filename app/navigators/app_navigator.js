@@ -46,7 +46,10 @@ class AppNavigator extends Component {
 
   componentDidMount() {
     this.getUser();
-    Sidekiq.uploadAll();
+
+    setTimeout(() => {
+      Sidekiq.uploadAll();
+    }, 1000);
   }
 
   getUser = async () => {
