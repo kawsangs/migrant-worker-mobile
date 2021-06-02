@@ -1,17 +1,15 @@
 import UserService from '../services/user_service';
-import queueFactory from 'react-native-queue';
+import queue from 'react-native-job-queue';
+import { Worker } from 'react-native-job-queue';
 
 export default class UserWorker {
-  static async init() {
-    const queue = await queueFactory();
-    queue.addWorker('uploadUser', async (id, payload) => {
+  static init() {
+    queue.addWorker(new Worker("uploadUser", (payload) => {
       UserService.upload(payload.uuid);
-    });
+    }));
   }
 
-  static async performAsync(uuid) {
-    const queue = await queueFactory();
-    queue.createJob('uploadUser', { uuid: uuid }, {}, true);
+  static performAsync(uuid) {
+    queue.addJob("uploadUser", { uuid: uuid }, {}, true);
   }
 }
-

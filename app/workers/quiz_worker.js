@@ -1,17 +1,16 @@
 import QuizService from '../services/quiz_service';
-import queueFactory from 'react-native-queue';
+import queue from 'react-native-job-queue';
+import { Worker } from 'react-native-job-queue';
 
 export default class QuizWorker {
-  static async init() {
-    const queue = await queueFactory();
-    queue.addWorker('uploadQuiz', async (id, payload) => {
+  static init() {
+    queue.addWorker(new Worker('uploadQuiz', (payload) => {
       QuizService.upload(payload.uuid);
-    });
+    }));
   }
 
-  static async performAsync(uuid) {
-    const queue = await queueFactory();
-    queue.createJob('uploadQuiz', { uuid: uuid }, {}, true);
+  static performAsync(uuid) {
+    queue.addJob('uploadQuiz', { uuid: uuid }, {}, true);
   }
 }
 

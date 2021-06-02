@@ -54,7 +54,7 @@ export default class App extends React.Component {
     SplashScreen.hide();
     IndexWorker.init();
     RegisteredTokenService.handleSyncingToken();
-    handleNotification();
+    this.handleNotification();
   }
 
   handleNotification() {

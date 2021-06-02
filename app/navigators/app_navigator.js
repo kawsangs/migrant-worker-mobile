@@ -14,10 +14,6 @@ import { connect } from 'react-redux';
 import { setCurrentUser } from '../actions/currentUserAction';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { connect } from 'react-redux';
-import { setCurrentUser } from '../actions/currentUserAction';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 // screens
 import WelcomeScreen from '../screens/welcome';
 import RegisterScreen from '../screens/register';
@@ -50,7 +46,10 @@ class AppNavigator extends Component {
 
   componentDidMount() {
     this.getUser();
-    Sidekiq.uploadAll();
+
+    setTimeout(() => {
+      Sidekiq.uploadAll();
+    }, 1000);
   }
 
   getUser = async () => {
