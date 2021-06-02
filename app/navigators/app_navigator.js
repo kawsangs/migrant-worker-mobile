@@ -14,10 +14,6 @@ import { connect } from 'react-redux';
 import { setCurrentUser } from '../actions/currentUserAction';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { connect } from 'react-redux';
-import { setCurrentUser } from '../actions/currentUserAction';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 // screens
 import WelcomeScreen from '../screens/welcome';
 import RegisterScreen from '../screens/register';
