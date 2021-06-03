@@ -4,6 +4,10 @@ import { Worker } from 'react-native-job-queue';
 
 export default class UserWorker {
   static init() {
+    if (!!queue.registeredWorkers["uploadUser"]) {
+      return;
+    }
+
     queue.addWorker(new Worker("uploadUser", (payload) => {
       UserService.upload(payload.uuid);
     }));
