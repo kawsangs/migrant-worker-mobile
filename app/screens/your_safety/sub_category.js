@@ -21,7 +21,7 @@ class YourSafetySubCategory extends Component {
 
   _onPress(item) {
     if (item.leaf) {
-      return ;
+      return this.props.navigation.navigate("YourSafetyLeafCategoryScreen", {title: item.name, parent_id: item.id});
     }
 
     const pushAction = StackActions.push('YourSafetySubCategoryScreen', { title: item.name, parent_id: item.id });

@@ -117,6 +117,14 @@ class AppNavigator extends Component {
           })}
         />
 
+        <Stack.Screen name="YourSafetyLeafCategoryScreen" component={LeafCategoryScreen}
+          options={({route, navigation}) => ({
+            title: route.params.title,
+            headerStyle: { backgroundColor: Color.primary },
+            headerRight: (props) => (<HomeButton navigation={navigation}/>),
+          })}
+        />
+
         <Stack.Screen name="ImageViewScreen" component={ImageViewScreen}
           options={({route, navigation}) => ({
             title: route.params.title,
