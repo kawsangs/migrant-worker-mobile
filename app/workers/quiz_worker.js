@@ -4,6 +4,10 @@ import { Worker } from 'react-native-job-queue';
 
 export default class QuizWorker {
   static init() {
+    if (!!queue.registeredWorkers["uploadQuiz"]) {
+      return;
+    }
+
     queue.addWorker(new Worker('uploadQuiz', (payload) => {
       QuizService.upload(payload.uuid);
     }));
