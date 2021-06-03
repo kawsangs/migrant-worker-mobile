@@ -4,13 +4,13 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  Image,
-  ImageBackground,
 } from 'react-native';
 
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
 import { Icon } from 'react-native-material-ui';
 import { withTranslation } from 'react-i18next';
+
+import PlaySound from '../play_sound';
 
 const mapping = {
   colors: {
@@ -34,30 +34,16 @@ class CardItem extends React.Component {
             activeOpacity={0.8}
             style={[Style.card, {flex: 1}]}
           >
-            <View style={{flex: 1}}>
-              <View style={styles.institutionImageContainer}>
-                <ImageBackground
-                  source={{ uri: `file:${item.logo_url}` }}
-                  style={{width: 80, height: 80}}
-                  resizeMode='contain'
-                  />
-              </View>
-
+            <View style={{flex: 1, flexDirection: 'row'}}>
               <View style={styles.institutionNameContainer}>
                 <Text style={{fontFamily: FontFamily.title}}>{item.name}</Text>
-
-                {
-                  item.audio_url &&
-                  <PlaySound
-                    fileName={item.audio_url.split('.')[0]}
-                    buttonAudioStyle={{backgroundColor: Color.yellow}}
-                    iconStyle={{tintColor: Color.white}}
-                    activePlaying={this.state.activePlaying}
-                    onPress={(fileName) => this.setState({ activePlaying: fileName })}
-                  />
-                }
-
               </View>
+
+              <PlaySound
+                filePath={item.audio_url}
+                buttonAudioStyle={{backgroundColor: Color.red}}
+                iconStyle={{tintColor: Color.white}}
+              />
             </View>
             <View style={{flex: 1}}>
               {list_phone_number && list_phone_number.map((item, index) => {
@@ -72,17 +58,21 @@ class CardItem extends React.Component {
   }
 
   _renderContacts(item, index, is_last_item) {
+    const contactInfo = JSON.parse(item)
+
     return (
       <View style={[
         styles.contactContainer,
         { borderBottomWidth: is_last_item ? 0 : 1, }]} key={index}>
         <Icon iconSet="FontAwesome"
-              name={item.type.toLowerCase()}
-              size={24}
-              color={mapping.colors[item.type]} />
+          name={contactInfo.type.toLowerCase()}
+          size={24}
+          color={Color.yellow}
+          // color={mapping.colors[item.type]}
+        />
 
         <Text style={styles.contact}>
-          {item.value}
+          {contactInfo.value}
         </Text>
       </View>
     )
@@ -95,23 +85,19 @@ const styles = StyleSheet.create({
     marginVertical: 0,
     alignItems: 'center',
   },
-  institutionImageContainer: {
-    flex: 1,
-    marginBottom: 16,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
   institutionNameContainer: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    paddingRight: 10
   },
   contactContainer: {
     flexDirection: 'row',
     borderBottomColor: Color.border,
     alignItems: 'center',
-    paddingVertical: 10
+    paddingTop: 10,
+    paddingBottom: 5
   },
   contact: {
     color: Color.yellow,

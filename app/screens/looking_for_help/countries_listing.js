@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     margin: 12,
     flexGrow: 1,
     marginVertical: 5,
-    paddingVertical: 0
+    paddingVertical: 10
   },
   searchContainer: {
     display: 'flex',

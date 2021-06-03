@@ -1,8 +1,9 @@
 import realm from '../db/schema'
-import Country from './Country'
-// import institutions from '../data/json/institutions'
+import institutions from '../data/json/institutions'
 import Contact from './Contact'
 import _ from 'underscore'
+import uuidv4 from '../utils/uuidv4';
+import CountryInstitution from './CountryInstitution';
 
 const MODEL_NAME = 'Institution'
 const Institution = (() => {
@@ -17,7 +18,7 @@ const Institution = (() => {
     reloadBatch,
   }
 
-  function createBatch(institutions) {
+  function createBatch() {
     return _.map( institutions, serializer => create(serializer))
   }
 
@@ -34,23 +35,34 @@ const Institution = (() => {
   }
 
   function create(serializer) {
-    let institution
-
     realm.write(() => {
-      const country = Country.find(serializer.country_id)
-      if(country != undefined) {
-        // Android: files under `android/app/src/main/res/raw`
-        // must be lowercase and underscored
-        serializer.institution['country_id'] = serializer.country_id
-        realm.create(MODEL_NAME, serializer.institution, 'modified');
+      let contacts = []
+      serializer.contacts.map(contact => {
+        contacts.push(JSON.stringify(contact))
+      });
 
-        institution = serializer.institution;
-
-        country.institutions.push(institution);
+      const params = {
+        id: serializer.id,
+        name: serializer.name,
+        kind: serializer.kind,
+        address: serializer.address,
+        logo_url: serializer.logo_url,
+        audio_url: serializer.audio_url,
+        contacts: contacts,
       }
-    })
 
-    return institution;
+      realm.create(MODEL_NAME, params, 'modified');
+    });
+
+    serializer.country_institutions.map(countryInstitution => {
+      const data = {
+        uuid: uuidv4(),
+        country_id: countryInstitution.country_id,
+        institution_id: serializer.id
+      };
+
+      CountryInstitution.create(data);
+    });
   }
 
   function update(id, params) {
@@ -68,7 +80,7 @@ const Institution = (() => {
   function reloadBatch() {
     deleteBatch()
     Contact.deleteBatch()
-    // createBatch()
+    createBatch()
   }
 
 })()

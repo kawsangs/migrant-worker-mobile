@@ -25,7 +25,8 @@ Institution.schema = {
     address: 'string?',
     logo_url: 'string?',
     audio_url: 'string?',
-    contacts: { type: 'list', objectType: 'Contact' }
+    contacts: { type: 'list', objectType: 'string' },
+    audio_downloaded: { type: 'bool', default: false }
   }
 }
 

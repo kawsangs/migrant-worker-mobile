@@ -6,48 +6,39 @@ import FileDownloader from '../downloaders/file_downloader'
 
 const InstitutionService = (() => {
   return {
-    fetch
+    fetch,
+    getInstitutionByCountry
   }
 
   function fetch(countryId, successCallback, errorCallback) {
     return Api.get(`/countries/${countryId}/country_institutions`)
       .then(response => response.data)
       .then((data) => {
-        let institutions = _getInstitutions(data);
-        const filteredInstitutions = reject(data, d => contains(existingIds(), d.institution.id));
+        console.log('fetch data === ', data);
+        successCallback(data);
 
-        if (filteredInstitutions.length == 0) {
-          institutions = _updateLogoUrl(institutions);
-
-          Country.update(countryId, { institutions: institutions });
-          successCallback(institutions);
-        }
-
-        filteredInstitutions.map(async (filteredInstitution, index) => {
-          const institution = filteredInstitution.institution;
-
-          await downloadAsset(institution, (fileUrl) => {
-            institution['logo_url'] = fileUrl;
-            institution['country_id'] = parseInt(countryId);
-
-            Institution.update(institution.id, institution);
-
-            if (index == filteredInstitutions.length - 1) {
-              setTimeout(() => {
-                institutions = _updateLogoUrl(institutions);
-                Country.update(countryId, { institutions: institutions });
-
-                successCallback(institutions);
-              }, 1000);
-            }
-          });
-        });
+        // if institution is exist update the info in realm
+        // if institution is not exist -> add it to realm
+        // download the audio if the institution doesn't have the audio downloaded yet
+        // download the audio -> update the audio_url with the audio file path -> update state to audio_downloaded = true
       })
       .catch( err => {
         alert(err); 
         errorCallback(err);
       })
   }
+
+  function getInstitutionByCountry(countryInstitutions) {
+    let institutions = [];
+
+    countryInstitutions.map(countryInstitution => {
+      institutions.push(Institution.find(countryInstitution.institution_id));
+    });
+
+    return institutions;
+  }
+
+  // private function
 
   function downloadAsset(institution, callback) {
     if( institution.logo_url != undefined ) {

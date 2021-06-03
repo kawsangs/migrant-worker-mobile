@@ -20,6 +20,8 @@ import CountrySchema from '../migrations/v1/country';
 import InstitutionSchema from '../migrations/v1/institution';
 import ContactSchema from '../migrations/v1/contact';
 
+import CountryInstitutionSchema from '../migrations/v1/country_institution';
+
 const schemaNames = [
   "User",
   "Pdf",
@@ -33,7 +35,8 @@ const schemaNames = [
   "Criteria",
   "Country",
   "Institution",
-  "Contact"
+  "Contact",
+  "CountryInstitution"
 ]
 
 const schemaHelper = (() => {
@@ -55,7 +58,8 @@ const schemaHelper = (() => {
       CriteriaSchema,
       CountrySchema,
       InstitutionSchema,
-      ContactSchema
+      ContactSchema,
+      CountryInstitutionSchema
     ];
 
     changedSchemas.map((schema) => {

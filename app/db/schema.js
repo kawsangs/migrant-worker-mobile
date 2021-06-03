@@ -2,10 +2,10 @@
 
 import Realm from 'realm';
 
-import schemaV0 from './schemas/schemaV0';
+import schemaV1 from './schemas/schemaV1';
 
 const schemas = [
-  schemaV0,
+  schemaV1
 ];
 
 // the first schema to update to is the current schema version
