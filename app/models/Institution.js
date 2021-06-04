@@ -13,6 +13,7 @@ const Institution = (() => {
     where,
     create,
     update,
+    isExist,
     deleteBatch,
     createBatch,
     reloadBatch,
@@ -34,31 +35,16 @@ const Institution = (() => {
     return realm.objects(MODEL_NAME).filtered(`id = ${id}`)[0];
   }
 
-  function create(serializer) {
+  function create(item) {
     realm.write(() => {
-      let contacts = []
-      serializer.contacts.map(contact => {
-        contacts.push(JSON.stringify(contact))
-      });
-
-      const params = {
-        id: serializer.id,
-        name: serializer.name,
-        kind: serializer.kind,
-        address: serializer.address,
-        logo_url: serializer.logo_url,
-        audio_url: serializer.audio_url,
-        contacts: contacts,
-      }
-
-      realm.create(MODEL_NAME, params, 'modified');
+      realm.create(MODEL_NAME, _buildData(item), 'modified');
     });
 
-    serializer.country_institutions.map(countryInstitution => {
+    item.country_institutions.map(countryInstitution => {
       const data = {
         uuid: uuidv4(),
         country_id: countryInstitution.country_id,
-        institution_id: serializer.id
+        institution_id: item.id
       };
 
       CountryInstitution.create(data);
@@ -71,6 +57,10 @@ const Institution = (() => {
     });
   }
 
+  function isExist(id) {
+    return find(id) ? true : false;
+  }
+
   function deleteBatch() {
     realm.write(() => {
       realm.delete(all())
@@ -81,6 +71,28 @@ const Institution = (() => {
     deleteBatch()
     Contact.deleteBatch()
     createBatch()
+  }
+
+  function _buildData(item) {
+    let contacts = []
+    item.contacts.map(contact => {
+      contacts.push(JSON.stringify(contact))
+    });
+
+    let params = {
+      id: item.id,
+      name: item.name,
+      kind: item.kind,
+      address: item.address,
+      logo_url: item.logo_url,
+      audio_url: item.audio_url,
+      contacts: contacts,
+    }
+
+    if (!!item.offline && !!item.logo_url)
+      params.logo = 'offline';
+
+    return params;
   }
 
 })()

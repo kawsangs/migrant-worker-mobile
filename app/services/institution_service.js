@@ -1,8 +1,11 @@
 import Institution from '../models/Institution';
-import Country from '../models/Country';
+import CountryInstitution from '../models/CountryInstitution';
 import { Api } from '../utils/api';
-import {reject, contains, map} from 'underscore';
 import FileDownloader from '../downloaders/file_downloader'
+import uuidv4 from '../utils/uuidv4';
+import institutionHelper from '../helpers/institution_helper';
+
+import RNFS from 'react-native-fs';
 
 const InstitutionService = (() => {
   return {
@@ -14,13 +17,46 @@ const InstitutionService = (() => {
     return Api.get(`/countries/${countryId}/country_institutions`)
       .then(response => response.data)
       .then((data) => {
-        console.log('fetch data === ', data);
-        successCallback(data);
+        data.map(item => {
+          let institution = item.institution;
 
-        // if institution is exist update the info in realm
-        // if institution is not exist -> add it to realm
-        // download the audio if the institution doesn't have the audio downloaded yet
-        // download the audio -> update the audio_url with the audio file path -> update state to audio_downloaded = true
+          if (Institution.isExist(institution.id)) {
+            // If institution is exist in realm -> update the existing data
+            let contacts = [];
+            institution.contacts.map(contact => {
+              contacts.push(JSON.stringify(contact))
+            });
+
+            institution.contacts = contacts;
+            Institution.update(institution.id, institution);
+
+            if (!CountryInstitution.isExist(countryId, institution.id)) {
+              const params = {
+                uuid: uuidv4(),
+                country_id: countryId,
+                institution_id: institution.id
+              };
+              CountryInstitution.create(params);
+            }
+          }
+          else {
+            // If institution is not exist in realm -> create new record in realm
+            Institution.create(institution);
+
+            const countryInstitutionData = {
+              uuid: uuidv4(),
+              country_id: countryId,
+              institution_id: institution.id
+            };
+            CountryInstitution.create(countryInstitutionData);
+          }
+
+          _downloadFile(institution);
+        });
+
+        setTimeout(() => {
+          successCallback(_getInstitutions(countryId))
+        }, 1500);
       })
       .catch( err => {
         alert(err); 
@@ -40,39 +76,40 @@ const InstitutionService = (() => {
 
   // private function
 
-  function downloadAsset(institution, callback) {
-    if( institution.logo_url != undefined ) {
-      const logoUrl = institution.logo_url.split('/');
-      const logoName = `institution_${institution.id}_${logoUrl[logoUrl.length - 1]}`;       // filename is institution + institution_id + logo_name (ex: institution_1_logo.png)
+  async function downloadAsset(institution, type) {
+    const isFileDownloaded = await institutionHelper.isFileDownloaded(institution, type)
+    const fileName = institutionHelper.getDownloadFileName(institution, type);
 
-      FileDownloader.download(logoName, institution.logo_url, async function(fileUrl) {
-        callback(fileUrl);
+    if (!isFileDownloaded) {
+      const filePath = type == 'logo' ? institution.logo_url : institution.audio_url;
+
+      FileDownloader.download(fileName, filePath, async function(fileUrl) {
+        _updateFileUrl(institution, type, fileUrl);
       }),
-      () => { alert('error') }
+      () => { console.log('error download file') }
+    }
+    else {
+      const filePath = `${RNFS.DocumentDirectoryPath}/${fileName}`;
+      _updateFileUrl(institution, type, filePath);
     }
   }
 
-  function existingIds() {
-    return map(Institution.all(), i => i.id)
+  function _updateFileUrl(institution, type, filePath) {
+    const params = type == 'logo' ? { logo: filePath } : { audio: filePath };
+    Institution.update(institution.id, params);
   }
 
-  function _getInstitutions(data) {
-    let institutions = [];
+  function _getInstitutions(countryId) {
+    const countryInstitutions = CountryInstitution.findByCountryId(countryId);
 
-    data.map(item => {
-      institutions.push(item.institution);
-    });
-
-    return institutions;
+    return getInstitutionByCountry(countryInstitutions)
   }
 
-  function _updateLogoUrl(institutions) {
-    institutions.map((institution, index) => {
-      const savedInstitution = Institution.find(institution.id);
-      institutions[index].logo_url = savedInstitution.logo_url;
-    })
-
-    return institutions;
+  function _downloadFile(institution) {
+    if (institution.logo_url)
+      downloadAsset(institution, 'logo');
+    if (institution.audio_url)
+      downloadAsset(institution, 'audio');
   }
 })()
 

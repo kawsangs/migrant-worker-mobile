@@ -13,7 +13,6 @@ import NetInfo from "@react-native-community/netinfo";
 import { withTranslation } from 'react-i18next';
 import EmptyResult from './empty_result';
 import Country from '../../models/Country';
-// import Institution from '../../models/Institution';
 import CountryInstitution from '../../models/CountryInstitution';
 import InstitutionService from '../../services/institution_service'
 import Flag from '../../components/LookingForHelp/Flag';
@@ -35,11 +34,7 @@ class LookingForHelp extends React.Component {
   }
 
   componentDidMount() {
-    console.log('component did mount');
-
-    this.loadLocalInstitution();
-
-    // this.loadInstitution();
+    this.loadInstitution();
   }
 
 
@@ -70,16 +65,10 @@ class LookingForHelp extends React.Component {
 
   loadInstitution() {
     this.setState({isFetching: true});
-
-    // Fetch the institution from server when have the internet connection
-    // and get the instituion from realm when doesn't have internet connection
     this.checkInternet(() => {
       InstitutionService.fetch(this.state.country.id, (res) => {
-
-        console.log('fetch success ====')
-
         this.setState({
-          // institutions: res,
+          institutions: res,
           isFetching: false
         });
       }, (error) => {
