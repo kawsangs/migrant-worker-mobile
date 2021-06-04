@@ -96,7 +96,8 @@ class AppNavigator extends Component {
           initialParams={{ type: 'before_you_go' }}
           options={({route, navigation}) => ({
             title: this.props.t("VideosScreen.HeaderTitle"),
-            headerStyle: { backgroundColor: Color.red },
+            headerTintColor: Color.textBlack,
+            headerStyle: { backgroundColor: Color.white, elevation: 0 },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
         />
@@ -153,7 +154,8 @@ class AppNavigator extends Component {
           initialParams={{ type: 'your_safety' }}
           options={({route, navigation}) => ({
             title: this.props.t("VideosScreen.HeaderTitle"),
-            headerStyle: { backgroundColor: Color.primary },
+            headerTintColor: Color.textBlack,
+            headerStyle: { backgroundColor: Color.white, elevation: 0 },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
         />

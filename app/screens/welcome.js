@@ -48,7 +48,7 @@ class Welcome extends React.Component {
 
         <ButtonNav
           title={"បន្តចូលមើល ជាភ្ញៀវ"}
-          icon={"face-profile"}
+          image={"head_profile"}
           iconSet={'MaterialCommunityIcons'}
           audio={""}
           onPress={() => this._loginAsGuest()}
@@ -75,7 +75,7 @@ class Welcome extends React.Component {
           style={{ width: '100%', height: '100%', resizeMode: "cover" }} >
 
           <LinearGradient colors={['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, 0.01)',  '#fff']} style={{flex: 1}}>
-            <View style={{flex: 1}}>
+            <View style={{flex: 1, paddingHorizontal: 16}}>
               <Image source={Images.spotlight_one_line} style={{width: "100%", height: 100, resizeMode: 'cover'}}/>
             </View>
 
