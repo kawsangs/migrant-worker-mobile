@@ -3,12 +3,14 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from 'react-native';
 
 import { Icon } from 'react-native-material-ui';
 import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
 import PlaySound from '../components/play_sound';
+import Images from '../utils/images';
 
 export default class ButtonNav extends React.Component {
   render() {
@@ -22,7 +24,9 @@ export default class ButtonNav extends React.Component {
           onPress={() => this.props.onPress()}
           style={[styles.buttonTextWrapper]}
         >
-          <Icon name={this.props.icon} color={textColor} size={24} iconSet={this.props.iconSet || "MaterialIcons"} />
+          { !!this.props.icon && <Icon name={this.props.icon} color={textColor} size={28} iconSet={this.props.iconSet || "MaterialIcons"} />}
+          { !!this.props.image && <Image source={Images[this.props.image]} color={textColor} size={24} style={{width: 24, height: 26}} />}
+
           <Text style={[styles.buttonText, { color: textColor }]}>{this.props.title}</Text>
         </TouchableOpacity>
 

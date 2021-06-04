@@ -8,6 +8,8 @@ const QuizSchema = {
     user_uuid: 'string',
     form_id: 'int',
     quizzed_at: 'string',
+    finished: 'bool?',
+    uploaded_id: 'int?'
   }
 };
 

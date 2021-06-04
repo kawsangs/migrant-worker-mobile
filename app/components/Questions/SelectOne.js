@@ -36,17 +36,18 @@ class QuestionsSelectOne extends Component {
 
   _renderInputField() {
     return this.state.options.map((item, index) =>
-      <RadioButton
-        key={uuidv4()}
-        label={item.name}
-        checked={item.id.toString() == this.state.answer}
-        value={item.id.toString()}
-        onSelect={id => {
-          let option = this.state.options.filter(o => o.id.toString() == id)[0];
-          this.setState({answer: id, selectedOption: option});
-        }}
-        avata={item.imageSource}
-      />
+      <View style={{borderBottomWidth: 1, borderColor: '#e6e7e9', paddingVertical: 6}} key={uuidv4()}>
+        <RadioButton
+          label={item.name}
+          checked={item.id.toString() == this.state.answer}
+          value={item.id.toString()}
+          onSelect={id => {
+            let option = this.state.options.filter(o => o.id.toString() == id)[0];
+            this.setState({answer: id, selectedOption: option});
+          }}
+          avata={item.imageSource}
+        />
+      </View>
     );
   }
 

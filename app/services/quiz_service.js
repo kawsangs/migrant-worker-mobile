@@ -14,13 +14,14 @@ export default class QuizService  {
       let quiz = Quiz.find(uuid);
       let answers = Answer.byQuiz(uuid);
 
-      if(!quiz || !answers.length) return;
+      if(!quiz || !!quiz.uploaded_id || !answers.length) return;
 
       Api.post('/quizzes', this._buildParams(quiz, answers))
         .then(response => response.data)
         .then(data => {
           Answer.uploadVoiceAnsync(uuid);
           Sidekiq.destroy(uuid);
+          Quiz.upsert({uuid: uuid, uploaded_id: data.id});
         })
     });
   }
@@ -39,6 +40,7 @@ export default class QuizService  {
     })
 
     return {
+      id: quiz.uploaded_id,
       uuid: quiz.uuid,
       user_uuid: quiz.user_uuid,
       form_id: quiz.form_id,

@@ -57,7 +57,7 @@ function VideoTab() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: Color.primary },
+        headerStyle: { backgroundColor: "Color.primary" },
         headerTintColor: '#fff',
         headerTitleStyle: { fontFamily: FontFamily.title, alignSelf: 'center' },
         headerTitleAlign: "center",
@@ -69,7 +69,8 @@ function VideoTab() {
         component={ListVideosScreen}
         options={({route, navigation}) => ({
           title: "វីដេអូ",
-          headerStyle: { backgroundColor: Color.primary },
+          headerTintColor: Color.textBlack,
+          headerStyle: { backgroundColor: Color.white, elevation: 0 },
         })}
       />
     </Stack.Navigator>
