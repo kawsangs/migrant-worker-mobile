@@ -59,12 +59,13 @@ class QuestionsMultiple extends Component {
       let value = item.id.toString();
 
       return (
-        <Checkbox
-          key={index}
-          label={item.name}
-          value={value}
-          checked={answers.includes(value)}
-          onCheck={(checked, value) => self._onCheckOption(value)} />
+        <View style={{borderBottomWidth: 1, borderColor: '#e6e7e9', paddingVertical: 6}} key={index}>
+          <Checkbox
+            label={item.name}
+            value={value}
+            checked={answers.includes(value)}
+            onCheck={(checked, value) => self._onCheckOption(value)} />
+        </View>
       );
     })
   }

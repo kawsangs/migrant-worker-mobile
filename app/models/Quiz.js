@@ -10,6 +10,7 @@ const Quiz = (() => {
     find,
     deleteAll,
     uploadAsync,
+    setFinished,
   }
 
   function find(uuid) {
@@ -24,6 +25,11 @@ const Quiz = (() => {
     realm.write(() => {
       realm.create('Quiz', data, 'modified');
     });
+  }
+
+  function setFinished(quizUuid) {
+    upsert({uuid: quizUuid, finished: true});
+    uploadAsync(quizUuid);
   }
 
   function deleteAll() {

@@ -21,6 +21,7 @@ import { connect } from 'react-redux';
 import { setQuestions } from '../../actions/questionAction';
 import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexAction';
 import AlertMessage from '../../components/AlertMessage';
+import OutlineInfoIcon from '../../components/OutlineInfoIcon';
 
 class CreateYourStory extends Component {
   constructor(props) {
@@ -37,13 +38,19 @@ class CreateYourStory extends Component {
 
   _onPress() {
     this.props.navigation.goBack();
-    Quiz.uploadAsync(this.props.currentQuiz.uuid);
   }
 
   renderEnd() {
+    Quiz.setFinished(this.props.currentQuiz.uuid);
+
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', padding: 20}}>
         <View style={[Style.card]}>
+          <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 10}}>
+            <OutlineInfoIcon />
+            <Text style={{fontFamily: FontFamily.title}}>បញ្ចប់សាច់រឿង</Text>
+          </View>
+
           <Text>អបអរសារទរ អ្នកបានដឹងគន្លឹះសំខាន់ខ្លះៗ ដែលគាំទ្រអ្នកក្នុងការទទួលបានការងារដោយសុវត្ថិភាពនៅប្រទេសគោលដៅ</Text>
         </View>
 
