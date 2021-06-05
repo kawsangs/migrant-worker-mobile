@@ -100,9 +100,20 @@ class About extends Component {
     )
   }
 
+  _renderAppLogoAndName() {
+    return (
+      <View style={{marginBottom: 15}}>
+        <Image source={require('../assets/images/logos/myjourney.png')} style={{ width: 120, height: 120, alignSelf: 'center', marginBottom: 15 }} />
+        <Text style={{ fontFamily: FontFamily.title, textAlign: 'center' }}>Safe and Fair App</Text>
+      </View>
+    )
+  }
+
   render() {
     return (
       <ScrollView contentContainerStyle={{padding: 16}}>
+        { this.props.route.params.type == "safe_and_fair_app" && this._renderAppLogoAndName() }
+
         { this._renderDescription() }
 
         <Text style={{ fontFamily: FontFamily.title, marginTop: 16, textAlign: 'center' }}>ក្រោមជំនួយថវិកាដោយ</Text>
