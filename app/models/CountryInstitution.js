@@ -14,8 +14,6 @@ const CountryInstitution = (() => {
   }
 
   function create(data) {
-    console.log('create country institution ==')
-
     realm.write(() => {
       realm.create(MODEL_NAME, data);
     });

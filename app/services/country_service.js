@@ -11,10 +11,6 @@ const CountryService = (() => {
     return Api.get('/countries')
       .then(response => response.data)
       .then(data => {
-
-        console.log('countries data == ', data.length);
-        console.log('first country == ', data[0]);
-
         const newCountries = reject(data, c => contains(existingCodes(), c.id))
         // alert( JSON.stringify(newCountries) )
         Country.createBatch(newCountries)

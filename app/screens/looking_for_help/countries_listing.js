@@ -48,7 +48,7 @@ class CountriesListing extends React.Component {
   }
 
   filterData(query) {
-    return Country.where('name', query)
+    return Country.where('name_km', query)
   }
 
   onChangeQuery = (query) => {
