@@ -1,4 +1,4 @@
-package org.ilabsea.safemigration;
+package org.instedd.ilabsea.myjourneys;
 
 import android.os.Bundle; // here
 import com.facebook.react.ReactActivity;
