@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 
 import Flag from '../../components/LookingForHelp/Flag';
+import countryHelper from '../../helpers/country_helper';
 
 class ViewedCountry extends React.Component {
   gotoHelp = () => {
@@ -21,7 +22,11 @@ class ViewedCountry extends React.Component {
         onPress={() => this.gotoHelp()}
         style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
 
-        <Flag country={country} style={{marginLeft: 16}}/>
+        { !countryHelper.isAllCountries(country.name) ?
+          <Flag country={country} style={{marginLeft: 16}}/>
+          :
+          <View style={{marginLeft: 16}}/>
+        }
         <Text style={{marginVertical: 16}}>{country.name}</Text>
       </TouchableOpacity>
     )

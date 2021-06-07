@@ -4,8 +4,7 @@ const CountrySchema = {
   properties: {
     id: 'int',
     name: 'string',
-    emoji_flag: 'string',
-    institutions: 'Institution[]'
+    emoji_flag: 'string'
   }
 }
 

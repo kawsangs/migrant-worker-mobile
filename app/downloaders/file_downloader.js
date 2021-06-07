@@ -3,7 +3,8 @@ import RNFS from 'react-native-fs';
 
 const FileDownloader = (()=> {
   return {
-    download: download
+    download: download,
+    isFileExist: isFileExist,
   }
 
   async function download(fileName, filePath, successCallback, failsCallback) {
@@ -26,6 +27,12 @@ const FileDownloader = (()=> {
       console.log('=============download audio error', err);
       !!failsCallback && failsCallback();
     });
+  }
+
+  async function isFileExist(fileName) {
+    const filePath = `${RNFS.DocumentDirectoryPath}/${fileName}`;
+    const isFileExist = await RNFS.exists(filePath);
+    return isFileExist;
   }
 })();
 

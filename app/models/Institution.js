@@ -1,8 +1,9 @@
 import realm from '../db/schema'
-import Country from './Country'
-// import institutions from '../data/json/institutions'
+import institutions from '../data/json/institutions'
 import Contact from './Contact'
 import _ from 'underscore'
+import uuidv4 from '../utils/uuidv4';
+import CountryInstitution from './CountryInstitution';
 
 const MODEL_NAME = 'Institution'
 const Institution = (() => {
@@ -12,12 +13,13 @@ const Institution = (() => {
     where,
     create,
     update,
+    isExist,
     deleteBatch,
     createBatch,
     reloadBatch,
   }
 
-  function createBatch(institutions) {
+  function createBatch() {
     return _.map( institutions, serializer => create(serializer))
   }
 
@@ -33,30 +35,30 @@ const Institution = (() => {
     return realm.objects(MODEL_NAME).filtered(`id = ${id}`)[0];
   }
 
-  function create(serializer) {
-    let institution
-
+  function create(item) {
     realm.write(() => {
-      const country = Country.find(serializer.country_id)
-      if(country != undefined) {
-        // Android: files under `android/app/src/main/res/raw`
-        // must be lowercase and underscored
-        serializer.institution['country_id'] = serializer.country_id
-        realm.create(MODEL_NAME, serializer.institution, 'modified');
+      realm.create(MODEL_NAME, _buildData(item), 'modified');
+    });
 
-        institution = serializer.institution;
+    item.country_institutions.map(countryInstitution => {
+      const data = {
+        uuid: uuidv4(),
+        country_id: countryInstitution.country_id,
+        institution_id: item.id
+      };
 
-        country.institutions.push(institution);
-      }
-    })
-
-    return institution;
+      CountryInstitution.create(data);
+    });
   }
 
   function update(id, params) {
     realm.write(() => {
       realm.create(MODEL_NAME, Object.assign(params, {id: id}), 'modified');
     });
+  }
+
+  function isExist(id) {
+    return find(id) ? true : false;
   }
 
   function deleteBatch() {
@@ -68,7 +70,29 @@ const Institution = (() => {
   function reloadBatch() {
     deleteBatch()
     Contact.deleteBatch()
-    // createBatch()
+    createBatch()
+  }
+
+  function _buildData(item) {
+    let contacts = []
+    item.contacts.map(contact => {
+      contacts.push(JSON.stringify(contact))
+    });
+
+    let params = {
+      id: item.id,
+      name: item.name,
+      kind: item.kind,
+      address: item.address,
+      logo_url: item.logo_url,
+      audio_url: item.audio_url,
+      contacts: contacts,
+    }
+
+    if (!!item.offline && !!item.logo_url)
+      params.logo = 'offline';
+
+    return params;
   }
 
 })()

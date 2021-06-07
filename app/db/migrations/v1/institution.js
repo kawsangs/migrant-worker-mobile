@@ -1,17 +1,15 @@
 import institutions from '../../../data/json/institutions'
 
 class Institution {
-  get logoSource() {
-    let institution = institutions.find(({ institution }) => institution.id == this.id)
-    return institution && institution.institution.logo
-  }
+  get imageSource() {
+    if (!this.logo) { return "" }
 
-  get logoName() {
-    return this.logoUrl ? this.logoUrl.split(/\//g).pop() : '';
-  }
+    if (this.logo == 'offline') {
+      let institution = institutions.filter(institution => institution.id == this.id)[0];
+      return !!institution && institution.logo;
+    }
 
-  get logoUrl() {
-    return this.logo_url;
+    return { uri: `file://${this.logo}` };
   }
 }
 
@@ -23,9 +21,11 @@ Institution.schema = {
     name: 'string',
     kind: 'string',
     address: 'string?',
+    logo: 'string?',
     logo_url: 'string?',
+    audio: 'string?',
     audio_url: 'string?',
-    contacts: { type: 'list', objectType: 'Contact' }
+    contacts: { type: 'list', objectType: 'string' }
   }
 }
 

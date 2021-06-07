@@ -13,11 +13,12 @@ import NetInfo from "@react-native-community/netinfo";
 import { withTranslation } from 'react-i18next';
 import EmptyResult from './empty_result';
 import Country from '../../models/Country';
-import Institution from '../../models/Institution';
+import CountryInstitution from '../../models/CountryInstitution';
 import InstitutionService from '../../services/institution_service'
 import Flag from '../../components/LookingForHelp/Flag';
 import CardItem from '../../components/LookingForHelp/CardItem';
 import Filter from '../../components/LookingForHelp/Filter';
+import countryHelper from '../../helpers/country_helper';
 
 class LookingForHelp extends React.Component {
   constructor(props) {
@@ -38,11 +39,10 @@ class LookingForHelp extends React.Component {
 
 
   loadLocalInstitution() {
-    const country = Country.find(this.props.route.params.id);
+    const countryInstitutions = CountryInstitution.findByCountryId(this.props.route.params.id);
 
     this.setState({
-      institutions: country.institutions,
-      isFetching: false,
+      institutions: InstitutionService.getInstitutionByCountry(countryInstitutions)
     });
   }
 
@@ -53,8 +53,10 @@ class LookingForHelp extends React.Component {
           country_id={this.props.route.params.id}
           onChangeQuery={(result) => this.setState({institutions: result})}/>
 
-        <View style={{flexDirection: 'row', marginHorizontal: 16, marginBottom: 16}}>
-          <Flag country={this.state.country} />
+        <View style={{flexDirection: 'row', marginHorizontal: 16, marginBottom: 16, alignItems: 'center'}}>
+          { !countryHelper.isAllCountries(this.state.country.name) &&
+            <Flag country={this.state.country} />
+          }
           <Text style={{fontFamily: FontFamily.title}}>{this.state.country.name}</Text>
         </View>
       </View>
@@ -63,9 +65,6 @@ class LookingForHelp extends React.Component {
 
   loadInstitution() {
     this.setState({isFetching: true});
-
-    // Fetch the institution from server when have the internet connection
-    // and get the instituion from realm when doesn't have internet connection
     this.checkInternet(() => {
       InstitutionService.fetch(this.state.country.id, (res) => {
         this.setState({
