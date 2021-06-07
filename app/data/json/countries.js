@@ -1,86 +1,106 @@
 export default [
   {
     "id": 1,
-    "name": "CAMBODIA",
+    "name": "Cambodia",
     "emoji_flag": "🇰🇭",
-    "updated_at": "2021-06-03T15:59:28.407+07:00"
+    "updated_at": "2021-06-07T16:26:58.809+07:00",
+    "code": "kh",
+    "name_km": "កម្ពុជា"
   },
   {
     "id": 2,
-    "name": "THAILAND",
+    "name": "Thailand",
     "emoji_flag": "🇹🇭",
-    "updated_at": "2021-06-03T15:59:28.434+07:00"
+    "updated_at": "2021-06-07T16:26:58.842+07:00",
+    "code": "th",
+    "name_km": "ថៃ"
   },
   {
     "id": 3,
-    "name": "VIETNAM",
+    "name": "Vietnam",
     "emoji_flag": "🇻🇳",
-    "updated_at": "2021-06-03T15:59:28.463+07:00"
+    "updated_at": "2021-06-07T16:26:58.868+07:00",
+    "code": "vn",
+    "name_km": "វៀតណាម"
   },
   {
     "id": 4,
-    "name": "CHINA",
+    "name": "China",
     "emoji_flag": "🇨🇳",
-    "updated_at": "2021-06-03T15:59:28.489+07:00"
+    "updated_at": "2021-06-07T16:26:58.894+07:00",
+    "code": "cn",
+    "name_km": "ចិន"
   },
   {
     "id": 5,
-    "name": "HONG KONG",
+    "name": "Hong kong",
     "emoji_flag": "🇭🇰",
-    "updated_at": "2021-06-03T15:59:28.516+07:00"
+    "updated_at": "2021-06-07T16:26:58.919+07:00",
+    "code": "hk",
+    "name_km": "ហុងកុង"
   },
   {
     "id": 6,
-    "name": "JAPAN",
+    "name": "Japan",
     "emoji_flag": "🇯🇵",
-    "updated_at": "2021-06-03T15:59:28.639+07:00"
+    "updated_at": "2021-06-07T16:26:58.949+07:00",
+    "code": "jp",
+    "name_km": "ជប៉ុន"
   },
   {
     "id": 7,
-    "name": "KUWAIT",
+    "name": "Kuwait",
     "emoji_flag": "🇰🇼",
-    "updated_at": "2021-06-03T15:59:28.739+07:00"
+    "updated_at": "2021-06-07T16:26:58.976+07:00",
+    "code": "kw",
+    "name_km": "គុយវ៉ែត"
   },
   {
     "id": 8,
-    "name": "MALAYSIA",
+    "name": "Malaysia",
     "emoji_flag": "🇲🇾",
-    "updated_at": "2021-06-03T15:59:28.823+07:00"
+    "updated_at": "2021-06-07T16:26:59.007+07:00",
+    "code": "my",
+    "name_km": "ម៉ាឡេស៊ី"
   },
   {
     "id": 9,
-    "name": "PHILIPPINES",
+    "name": "Philippines",
     "emoji_flag": "🇵🇭",
-    "updated_at": "2021-06-03T15:59:28.866+07:00"
-  },
-  {
-    "id": 10,
-    "name": "SOUTH KOREA",
-    "emoji_flag": "🇰🇷",
-    "updated_at": "2021-06-03T15:59:28.904+07:00"
+    "updated_at": "2021-06-07T16:26:59.034+07:00",
+    "code": "ph",
+    "name_km": "ហ្វីលីពីន"
   },
   {
     "id": 11,
-    "name": "QATAR",
+    "name": "Qatar",
     "emoji_flag": "🇶🇦",
-    "updated_at": "2021-06-03T15:59:28.930+07:00"
+    "updated_at": "2021-06-07T16:26:59.094+07:00",
+    "code": "qa",
+    "name_km": "កាតា"
   },
   {
     "id": 12,
-    "name": "SAUDI ARABIA",
+    "name": "Saudi arabia",
     "emoji_flag": "🇸🇦",
-    "updated_at": "2021-06-03T15:59:28.957+07:00"
+    "updated_at": "2021-06-07T16:26:59.121+07:00",
+    "code": "sa",
+    "name_km": "អារ៉ាប់ប៊ីសាអូឌីត"
   },
   {
     "id": 13,
-    "name": "SINGAPORE",
+    "name": "Singapore",
     "emoji_flag": "🇸🇬",
-    "updated_at": "2021-06-03T15:59:28.991+07:00"
+    "updated_at": "2021-06-07T16:26:59.151+07:00",
+    "code": "sg",
+    "name_km": "សិង្ហបុរី"
   },
   {
     "id": 14,
-    "name": "ALL COUNTRIES",
-    "emoji_flag": '',
-    "updated_at": "2021-06-03T15:59:29.019+07:00"
+    "name": "All countries",
+    "emoji_flag": null,
+    "updated_at": "2021-06-07T16:26:59.183+07:00",
+    "code": "all",
+    "name_km": "ប្រទេសទាំងអស់"
   }
 ]

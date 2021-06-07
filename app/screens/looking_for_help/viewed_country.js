@@ -12,7 +12,7 @@ class ViewedCountry extends React.Component {
   gotoHelp = () => {
     let { navigation, country } = this.props
 
-    navigation.navigate('LookingForHelpScreen', { id: country.id })
+    navigation.navigate('LookingForHelpScreen', { code: country.code })
   }
 
   render() {
@@ -27,7 +27,9 @@ class ViewedCountry extends React.Component {
           :
           <View style={{marginLeft: 16}}/>
         }
-        <Text style={{marginVertical: 16}}>{country.name} {country.id}</Text>
+        <Text style={{marginVertical: 16}}>
+          { country.name_km || country.name }
+        </Text>
       </TouchableOpacity>
     )
   }

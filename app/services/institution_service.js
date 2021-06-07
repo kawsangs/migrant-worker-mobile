@@ -13,8 +13,8 @@ const InstitutionService = (() => {
     getInstitutionByCountry
   }
 
-  function fetch(countryId, successCallback, errorCallback) {
-    return Api.get(`/countries/${countryId}/country_institutions`)
+  function fetch(countryCode, successCallback, errorCallback) {
+    return Api.get(`/countries/${countryCode}/country_institutions`)
       .then(response => response.data)
       .then((data) => {
         data.map(item => {
@@ -30,10 +30,10 @@ const InstitutionService = (() => {
             institution.contacts = contacts;
             Institution.update(institution.id, institution);
 
-            if (!CountryInstitution.isExist(countryId, institution.id)) {
+            if (!CountryInstitution.isExist(countryCode, institution.id)) {
               const params = {
                 uuid: uuidv4(),
-                country_id: countryId,
+                country_code: countryCode,
                 institution_id: institution.id
               };
               CountryInstitution.create(params);
@@ -45,7 +45,7 @@ const InstitutionService = (() => {
 
             const countryInstitutionData = {
               uuid: uuidv4(),
-              country_id: countryId,
+              country_code: countryCode,
               institution_id: institution.id
             };
             CountryInstitution.create(countryInstitutionData);
@@ -55,7 +55,7 @@ const InstitutionService = (() => {
         });
 
         setTimeout(() => {
-          successCallback(_getInstitutions(countryId))
+          successCallback(_getInstitutions(countryCode))
         }, 1500);
       })
       .catch( err => {
@@ -98,8 +98,8 @@ const InstitutionService = (() => {
     Institution.update(institution.id, params);
   }
 
-  function _getInstitutions(countryId) {
-    const countryInstitutions = CountryInstitution.findByCountryId(countryId);
+  function _getInstitutions(countryCode) {
+    const countryInstitutions = CountryInstitution.findByCountryCode(countryCode);
 
     return getInstitutionByCountry(countryInstitutions)
   }

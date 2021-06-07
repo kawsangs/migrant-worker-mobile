@@ -93,7 +93,7 @@
   {
     "stepCode": "before_you_go",
     "stepTitle_en": "Before you go",
-    "stepTitle_km": "មុនពេលអ្នកទៅ",
+    "stepTitle_km": "ដំណើរឆ្លងដែនរបស់អ្នក",
     "list": [
       {
         "code": "01",
@@ -143,12 +143,6 @@
         "url": "https://www.youtube.com/watch?v=RgeKg5iGZKI&list=RDCMUCsMW60l4zLO11NB6ckap57g&index=28",
         "title_en": "Easy ways to save money",
         "title_km": "វិធីសន្សំលុយងាយៗ"
-      },
-      {
-        "code": "08",
-        "url": "https://www.youtube.com/watch?v=JTiDMAHM_Tk",
-        "title_en": "Topic: Challenges of Migrant Workers",
-        "title_km": "ប្រធានបទៈ បញ្ហាប្រឈមរបស់ពលករចំណាកស្រុក"
       },
       {
         "code": "09",

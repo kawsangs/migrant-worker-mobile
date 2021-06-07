@@ -15,7 +15,7 @@ const CountryService = (() => {
         console.log('countries data == ', data.length);
         console.log('first country == ', data[0]);
 
-        const newCountries = reject(data, c => contains(existingIds(), c.id))
+        const newCountries = reject(data, c => contains(existingCodes(), c.id))
         // alert( JSON.stringify(newCountries) )
         Country.createBatch(newCountries)
         // upsert to realm & download assets
@@ -26,8 +26,8 @@ const CountryService = (() => {
       })
   }
 
-  function existingIds() {
-    return map(Country.all(), c => c.id)
+  function existingCodes() {
+    return map(Country.all(), c => c.code)
   }
 
   

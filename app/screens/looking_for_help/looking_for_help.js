@@ -24,7 +24,7 @@ class LookingForHelp extends React.Component {
   constructor(props) {
     super(props);
 
-    let country = Country.find(props.route.params.id);
+    let country = Country.find(props.route.params.code);
 
     this.state = {
       country: country,
@@ -39,7 +39,7 @@ class LookingForHelp extends React.Component {
 
 
   loadLocalInstitution() {
-    const countryInstitutions = CountryInstitution.findByCountryId(this.props.route.params.id);
+    const countryInstitutions = CountryInstitution.findByCountryCode(this.props.route.params.code);
 
     this.setState({
       institutions: InstitutionService.getInstitutionByCountry(countryInstitutions)
@@ -50,14 +50,14 @@ class LookingForHelp extends React.Component {
     return (
       <View>
         <Filter
-          country_id={this.props.route.params.id}
+          code={this.props.route.params.code}
           onChangeQuery={(result) => this.setState({institutions: result})}/>
 
         <View style={{flexDirection: 'row', marginHorizontal: 16, marginBottom: 16, alignItems: 'center'}}>
           { !countryHelper.isAllCountries(this.state.country.name) &&
             <Flag country={this.state.country} />
           }
-          <Text style={{fontFamily: FontFamily.title}}>{this.state.country.name}</Text>
+          <Text style={{fontFamily: FontFamily.title}}>{this.state.country.name_km || this.state.country.name}</Text>
         </View>
       </View>
     )
@@ -66,11 +66,7 @@ class LookingForHelp extends React.Component {
   loadInstitution() {
     this.setState({isFetching: true});
     this.checkInternet(() => {
-      console.log('Country id == ', this.state.country.id)
-
       InstitutionService.fetch(this.state.country.id, (res) => {
-        console.log('institution res == ', res);
-
         this.setState({
           institutions: res,
           isFetching: false

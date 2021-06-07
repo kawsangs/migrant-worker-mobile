@@ -3,7 +3,7 @@ const CountryInstitutionSchema = {
   primaryKey: 'uuid',
   properties: {
     uuid: 'string',
-    country_id: 'int',
+    country_code: 'string',
     institution_id: 'int',
   }
 }

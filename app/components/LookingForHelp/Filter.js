@@ -11,17 +11,18 @@ import {
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
 import { addStatistic } from '../../utils/statistic';
 import { withTranslation } from 'react-i18next';
-import Country from '../../models/Country';
+import CountryInstitution from '../../models/CountryInstitution';
+import InstitutionService from '../../services/institution_service';
 import { Icon } from 'react-native-material-ui';
 
 class LookingForHelp extends React.Component {
   constructor(props) {
     super(props);
 
-    let country = Country.find(props.country_id);
+    const countryInstitutions = CountryInstitution.findByCountryCode(props.code)
 
     this.state = {
-      institutions: country.institutions,
+      institutions: InstitutionService.getInstitutionByCountry(countryInstitutions),
       query: "",
     };
   }
