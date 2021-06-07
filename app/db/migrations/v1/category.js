@@ -50,6 +50,7 @@ Category.schema = {
     hint_image_url: 'string?',
     hint_audio: 'string?',
     hint_audio_url: 'string?',
+    appVersion: 'string?',
   }
 };
 

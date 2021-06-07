@@ -1,5 +1,7 @@
 import realm from '../db/schema';
 import categoryList from '../db/json/categories';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import DeviceInfo from 'react-native-device-info';
 
 const Departure = (() => {
   return {
@@ -16,12 +18,15 @@ const Departure = (() => {
   }
 
   function seedData(callback) {
-    if (!getAll().length) {
-      let categories = categoryList.filter(cat => cat.type == "Categories::Departure")
-      upsertCollection(categories);
-    }
+    let appVersion = DeviceInfo.getVersion();
+    let collection = getAll().filter(o => o.appVersion == appVersion);
+    if (!!collection.length) return;
 
-    !!callback && callback();
+    setTimeout(() => {
+      deleteAll();
+      upsertCollection(categoryList.filter(cat => cat.type == "Categories::Departure"),  appVersion);
+      !!callback && callback();
+    }, 200);
   }
 
   function find(id) {
@@ -42,25 +47,19 @@ const Departure = (() => {
     });
   }
 
-  function upsertCollection(categories) {
+  function upsertCollection(categories, appVersion) {
     for(let i=0; i<categories.length; i++) {
-      upsert(categories[i]);
+      upsert(categories[i], appVersion);
     }
   }
 
-  function upsert(category) {
+  function upsert(category, appVersion) {
     realm.write(() => {
-      realm.create('Category', _buildData(category), 'modified');
+      realm.create('Category', _buildData(category, appVersion), 'modified');
     });
-
-    if (!category.children) { return; }
-
-    for (let i=0; i<category.children.length; i++) {
-      upsert(category.children[i]);
-    }
   }
 
-  function _buildData(category) {
+  function _buildData(category, appVersion) {
     let params = {
       uuid: category.uuid,
       id: category.id,
@@ -80,6 +79,7 @@ const Departure = (() => {
       hint_audio: category.hint_audio,
       hint_audio_url: category.hint_audio_url,
       hint_image_url: category.hint_image_url,
+      appVersion: appVersion,
     };
     if (!category.offline) {
       return params;

@@ -27,7 +27,8 @@ Form.schema = {
     image: 'string?',
     image_url: 'string?',
     audio: 'string?',
-    audio_url: 'string?'
+    audio_url: 'string?',
+    appVersion: 'string?',
   }
 };
 

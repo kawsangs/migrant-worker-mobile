@@ -4,6 +4,7 @@ import Question from '../models/Question';
 import Option from '../models/Option';
 import Criteria from '../models/Criteria';
 import formList from '../db/json/form_stories';
+import DeviceInfo from 'react-native-device-info';
 
 const Form = (() => {
   return {
@@ -46,28 +47,29 @@ const Form = (() => {
     }
   }
 
-  function upsertCollection(items) {
+  function upsertCollection(items, appVersion) {
     for(let i=0; i<items.length; i++) {
-      upsert(items[i]);
+      upsert(items[i], appVersion);
     }
   }
 
-  function upsert(item) {
+  function upsert(item, appVersion) {
     realm.write(() => {
-      realm.create('Form', _buildData(item), 'modified');
+      realm.create('Form', _buildData(item, appVersion), 'modified');
     });
 
     Question.upsertCollection(item.questions);
   }
 
-  function _buildData(item) {
+  function _buildData(item, appVersion) {
     let params = {
       id: item.id,
       code: item.code,
       name: item.name,
       audio: item.audio,
       version: item.version,
-      question_count: item.questions.length
+      question_count: item.questions.length,
+      appVersion: appVersion,
     };
 
     if (!!item.offline && !!item.image_url) {
@@ -78,11 +80,15 @@ const Form = (() => {
   }
 
   function seedData(callback) {
-    if (!getAll().length) {
-      upsertCollection(formList);
-    }
+    let appVersion = DeviceInfo.getVersion();
+    let collection = getAll().filter(o => o.appVersion == appVersion);
+    if (!!collection.length) return;
 
-    !!callback && callback();
+    setTimeout(() => {
+      deleteAll();
+      upsertCollection(formList, appVersion);
+      !!callback && callback();
+    }, 200);
   }
 
 })();

@@ -1,5 +1,6 @@
 import realm from '../db/schema';
 import categoryList from '../db/json/categories';
+import DeviceInfo from 'react-native-device-info';
 
 const Safety = (() => {
   return {
@@ -16,12 +17,16 @@ const Safety = (() => {
   }
 
   function seedData(callback) {
-    if (!getAll().length) {
-      let categories = categoryList.filter(cat => cat.type == "Categories::Safety")
-      upsertCollection(categories);
-    }
+    let appVersion = DeviceInfo.getVersion();
+    // let appVersion = "4";
+    let collection = getAll().filter(o => o.appVersion == appVersion);
+    if (!!collection.length) return;
 
-    !!callback && callback();
+    setTimeout(() => {
+      deleteAll();
+      upsertCollection(categoryList.filter(cat => cat.type == "Categories::Safety"),  appVersion);
+      !!callback && callback();
+    }, 200);
   }
 
   function find(id) {
@@ -42,27 +47,19 @@ const Safety = (() => {
     });
   }
 
-  function upsertCollection(categories) {
+  function upsertCollection(categories, appVersion) {
     for(let i=0; i<categories.length; i++) {
       upsert(categories[i]);
     }
   }
 
-  function upsert(category) {
+  function upsert(category, appVersion) {
     realm.write(() => {
-      realm.create('Category', _buildData(category), 'modified');
+      realm.create('Category', _buildData(category, appVersion), 'modified');
     });
-
-    if (!category.children) {
-      return;
-    }
-
-    for (let i=0; i<category.children.length; i++) {
-      upsert(category.children[i]);
-    }
   }
 
-  function _buildData(category) {
+  function _buildData(category, appVersion) {
     let params = {
       uuid: category.uuid,
       id: category.id,
@@ -78,6 +75,7 @@ const Safety = (() => {
       lft: category.lft,
       rgt: category.rgt,
       video: !!category.is_video,
+      appVersion: appVersion,
     };
 
     if (!!category.offline && !!category.image_url) {
