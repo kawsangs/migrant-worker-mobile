@@ -34,7 +34,7 @@ class LookingForHelp extends React.Component {
   }
 
   componentDidMount() {
-    this.loadInstitution();
+    this.loadLocalInstitution();
   }
 
 
@@ -66,11 +66,19 @@ class LookingForHelp extends React.Component {
   loadInstitution() {
     this.setState({isFetching: true});
     this.checkInternet(() => {
+      console.log('Country id == ', this.state.country.id)
+
       InstitutionService.fetch(this.state.country.id, (res) => {
+        console.log('institution res == ', res);
+
         this.setState({
           institutions: res,
           isFetching: false
         });
+
+        if (res.length == 0)
+          this.loadLocalInstitution();
+
       }, (error) => {
         this.setState({isFetching: false});
       });

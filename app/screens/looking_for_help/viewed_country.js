@@ -27,7 +27,7 @@ class ViewedCountry extends React.Component {
           :
           <View style={{marginLeft: 16}}/>
         }
-        <Text style={{marginVertical: 16}}>{country.name}</Text>
+        <Text style={{marginVertical: 16}}>{country.name} {country.id}</Text>
       </TouchableOpacity>
     )
   }

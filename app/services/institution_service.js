@@ -59,7 +59,6 @@ const InstitutionService = (() => {
         }, 1500);
       })
       .catch( err => {
-        alert(err); 
         errorCallback(err);
       })
   }
