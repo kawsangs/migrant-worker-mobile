@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:508834138520:android:25316f93bcb0308afac3ed",
+        "mobilesdk_app_id": "1:508834138520:android:38347c7d56e1fb6efac3ed",
         "android_client_info": {
-          "package_name": "org.ilabsea.safemigration"
+          "package_name": "org.instedd.ilabsea.myjourneys"
         }
       },
       "oauth_client": [
