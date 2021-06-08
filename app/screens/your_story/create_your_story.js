@@ -68,28 +68,32 @@ class CreateYourStory extends Component {
           <Text>អ្នកបានដឹងគន្លឹះសំខាន់ខ្លះៗ ដែលគាំទ្រអ្នកក្នុងការទទួលបានការងារដោយសុវត្ថិភាពនៅប្រទេសគោលដៅ</Text>
         </View>
 
-        <View style={{flexDirection: 'row'}}>
+        <View style={{position: 'absolute', bottom: 20, width: '100%'}}>
+          { !!this.state.nextForm &&
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={{backgroundColor: Color.primary, padding: 8, borderRadius: 8, flexDirection: 'row', width: '100%', justifyContent: 'center', marginBottom: 10}}
+              onPress={() => this._setForm(this.state.nextForm.id)}>
+
+              <View style={{flex: 1}}/>
+              <Text style={{fontFamily: FontFamily.title, color: '#fff', textAlign: 'center'}}>ចូលទៅសាច់រឿង "{this.state.nextForm.name}"</Text>
+              <View style={{flex: 1, alignItems: 'flex-end'}}>
+                <Icon name={'arrow-forward'} style={{color: '#fff'}}/>
+              </View>
+            </TouchableOpacity>
+          }
+
           <TouchableOpacity
             activeOpacity={0.8}
-            style={{backgroundColor: Color.primary, padding: 8, borderRadius: 8, flexDirection: 'row'}}
+            style={{backgroundColor: Color.primary, padding: 8, borderRadius: 8, flexDirection: 'row', width: '100%', justifyContent: 'center'}}
             onPress={() => this.props.navigation.goBack()}>
 
-            <Icon name={'arrow-back'} style={{color: '#fff'}}/>
-            <Text style={{fontFamily: FontFamily.title, color: '#fff', textAlign: 'center'}}>ត្រឡប់ក្រោយ</Text>
-          </TouchableOpacity>
-
-          { !!this.state.nextForm &&
-            <View style={{flex: 1}}>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                style={{backgroundColor: Color.primary, padding: 8, borderRadius: 8, flexDirection: 'row'}}
-                onPress={() => this._setForm(this.state.nextForm.id)}>
-
-                <Text style={{fontFamily: FontFamily.title, color: '#fff', textAlign: 'center'}}>ចូលទៅសាច់រឿងបន្ទាប់</Text>
-                <Icon name={'arrow-forward'} style={{color: '#fff'}}/>
-              </TouchableOpacity>
+            <View style={{flex: 1, alignItems: 'flex-start'}}>
+              <Icon name={'arrow-back'} style={{color: '#fff'}}/>
             </View>
-          }
+            <Text style={{fontFamily: FontFamily.title, color: '#fff', textAlign: 'center'}}>ត្រឡប់ទៅកាន់ "សាច់រឿងរបស់អ្នក"</Text>
+            <View style={{flex: 1}}/>
+          </TouchableOpacity>
         </View>
       </View>
     )
