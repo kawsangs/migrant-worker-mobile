@@ -19,6 +19,7 @@ import QuestionName from './questionName';
 
 import { connect } from 'react-redux';
 import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexAction';
+import PlaySound from '../../components/play_sound';
 
 class QuestionsResult extends Component {
   constructor(props) {
@@ -46,10 +47,13 @@ class QuestionsResult extends Component {
           contentContainerStyle={{ flexGrow: 1 }}
           showsVerticalScrollIndicator={false}>
 
-          <View style={[Style.container, Style.card]}>
-            <QuestionName question={this.props.question } audio={this.state.audio} />
+          <View style={[Style.container, Style.card, {flexDirection: 'row'}]}>
+            <Text style={{flex: 1}}>{this.state.message}</Text>
 
-            <Text style={{marginTop: 10}}>{this.state.message}</Text>
+            <PlaySound
+              filePath={this.state.audio}
+              buttonAudioStyle={{ backgroundColor: Color.pink }}
+              iconStyle={{ tintColor: Color.white }}/>
           </View>
         </ScrollView>
 

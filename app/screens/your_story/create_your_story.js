@@ -27,6 +27,8 @@ import { setCurrentQuiz } from '../../actions/currentQuizAction';
 import uuidv4 from '../../utils/uuidv4';
 
 class CreateYourStory extends Component {
+  state = {loading: true};
+
   componentDidMount() {
     this._setForm(this.props.route.params.form_id);
   }
@@ -35,7 +37,7 @@ class CreateYourStory extends Component {
     this._setQuiz(form_id);
     this.props.setQuestions(Question.byForm(form_id));
     this.props.setCurrentIndex(0);
-    this.setState({nextForm: Form.findNext(form_id)});
+    this.setState({nextForm: Form.findNext(form_id), loading: false});
   }
 
   _setQuiz(form_id) {
@@ -49,10 +51,11 @@ class CreateYourStory extends Component {
 
     let quiz = Quiz.find(uuid);
     this.props.setCurrentQuiz(quiz);
+    this.setState({currentQuizUuid: uuid});
   }
 
   renderEnd() {
-    Quiz.setFinished(this.props.currentQuiz.uuid);
+    Quiz.setFinished(this.state.currentQuizUuid);
 
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', padding: 20}}>
@@ -102,8 +105,8 @@ class CreateYourStory extends Component {
 
         { currentIndex > -1 && <ProgressHeader /> }
 
-        { !!currentQuestion && Questions(currentQuestion) }
-        { !currentQuestion && this.renderEnd() }
+        { !this.state.loading && !!currentQuestion && Questions(currentQuestion) }
+        { !this.state.loading && !currentQuestion && this.renderEnd() }
       </View>
     );
   }
