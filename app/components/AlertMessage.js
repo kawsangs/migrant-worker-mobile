@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
+  TouchableOpacity,
 } from 'react-native';
 
 import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
@@ -51,11 +52,12 @@ class AlertMessage extends Component {
           </Dialog.Content>
 
           <Dialog.Actions>
-            <DialogDefaultActions
-               actions={['ok']}
-               options={{ ok: { } }}
-               onActionPress={() => {this.props.onPressAction()}}
-            />
+            <View style={{flexDirection: 'row', padding: 16, justifyContent: 'flex-end'}}>
+              { !!this.props.onPressCancel &&
+                <TouchableOpacity onPress={() => this.props.onPressCancel()} style={{paddingHorizontal: 5, marginRight: 5}}><Text style={{color: Color.primary, fontSize: 14}}>បោះបង់</Text></TouchableOpacity>
+              }
+              <TouchableOpacity onPress={() => this.props.onPressAction()} style={{paddingLeft: 5, paddingRight: 0}}><Text style={{color: Color.primary, fontSize: 14}}>បាទ/ចាស</Text></TouchableOpacity>
+            </View>
           </Dialog.Actions>
         </Dialog>
       </View>

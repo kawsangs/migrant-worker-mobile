@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StatusBar, Text, TouchableOpacity } from 'react-native';
+import { View, StatusBar, Text, TouchableOpacity, BackHandler } from 'react-native';
 
 import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
 import { Button, Icon } from 'react-native-material-ui';
@@ -25,12 +25,58 @@ import AlertMessage from '../../components/AlertMessage';
 import OutlineInfoIcon from '../../components/OutlineInfoIcon';
 import { setCurrentQuiz } from '../../actions/currentQuizAction';
 import uuidv4 from '../../utils/uuidv4';
+import { HeaderBackButton } from '@react-navigation/stack';
+import HomeButton from '../../components/Toolbar/HomeButton';
 
 class CreateYourStory extends Component {
   state = {loading: true};
 
+  constructor(props) {
+    super(props);
+
+    props.navigation.setOptions({
+      headerLeft: () => (<HeaderBackButton tintColor={"#fff"} onPress={() => {
+        this.setState({action: 'Back'});
+        this._handleBack();
+      }}/>),
+      headerRight: () => (<HomeButton onPress={() => {
+        this.setState({action: 'Home'});
+        this._handleBack()
+      }}/>),
+    });
+  }
+
   componentDidMount() {
     this._setForm(this.props.route.params.form_id);
+
+    this.backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => {
+        this.setState({action: 'Back'});
+        this._handleBack();
+        return true;
+      }
+    );
+  }
+
+  componentWillUnmount() {
+    this.backHandler.remove();
+  }
+
+  _handleBack() {
+    if (this.props.currentIndex > -1) {
+      return this.setState({showAlert: true});
+    }
+
+    this._handleBackHome();
+  }
+
+  _handleBackHome() {
+    if (this.state.action == 'Back') {
+      return this.props.navigation.goBack();
+    }
+
+    this.props.navigation.popToTop();
   }
 
   _setForm(form_id) {
@@ -99,6 +145,11 @@ class CreateYourStory extends Component {
     )
   }
 
+  _handleHideMessage() {
+    this.setState({showAlert: false});
+    this._handleBackHome();
+  }
+
   render() {
     const { questions, currentIndex } = this.props;
     const currentQuestion = questions[currentIndex];
@@ -111,6 +162,16 @@ class CreateYourStory extends Component {
 
         { !this.state.loading && !!currentQuestion && Questions(currentQuestion) }
         { !this.state.loading && !currentQuestion && this.renderEnd() }
+
+        <AlertMessage
+          show={this.state.showAlert}
+          warning={true}
+          title={"ចាកចេញពីសាច់រឿង"}
+          message={"តើអ្នកប្រាកដថាចង់ចាកចេញពីហ្គេមនេះដែរឬទេ?"}
+          onPressAction={() => this._handleHideMessage()}
+          onPressCancel={() => this.setState({showAlert: false})}
+          audio={""}
+        />
       </View>
     );
   }
