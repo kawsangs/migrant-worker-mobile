@@ -38,7 +38,7 @@ class LookingForHelp extends React.Component {
     return (
       <View style={{ marginBottom: 16, padding:0 }}>
         <ImageBackground
-          source={require('../../../app/assets/images/icons/need_for_help.png')}
+          source={require('../../../app/assets/images/icons/looking_for_help.png')}
           style={styles.backgroundImage}
           imageStyle={{ resizeMode: "contain" }}>
 
