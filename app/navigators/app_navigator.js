@@ -31,6 +31,7 @@ import YourStoryScreen from '../screens/your_story/your_story';
 import CreateYourStoryScreen from '../screens/your_story/create_your_story';
 import LookingForHelpScreen from '../screens/looking_for_help/looking_for_help';
 import CountriesListingScreen from '../screens/looking_for_help/countries_listing';
+import NotificationScreen from '../screens/notification/notification';
 
 import SubCategoryScreen from '../screens/sub_category/sub_category';
 import LeafCategoryScreen from '../screens/leaf_category/leaf_category';
@@ -204,6 +205,14 @@ class AppNavigator extends Component {
             headerStyle: { backgroundColor: Color.yellow },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })} />
+
+        <Stack.Screen name="NotificationScreen" component={NotificationScreen}
+          options={({route, navigation}) => ({
+            title: this.props.t('NotificationScreen.HeaderTitle'),
+            headerStyle: { backgroundColor: Color.primary },
+            headerRight: (props) => (<HomeButton navigation={navigation}/>),
+          })}
+        />
       </>
     )
   }

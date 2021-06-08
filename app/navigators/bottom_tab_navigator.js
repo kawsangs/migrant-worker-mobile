@@ -22,8 +22,8 @@ function HomeTab() {
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={({ }) => ({
-          header: () => <CustomHeaderHome />,
+        options={({ route, navigation }) => ({
+          header: () => <CustomHeaderHome navigation={navigation} />,
         })}
       />
     </Stack.Navigator>

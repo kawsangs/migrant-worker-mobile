@@ -20,18 +20,18 @@ const CustomHeaderHome = withTranslation()((props) => {
         <Text style={styles.homepageText}>{props.t('HomeScreen.Homepage')}</Text>
       </View>
 
-      { false &&
+      {/* { false && */}
         <View style={styles.headerRight}>
           <TouchableOpacity
             style={styles.notificationButton}
-            onPress={() => null}
+            onPress={() => props.navigation.navigate('NotificationScreen')}
             activeOpacity={0.8}
           >
             <Image source={Images.notification} style={styles.notificationIcon} />
             <View style={styles.notificationBadge} />
           </TouchableOpacity>
         </View>
-      }
+      {/* } */}
 
     </SafeAreaView>
   )
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.title - 8,
   },
   headerRight: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
     alignItems: 'flex-end',
   },

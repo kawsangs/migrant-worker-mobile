@@ -106,6 +106,9 @@
             "NoCountry": "មិនមានប្រទេស",
             "Search": "ស្វែងរក",
             "Country": "ប្រទេស"
+        },
+        "NotificationScreen": {
+            "HeaderTitle": "ការជូនដំណឹង"
         }
     }
 }
