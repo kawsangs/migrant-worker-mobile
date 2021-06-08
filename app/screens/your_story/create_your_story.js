@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, StatusBar, Text, TouchableOpacity } from 'react-native';
 
 import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
-import { Button } from 'react-native-material-ui';
+import { Button, Icon } from 'react-native-material-ui';
 
 import i18n from 'i18next';
 import { withTranslation } from 'react-i18next';
@@ -11,6 +11,7 @@ import { withTranslation } from 'react-i18next';
 import Question from '../../models/Question';
 import Answer from '../../models/Answer';
 import Quiz from '../../models/Quiz';
+import Form from '../../models/Form';
 
 // Component
 import ProgressHeader from '../../components/YourStory/ProgressHeader';
@@ -22,22 +23,32 @@ import { setQuestions } from '../../actions/questionAction';
 import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexAction';
 import AlertMessage from '../../components/AlertMessage';
 import OutlineInfoIcon from '../../components/OutlineInfoIcon';
+import { setCurrentQuiz } from '../../actions/currentQuizAction';
+import uuidv4 from '../../utils/uuidv4';
 
 class CreateYourStory extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {};
-
-    props.setQuestions(Question.byForm(props.route.params.form_id));
-    props.setCurrentIndex(0);
-
-    // Todo: need to remove, it is used for testing
-    // Answer.deleteAll();
+  componentDidMount() {
+    this._setForm(this.props.route.params.form_id);
   }
 
-  _onPress() {
-    this.props.navigation.goBack();
+  _setForm(form_id) {
+    this._setQuiz(form_id);
+    this.props.setQuestions(Question.byForm(form_id));
+    this.props.setCurrentIndex(0);
+    this.setState({nextForm: Form.findNext(form_id)});
+  }
+
+  _setQuiz(form_id) {
+    let uuid = uuidv4();
+    Quiz.upsert({
+      uuid: uuid,
+      user_uuid: this.props.currentUser.uuid,
+      form_id: form_id,
+      quizzed_at: (new Date).toDateString()
+    });
+
+    let quiz = Quiz.find(uuid);
+    this.props.setCurrentQuiz(quiz);
   }
 
   renderEnd() {
@@ -48,19 +59,35 @@ class CreateYourStory extends Component {
         <View style={[Style.card]}>
           <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 10}}>
             <OutlineInfoIcon />
-            <Text style={{fontFamily: FontFamily.title}}>បញ្ចប់សាច់រឿង</Text>
+            <Text style={{fontFamily: FontFamily.title}}>អបអរសារទរ</Text>
           </View>
 
-          <Text>អបអរសារទរ អ្នកបានដឹងគន្លឹះសំខាន់ខ្លះៗ ដែលគាំទ្រអ្នកក្នុងការទទួលបានការងារដោយសុវត្ថិភាពនៅប្រទេសគោលដៅ</Text>
+          <Text>អ្នកបានដឹងគន្លឹះសំខាន់ខ្លះៗ ដែលគាំទ្រអ្នកក្នុងការទទួលបានការងារដោយសុវត្ថិភាពនៅប្រទេសគោលដៅ</Text>
         </View>
 
-        <TouchableOpacity
-          activeOpacity={0.8}
-          style={{backgroundColor: Color.primary, padding: 8, borderRadius: 8, width: 90}}
-          onPress={() => this._onPress()}>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={{backgroundColor: Color.primary, padding: 8, borderRadius: 8, flexDirection: 'row'}}
+            onPress={() => this.props.navigation.goBack()}>
 
-          <Text style={{fontFamily: FontFamily.title, color: '#fff', textAlign: 'center'}}>រួចរាល់</Text>
-        </TouchableOpacity>
+            <Icon name={'arrow-back'} style={{color: '#fff'}}/>
+            <Text style={{fontFamily: FontFamily.title, color: '#fff', textAlign: 'center'}}>ត្រឡប់ក្រោយ</Text>
+          </TouchableOpacity>
+
+          { !!this.state.nextForm &&
+            <View style={{flex: 1}}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={{backgroundColor: Color.primary, padding: 8, borderRadius: 8, flexDirection: 'row'}}
+                onPress={() => this._setForm(this.state.nextForm.id)}>
+
+                <Text style={{fontFamily: FontFamily.title, color: '#fff', textAlign: 'center'}}>ចូលទៅសាច់រឿងបន្ទាប់</Text>
+                <Icon name={'arrow-forward'} style={{color: '#fff'}}/>
+              </TouchableOpacity>
+            </View>
+          }
+        </View>
       </View>
     )
   }
@@ -87,6 +114,7 @@ function mapStateToProps(state) {
     questions: state.questions,
     currentIndex: state.currentQuestionIndex,
     currentQuiz: state.currentQuiz,
+    currentUser: state.currentUser,
   };
 }
 
@@ -94,6 +122,7 @@ function mapDispatchToProps(dispatch) {
   return {
     setQuestions: (questions) => dispatch(setQuestions(questions)),
     setCurrentIndex: (index) => dispatch(setCurrentQuestionIndex(index)),
+    setCurrentQuiz: (quiz) => dispatch(setCurrentQuiz(quiz)),
   };
 }
 

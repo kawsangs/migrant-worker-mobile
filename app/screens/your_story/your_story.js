@@ -18,7 +18,6 @@ import Answer from '../../models/Answer';
 import Sidekiq from '../../models/Sidekiq';
 
 import { connect } from 'react-redux';
-import { setCurrentQuiz } from '../../actions/currentQuizAction';
 
 import NetInfo from "@react-native-community/netinfo";
 import FormService from '../../services/form_service';
@@ -41,21 +40,7 @@ class YourStory extends Component {
   }
 
   _onPress(item) {
-    this._createQuiz(item);
     this.props.navigation.navigate("CreateYourStoryScreen", { title: item.name, form_id: item.id });
-  }
-
-  _createQuiz(item) {
-    let uuid = uuidv4();
-    Quiz.upsert({
-      uuid: uuid,
-      user_uuid: this.props.currentUser.uuid,
-      form_id: item.id,
-      quizzed_at: (new Date).toDateString()
-    });
-
-    let quiz = Quiz.find(uuid);
-    this.props.setCurrentQuiz(quiz);
   }
 
   _renderItem(item, index) {
@@ -107,13 +92,11 @@ class YourStory extends Component {
 
 function mapStateToProps(state) {
   return {
-    currentUser: state.currentUser
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    setCurrentQuiz: (quiz) => dispatch(setCurrentQuiz(quiz)),
   };
 }
 
