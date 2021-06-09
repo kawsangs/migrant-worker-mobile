@@ -59,6 +59,34 @@ class About extends Component {
     )
   }
 
+  _renderSpotlightDescription() {
+    return (
+      <Text>
+        <Text style={{fontFamily: FontFamily.title}}>The Spotlight Initiative </Text>
+        is a global, multi-year partnership between the European Union and the United Nations to eliminate all forms of violence against women and girls.
+      </Text>
+    )
+  }
+
+  _renderSafeAndFairAppDescription() {
+    return (
+      <View>
+        <Text>
+          <Text style={{fontFamily: FontFamily.title}}>កម្មវិធីអ៊ែប ដំណើរឆ្លងដែនរបស់ខ្ញុំ </Text>
+          បានកសាងឡើងដោយបណ្តាញទូរសព្ទ័ជំនួយកុមារកម្ពុជា​ (CHC) និងអ៊ែបវិស្វករ InSTEDD ដែលជាផលិតផលក្រោមកម្មវិធី
+          <Text style={{fontFamily: FontFamily.title}}> សុវត្ថិភាព និងយុត្តិធម៌ </Text>
+          សម្រេចឲ្យបាននូវសិទ្ធិ និងឱកាសរបស់ពលករស្រ្តីក្នុងតំបន់អាស៊ីអាគ្នេយ៍ (ASEAN) គឺជាផ្នែកមួយនៃគំនិតផ្តួចផ្តើម Spotlight ដើម្បីលុបបំបាត់រាល់ទម្រង់អំពើហិង្សាលើស្ត្រី និងក្មេងស្រីជាគំនិតផ្តួចផ្តើមជាសកលអនុវត្តច្រើនឆ្នាំរវាងសហភាពអឺរ៉ុប និងអង្គការសហប្រជាជាតិ។
+        </Text>
+
+        <Text style={{marginTop: 15}}>
+          ការអនុវតកម្មវិធី
+          <Text style={{fontFamily: FontFamily.title}}> សុវត្ថិភាព និងយុត្តិធម៌ </Text>
+          ធ្វើឡើងតាមរយៈភាពជាដៃគូ ILO និង UN Women (ដោយសហការជាមួយ UNODC)។ កម្មវិធីអ៊ែបនេះគឺជាប្រភពព័ត៌មានជាសាធារណៈមួយដែលបង្កើតឡើងសម្រាប់ប្រើប្រាស់ដោយមិនមានការគិតថ្លៃ និងមានបំណងឲ្យប្រើប្រាស់ស្របតាមគោលបំណងរបស់អ៊ែប។​
+        </Text>
+      </View>
+    )
+  }
+
   _renderCollaborations() {
     let logos = [
       { name: 'unwomen', url: '', containerWidth: '194', width: '247', height: '70' },
@@ -114,7 +142,11 @@ class About extends Component {
       <ScrollView contentContainerStyle={{padding: 16}}>
         { this.props.route.params.type == "safe_and_fair_app" && this._renderAppLogoAndName() }
 
-        { this._renderDescription() }
+        { this.props.route.params.type == "safe_and_fair_app" ?
+          this._renderSafeAndFairAppDescription()
+          :
+          this._renderSpotlightDescription()
+        }
 
         <Text style={{ fontFamily: FontFamily.title, marginTop: 16, textAlign: 'center' }}>ក្រោមជំនួយថវិកាដោយ</Text>
         { this._renderFunders()}
