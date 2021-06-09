@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 
 import Flag from '../../components/LookingForHelp/Flag';
+import CountryImage from '../../components/CountryImage';
 import countryHelper from '../../helpers/country_helper';
 
 class ViewedCountry extends React.Component {
@@ -23,7 +24,7 @@ class ViewedCountry extends React.Component {
         style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
 
         { !countryHelper.isAllCountries(country.name) ?
-          <Flag country={country} style={{marginLeft: 16}}/>
+          <CountryImage countryCode={country.code} />
           :
           <View style={{marginLeft: 16}}/>
         }

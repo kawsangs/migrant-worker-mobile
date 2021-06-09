@@ -18,6 +18,7 @@ import InstitutionService from '../../services/institution_service'
 import Flag from '../../components/LookingForHelp/Flag';
 import CardItem from '../../components/LookingForHelp/CardItem';
 import Filter from '../../components/LookingForHelp/Filter';
+import CountryImage from '../../components/CountryImage';
 import countryHelper from '../../helpers/country_helper';
 
 class LookingForHelp extends React.Component {
@@ -55,7 +56,7 @@ class LookingForHelp extends React.Component {
 
         <View style={{flexDirection: 'row', marginHorizontal: 16, marginBottom: 16, alignItems: 'center'}}>
           { !countryHelper.isAllCountries(this.state.country.name) &&
-            <Flag country={this.state.country} />
+            <CountryImage countryCode={this.state.country.code} customStyle={{marginLeft: 0}} />
           }
           <Text style={{fontFamily: FontFamily.title}}>{this.state.country.name_km || this.state.country.name}</Text>
         </View>
