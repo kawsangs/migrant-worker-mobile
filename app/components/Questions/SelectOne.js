@@ -94,7 +94,6 @@ class QuestionsSelectOne extends Component {
   _handleHideMessage() {
     this.setState({showAlert: false});
 
-    // not sure about should I save the answer or not in case (recursive)
     if (this.state.selectedOption.recursive) {
       this._resetCurrentQuestion();
     } else {

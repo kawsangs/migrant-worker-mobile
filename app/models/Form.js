@@ -90,7 +90,10 @@ const Form = (() => {
   function seedData(callback) {
     let appVersion = DeviceInfo.getVersion();
     let collection = getAll().filter(o => o.appVersion == appVersion);
-    if (!!collection.length) return;
+    if (!!collection.length) {
+      !!callback && callback();
+      return;
+    }
 
     setTimeout(() => {
       deleteAll();

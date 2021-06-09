@@ -22,6 +22,7 @@ import { connect } from 'react-redux';
 import NetInfo from "@react-native-community/netinfo";
 import FormService from '../../services/form_service';
 import uuidv4 from '../../utils/uuidv4';
+import LoadingIndicator from '../../components/loading_indicator';
 
 class YourStory extends Component {
   constructor(props) {
@@ -76,14 +77,19 @@ class YourStory extends Component {
     return (
       <View style={{flex: 1}}>
         <StatusBar barStyle={'light-content'} backgroundColor={Color.pink} />
-        <FlatList
-          data={this.state.forms}
-          renderItem={(item, i) => this._renderItem(item.item, i)}
-          keyExtractor={item => uuidv4()}
-          contentContainerStyle={{padding: 8}}
-          onRefresh={ () => this._onRefresh() }
-          refreshing={ this.state.isFetching }
-        />
+
+        <LoadingIndicator loading={this.state.loading}/>
+
+        { !this.state.loading &&
+          <FlatList
+            data={this.state.forms}
+            renderItem={(item, i) => this._renderItem(item.item, i)}
+            keyExtractor={item => uuidv4()}
+            contentContainerStyle={{padding: 8}}
+            onRefresh={ () => this._onRefresh() }
+            refreshing={ this.state.isFetching }
+          />
+        }
       </View>
     );
   }
