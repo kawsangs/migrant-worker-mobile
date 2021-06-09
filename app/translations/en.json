@@ -112,7 +112,7 @@
             "Search": "Search",
             "Country": "Country"
         },
-        "NotificationScreen": {
+        "NotificationListScreen": {
             "HeaderTitle": "Notifications"
         }
     }

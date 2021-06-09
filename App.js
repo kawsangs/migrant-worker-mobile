@@ -20,6 +20,8 @@ import TranslationHelper from './app/translations';
 import RegisteredTokenService from './app/services/registered_token_service';
 import messaging from '@react-native-firebase/messaging';
 
+import Notification from './app/models/Notification'
+
 Sentry.init({
   dsn: 'https://b0b7fac69a6d45abb446ccfdc6e15423@o357910.ingest.sentry.io/5257533',
 });
@@ -68,6 +70,7 @@ export default class App extends React.Component {
 
     messaging().setBackgroundMessageHandler(async remoteMessage => {
       console.log('Message handled in the background!', remoteMessage);
+      Notification.create(remoteMessage.notification);
     });
   }
 

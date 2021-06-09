@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withTranslation } from 'react-i18next';
 import {
   View,
@@ -8,10 +8,18 @@ import {
   SafeAreaView,
   TouchableOpacity
 } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { Color, FontSize, FontFamily } from '../assets/stylesheets/base_style';
 import Images from '../utils/images';
+import Notification from '../models/Notification';
 
 const CustomHeaderHome = withTranslation()((props) => {
+  const [hasUnread, setHasUnread] = useState(Notification.hasUnread());
+
+  useFocusEffect(() => {
+    setHasUnread(Notification.hasUnread());
+  });
+
   return (
     <SafeAreaView style={styles.container}>
 
@@ -20,18 +28,18 @@ const CustomHeaderHome = withTranslation()((props) => {
         <Text style={styles.homepageText}>{props.t('HomeScreen.Homepage')}</Text>
       </View>
 
-      {/* { false && */}
-        <View style={styles.headerRight}>
-          <TouchableOpacity
-            style={styles.notificationButton}
-            onPress={() => props.navigation.navigate('NotificationScreen')}
-            activeOpacity={0.8}
-          >
-            <Image source={Images.notification} style={styles.notificationIcon} />
+      <View style={styles.headerRight}>
+        <TouchableOpacity
+          style={styles.notificationButton}
+          onPress={() => props.navigation.navigate('NotificationListScreen')}
+          activeOpacity={0.8}
+        >
+          <Image source={Images.notification} style={styles.notificationIcon} />
+          { hasUnread &&
             <View style={styles.notificationBadge} />
-          </TouchableOpacity>
-        </View>
-      {/* } */}
+          }
+        </TouchableOpacity>
+      </View>
 
     </SafeAreaView>
   )

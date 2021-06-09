@@ -1,7 +1,7 @@
 'use strict';
 
 const Notification = {
-  name: 'notification',
+  name: 'Notification',
   primaryKey: 'uuid',
   properties: {
     uuid: 'string',

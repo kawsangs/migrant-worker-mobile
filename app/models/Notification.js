@@ -7,14 +7,16 @@ const Notification = (() => {
     all,
     find,
     create,
+    update,
+    hasUnread,
   };
 
   function all() {
-    realm.objects(MODEL_NAME).sorted('received_date', false)
+    return realm.objects(MODEL_NAME).sorted('received_date', true)
   }
 
   function find(uuid) {
-    return realm.objects(MODEL_NAME).filtered(`uuid = ${uuid}`)[0];
+    return realm.objects(MODEL_NAME).filtered(`uuid = '${uuid}'`)[0];
   }
 
   function create(item) {
@@ -23,14 +25,31 @@ const Notification = (() => {
     });
   }
 
+  function update(uuid, params) {
+    realm.write(() => {
+      realm.create(MODEL_NAME, Object.assign(params, {uuid: uuid}), 'modified');
+    });
+  }
+
+  function hasUnread() {
+    const notifications = all();
+
+    for (let i = 0; i < notifications.length; i ++) {
+      if (!notifications[i].is_read)
+        return true;
+    }
+
+    return false;
+  }
+
   // privte method
   function _buildData(item) {
     let params = {
       uuid: uuidv4(),
       title: item.title,
-      content: item.content,
+      content: item.body,
       image: null,
-      received_date: null,
+      received_date: new Date(),
       is_read: false,
     };
 
