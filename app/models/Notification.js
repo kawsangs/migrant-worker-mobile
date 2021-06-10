@@ -9,6 +9,7 @@ const Notification = (() => {
     create,
     update,
     hasUnread,
+    markAsRead,
   };
 
   function all() {
@@ -21,7 +22,7 @@ const Notification = (() => {
 
   function create(item) {
     realm.write(() => {
-      realm.create(MODEL_NAME, _buildData(item))
+      realm.create(MODEL_NAME, _buildData(item), 'modified')
     });
   }
 
@@ -40,6 +41,16 @@ const Notification = (() => {
     }
 
     return false;
+  }
+
+  function markAsRead() {
+    let notifications = all();
+    notifications = notifications.filter(notification => notification.is_read == false);
+
+    notifications.map(item => {
+      if (item)
+        update(item.uuid, { is_read: true });
+    });
   }
 
   // privte method

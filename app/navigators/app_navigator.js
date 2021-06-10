@@ -32,7 +32,6 @@ import CreateYourStoryScreen from '../screens/your_story/create_your_story';
 import LookingForHelpScreen from '../screens/looking_for_help/looking_for_help';
 import CountriesListingScreen from '../screens/looking_for_help/countries_listing';
 import NotificationListScreen from '../screens/notification/notificationList';
-import NotificationDetailScreen from '../screens/notification/notificationDetail';
 
 import SubCategoryScreen from '../screens/sub_category/sub_category';
 import LeafCategoryScreen from '../screens/leaf_category/leaf_category';
@@ -210,14 +209,6 @@ class AppNavigator extends Component {
         <Stack.Screen name="NotificationListScreen" component={NotificationListScreen}
           options={({route, navigation}) => ({
             title: this.props.t('NotificationListScreen.HeaderTitle'),
-            headerStyle: { backgroundColor: Color.primary },
-            headerRight: (props) => (<HomeButton navigation={navigation}/>),
-          })}
-        />
-
-        <Stack.Screen name="NotificationDetailScreen" component={NotificationDetailScreen}
-          options={({route, navigation}) => ({
-            title: "ការផ្ដល់ដំណឹង",
             headerStyle: { backgroundColor: Color.primary },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}

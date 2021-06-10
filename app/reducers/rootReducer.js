@@ -5,7 +5,6 @@ import questionReducer from './questionReducer';
 import currentQuestionIndexReducer from './currentQuestionIndexReducer';
 import currentQuizReducer from './currentQuizReducer';
 import currentUserReducer from './currentUserReducer';
-import notificationReducer from './notificationReducer';
 
 const allReducers = combineReducers({
   downloadProgress: downloadProgressReducer,
@@ -13,7 +12,6 @@ const allReducers = combineReducers({
   currentQuestionIndex: currentQuestionIndexReducer,
   currentQuiz: currentQuizReducer,
   currentUser: currentUserReducer,
-  notifications: notificationReducer,
 });
 
 const rootReducer = (state, action) => {
