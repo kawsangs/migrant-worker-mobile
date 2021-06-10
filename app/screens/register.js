@@ -15,6 +15,7 @@ import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
 import Audio from '../components/Register/Audio';
 
 import uuidv4 from '../utils/uuidv4';
+import registerHelper from '../helpers/register_helper';
 import PlaySound from '../components/play_sound';
 import SexOption from '../components/sex_option';
 import Sidekiq from '../models/Sidekiq';
@@ -41,7 +42,8 @@ class Register extends Component {
       sex: currentUser.sex,
       age: currentUser.age,
       voiceRecord: currentUser.voiceRecord || "",
-      errors: {}
+      errors: {},
+      isFormValid: false,
     };
 
     this.action = props.route.params.action || "register";
@@ -50,7 +52,9 @@ class Register extends Component {
   _setState(stateName, value) {
     let obj = {};
     obj[stateName] = value;
-    this.setState(obj);
+    this.setState(obj, () => {
+      this._validateForm();
+    });
   }
 
   _renderTextInput(item) {
@@ -59,7 +63,7 @@ class Register extends Component {
         marginBottom: 16
       }}>
         <View style={[styles.buttonWrapper, Style.boxShadow]}>
-          <View style={styles.textInputWrapper}>
+          <View style={[styles.textInputWrapper, registerHelper.validationBorder(this.state[item.stateName], item.stateName, this.state.isFormValid)]}>
             <Icon name={item.iconName} size={24} style={styles.inputIcon} />
             <TextInput
               placeholder={this.props.t("RegisterScreen." + item.placeholder)}
@@ -72,8 +76,6 @@ class Register extends Component {
             {this._buildButtonAudio(item.audioFilename)}
           </View>
         </View>
-
-        {!!this.state.errors[item.stateName] && <Text style={styles.errorText}>{this.state.errors[item.stateName]}</Text>}
       </View>
     )
   }
@@ -88,9 +90,15 @@ class Register extends Component {
     )
   }
 
+  _selectGender(value) {
+    this.setState({ sex: value }, () => {
+      this._validateForm();
+    })
+  }
+
   _renderSexOption() {
     return (
-      <View style={{ marginBottom: 24 }}>
+      <View style={[{ marginBottom: 24 }, registerHelper.validationBorder(this.state.sex, 'sex', this.state.isFormValid)]}>
         <View style={{ marginBottom: 10, flexDirection: 'row' }}>
           <Text style={{ flex: 1 }}>{this.props.t('RegisterScreen.ChooseGender')}</Text>
           {this._buildButtonAudio('')}
@@ -98,10 +106,8 @@ class Register extends Component {
 
         <SexOption
           sex={this.state.sex}
-          onPress={(value) => this.setState({ sex: value })}
+          onPress={(value) => this._selectGender(value)}
         />
-
-        { !!this.state.errors.sex && <Text style={styles.errorText}>{this.state.errors.sex}</Text>}
       </View>
     )
   }
@@ -118,22 +124,27 @@ class Register extends Component {
     )
   }
 
+  _updateVoiceRecord(path) {
+    this.setState({ voiceRecord: path }, () => {
+      this._validateForm();
+    });
+  }
+
   _renderVoiceRecord() {
     return (
-      <View style={styles.voiceRecord}>
+      <View style={[styles.voiceRecord, registerHelper.validationBorder(this.state.voiceRecord, 'voice', this.state.isFormValid)]}>
         <Text>{this.props.t('RegisterScreen.RecordVoice')}</Text>
         <Audio
           uuid={this.props.currentUser && this.props.currentUser.uuid }
-          callback={(path) => this.setState({ voiceRecord: path })}
+          callback={(path) => this._updateVoiceRecord(path)}
           audioPath={this.state.voiceRecord} />
       </View>
     )
   }
 
   _submit() {
-    if (!this._isFormValid()) {
+    if (!this.state.isFormValid)
       return ToastAndroid.show(this.props.t("RegisterScreen.WarningFillRequiredInfo"), ToastAndroid.SHORT);
-    }
 
     User.upsert(this._buildData());
     User.uploadAsync(this.state.uuid);
@@ -160,46 +171,30 @@ class Register extends Component {
     return params;
   }
 
-  _checkRequire(field) {
-    let value = this.state[field];
-
-    if (value == null || !value.length) {
-      this.formError[field] = [this.props.t('RegisterScreen.CanNotBeBlank')];
-    } else {
-      delete this.formError[field];
-    }
-
-    this.setState({ errors: this.formError })
-  }
-
   _removeAllErrors() {
     for (let i = 0; i < requiredFields.length; i++) {
       delete this.formError[requiredFields[i]];
     }
   }
 
-  _isFormValid() {
-    if (this.state.voiceRecord.length) {
-      this._removeAllErrors();
-      return true;
-    }
+  _validateForm() {
+    let isValid = false;
 
-    for (let i = 0; i < requiredFields.length; i++) {
-      this._checkRequire(requiredFields[i]);
-    }
+    if ((!!this.state.name && !!this.state.sex && !!this.state.age) || !!this.state.voiceRecord)
+      isValid = true;
 
-    return Object.keys(this.formError).length == 0;
+    this.setState({ isFormValid: isValid })
   }
 
   _renderButtonNext() {
     return (
       <TouchableOpacity
         onPress={() => this._submit()}
-        style={styles.buttonNext}
+        style={[styles.buttonNext, !this.state.isFormValid ? { backgroundColor: Color.gray } : {}]}
       >
         <View style={{ width: 58 }} />
         <View style={styles.coverRegisterLabel}>
-          <Text style={styles.buttonNextText}>{this.props.t("RegisterScreen.ButtonRegister")}</Text>
+          <Text style={[styles.buttonNextText, !this.state.isFormValid ? { color: 'black' } : {}]}>{this.props.t("RegisterScreen.ButtonRegister")}</Text>
         </View>
         {this._buildButtonAudio('register.mp3', true)}
       </TouchableOpacity>

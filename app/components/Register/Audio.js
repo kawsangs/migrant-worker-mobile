@@ -12,10 +12,9 @@ import {
 import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Sound from 'react-native-sound';
-import { AudioRecorder, AudioUtils } from 'react-native-audio';
+import { AudioUtils } from 'react-native-audio';
 import {Recorder} from '@react-native-community/audio-toolkit';
 
-import uuidv4 from '../../utils/uuidv4';
 import * as Progress from 'react-native-progress';
 import { Color, Style } from '../../assets/stylesheets/base_style';
 
@@ -33,7 +32,8 @@ export default class Audio extends Component {
       hasPermission: undefined,
       audioPath: audioPath,
       visiblePlayButton: false,
-      visibleProgressBar: false
+      visibleProgressBar: false,
+      playSeconds: 0,
     }
 
     this.limitTime = 60;
@@ -66,16 +66,6 @@ export default class Audio extends Component {
       });
     }
   }
-
-  // _prepareRecordingPath(audioPath) {
-  //   AudioRecorder.prepareRecordingAtPath(audioPath, {
-  //     SampleRate: 22050,
-  //     Channels: 1,
-  //     AudioQuality: "Low",
-  //     AudioEncoding: "aac",
-  //     AudioEncodingBitRate: 32000
-  //   });
-  // }
 
   _checkPermission() {
     if (Platform.OS !== 'android') {
@@ -161,7 +151,7 @@ export default class Audio extends Component {
       return;
     }
 
-    const fileName = `${this.props.user.uuid}.mp3`;
+    const fileName = `${this.props.uuid}.mp3`;
 
     this.recorder = new Recorder(fileName, {format: 'mp3'});
     this.recorder.prepare(() => {
@@ -169,7 +159,7 @@ export default class Audio extends Component {
         this.setState({recording: true});
 
         this.recorderInterval = setInterval(() => {
-          if (this.state.recordedTime == environment.record_audio_limit_time)
+          if (this.state.recordedTime == this.limitTime)
             return this._stopRecord();
 
           this.setState({
@@ -179,10 +169,6 @@ export default class Audio extends Component {
       });
     });
   }
-
-  // _finishRecording(didSucceed, filePath) {
-  //   this.setState({ finished: didSucceed });
-  // }
 
   _handleRecording = () => {
     this._showProgressBar();
@@ -238,23 +224,6 @@ export default class Audio extends Component {
     )
   }
 
-  // _onSaveRecord() {
-  //   this.setState({
-  //     visibleProgressBar: false,
-  //     visiblePlayButton: true
-  //   });
-
-  //   this.props.callback(this.state.audioPath);
-  // }
-
-  // _onDeleteRecord() {
-  //   this.setState({
-  //     visiblePlayButton: false
-  //   })
-
-  //   this.props.callback('');
-  // }
-
   _onDeleteRecord() {
     this.setState({
       visiblePlayButton: false,
@@ -284,14 +253,6 @@ export default class Audio extends Component {
     return time;
   }
 
-  // _renderTime() {
-  //   let date = new Date(null);
-  //   date.setSeconds(this.state.currentTime);
-  //   let time = date.toISOString().substr(11, 8);
-
-  //   return time;
-  // }
-
   _handlePlaying() {
     if (this.state.isPlaying) {
       return this._stopPlaying();
@@ -304,17 +265,18 @@ export default class Audio extends Component {
       <View style={[Style.boxShadow, {marginTop: 13, marginHorizontal: 0, flexDirection: 'row', alignItems: 'center', padding: 10, backgroundColor: '#fff', borderRadius: 8}]}>
         <TouchableOpacity onPress={() => this._handlePlaying()}>
           { this.state.isPlaying &&
-            <MaterialIcon style={styles.icon} name='pause-circle-filled' size={48} color={Color.delete}/>
+            <View style={{backgroundColor: Color.delete, width: 32, height: 32, borderRadius: 50, justifyContent: 'center', alignItems: 'center', marginHorizontal: 3}}>
+              <MaterialIcon style={styles.icon} name='stop' size={20} color='white'/>
+            </View>
           }
-          {
-            !this.state.isPlaying &&
-            <MaterialIcon style={styles.icon} name='play-circle-filled' size={48} color={Color.primary}/>
+          { !this.state.isPlaying &&
+            <MaterialIcon style={styles.icon} name='play-circle-filled' size={38} color={Color.primary}/>
           }
         </TouchableOpacity>
 
         <View style={{flex: 1, paddingHorizontal: 10}}>
           <Text>លេង</Text>
-          <Text>{ this._renderTime() }</Text>
+          <Text>{ this._renderTime(this.state.playSeconds) }</Text>
         </View>
 
         <TouchableOpacity onPress={ () => this._onDeleteRecord() }>
