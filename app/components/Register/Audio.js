@@ -13,6 +13,8 @@ import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Sound from 'react-native-sound';
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
+import {Recorder} from '@react-native-community/audio-toolkit';
+
 import uuidv4 from '../../utils/uuidv4';
 import * as Progress from 'react-native-progress';
 import { Color, Style } from '../../assets/stylesheets/base_style';
@@ -24,7 +26,7 @@ export default class Audio extends Component {
     let audioPath = props.audioPath || (AudioUtils.DocumentDirectoryPath + '/' + props.uuid + '.aac');
 
     this.state = {
-      currentTime: 0.0,
+      recordedTime: 0.0,
       recording: false,
       finished: false,
       isPlaying: false,
@@ -60,29 +62,20 @@ export default class Audio extends Component {
         }
 
         let seconds = Math.ceil(this.sound.getDuration());
-        this.setState({visiblePlayButton: true, currentTime: seconds});
+        this.setState({visiblePlayButton: true, recordedTime: seconds});
       });
     }
   }
 
-  _onProgress = (data) => {
-    let seconds = Math.floor(data.currentTime)
-    this.setState({currentTime: seconds});
-
-    if (seconds == this.limitTime) {
-      this._stop();
-    }
-  }
-
-  _prepareRecordingPath(audioPath) {
-    AudioRecorder.prepareRecordingAtPath(audioPath, {
-      SampleRate: 22050,
-      Channels: 1,
-      AudioQuality: "Low",
-      AudioEncoding: "aac",
-      AudioEncodingBitRate: 32000
-    });
-  }
+  // _prepareRecordingPath(audioPath) {
+  //   AudioRecorder.prepareRecordingAtPath(audioPath, {
+  //     SampleRate: 22050,
+  //     Channels: 1,
+  //     AudioQuality: "Low",
+  //     AudioEncoding: "aac",
+  //     AudioEncodingBitRate: 32000
+  //   });
+  // }
 
   _checkPermission() {
     if (Platform.OS !== 'android') {
@@ -101,86 +94,95 @@ export default class Audio extends Component {
       });
   }
 
-  async _stop() {
-    if (!this.state.recording) {
+  _stopRecord() {
+    if (this.recorder === null) {
       console.warn('Can\'t stop, not recording!');
       return;
     }
 
-    this.setState({ isPlaying: false, recording: false });
+    clearInterval(this.recorderInterval);
+    this.recorder.stop(() => {
+      this.setState({
+        recording: false,
+        playSeconds: this.state.recordedTime,
+        audioPath: this.recorder.fsPath,
+        visibleProgressBar: false,
+        visiblePlayButton: true,
+      });
 
-    try {
-      const filePath = await AudioRecorder.stopRecording();
-
-      if (Platform.OS === 'android') {
-        this._finishRecording(true, filePath);
-        this._onSaveRecord();
-      }
-
-    } catch (error) {
-      console.error(error);
-    }
+      this.props.callback(this.recorder.fsPath);
+    });
   }
 
-  async _stopPlaying() {
+  _stopPlaying() {
     this.sound.stop();
     this.setState({isPlaying: false});
   }
 
-  async _play() {
-    this.setState({isPlaying: true});
+  _countPlaySeconds = () => {
+    this.countInterval = setInterval(() => {
+      if (this.sound) {
+        this.sound.getCurrentTime((seconds) => {
+          if (Math.ceil(seconds) >= Math.ceil(this.sound.getDuration()))
+            return clearInterval(this.countInterval);
 
-    if (this.state.recording) {
-      await this._stop();
-    }
+          this.setState({ playSeconds: Math.ceil(seconds) });
+        });
+      }
+    }, 1000);
+  };
 
-    // These timeouts are a hacky workaround for some issues with react-native-sound.
-    // See https://github.com/zmxv/react-native-sound/issues/89.
-    setTimeout(() => {
-      this.sound = new Sound(this.state.audioPath, '', (error) => {
-        if (error) {
-          console.log('failed to load the sound', error);
-        }
-      });
+  _play() {
+    if (this.recorder) {
+      this.sound = new Sound(this.recorder.fsPath, '', (error) => {
+        if (error)
+          return console.log('failed to load the sound', error);
 
-      setTimeout(() => {
+        this._countPlaySeconds();
+        this.setState({ isPlaying: true });
+
         this.sound.play((success) => {
           if (success) {
-            this.setState({isPlaying: false});
-          } else {
-            this.sound.reset();
+            this.setState({
+              isPlaying: false,
+              playSeconds: this.state.recordedTime
+            });
           }
+          else
+            this.sound.release();
         });
-      }, 100);
-    }, 100);
+      });
+    }
   }
 
-  async _record() {
-    if (this.state.recording) {
-      console.warn('Already recording!');
-      return;
-    }
-
+  _record() {
     if (!this.state.hasPermission) {
       console.warn('Can\'t record, no permission granted!');
       return;
     }
 
-    this._prepareRecordingPath(this.state.audioPath);
-    AudioRecorder.onProgress = this._onProgress;
+    const fileName = `${this.props.user.uuid}.mp3`;
 
-    this.setState({recording: true});
+    this.recorder = new Recorder(fileName, {format: 'mp3'});
+    this.recorder.prepare(() => {
+      this.recorder.record(() => {
+        this.setState({recording: true});
 
-    try {
-      const filePath = await AudioRecorder.startRecording();
-    } catch (error) {
-      console.error(error);
-    }
+        this.recorderInterval = setInterval(() => {
+          if (this.state.recordedTime == environment.record_audio_limit_time)
+            return this._stopRecord();
+
+          this.setState({
+            recordedTime: this.state.recordedTime + 1,
+          });
+        }, 1000);
+      });
+    });
   }
 
-  _finishRecording(didSucceed, filePath) {
-    this.setState({ finished: didSucceed });
-  }
+  // _finishRecording(didSucceed, filePath) {
+  //   this.setState({ finished: didSucceed });
+  // }
 
   _handleRecording = () => {
     this._showProgressBar();
@@ -212,7 +214,7 @@ export default class Audio extends Component {
     if(!this.longPress) { return }
 
     this.longPress = false
-    this._stop();
+    this._stopRecord();
   }
 
   _renderButtonMicrophone() {
@@ -236,18 +238,30 @@ export default class Audio extends Component {
     )
   }
 
-  _onSaveRecord() {
-    this.setState({
-      visibleProgressBar: false,
-      visiblePlayButton: true
-    });
+  // _onSaveRecord() {
+  //   this.setState({
+  //     visibleProgressBar: false,
+  //     visiblePlayButton: true
+  //   });
 
-    this.props.callback(this.state.audioPath);
-  }
+  //   this.props.callback(this.state.audioPath);
+  // }
+
+  // _onDeleteRecord() {
+  //   this.setState({
+  //     visiblePlayButton: false
+  //   })
+
+  //   this.props.callback('');
+  // }
 
   _onDeleteRecord() {
     this.setState({
-      visiblePlayButton: false
+      visiblePlayButton: false,
+      recordedTime: 0.0,
+      recording: false,
+      isPlaying: false,
+      playSeconds: 0,
     })
 
     this.props.callback('');
@@ -256,19 +270,27 @@ export default class Audio extends Component {
   _renderProgressBar() {
     return (
       <View style={{marginTop: 20}}>
-        <Progress.Bar progress={this.state.currentTime / this.limitTime} width={null} color={Color.primary} unfilledColor='rgb(216, 216, 216)' borderColor='transparent' />
-        <Text style={[styles.progressText, {textAlign: 'center'}]}>{this._renderTime() }</Text>
+        <Progress.Bar progress={this.state.recordedTime / this.limitTime} width={null} color={Color.primary} unfilledColor='rgb(216, 216, 216)' borderColor='transparent' />
+        <Text style={[styles.progressText, {textAlign: 'center'}]}>{this._renderTime(this.state.recordedTime) }</Text>
       </View>
     )
   }
 
-  _renderTime() {
+  _renderTime(duration) {
     let date = new Date(null);
-    date.setSeconds(this.state.currentTime);
-    let time = date.toISOString().substr(11, 8);
+    date.setSeconds(duration);
+    let time = date.toISOString().substr(14, 5);
 
     return time;
   }
+
+  // _renderTime() {
+  //   let date = new Date(null);
+  //   date.setSeconds(this.state.currentTime);
+  //   let time = date.toISOString().substr(11, 8);
+
+  //   return time;
+  // }
 
   _handlePlaying() {
     if (this.state.isPlaying) {
