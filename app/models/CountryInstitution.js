@@ -4,13 +4,13 @@ const MODEL_NAME = 'CountryInstitution';
 
 const CountryInstitution = (() => {
   return {
-    findByCountryId,
+    findByCountryCode,
     create,
     isExist,
   }
 
-  function findByCountryId(countryId) {
-    return realm.objects(MODEL_NAME).filtered(`country_id = ${countryId}`);
+  function findByCountryCode(countryCode) {
+    return realm.objects(MODEL_NAME).filtered(`country_code = '${countryCode}'`);
   }
 
   function create(data) {
@@ -19,8 +19,8 @@ const CountryInstitution = (() => {
     });
   }
 
-  function isExist(countryId, institutionId) {
-    return realm.objects(MODEL_NAME).filtered(`country_id = ${countryId} AND institution_id = ${institutionId}`)[0];
+  function isExist(countryCode, institutionId) {
+    return realm.objects(MODEL_NAME).filtered(`country_code = ${countryCode} AND institution_id = ${institutionId}`)[0];
   }
 })();
 

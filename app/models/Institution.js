@@ -43,8 +43,8 @@ const Institution = (() => {
     item.country_institutions.map(countryInstitution => {
       const data = {
         uuid: uuidv4(),
-        country_id: countryInstitution.country_id,
-        institution_id: item.id
+        country_code: countryInstitution.country_code,
+        institution_id: parseInt(item.id)
       };
 
       CountryInstitution.create(data);

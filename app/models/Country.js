@@ -15,8 +15,8 @@ const Country = (() => {
     loadIfNotExists,
   }
 
-  function find(id) {
-    return realm.objectForPrimaryKey(MODEL_NAME, id)
+  function find(code) {
+    return realm.objectForPrimaryKey(MODEL_NAME, code)
   }
 
   function createBatch(collection) {
@@ -28,12 +28,12 @@ const Country = (() => {
   }
 
   function all() {
-    return realm.objects(MODEL_NAME)
+    return realm.objects(MODEL_NAME).sorted('id', false)
   }
 
   function create(country) {
     realm.write(() => {
-      realm.create(MODEL_NAME, country, 'modified');
+      realm.create(MODEL_NAME, _buildData(country), 'modified');
     })
   }
 
@@ -64,6 +64,20 @@ const Country = (() => {
 
   function isExist() {
     return all().length > 0
+  }
+
+  // private method
+
+  function _buildData(item) {
+    let params = {
+      code: item.code,
+      id: item.id,
+      name: item.name,
+      name_km: item.name_km,
+      emoji_flag: item.emoji_flag,
+    };
+
+    return params;
   }
 })()
 

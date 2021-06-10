@@ -6,13 +6,14 @@ import {
 } from 'react-native';
 
 import Flag from '../../components/LookingForHelp/Flag';
+import CountryImage from '../../components/CountryImage';
 import countryHelper from '../../helpers/country_helper';
 
 class ViewedCountry extends React.Component {
   gotoHelp = () => {
     let { navigation, country } = this.props
 
-    navigation.navigate('LookingForHelpScreen', { id: country.id })
+    navigation.navigate('LookingForHelpScreen', { code: country.code })
   }
 
   render() {
@@ -23,11 +24,13 @@ class ViewedCountry extends React.Component {
         style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
 
         { !countryHelper.isAllCountries(country.name) ?
-          <Flag country={country} style={{marginLeft: 16}}/>
+          <CountryImage countryCode={country.code} />
           :
           <View style={{marginLeft: 16}}/>
         }
-        <Text style={{marginVertical: 16}}>{country.name}</Text>
+        <Text style={{marginVertical: 16}}>
+          { country.name_km || country.name }
+        </Text>
       </TouchableOpacity>
     )
   }

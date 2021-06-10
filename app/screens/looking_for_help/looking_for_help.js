@@ -18,13 +18,14 @@ import InstitutionService from '../../services/institution_service'
 import Flag from '../../components/LookingForHelp/Flag';
 import CardItem from '../../components/LookingForHelp/CardItem';
 import Filter from '../../components/LookingForHelp/Filter';
+import CountryImage from '../../components/CountryImage';
 import countryHelper from '../../helpers/country_helper';
 
 class LookingForHelp extends React.Component {
   constructor(props) {
     super(props);
 
-    let country = Country.find(props.route.params.id);
+    let country = Country.find(props.route.params.code);
 
     this.state = {
       country: country,
@@ -34,12 +35,12 @@ class LookingForHelp extends React.Component {
   }
 
   componentDidMount() {
-    this.loadInstitution();
+    this.loadLocalInstitution();
   }
 
 
   loadLocalInstitution() {
-    const countryInstitutions = CountryInstitution.findByCountryId(this.props.route.params.id);
+    const countryInstitutions = CountryInstitution.findByCountryCode(this.props.route.params.code);
 
     this.setState({
       institutions: InstitutionService.getInstitutionByCountry(countryInstitutions)
@@ -50,14 +51,14 @@ class LookingForHelp extends React.Component {
     return (
       <View>
         <Filter
-          country_id={this.props.route.params.id}
+          code={this.props.route.params.code}
           onChangeQuery={(result) => this.setState({institutions: result})}/>
 
         <View style={{flexDirection: 'row', marginHorizontal: 16, marginBottom: 16, alignItems: 'center'}}>
           { !countryHelper.isAllCountries(this.state.country.name) &&
-            <Flag country={this.state.country} />
+            <CountryImage countryCode={this.state.country.code} customStyle={{marginLeft: 0}} />
           }
-          <Text style={{fontFamily: FontFamily.title}}>{this.state.country.name}</Text>
+          <Text style={{fontFamily: FontFamily.title}}>{this.state.country.name_km || this.state.country.name}</Text>
         </View>
       </View>
     )
@@ -71,6 +72,10 @@ class LookingForHelp extends React.Component {
           institutions: res,
           isFetching: false
         });
+
+        if (res.length == 0)
+          this.loadLocalInstitution();
+
       }, (error) => {
         this.setState({isFetching: false});
       });

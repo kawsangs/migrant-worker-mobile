@@ -48,7 +48,7 @@ class CountriesListing extends React.Component {
   }
 
   filterData(query) {
-    return Country.where('name', query)
+    return Country.where('name_km', query)
   }
 
   onChangeQuery = (query) => {
@@ -153,7 +153,8 @@ const styles = StyleSheet.create({
     margin: 12,
     flexGrow: 1,
     marginVertical: 5,
-    paddingVertical: 10
+    paddingVertical: 10,
+    fontFamily: FontFamily.body
   },
   searchContainer: {
     display: 'flex',

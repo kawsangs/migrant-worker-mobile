@@ -47,7 +47,6 @@ async function changeLanguage(lang) {
 }
 
 async function loadLanguage() {
-  setMomentLocale('km');
   await i18n.changeLanguage('km');
   // await AsyncStorage.getItem('lang').then(async lang => {
   //   setMomentLocale(lang || 'km');
