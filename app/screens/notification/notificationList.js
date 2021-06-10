@@ -37,7 +37,7 @@ class NotificationList extends Component {
           data={this.state.notifications}
           renderItem={(notification, i) => <NotificationItem navigation={this.props.navigation} notification={notification.item} /> }
           keyExtractor={notification => uuidv4()}
-          ListEmptyComponent={<EmptyResult message="មិនមានការផ្ដល់ដំណឹង" />}
+          ListEmptyComponent={<EmptyResult message="មិនមានសារផ្ដល់ដំណឹង" />}
           contentContainerStyle={{padding: 8, alignSelf: 'stretch'}}
           onRefresh={ () => this.loadNotification() }
           refreshing={ false }

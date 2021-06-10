@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
     fontSize: FontSize.title - 8,
   },
   headerRight: {
-    // flex: 1,
     justifyContent: 'center',
     alignItems: 'flex-end',
   },
