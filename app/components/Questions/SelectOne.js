@@ -22,6 +22,7 @@ import AlertMessage from '../../components/AlertMessage';
 
 import { connect } from 'react-redux';
 import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexAction';
+import { addStatistic } from '../../utils/statistic';
 
 class QuestionsSelectOne extends Component {
   constructor(props) {
@@ -67,6 +68,7 @@ class QuestionsSelectOne extends Component {
     }
 
     Answer.upsert(data);
+    addStatistic(`YourStory_${this.props.question.name}`, {answer: selectedOption.value});
   }
 
   _onPressNext() {

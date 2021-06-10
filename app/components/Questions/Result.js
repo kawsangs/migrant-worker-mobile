@@ -20,6 +20,7 @@ import QuestionName from './questionName';
 import { connect } from 'react-redux';
 import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexAction';
 import PlaySound from '../../components/play_sound';
+import { addStatistic } from '../../utils/statistic';
 
 class QuestionsResult extends Component {
   constructor(props) {
@@ -35,6 +36,8 @@ class QuestionsResult extends Component {
   }
 
   _onPressNext() {
+    addStatistic(`YourStory_${this.props.question.name}`, {});
+
     let nextIndex = Question.findIndexNextQuestion(this.props.currentIndex, this.props.questions, this.props.currentQuiz.uuid);
     this.props.setCurrentIndex(nextIndex);
   }

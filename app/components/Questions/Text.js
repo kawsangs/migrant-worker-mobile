@@ -20,6 +20,7 @@ import QuestionName from './questionName';
 
 import { connect } from 'react-redux';
 import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexAction';
+import { addStatistic } from '../../utils/statistic';
 
 import Audio from '../Register/Audio';
 
@@ -64,6 +65,7 @@ class QuestionsText extends Component {
     }
 
     Answer.upsert(data);
+    addStatistic(`YourStory_${this.props.question.name}`, {answer: this.state.answer});
   }
 
   render() {

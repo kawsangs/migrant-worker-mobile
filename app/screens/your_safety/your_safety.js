@@ -55,7 +55,6 @@ class YourSafety extends Component {
   _renderItem(item, index) {
     return (
       <CardItem
-        key={uuidv4()}
         title={item.name}
         audio={item.audio}
         image={item.imageSource}
@@ -75,7 +74,7 @@ class YourSafety extends Component {
           <FlatList
             data={this.state.categories}
             renderItem={(item, i) => this._renderItem(item.item, i)}
-            keyExtractor={item => item.id}
+            keyExtractor={item => uuidv4()}
             contentContainerStyle={{padding: 8}}
             onRefresh={ () => this._onRefresh() }
             refreshing={ this.state.isFetching }
