@@ -16,6 +16,14 @@ const Form = (() => {
     upsertCollection,
     upsert,
     seedData,
+    findNext,
+  }
+
+  function findNext(formId) {
+    let forms = getAll();
+    let currentIndex = forms.findIndex(f => f.id == formId);
+
+    return currentIndex < forms.length - 1 ? forms[currentIndex + 1] : null;
   }
 
   function getPendingDownload() {
@@ -82,7 +90,10 @@ const Form = (() => {
   function seedData(callback) {
     let appVersion = DeviceInfo.getVersion();
     let collection = getAll().filter(o => o.appVersion == appVersion);
-    if (!!collection.length) return;
+    if (!!collection.length) {
+      !!callback && callback();
+      return;
+    }
 
     setTimeout(() => {
       deleteAll();

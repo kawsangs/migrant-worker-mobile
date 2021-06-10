@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved, import/extensions */
 import { StyleSheet, Text, View, ViewPropTypes as RNViewPropTypes, Image } from 'react-native';
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 /* eslint-enable import/no-unresolved, import/extensions */
 import { IconToggle, RippleFeedback } from 'react-native-material-ui';
@@ -81,7 +81,7 @@ function getStyles(props) {
   };
 }
 
-class RadioButton extends PureComponent {
+class RadioButton extends Component {
   onPress = () => {
     // const { checked, disabled, onCheck, value } = this.props;
 

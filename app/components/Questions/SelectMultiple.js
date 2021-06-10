@@ -22,6 +22,7 @@ import AlertMessage from '../../components/AlertMessage';
 
 import { connect } from 'react-redux';
 import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexAction';
+import { addStatistic } from '../../utils/statistic';
 
 class QuestionsMultiple extends Component {
   answerOptions = [];
@@ -85,6 +86,7 @@ class QuestionsMultiple extends Component {
     }
 
     Answer.upsert(data);
+    addStatistic(`YourStory_${this.props.question.name}`, {answer: this.answerOptions.map(o => o.value).join(',')});
   }
 
   _onPressNext() {

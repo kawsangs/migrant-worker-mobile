@@ -10,6 +10,7 @@ import Safety from '../../models/Safety';
 import NetInfo from "@react-native-community/netinfo";
 import CategoryService from '../../services/category_service';
 import uuidv4 from '../../utils/uuidv4';
+import LoadingIndicator from '../../components/loading_indicator';
 
 class YourSafety extends Component {
   constructor(props) {
@@ -54,7 +55,6 @@ class YourSafety extends Component {
   _renderItem(item, index) {
     return (
       <CardItem
-        key={uuidv4()}
         title={item.name}
         audio={item.audio}
         image={item.imageSource}
@@ -67,14 +67,20 @@ class YourSafety extends Component {
 
   render() {
     return (
-      <FlatList
-        data={this.state.categories}
-        renderItem={(item, i) => this._renderItem(item.item, i)}
-        keyExtractor={item => item.id}
-        contentContainerStyle={{padding: 8}}
-        onRefresh={ () => this._onRefresh() }
-        refreshing={ this.state.isFetching }
-      />
+      <>
+        <LoadingIndicator loading={this.state.loading}/>
+
+        { !this.state.loading &&
+          <FlatList
+            data={this.state.categories}
+            renderItem={(item, i) => this._renderItem(item.item, i)}
+            keyExtractor={item => uuidv4()}
+            contentContainerStyle={{padding: 8}}
+            onRefresh={ () => this._onRefresh() }
+            refreshing={ this.state.isFetching }
+          />
+        }
+      </>
     );
   }
 }

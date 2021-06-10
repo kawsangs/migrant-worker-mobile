@@ -18,6 +18,7 @@ import Departure from '../../models/Departure';
 import CategoryService from '../../services/category_service';
 import { connect } from 'react-redux';
 import NetInfo from "@react-native-community/netinfo";
+import LoadingIndicator from '../../components/loading_indicator';
 
 class YourDeparture extends Component {
   constructor(props) {
@@ -78,15 +79,19 @@ class YourDeparture extends Component {
       <View style={{ flex: 1 }}>
         <StatusBar barStyle={'light-content'} backgroundColor={Color.red} />
 
-        <FlatList
-          data={this.state.categories}
-          renderItem={(item, i) => this._renderItem(item.item, i)}
-          keyExtractor={item => item.id}
-          contentContainerStyle={{padding: 8, alignSelf: 'stretch'}}
-          numColumns={2}
-          onRefresh={ () => this._onRefresh() }
-          refreshing={ this.state.isFetching }
-        />
+        <LoadingIndicator loading={this.state.loading}/>
+
+        { !this.state.loading &&
+          <FlatList
+            data={this.state.categories}
+            renderItem={(item, i) => this._renderItem(item.item, i)}
+            keyExtractor={item => item.id}
+            contentContainerStyle={{padding: 8, alignSelf: 'stretch'}}
+            numColumns={2}
+            onRefresh={ () => this._onRefresh() }
+            refreshing={ this.state.isFetching }
+          />
+        }
       </View>
     );
   }

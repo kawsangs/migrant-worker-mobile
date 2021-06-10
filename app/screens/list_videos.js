@@ -12,7 +12,7 @@ import {
 import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { Icon } from 'react-native-material-ui';
-import listData from '../data/json/list_videos';
+import listData from '../db/json/videos';
 
 import { addStatistic } from '../utils/statistic';
 import Thumbnail from '../components/thumbnail';
@@ -25,11 +25,11 @@ import uuidv4 from '../utils/uuidv4';
 
 export default function ListVideos(props) {
   const { t, i18n } = useTranslation();
-  const stepIndex = !!props.route.params && !!props.route.params.type ? listData.findIndex(d => d.stepCode == props.route.params.type) : 0;
+  const stepIndex = !!props.route.params && !!props.route.params.category ? listData.findIndex(d => d.stepCode == props.route.params.category) : 0;
 
   const [index, setIndex] = React.useState(stepIndex);
   const initialLayout = { width: Dimensions.get('window').width };
-  const states = listData.map((item) => ({ key: item.stepCode, title_en: item.stepTitle_en, title_km: item.stepTitle_km }));
+  const states = listData.map((item) => ({ key: item.stepCode, title_km: item.stepTitle }));
   const [routes] = React.useState(states);
   const [isConnected, setIsConnected] = React.useState(false);
   const [showLoading, setShowLoading] = React.useState(true);
@@ -92,7 +92,7 @@ export default function ListVideos(props) {
           url={video.url} />
 
         <TouchableOpacity onPress={() => onPressItem(video)}>
-          <Text style={{ fontFamily: FontFamily.title, padding: 10 }}>{video[`title_${i18n.language}`]}</Text>
+          <Text style={{ fontFamily: FontFamily.title, padding: 10 }}>{video[`title`]}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -110,7 +110,7 @@ export default function ListVideos(props) {
         key={uuidv4()}
         data={step.list}
         renderItem={(item, i) => _renderItem(item.item, i)}
-        keyExtractor={item => item.stepCode}
+        keyExtractor={item => uuidv4()}
         contentContainerStyle={{padding: 8}}
       />
     )

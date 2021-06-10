@@ -93,7 +93,7 @@ class AppNavigator extends Component {
         />
 
         <Stack.Screen name="YourDepartureVideoScreen" component={ListVideosScreen}
-          initialParams={{ type: 'before_you_go' }}
+          initialParams={{ category: 'departure' }}
           options={({route, navigation}) => ({
             title: this.props.t("VideosScreen.HeaderTitle"),
             headerTintColor: Color.textBlack,
@@ -151,7 +151,7 @@ class AppNavigator extends Component {
         />
 
         <Stack.Screen name="YourSafetyVideosScreen" component={ListVideosScreen}
-          initialParams={{ type: 'your_safety' }}
+          initialParams={{ category: 'safety' }}
           options={({route, navigation}) => ({
             title: this.props.t("VideosScreen.HeaderTitle"),
             headerTintColor: Color.textBlack,

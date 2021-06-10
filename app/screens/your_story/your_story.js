@@ -18,11 +18,11 @@ import Answer from '../../models/Answer';
 import Sidekiq from '../../models/Sidekiq';
 
 import { connect } from 'react-redux';
-import { setCurrentQuiz } from '../../actions/currentQuizAction';
 
 import NetInfo from "@react-native-community/netinfo";
 import FormService from '../../services/form_service';
 import uuidv4 from '../../utils/uuidv4';
+import LoadingIndicator from '../../components/loading_indicator';
 
 class YourStory extends Component {
   constructor(props) {
@@ -41,21 +41,7 @@ class YourStory extends Component {
   }
 
   _onPress(item) {
-    this._createQuiz(item);
     this.props.navigation.navigate("CreateYourStoryScreen", { title: item.name, form_id: item.id });
-  }
-
-  _createQuiz(item) {
-    let uuid = uuidv4();
-    Quiz.upsert({
-      uuid: uuid,
-      user_uuid: this.props.currentUser.uuid,
-      form_id: item.id,
-      quizzed_at: (new Date).toDateString()
-    });
-
-    let quiz = Quiz.find(uuid);
-    this.props.setCurrentQuiz(quiz);
   }
 
   _renderItem(item, index) {
@@ -91,14 +77,19 @@ class YourStory extends Component {
     return (
       <View style={{flex: 1}}>
         <StatusBar barStyle={'light-content'} backgroundColor={Color.pink} />
-        <FlatList
-          data={this.state.forms}
-          renderItem={(item, i) => this._renderItem(item.item, i)}
-          keyExtractor={item => uuidv4()}
-          contentContainerStyle={{padding: 8}}
-          onRefresh={ () => this._onRefresh() }
-          refreshing={ this.state.isFetching }
-        />
+
+        <LoadingIndicator loading={this.state.loading}/>
+
+        { !this.state.loading &&
+          <FlatList
+            data={this.state.forms}
+            renderItem={(item, i) => this._renderItem(item.item, i)}
+            keyExtractor={item => uuidv4()}
+            contentContainerStyle={{padding: 8}}
+            onRefresh={ () => this._onRefresh() }
+            refreshing={ this.state.isFetching }
+          />
+        }
       </View>
     );
   }
@@ -107,13 +98,11 @@ class YourStory extends Component {
 
 function mapStateToProps(state) {
   return {
-    currentUser: state.currentUser
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    setCurrentQuiz: (quiz) => dispatch(setCurrentQuiz(quiz)),
   };
 }
 
