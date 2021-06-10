@@ -59,7 +59,6 @@ const Notification = (() => {
       uuid: uuidv4(),
       title: item.title,
       content: item.body,
-      image: null,
       received_date: new Date(),
       is_read: false,
     };

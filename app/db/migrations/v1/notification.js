@@ -7,7 +7,6 @@ const Notification = {
     uuid: 'string',
     title: 'string',
     content: 'string',
-    image: 'string?',
     received_date: { type: 'date', optional: true },
     is_read: { type: 'bool', default: false }
   }
