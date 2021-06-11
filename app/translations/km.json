@@ -109,6 +109,9 @@
         },
         "NotificationListScreen": {
             "HeaderTitle": "សារជូនដំណឹង"
+        },
+        "NotificationDetailScreen": {
+            "HeaderTitle": "សារជូនដំណឹងពិស្ដារ"
         }
     }
 }

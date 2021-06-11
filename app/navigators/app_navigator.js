@@ -32,11 +32,13 @@ import CreateYourStoryScreen from '../screens/your_story/create_your_story';
 import LookingForHelpScreen from '../screens/looking_for_help/looking_for_help';
 import CountriesListingScreen from '../screens/looking_for_help/countries_listing';
 import NotificationListScreen from '../screens/notification/notificationList';
+import NotificationDetailScreen from '../screens/notification_detail/notification_detail';
 
 import SubCategoryScreen from '../screens/sub_category/sub_category';
 import LeafCategoryScreen from '../screens/leaf_category/leaf_category';
 import BottomTabNavigator from './bottom_tab_navigator';
 import HomeButton from '../components/Toolbar/HomeButton';
+import DeleteNotificationButton from '../components/Toolbar/DeleteNotificationButton';
 import LoadingIndicator from '../components/loading_indicator';
 import Sidekiq from '../models/Sidekiq';
 
@@ -217,6 +219,14 @@ class AppNavigator extends Component {
             title: this.props.t('NotificationListScreen.HeaderTitle'),
             headerStyle: { backgroundColor: Color.primary },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
+          })}
+        />
+
+        <Stack.Screen name="NotificationDetailScreen" component={NotificationDetailScreen}
+          options={({route, navigation}) => ({
+            title: this.props.t('NotificationDetailScreen.HeaderTitle'),
+            headerStyle: { backgroundColor: Color.primary },
+            headerRight: (props) => (<DeleteNotificationButton navigation={navigation} uuid={route.params.uuid} />),
           })}
         />
       </>

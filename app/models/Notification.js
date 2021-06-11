@@ -10,6 +10,7 @@ const Notification = (() => {
     update,
     hasUnread,
     markAsRead,
+    destroy,
   };
 
   function all() {
@@ -45,11 +46,18 @@ const Notification = (() => {
 
   function markAsRead() {
     let notifications = all();
-    notifications = notifications.filter(notification => notification.is_read == false);
+    notifications = notifications.filter(notification => notification.is_read == true);
 
     notifications.map(item => {
       if (item)
-        update(item.uuid, { is_read: true });
+        update(item.uuid, { is_read: false });
+    });
+  }
+
+  function destroy(uuid) {
+    realm.write(() => {
+      let obj = realm.objects(MODEL_NAME).filtered('uuid="' + uuid + '"')[0];
+      realm.delete(obj);
     });
   }
 

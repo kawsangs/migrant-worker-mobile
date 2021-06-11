@@ -4,12 +4,15 @@ import {
   Text,
   FlatList,
 } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
 
 import Notification from '../../models/Notification';
 import NotificationItem from '../../components/Notification/notificationItem';
 import EmptyResult from '../looking_for_help/empty_result'
 import uuidv4 from '../../utils/uuidv4';
+
+import { connect } from 'react-redux';
+import { setNotifications } from '../../actions/notificationAction';
+import { Color } from '../../assets/stylesheets/base_style';
 
 class NotificationList extends Component {
   constructor(props) {
@@ -24,10 +27,14 @@ class NotificationList extends Component {
     this.loadNotification();
   }
 
+  componentWillUnmount() {
+    this.props.setNotifications([]);
+  }
+
   loadNotification() {
-    this.setState({ notifications: Notification.all()}, () => {
-      Notification.markAsRead();
-    });
+    const allNotifications = this.props.notifications.length > 0 ? this.props.notifications : Notification.all();
+
+    this.setState({notifications: allNotifications});
   }
 
   render() {
@@ -47,4 +54,19 @@ class NotificationList extends Component {
   }
 }
 
-export default NotificationList;
+function mapStateToProps(state) {
+  return {
+    notifications: state.notifications,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setNotifications: (notifications) => dispatch(setNotifications(notifications)),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(NotificationList);

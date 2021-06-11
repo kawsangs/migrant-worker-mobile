@@ -3,6 +3,7 @@ import {
   Text,
   View,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 
 import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
@@ -12,20 +13,27 @@ import notificationHelper from '../../helpers/notification_helper';
 class NotificationItem extends React.Component {
   render() {
     return (
-      <View style={[Style.card, { marginBottom: 10 }]}>
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('NotificationDetailScreen', { uuid: this.props.notification.uuid })}
+        style={[Style.card, { marginBottom: 10 }]}
+      >
         <View style={{flexDirection: 'row', marginBottom: 5}}>
           <OutlineInfoIcon customIconContainerStyles={{width: 35, height: 35, alignSelf: 'center', marginRight: 10}}/>
 
           <View style={{flex: 1, flexDirection: 'row'}}>
-            <Text style={styles.title}>{ this.props.notification.title }</Text>
-            <Text style={{fontSize: 12, color: Color.gray, marginTop: 2 }}>
+            <Text numberOfLines={1} style={styles.title}>{ this.props.notification.title }</Text>
+            <Text style={{fontSize: 12, color: Color.gray, alignSelf: 'center' }}>
               { notificationHelper.getReceiveDateTime(this.props.notification.received_date) }
             </Text>
           </View>
         </View>
 
-        <Text style={{fontSize: 12}}>{ this.props.notification.content }</Text>
-      </View>
+        <View style={{borderWidth: 0, flexDirection: 'row', alignItems: 'center'}}>
+          <Text numberOfLines={1} style={{fontSize: 12, flex: 1}}>{ this.props.notification.content }</Text>
+          { !this.props.notification.is_read &&
+            <View style={styles.badge} />
+          }
+        </View>
+      </TouchableOpacity>
     )
   }
 }
@@ -37,6 +45,13 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     fontSize: 14,
     alignSelf: 'center'
+  },
+  badge: {
+    width: 10,
+    height: 10,
+    backgroundColor: Color.primary,
+    borderRadius: 10,
+    marginLeft: 5
   }
 })
 
