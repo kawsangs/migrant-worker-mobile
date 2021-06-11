@@ -42,6 +42,12 @@ import Sidekiq from '../models/Sidekiq';
 
 const Stack = createStackNavigator();
 
+const navigationRef = React.createRef();
+
+export function navigate(name, params) {
+  navigationRef.current?.navigate(name, params);
+}
+
 class AppNavigator extends Component {
   state = { loading: true };
 
@@ -221,7 +227,7 @@ class AppNavigator extends Component {
     const currentUser = !!this.props.currentUser && !!this.props.currentUser.uuid;
 
     return (
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef} >
         <StatusBar backgroundColor={Color.primary} />
         <Stack.Navigator
           screenOptions={{
