@@ -7,7 +7,7 @@ const QuizSchema = {
     uuid: 'string',
     user_uuid: 'string',
     form_id: 'int',
-    quizzed_at: 'string',
+    quizzed_at: 'date',
     finished: 'bool?',
     uploaded_id: 'int?'
   }

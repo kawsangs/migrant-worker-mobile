@@ -92,7 +92,7 @@ class CreateYourStory extends Component {
       uuid: uuid,
       user_uuid: this.props.currentUser.uuid,
       form_id: form_id,
-      quizzed_at: (new Date).toDateString()
+      quizzed_at: new Date()
     });
 
     let quiz = Quiz.find(uuid);
