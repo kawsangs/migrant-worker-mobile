@@ -4,6 +4,7 @@ import {
   Text,
   ScrollView,
   StyleSheet,
+  StatusBar,
 } from 'react-native';
 import Moment from 'moment';
 
@@ -28,6 +29,10 @@ class NotificationDetail extends Component {
     this.props.setNotifications(Notification.all());
   }
 
+  componentWillUnmount() {
+    this.props.setNotifications(Notification.all());
+  }
+
   _renderReceivedDatetime() {
     return (
       <Text style={{fontSize: 13, color: Color.gray}}>
@@ -39,6 +44,8 @@ class NotificationDetail extends Component {
   render() {
     return (
       <View>
+        <StatusBar backgroundColor={Color.primary} />
+
         <ScrollView contentContainerStyle={{paddingBottom: 50, paddingTop: 16, paddingHorizontal: 16}}
           showsVerticalScrollIndicator={false}
         >

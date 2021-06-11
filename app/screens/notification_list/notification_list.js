@@ -7,6 +7,7 @@ import {
 
 import Notification from '../../models/Notification';
 import NotificationItem from '../../components/Notification/notificationItem';
+import ConfirmModal from '../../components/confirmModal';
 import EmptyResult from '../looking_for_help/empty_result'
 import uuidv4 from '../../utils/uuidv4';
 
@@ -20,6 +21,8 @@ class NotificationList extends Component {
 
     this.state = {
       notifications: [],
+      selectedUuid: null,
+      showModal: false,
     };
   }
 
@@ -37,17 +40,45 @@ class NotificationList extends Component {
     this.setState({notifications: allNotifications});
   }
 
+  deleteNotification = () => {
+    Notification.destroy(this.state.selectedUuid);
+
+    this.setState({
+      showModal: false,
+      notifications: Notification.all(),
+      selectedUuid: null,
+    })
+  }
+
+  showDeleteModal = (uuid) => {
+    this.setState({
+      showModal: true,
+      selectedUuid: uuid
+    })
+  }
+
   render() {
     return (
       <View>
         <FlatList
           data={this.state.notifications}
-          renderItem={(notification, i) => <NotificationItem navigation={this.props.navigation} notification={notification.item} /> }
+          renderItem={(notification, i) => 
+            <NotificationItem navigation={this.props.navigation} notification={notification.item}
+              showDeleteModal={this.showDeleteModal}
+            />
+          }
           keyExtractor={notification => uuidv4()}
-          ListEmptyComponent={<EmptyResult message="មិនមានសារផ្ដល់ដំណឹង" />}
-          contentContainerStyle={{padding: 16, alignSelf: 'stretch'}}
+          ListEmptyComponent={<EmptyResult message="មិនមានសារជូនដំណឹង" />}
+          contentContainerStyle={{padding: 14, alignSelf: 'stretch'}}
           onRefresh={ () => this.loadNotification() }
           refreshing={ false }
+        />
+
+        <ConfirmModal
+          message='តើអ្នកពិតជាចង់លុបសារជូន​ដំណឹង​នេះមែនទេ?'
+          showModal={this.state.showModal}
+          cancel={() => this.setState({ showModal: false })}
+          confirm={() => this.deleteNotification()}
         />
       </View>
     )

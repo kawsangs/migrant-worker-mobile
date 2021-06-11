@@ -9,7 +9,7 @@ const Notification = (() => {
     create,
     update,
     hasUnread,
-    markAsRead,
+    findByTitle,
     destroy,
   };
 
@@ -23,7 +23,7 @@ const Notification = (() => {
 
   function create(item) {
     realm.write(() => {
-      realm.create(MODEL_NAME, _buildData(item), 'modified')
+      realm.create(MODEL_NAME, _buildData(item))
     });
   }
 
@@ -44,14 +44,8 @@ const Notification = (() => {
     return false;
   }
 
-  function markAsRead() {
-    let notifications = all();
-    notifications = notifications.filter(notification => notification.is_read == true);
-
-    notifications.map(item => {
-      if (item)
-        update(item.uuid, { is_read: false });
-    });
+  function findByTitle(title) {
+    return realm.objects(MODEL_NAME).filtered(`title = '${title}'`)[0];
   }
 
   function destroy(uuid) {

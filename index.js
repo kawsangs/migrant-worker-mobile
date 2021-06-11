@@ -19,7 +19,8 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
 });
 
 messaging().onNotificationOpenedApp(remoteMessage => {
-  RootNavigation.navigate('NotificationListScreen');
+  const notification = Notification.findByTitle(remoteMessage.notification.title);
+  RootNavigation.navigate('NotificationDetailScreen', { uuid: notification.uuid });
 });
 
 AppRegistry.registerComponent(appName, () => App);
