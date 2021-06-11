@@ -86,7 +86,7 @@ const videoSteps = [
   },
   {
     "stepCode": "departure",
-    "stepTitle": "មុនពេលអ្នកទៅ"
+    "stepTitle": "ដំណើរឆ្លងដែនរបស់អ្នក"
   },
   {
     "stepCode": "safety",

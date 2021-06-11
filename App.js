@@ -18,7 +18,6 @@ import { Provider } from 'react-redux';
 import * as Sentry from '@sentry/react-native';
 import TranslationHelper from './app/translations';
 import RegisteredTokenService from './app/services/registered_token_service';
-import messaging from '@react-native-firebase/messaging';
 
 Sentry.init({
   dsn: 'https://b0b7fac69a6d45abb446ccfdc6e15423@o357910.ingest.sentry.io/5257533',
@@ -43,7 +42,7 @@ const store = configureStore();
 
 setCustomText(customTextProps);
 
-export default class App extends React.Component {
+class App extends React.Component {
 
   async UNSAFE_componentWillMount() {
     await TranslationHelper.configure();
@@ -54,21 +53,6 @@ export default class App extends React.Component {
     SplashScreen.hide();
     IndexWorker.init();
     RegisteredTokenService.handleSyncingToken();
-    this.handleNotification();
-  }
-
-  handleNotification() {
-    messaging().onMessage(async remoteMessage => {
-      console.log("onMessage foreground!", remoteMessage)
-    });
-
-    messaging().onNotificationOpenedApp(remoteMessage => {
-      console.log("onNotificationOpenedApp", remoteMessage)
-    });
-
-    messaging().setBackgroundMessageHandler(async remoteMessage => {
-      console.log('Message handled in the background!', remoteMessage);
-    });
   }
 
   render() {
@@ -81,3 +65,5 @@ export default class App extends React.Component {
     )
   }
 };
+
+export default App;

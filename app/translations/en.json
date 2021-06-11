@@ -111,6 +111,9 @@
             "NoCountry": "No country",
             "Search": "Search",
             "Country": "Country"
+        },
+        "NotificationListScreen": {
+            "HeaderTitle": "Notifications"
         }
     }
 }

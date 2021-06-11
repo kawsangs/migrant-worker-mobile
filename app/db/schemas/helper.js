@@ -21,6 +21,7 @@ import InstitutionSchema from '../migrations/v1/institution';
 import ContactSchema from '../migrations/v1/contact';
 
 import CountryInstitutionSchema from '../migrations/v1/country_institution';
+import NotificationSchema from '../migrations/v1/notification';
 
 const schemaNames = [
   "User",
@@ -36,7 +37,8 @@ const schemaNames = [
   "Country",
   "Institution",
   "Contact",
-  "CountryInstitution"
+  "CountryInstitution",
+  "Notification",
 ]
 
 const schemaHelper = (() => {
@@ -59,7 +61,8 @@ const schemaHelper = (() => {
       CountrySchema,
       InstitutionSchema,
       ContactSchema,
-      CountryInstitutionSchema
+      CountryInstitutionSchema,
+      NotificationSchema,
     ];
 
     changedSchemas.map((schema) => {

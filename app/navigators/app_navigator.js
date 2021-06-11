@@ -31,6 +31,7 @@ import YourStoryScreen from '../screens/your_story/your_story';
 import CreateYourStoryScreen from '../screens/your_story/create_your_story';
 import LookingForHelpScreen from '../screens/looking_for_help/looking_for_help';
 import CountriesListingScreen from '../screens/looking_for_help/countries_listing';
+import NotificationListScreen from '../screens/notification/notificationList';
 
 import SubCategoryScreen from '../screens/sub_category/sub_category';
 import LeafCategoryScreen from '../screens/leaf_category/leaf_category';
@@ -40,6 +41,12 @@ import LoadingIndicator from '../components/loading_indicator';
 import Sidekiq from '../models/Sidekiq';
 
 const Stack = createStackNavigator();
+
+const navigationRef = React.createRef();
+
+export function navigate(name, params) {
+  navigationRef.current?.navigate(name, params);
+}
 
 class AppNavigator extends Component {
   state = { loading: true };
@@ -204,6 +211,14 @@ class AppNavigator extends Component {
             headerStyle: { backgroundColor: Color.yellow },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })} />
+
+        <Stack.Screen name="NotificationListScreen" component={NotificationListScreen}
+          options={({route, navigation}) => ({
+            title: this.props.t('NotificationListScreen.HeaderTitle'),
+            headerStyle: { backgroundColor: Color.primary },
+            headerRight: (props) => (<HomeButton navigation={navigation}/>),
+          })}
+        />
       </>
     )
   }
@@ -212,7 +227,7 @@ class AppNavigator extends Component {
     const currentUser = !!this.props.currentUser && !!this.props.currentUser.uuid;
 
     return (
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef} >
         <StatusBar backgroundColor={Color.primary} />
         <Stack.Navigator
           screenOptions={{
