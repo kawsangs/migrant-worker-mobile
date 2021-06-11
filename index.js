@@ -17,4 +17,8 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
   Notification.create(remoteMessage.notification);
 });
 
+messaging().onNotificationOpenedApp(remoteMessage => {
+  console.log('== on click notification ==');
+});
+
 AppRegistry.registerComponent(appName, () => App);

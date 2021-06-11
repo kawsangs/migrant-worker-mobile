@@ -4,27 +4,27 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-import Moment from 'moment';
 
 import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
 import OutlineInfoIcon from '../OutlineInfoIcon';
+import notificationHelper from '../../helpers/notification_helper';
 
 class NotificationItem extends React.Component {
   render() {
     return (
       <View style={[Style.card, { marginBottom: 10 }]}>
         <View style={{flexDirection: 'row', marginBottom: 5}}>
-          <OutlineInfoIcon customIconContainerStyles={{width: 38, height: 38, alignSelf: 'center', marginRight: 10}}/>
+          <OutlineInfoIcon customIconContainerStyles={{width: 35, height: 35, alignSelf: 'center', marginRight: 10}}/>
 
-          <View style={{flex: 1}}>
-            <Text style={styles.title} numberOfLines={1}>{ this.props.notification.title }</Text>
-            <Text style={{fontSize: 13, color: Color.gray}}>
-              {Moment(this.props.notification.received_date).format('DD/MM/YYYY')} | {Moment(this.props.notification.received_date).format('hh:mm A')}
+          <View style={{flex: 1, flexDirection: 'row'}}>
+            <Text style={styles.title}>{ this.props.notification.title }</Text>
+            <Text style={{fontSize: 12, color: Color.gray, marginTop: 2 }}>
+              { notificationHelper.getReceiveDateTime(this.props.notification.received_date) }
             </Text>
           </View>
         </View>
 
-        <Text style={{fontSize: 12}} numberOfLines={2}>{ this.props.notification.content }</Text>
+        <Text style={{fontSize: 12}}>{ this.props.notification.content }</Text>
       </View>
     )
   }
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingRight: 10,
     fontSize: 14,
+    alignSelf: 'center'
   }
 })
 
