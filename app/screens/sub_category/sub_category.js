@@ -71,6 +71,8 @@ class SubCategory extends Component {
         label={ category.hint }
         image={ category.hintImageSource }
         audio={ category.hint_audio }
+        audioPlayer={this.state.audioPlayer}
+        updateAudioPlayer={(sound) => _this.setState({ audioPlayer: sound })}
       />
     )
   }

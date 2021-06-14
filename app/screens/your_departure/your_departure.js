@@ -41,7 +41,20 @@ class YourDeparture extends Component {
     Departure.seedData(() => this.setState({loading: false}));
   }
 
+  componentWillUnmount() {
+    this._clearAudioPlayer();
+  }
+
+  _clearAudioPlayer() {
+    if (this.state.audioPlayer) {
+      this.state.audioPlayer.release();
+      this.setState({ audioPlayer: null });
+    }
+  }
+
   _onPress(item) {
+    this._clearAudioPlayer();
+
     if(!!item.video) {
       return this.props.navigation.navigate("YourDepartureVideoScreen");
     }

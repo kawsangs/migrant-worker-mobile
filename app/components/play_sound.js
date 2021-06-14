@@ -12,32 +12,26 @@ import { Color } from '../assets/stylesheets/base_style';
 import Images from '../utils/images';
 
 export default class PlaySound extends Component {
-  state = {}
 
   componentWillUnmount() {
     if (this.sound) this.sound.release();
   }
 
-  static getDerivedStateFromProps(props, state) {
-    if (!props.audioPlayer)
-      return { playing: false }
+  _isAudioPlaying() {
+    if (this.props.audioPlayer && this.props.filePath.includes(this.props.audioPlayer._filename))
+      return true;
 
-    if ((props.audioPlayer && props.filePath) && !props.filePath.includes(props.audioPlayer._filename)) {
-      console.log('== clear playing == ')
-      return { playing: false };
-    }
-
-    return null;
+    return false;
   }
 
   _playAudio() {
-
     if (this.props.audioPlayer)
       this.props.audioPlayer.release();
 
-    if (this.state.playing) {
-      this.setState({playing: false});
+    if (this._isAudioPlaying()) {
       if (this.sound) this.sound.release();
+
+      this.props.updateMainAudioPlayer(null);
       return;
     }
 
@@ -48,7 +42,6 @@ export default class PlaySound extends Component {
     this.sound = new Sound(this.props.filePath, folder, (error) => {
       if (error) { return console.log('failed to load the sound', error); }
 
-      this.setState({playing: true});
       this.sound.play(this.playComplete);
     });
 
@@ -58,7 +51,7 @@ export default class PlaySound extends Component {
 
   playComplete = (success) => {
     if (success) {
-      this.setState({playing: false});
+      this.props.updateMainAudioPlayer(null);
       console.log('successfully finished playing');
     } else {
       console.log('playback failed due to audio decoding errors');
@@ -80,7 +73,10 @@ export default class PlaySound extends Component {
       return this.renderVolumeOff();
     }
 
-    let icon = this.state.playing ? Images.active_play : Images.audio;
+    let icon = Images.audio;
+
+    if (this._isAudioPlaying())
+      icon = Images.active_play;
 
     return (
       <TouchableOpacity
