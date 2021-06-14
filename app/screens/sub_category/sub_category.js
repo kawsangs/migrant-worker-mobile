@@ -16,17 +16,27 @@ import ArrowDown from '../../components/SubCategory/ArrowDown';
 import Departure from '../../models/Departure';
 import Images from '../../utils/images';
 
+let _this = null;
+
 class SubCategory extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       category: Departure.find(props.route.params['parent_id']),
-      categories: Departure.getChildren(props.route.params['parent_id'])
+      categories: Departure.getChildren(props.route.params['parent_id']),
+      audioPlayer: null,
     };
+
+    _this = this;
   }
 
   _onPress(item) {
+    if (this.state.audioPlayer) {
+      this.state.audioPlayer.release();
+      this.setState({ audioPlayer: null });
+    }
+
     if (item.leaf) { 
       const pushAction = StackActions.push('LeafCategoryScreen', { title: item.name, parent_id: item.id });
       return this.props.navigation.dispatch(pushAction);
@@ -45,6 +55,8 @@ class SubCategory extends Component {
         image={item.imageSource}
         audio={item.audio}
         number={index + 1}
+        audioPlayer={this.state.audioPlayer}
+        updateAudioPlayer={(sound) => _this.setState({ audioPlayer: sound })}
       />
     );
 

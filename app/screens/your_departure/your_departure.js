@@ -20,6 +20,8 @@ import { connect } from 'react-redux';
 import NetInfo from "@react-native-community/netinfo";
 import LoadingIndicator from '../../components/loading_indicator';
 
+let _this = null;
+
 class YourDeparture extends Component {
   constructor(props) {
     super(props);
@@ -28,7 +30,10 @@ class YourDeparture extends Component {
       categories: Departure.getRoots(),
       isFetching: false,
       loading: true,
+      audioPlayer: null,
     };
+
+    _this = this;
   }
 
   componentDidMount() {
@@ -54,6 +59,8 @@ class YourDeparture extends Component {
         image={item.imageSource}
         audio={item.audio}
         onPress={() => this._onPress(item)}
+        audioPlayer={this.state.audioPlayer}
+        updateAudioPlayer={(sound) => _this.setState({ audioPlayer: sound })}
       />
     )
   }

@@ -39,7 +39,10 @@ class CardItem extends Component {
             <PlaySound
               buttonAudioStyle={{ backgroundColor: Color.white }}
               iconStyle={{ tintColor: bgColor }}
-              filePath={this.props.audio}/>
+              filePath={this.props.audio}
+              audioPlayer={this.props.audioPlayer}
+              updateMainAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}
+            />
           </View>
 
           <View style={[styles.coverImage, { backgroundColor: bgColor }]}>

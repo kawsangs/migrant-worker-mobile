@@ -18,7 +18,23 @@ export default class PlaySound extends Component {
     if (this.sound) this.sound.release();
   }
 
+  static getDerivedStateFromProps(props, state) {
+    if (!props.audioPlayer)
+      return { playing: false }
+
+    if ((props.audioPlayer && props.filePath) && !props.filePath.includes(props.audioPlayer._filename)) {
+      console.log('== clear playing == ')
+      return { playing: false };
+    }
+
+    return null;
+  }
+
   _playAudio() {
+
+    if (this.props.audioPlayer)
+      this.props.audioPlayer.release();
+
     if (this.state.playing) {
       this.setState({playing: false});
       if (this.sound) this.sound.release();
@@ -35,6 +51,9 @@ export default class PlaySound extends Component {
       this.setState({playing: true});
       this.sound.play(this.playComplete);
     });
+
+    if (this.props.updateMainAudioPlayer)
+      this.props.updateMainAudioPlayer(this.sound);
   }
 
   playComplete = (success) => {
