@@ -34,7 +34,10 @@ export default class ButtonNav extends React.Component {
           style={[styles.buttonAudioWrapper]}
           buttonAudioStyle={{ backgroundColor: textColor }}
           iconStyle={{ tintColor: iconTintColor }}
-          filePath={this.props.audio} />
+          filePath={this.props.audio}
+          audioPlayer={this.props.audioPlayer}
+          updateMainAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}
+        />
       </View>
     )
   }

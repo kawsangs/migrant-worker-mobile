@@ -32,6 +32,7 @@ class YourStory extends Component {
       loading: true,
       forms: Form.getAll(),
       isFetching: false,
+      audioPlayer: null,
     };
   }
 
@@ -40,7 +41,19 @@ class YourStory extends Component {
     Form.seedData(() => this.setState({loading: false}));
   }
 
+  componentWillUnmount() {
+    this._clearAudioPlayer();
+  }
+
+  _clearAudioPlayer() {
+    if (this.state.audioPlayer) {
+      this.state.audioPlayer.release();
+      this.setState({ audioPlayer: null });
+    }
+  }
+
   _onPress(item) {
+    this._clearAudioPlayer();
     this.props.navigation.navigate("CreateYourStoryScreen", { title: item.name, form_id: item.id });
   }
 
@@ -54,12 +67,20 @@ class YourStory extends Component {
         onPress={() => this._onPress(item)}
         buttonAudioStyle={{backgroundColor: Color.pink}}
         audioIconStyle={{tintColor: Color.white}}
+        audioPlayer={this.state.audioPlayer}
+        updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
       />
     );
   }
 
   _onRefresh() {
-    this.setState({isFetching: true});
+    if (this.state.audioPlayer)
+      this.state.audioPlayer.release();
+
+    this.setState({
+      isFetching: true,
+      audioPlayer: null,
+    });
 
     NetInfo.fetch().then(state => {
       if (!state.isConnected) {

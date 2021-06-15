@@ -16,8 +16,6 @@ import ArrowDown from '../../components/SubCategory/ArrowDown';
 import Departure from '../../models/Departure';
 import Images from '../../utils/images';
 
-let _this = null;
-
 class SubCategory extends Component {
   constructor(props) {
     super(props);
@@ -27,8 +25,6 @@ class SubCategory extends Component {
       categories: Departure.getChildren(props.route.params['parent_id']),
       audioPlayer: null,
     };
-
-    _this = this;
   }
 
   _onPress(item) {
@@ -56,7 +52,7 @@ class SubCategory extends Component {
         audio={item.audio}
         number={index + 1}
         audioPlayer={this.state.audioPlayer}
-        updateAudioPlayer={(sound) => _this.setState({ audioPlayer: sound })}
+        updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
       />
     );
 
@@ -72,7 +68,7 @@ class SubCategory extends Component {
         image={ category.hintImageSource }
         audio={ category.hint_audio }
         audioPlayer={this.state.audioPlayer}
-        updateAudioPlayer={(sound) => _this.setState({ audioPlayer: sound })}
+        updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
       />
     )
   }

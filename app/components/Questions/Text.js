@@ -24,6 +24,8 @@ import { addStatistic } from '../../utils/statistic';
 
 import Audio from '../Register/Audio';
 
+let _this = null;
+
 class QuestionsText extends Component {
   constructor(props) {
     super(props)
@@ -32,7 +34,10 @@ class QuestionsText extends Component {
       answer: '',
       voice: '',
       uuid: uuidv4(),
+      audioPlayer: null,
     };
+
+    _this = this;
   }
 
   _renderInputField() {
@@ -77,20 +82,30 @@ class QuestionsText extends Component {
           showsVerticalScrollIndicator={false}>
 
           <View style={[Style.container, Style.card]}>
-            <QuestionName question={this.props.question } />
+            <QuestionName
+              question={this.props.question }
+              audioPlayer={this.state.audioPlayer}
+              updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
+            />
 
             { this._renderInputField() }
 
             <Audio
               uuid={this.state.uuid}
               callback={(path) => this.setState({ voice: path })}
-              audioPath={this.state.voice} />
+              audioPath={this.state.voice}
+              audioPlayer={this.state.audioPlayer}
+              updateAudioPlayer={(sound) => _this.setState({ audioPlayer: sound })}
+            />
           </View>
         </ScrollView>
 
         <NextButton
           disabled={!this.state.answer && !this.state.voice}
-          onPress={() => this._onPressNext() } />
+          onPress={() => this._onPressNext() }
+          audioPlayer={this.state.audioPlayer}
+          updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
+        />
       </View>
     );
   }

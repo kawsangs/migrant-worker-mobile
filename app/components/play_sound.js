@@ -18,6 +18,7 @@ export default class PlaySound extends Component {
   }
 
   _isAudioPlaying() {
+    // Checking the audio path from main Audio Player with the current audio path
     if (this.props.audioPlayer && this.props.filePath.includes(this.props.audioPlayer._filename))
       return true;
 

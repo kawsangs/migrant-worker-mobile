@@ -20,6 +20,7 @@ class YourSafety extends Component {
       loading: true,
       isFetching: false,
       categories: Safety.getRoots(),
+      audioPlayer: null,
     };
   }
 
@@ -28,7 +29,20 @@ class YourSafety extends Component {
     Safety.seedData(() => this.setState({loading: false}));
   }
 
+  componentWillUnmount() {
+    this._clearAudioPlayer();
+  }
+
+  _clearAudioPlayer() {
+    if (this.state.audioPlayer) {
+      this.state.audioPlayer.release();
+      this.setState({ audioPlayer: null });
+    }
+  }
+
   _onPress(item) {
+    this._clearAudioPlayer();
+
     if(!!item.video) {
       return this.props.navigation.navigate("YourSafetyVideosScreen");
     }
@@ -37,6 +51,7 @@ class YourSafety extends Component {
   }
 
   _onRefresh() {
+    this._clearAudioPlayer();
     this.setState({isFetching: true});
 
     NetInfo.fetch().then(state => {
@@ -61,6 +76,8 @@ class YourSafety extends Component {
         onPress={() => this._onPress(item)}
         onRefresh={ () => this._onRefresh() }
         refreshing={ this.state.isFetching }
+        audioPlayer={this.state.audioPlayer}
+        updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
       />
     );
   }

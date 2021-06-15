@@ -44,6 +44,7 @@ class Register extends Component {
       voiceRecord: currentUser.voiceRecord || "",
       errors: {},
       isFormValid: false,
+      audioPlayer: null,
     };
 
     this.action = props.route.params.action || "register";
@@ -86,7 +87,10 @@ class Register extends Component {
         style={styles.buttonAudioWrapper}
         buttonAudioStyle={{ backgroundColor: active ? Color.white : Color.primary }}
         iconStyle={{ tintColor: active ? Color.primary : Color.white }}
-        filePath={audio}/>
+        filePath={audio}
+        audioPlayer={this.state.audioPlayer}
+        updateMainAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
+      />
     )
   }
 
@@ -137,7 +141,10 @@ class Register extends Component {
         <Audio
           uuid={this.props.currentUser && this.props.currentUser.uuid }
           callback={(path) => this._updateVoiceRecord(path)}
-          audioPath={this.state.voiceRecord} />
+          audioPath={this.state.voiceRecord}
+          audioPlayer={this.state.audioPlayer}
+          updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
+        />
       </View>
     )
   }

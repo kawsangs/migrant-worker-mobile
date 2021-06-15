@@ -11,6 +11,21 @@ import CardItem from '../components/Home/CardItem';
 import homeMenuList from '../db/json/home_menu';
 
 class Home extends Component {
+  state = {};
+
+  componentDidMount() {
+    this.unsubscribe = this.props.navigation.addListener('blur', () => {
+      if (this.state.audioPlayer) {
+        this.state.audioPlayer.release();
+        this.setState({ audioPlayer: null });
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
   _goTo(screenName) {
     addStatistic(`goTo${screenName.split('Screen')[0]}`);
     this.props.navigation.navigate(screenName);
@@ -24,6 +39,9 @@ class Home extends Component {
         image={item.image}
         backgroundColor={item.backgroundColor}
         onPress={ () => this._goTo(item.screenName) }
+        audio={item.audio}
+        audioPlayer={this.state.audioPlayer}
+        updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
       />
     )
   }

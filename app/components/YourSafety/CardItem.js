@@ -35,6 +35,8 @@ class CardItem extends Component {
                 buttonAudioStyle={[{backgroundColor: Color.white}, this.props.buttonAudioStyle]}
                 iconStyle={[{tintColor: Color.primary}, this.props.audioIconStyle]}
                 style={[{ marginTop: 10, marginRight: 10 }]}
+                audioPlayer={this.props.audioPlayer}
+                updateMainAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}
               />
             </View>
           </View>

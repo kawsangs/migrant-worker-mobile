@@ -145,8 +145,15 @@ class CreateYourStory extends Component {
     )
   }
 
+  _closeAlertMessage() {
+    if (this.state.audioPlayer)
+      this.state.audioPlayer.release();
+
+    this.setState({showAlert: false, audioPlayer: null});
+  }
+
   _handleHideMessage() {
-    this.setState({showAlert: false});
+    this._closeAlertMessage();
     this._handleBackHome();
   }
 
@@ -169,8 +176,10 @@ class CreateYourStory extends Component {
           title={"ចាកចេញពីសាច់រឿង"}
           message={"តើអ្នកប្រាកដថាចង់ចាកចេញពីហ្គេមនេះដែរឬទេ?"}
           onPressAction={() => this._handleHideMessage()}
-          onPressCancel={() => this.setState({showAlert: false})}
+          onPressCancel={() => this._closeAlertMessage()}
           audio={""}
+          audioPlayer={this.state.audioPlayer}
+          updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
         />
       </View>
     );

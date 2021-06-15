@@ -36,6 +36,8 @@ class NextButton extends Component {
             buttonAudioStyle={{ backgroundColor: Color.white }}
             iconStyle={{ tintColor: Color.pink }}
             style={{ marginHorizontal: 10 }}
+            audioPlayer={this.props.audioPlayer}
+            updateMainAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}
           />
         </TouchableOpacity>
       </View>

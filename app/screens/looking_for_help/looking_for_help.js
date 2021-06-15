@@ -31,6 +31,7 @@ class LookingForHelp extends React.Component {
       country: country,
       isFetching: false,
       institutions: [],
+      audioPlayer: null,
     }
   }
 
@@ -65,7 +66,13 @@ class LookingForHelp extends React.Component {
   }
 
   loadInstitution() {
-    this.setState({isFetching: true});
+    if (this.state.audioPlayer)
+      this.state.audioPlayer.release()
+
+    this.setState({
+      isFetching: true,
+      audioPlayer: null,
+    });
     this.checkInternet(() => {
       InstitutionService.fetch(this.state.country.id, (res) => {
         this.setState({
@@ -102,6 +109,15 @@ class LookingForHelp extends React.Component {
     });
   }
 
+  _renderCardItem(item) {
+    return (
+      <CardItem institute={item}
+        audioPlayer={this.state.audioPlayer}
+        updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
+      />
+    )
+  }
+
   render() {
     return (
       <SafeAreaView style={{ flex: 1 }}>
@@ -111,7 +127,7 @@ class LookingForHelp extends React.Component {
           data={this.state.institutions}
           ListHeaderComponent={ this._renderHeader() }
           ListHeaderComponentStyle={{ marginVertical: 0 }}
-          renderItem={({ item }) => <CardItem institute={item}/>}
+          renderItem={({ item }) => this._renderCardItem(item)}
           keyExtractor={item => item.id.toString()}
           ListEmptyComponent={<EmptyResult message={this.props.t("LookingForHelpScreen.NotFound")} />}
           onRefresh={ () => this.loadInstitution() }

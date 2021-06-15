@@ -36,6 +36,7 @@ class QuestionsMultiple extends Component {
       options: Option.byQuestion(props.question.id),
       answers: [],
       alertOption: {},
+      audioPlayer: null,
     };
   }
 
@@ -117,7 +118,10 @@ class QuestionsMultiple extends Component {
   }
 
   _handleHideMessage() {
-    this.setState({showAlert: false});
+    if (this.state.audioPlayer)
+      this.state.audioPlayer.release();
+
+    this.setState({showAlert: false, audioPlayer: null});
     this.alertOptionIndex++;
 
     if (!!this.alertOptions[this.alertOptionIndex]) {
@@ -142,7 +146,11 @@ class QuestionsMultiple extends Component {
             showsVerticalScrollIndicator={false}>
 
             <View style={[Style.container, Style.card]}>
-              <QuestionName question={this.props.question } />
+              <QuestionName
+                question={this.props.question }
+                audioPlayer={this.state.audioPlayer}
+                updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
+              />
 
               { this._renderInputField() }
             </View>
@@ -151,6 +159,8 @@ class QuestionsMultiple extends Component {
           <NextButton
             disabled={!this.state.answers.length}
             onPress={() => this._onPressNext() }
+            audioPlayer={this.state.audioPlayer}
+            updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
           />
         </View>
 
@@ -160,6 +170,8 @@ class QuestionsMultiple extends Component {
           message={this.state.alertOption.alert_message}
           onPressAction={() => this._handleHideMessage()}
           audio={this.state.alertOption.alert_audio}
+          audioPlayer={this.state.audioPlayer}
+          updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
         />
 
       </>
