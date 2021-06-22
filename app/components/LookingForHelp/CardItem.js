@@ -50,6 +50,8 @@ class CardItem extends React.Component {
                 buttonAudioStyle={{backgroundColor: Color.red}}
                 iconStyle={{tintColor: Color.white}}
                 buttonAudioStyle={{ backgroundColor: Color.yellow }}
+                audioPlayer={this.props.audioPlayer}
+                updateMainAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}
               />
             </View>
             <View style={{flex: 1}}>

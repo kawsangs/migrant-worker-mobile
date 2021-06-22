@@ -34,7 +34,10 @@ class HintCard extends Component {
               <PlaySound
                 filePath={this.props.audio}
                 buttonAudioStyle={{backgroundColor: Color.red}}
-                iconStyle={{tintColor: Color.white}}/>
+                iconStyle={{tintColor: Color.white}}
+                audioPlayer={this.props.audioPlayer}
+                updateMainAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}
+              />
             </View>
           </View>
         </ImageBackground>

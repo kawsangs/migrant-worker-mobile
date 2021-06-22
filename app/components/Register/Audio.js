@@ -54,6 +54,17 @@ export default class Audio extends Component {
     this._handleRenderingPlayButton();
   }
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.audioPlayer && !props.audioPlayer._filename.includes(state.audioPath)) {
+      return {
+        isPlaying: false,
+        playSeconds: state.recordedTime
+      };
+    }
+
+    return null;
+  }
+
   _handleRenderingPlayButton() {
     if(!!this.props.audioPath) {
       this.sound = new Sound(this.props.audioPath, '', (error) => {
@@ -105,8 +116,12 @@ export default class Audio extends Component {
   }
 
   _stopPlaying() {
+    clearInterval(this.countInterval);
     this.sound.stop();
-    this.setState({isPlaying: false});
+    this.setState({
+      isPlaying: false,
+      playSeconds: this.state.recordedTime
+    });
   }
 
   _countPlaySeconds = () => {
@@ -123,6 +138,9 @@ export default class Audio extends Component {
   };
 
   _play() {
+    if (this.props.audioPlayer)
+      this.props.audioPlayer.release();
+
     if (this.recorder) {
       this.sound = new Sound(this.recorder.fsPath, '', (error) => {
         if (error)
@@ -142,6 +160,9 @@ export default class Audio extends Component {
             this.sound.release();
         });
       });
+
+      if (this.props.updateAudioPlayer)
+        this.props.updateAudioPlayer(this.sound);
     }
   }
 

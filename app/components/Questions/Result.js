@@ -31,7 +31,8 @@ class QuestionsResult extends Component {
 
     this.state = {
       audio: totalScore >= question.passing_score ? question.passing_audio : question.failing_audio,
-      message: totalScore >= question.passing_score ? question.passing_message : question.failing_message
+      message: totalScore >= question.passing_score ? question.passing_message : question.failing_message,
+      audioPlayer: null,
     };
   }
 
@@ -56,11 +57,18 @@ class QuestionsResult extends Component {
             <PlaySound
               filePath={this.state.audio}
               buttonAudioStyle={{ backgroundColor: Color.pink }}
-              iconStyle={{ tintColor: Color.white }}/>
+              iconStyle={{ tintColor: Color.white }}
+              audioPlayer={this.state.audioPlayer}
+              updateMainAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
+            />
           </View>
         </ScrollView>
 
-        <NextButton onPress={() => this._onPressNext() } />
+        <NextButton
+          onPress={() => this._onPressNext() }
+          audioPlayer={this.state.audioPlayer}
+          updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
+        />
       </View>
     );
   }

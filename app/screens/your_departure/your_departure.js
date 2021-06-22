@@ -28,6 +28,7 @@ class YourDeparture extends Component {
       categories: Departure.getRoots(),
       isFetching: false,
       loading: true,
+      audioPlayer: null,
     };
   }
 
@@ -36,7 +37,20 @@ class YourDeparture extends Component {
     Departure.seedData(() => this.setState({loading: false}));
   }
 
+  componentWillUnmount() {
+    this._clearAudioPlayer();
+  }
+
+  _clearAudioPlayer() {
+    if (this.state.audioPlayer) {
+      this.state.audioPlayer.release();
+      this.setState({ audioPlayer: null });
+    }
+  }
+
   _onPress(item) {
+    this._clearAudioPlayer();
+
     if(!!item.video) {
       return this.props.navigation.navigate("YourDepartureVideoScreen");
     }
@@ -54,11 +68,14 @@ class YourDeparture extends Component {
         image={item.imageSource}
         audio={item.audio}
         onPress={() => this._onPress(item)}
+        audioPlayer={this.state.audioPlayer}
+        updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
       />
     )
   }
 
   _onRefresh() {
+    this._clearAudioPlayer();
     this.setState({isFetching: true});
 
     NetInfo.fetch().then(state => {

@@ -27,12 +27,28 @@ import { connect } from 'react-redux';
 import { setCurrentUser } from '../actions/currentUserAction';
 
 class Welcome extends React.Component {
+  state = {};
+
   _loginAsGuest() {
+    this._clearAudioPlayer();
+
     let uuid = uuidv4();
     User.upsert({uuid: uuid, name: "Guest", created_at: new Date()});
     User.uploadAsync(uuid);
 
     this.props.setCurrentUser(User.find(uuid));
+  }
+
+  _register() {
+    this._clearAudioPlayer();
+    this.props.navigation.navigate("RegisterScreen", {action: 'register'})
+  }
+
+  _clearAudioPlayer() {
+    if (this.state.audioPlayer) {
+      this.state.audioPlayer.release();
+      this.setState({ audioPlayer: null });
+    }
   }
 
   _renderButtonNavs() {
@@ -43,7 +59,9 @@ class Welcome extends React.Component {
           title={"ចុះឈ្មោះ"}
           icon={"person"}
           audio={'register.mp3'}
-          onPress={() => this.props.navigation.navigate("RegisterScreen", {action: 'register'})}
+          audioPlayer={this.state.audioPlayer}
+          updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
+          onPress={() => this._register()}
         />
 
         <ButtonNav
@@ -51,6 +69,8 @@ class Welcome extends React.Component {
           image={"head_profile"}
           iconSet={'MaterialCommunityIcons'}
           audio={""}
+          audioPlayer={this.state.audioPlayer}
+          updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
           onPress={() => this._loginAsGuest()}
         />
       </View>

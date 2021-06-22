@@ -32,6 +32,7 @@ class QuestionsSelectOne extends Component {
       options: Option.byQuestion(props.question.id),
       answer: '',
       selectedOption: {},
+      audioPlayer: null,
     };
   }
 
@@ -94,7 +95,10 @@ class QuestionsSelectOne extends Component {
   }
 
   _handleHideMessage() {
-    this.setState({showAlert: false});
+    if (this.state.audioPlayer)
+      this.state.audioPlayer.release();
+
+    this.setState({showAlert: false, audioPlayer: null});
 
     if (this.state.selectedOption.recursive) {
       this._resetCurrentQuestion();
@@ -113,7 +117,11 @@ class QuestionsSelectOne extends Component {
             showsVerticalScrollIndicator={false}>
 
             <View style={[Style.container, Style.card]}>
-              <QuestionName question={this.props.question } />
+              <QuestionName
+                question={this.props.question }
+                audioPlayer={this.state.audioPlayer}
+                updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
+              />
 
               { this._renderInputField() }
             </View>
@@ -122,6 +130,8 @@ class QuestionsSelectOne extends Component {
           <NextButton
             disabled={!this.state.answer}
             onPress={() => this._onPressNext() }
+            audioPlayer={this.state.audioPlayer}
+            updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
           />
         </View>
 
@@ -131,6 +141,8 @@ class QuestionsSelectOne extends Component {
           message={this.state.selectedOption.alert_message}
           onPressAction={() => this._handleHideMessage()}
           audio={this.state.selectedOption.alert_audio}
+          audioPlayer={this.state.audioPlayer}
+          updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
         />
       </>
     );

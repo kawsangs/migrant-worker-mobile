@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, Text } from 'react-native';
 
 import { StackActions } from '@react-navigation/native';
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
@@ -15,11 +15,17 @@ class YourSafetySubCategory extends Component {
     super(props);
 
     this.state = {
-      categories: Safety.getChildren(props.route.params['parent_id'])
+      categories: Safety.getChildren(props.route.params['parent_id']),
+      audioPlayer: null,
     };
   }
 
   _onPress(item) {
+    if (this.state.audioPlayer) {
+      this.state.audioPlayer.release();
+      this.setState({ audioPlayer: null });
+    }
+
     if (item.leaf) {
       return this.props.navigation.navigate("YourSafetyLeafCategoryScreen", {title: item.name, parent_id: item.id});
     }
@@ -38,6 +44,8 @@ class YourSafetySubCategory extends Component {
         onPress={() => this._onPress(item)}
         buttonAudioStyle={{backgroundColor: Color.primary}}
         audioIconStyle={{tintColor: Color.white}}
+        audioPlayer={this.state.audioPlayer}
+        updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
       />
     )
   }

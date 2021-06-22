@@ -22,11 +22,17 @@ class SubCategory extends Component {
 
     this.state = {
       category: Departure.find(props.route.params['parent_id']),
-      categories: Departure.getChildren(props.route.params['parent_id'])
+      categories: Departure.getChildren(props.route.params['parent_id']),
+      audioPlayer: null,
     };
   }
 
   _onPress(item) {
+    if (this.state.audioPlayer) {
+      this.state.audioPlayer.release();
+      this.setState({ audioPlayer: null });
+    }
+
     if (item.leaf) { 
       const pushAction = StackActions.push('LeafCategoryScreen', { title: item.name, parent_id: item.id });
       return this.props.navigation.dispatch(pushAction);
@@ -45,6 +51,8 @@ class SubCategory extends Component {
         image={item.imageSource}
         audio={item.audio}
         number={index + 1}
+        audioPlayer={this.state.audioPlayer}
+        updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
       />
     );
 
@@ -59,6 +67,8 @@ class SubCategory extends Component {
         label={ category.hint }
         image={ category.hintImageSource }
         audio={ category.hint_audio }
+        audioPlayer={this.state.audioPlayer}
+        updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
       />
     )
   }

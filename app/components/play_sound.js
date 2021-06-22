@@ -12,16 +12,27 @@ import { Color } from '../assets/stylesheets/base_style';
 import Images from '../utils/images';
 
 export default class PlaySound extends Component {
-  state = {}
 
   componentWillUnmount() {
     if (this.sound) this.sound.release();
   }
 
+  _isAudioPlaying() {
+    // Checking the audio path from main Audio Player with the current audio path
+    if (this.props.audioPlayer && this.props.filePath.includes(this.props.audioPlayer._filename))
+      return true;
+
+    return false;
+  }
+
   _playAudio() {
-    if (this.state.playing) {
-      this.setState({playing: false});
+    if (this.props.audioPlayer)
+      this.props.audioPlayer.release();
+
+    if (this._isAudioPlaying()) {
       if (this.sound) this.sound.release();
+
+      this.props.updateMainAudioPlayer(null);
       return;
     }
 
@@ -32,14 +43,16 @@ export default class PlaySound extends Component {
     this.sound = new Sound(this.props.filePath, folder, (error) => {
       if (error) { return console.log('failed to load the sound', error); }
 
-      this.setState({playing: true});
       this.sound.play(this.playComplete);
     });
+
+    if (this.props.updateMainAudioPlayer)
+      this.props.updateMainAudioPlayer(this.sound);
   }
 
   playComplete = (success) => {
     if (success) {
-      this.setState({playing: false});
+      this.props.updateMainAudioPlayer(null);
       console.log('successfully finished playing');
     } else {
       console.log('playback failed due to audio decoding errors');
@@ -61,7 +74,10 @@ export default class PlaySound extends Component {
       return this.renderVolumeOff();
     }
 
-    let icon = this.state.playing ? Images.active_play : Images.audio;
+    let icon = Images.audio;
+
+    if (this._isAudioPlaying())
+      icon = Images.active_play;
 
     return (
       <TouchableOpacity

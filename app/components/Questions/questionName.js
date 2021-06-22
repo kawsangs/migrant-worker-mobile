@@ -20,7 +20,10 @@ class QuestonName extends Component {
         <PlaySound
           filePath={this.props.audio || question.audio}
           buttonAudioStyle={{ backgroundColor: Color.pink }}
-          iconStyle={{ tintColor: Color.white }}/>
+          iconStyle={{ tintColor: Color.white }}
+          audioPlayer={this.props.audioPlayer}
+          updateMainAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}
+        />
       </View>
     );
   }
