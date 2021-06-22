@@ -7,6 +7,7 @@ import {
   Dimensions,
   StyleSheet,
 } from 'react-native';
+import RenderHtml from 'react-native-render-html';
 
 import { StackActions } from '@react-navigation/native';
 import { withTranslation } from 'react-i18next';
@@ -22,6 +23,21 @@ import SoundPlayer from '../../components/sound_player';
 
 const screenHeight = Dimensions.get('screen').height;
 
+const tagsStyles = {
+  h2: {
+    fontFamily: FontFamily.title,
+    fontWeight: "400",
+    fontSize: 18
+  },
+  div: {
+    fontFamily: FontFamily.body,
+    fontSize: FontSize.body
+  },
+  li: {
+    marginRight: 10
+  }
+}
+
 class LeafCategory extends Component {
   constructor(props) {
     super(props);
@@ -33,18 +49,9 @@ class LeafCategory extends Component {
 
   _renderTitle() {
     return (
-      <View style={{alignItems: 'center'}}>
-        <Text style={{fontFamily: FontFamily.title, fontSize: 18, textAlign: 'center'}}>
-          {this.state.category.name}
-        </Text>
-        <View style={{maxHeight: screenHeight * 0.2, borderWidth: 0,}}>
-          <ScrollView>
-            <Text style={{fontSize: FontSize.small, textAlign: 'center'}}>
-              {this.state.category.description}
-            </Text>
-          </ScrollView>
-        </View>
-      </View>
+      <Text style={{fontFamily: FontFamily.title, fontSize: 18, textAlign: 'center', marginBottom: 25}}>
+        {this.state.category.name}
+      </Text>
     )
   }
 
@@ -52,7 +59,6 @@ class LeafCategory extends Component {
     return (
       <SoundPlayer
         filePath={this.state.category.audio}
-        containerStyle={{flex: 1}}
         iconStyle={{tintColor: Color.white, color: 'black'}}
         iconSize={35}
         progressBarContainerStyle={{width: '100%'}}
@@ -63,16 +69,45 @@ class LeafCategory extends Component {
   render() {
     let image = this.state.category.imageSource || Images.default;
 
+    const source = {
+      html: `<p style="font-size: 1.2rem; padding: 0 10px;">
+        Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit, sed do eiusmod tempor incididunt ut labore et
+        dolore magna aliqua. Ut enim ad minim veniam, quis
+        nostrud exercitation ullamco laboris nisi ut aliquip
+        ex ea commodo consequat. 
+      </p>
+      <p style="color: purple; padding: 0 10px;">
+        Duis aute irure dolor in
+        reprehenderit in voluptate velit esse cillum dolore
+        eu fugiat nulla pariatur. Excepteur sint occaecat
+        cupidatat non proident, sunt in culpa qui officia
+        deserunt mollit anim id est laborum.
+      </p>`
+    };
+
     return (
-      <View style={[Style.container, { flex: 1, marginBottom: 0, borderWidth: 0 }]}>
+      <View style={[Style.container, { flex: 1, marginBottom: 0 }]}>
         <ImageBackground
           source={image}
           style={[styles.cateImage]}
           resizeMode='contain'
         />
-        { this._renderTitle() }
 
         { this._renderPlayAudio() }
+
+        {/* <ScrollView style={{flex:1}}> */}
+          { this._renderTitle() }
+
+          {/* { !!this.state.category.description && */}
+            <RenderHtml
+              // source={{html: this.state.category.description}}
+              source={source}
+              contentWidth={Dimensions.get('screen').width}
+              tagsStyles={tagsStyles}
+            />
+          {/* } */}
+        {/* </ScrollView> */}
       </View>
     );
   }

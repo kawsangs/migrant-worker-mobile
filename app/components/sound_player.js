@@ -104,7 +104,7 @@ export default class SoundPlayer extends Component {
     let icon = this.state.playing ? 'pause' : 'play';
 
     return (
-      <View style={{flexDirection: 'row', width: '65%', justifyContent: 'space-between', alignItems: 'center', borderWidth: 0}}>
+      <View style={{flexDirection: 'row', width: '65%', justifyContent: 'space-between', alignItems: 'center'}}>
         <TouchableOpacity onPress={() => this.forwardRewindAudio('backward')} hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}>
           <Icon name='backward' size={20} iconSet="FontAwesome" style={[styles.iconStyle, this.disabledColor()]} />
         </TouchableOpacity>
@@ -188,18 +188,16 @@ export default class SoundPlayer extends Component {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 0,
-    paddingTop: 10,
+    marginTop: 10,
+    paddingBottom: 30
   },
   iconStyle: {
     padding: 0,
     margin: 0,
   },
   progressBarContainer: {
-    marginTop: -20,
     width: '75%',
-    marginBottom: 30,
+    marginBottom: 20,
   },
   durationLabel: {
     fontSize: 12,
