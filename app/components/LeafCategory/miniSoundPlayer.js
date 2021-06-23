@@ -13,7 +13,7 @@ class MiniSoundPlayer extends Component {
     const icon = this.props.playing ? 'pause' : 'play';
 
     return (
-      // <Animated.View style={this.props.containerStyle}>
+      <Animated.View style={this.props.containerStyle}>
         <View style={styles.container}>
           <TouchableOpacity onPress={() => this.props.openModal()} style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
             <ImageBackground
@@ -31,7 +31,7 @@ class MiniSoundPlayer extends Component {
             <Icon name={icon} size={20} iconSet="FontAwesome" style={[{paddingHorizontal: 10, color: 'black'}, this.props.disabledColor]} />
           </TouchableOpacity>
         </View>
-      // </Animated.View>
+      </Animated.View>
     )
   }
 }

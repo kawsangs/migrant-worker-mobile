@@ -6,9 +6,10 @@ import {
   ImageBackground,
   ScrollView,
   Dimensions,
+  Animated,
 } from 'react-native';
 import Sound from 'react-native-sound';
-import { Icon, Drawer } from 'react-native-material-ui';
+import { Icon } from 'react-native-material-ui';
 import * as Progress from 'react-native-progress';
 
 import { environment } from '../../config/environment';
@@ -21,7 +22,7 @@ import BottomHalfModal from '../bottomHalfModal';
 const screenHeight = Dimensions.get('screen').height;
 let _this = this;
 
-export default class SoundPlayer extends Component {
+export default class LeafCategoryAudioPlayer extends Component {
   state = {}
 
   constructor(props) {
@@ -31,7 +32,16 @@ export default class SoundPlayer extends Component {
     this.state = {
       showMiniPlayer: false,
       modalVisible: false,
+      animatedValue: new Animated.Value(0)
     }
+  }
+
+  componentDidMount() {
+    this.translateY = this.state.animatedValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, screenHeight],
+      extrapolate: 'clamp'
+    })
   }
 
   componentWillUnmount() {
@@ -198,10 +208,28 @@ export default class SoundPlayer extends Component {
   }
 
   handleScroll(event) {
-    if (event.nativeEvent.contentOffset.y >= 266 && !_this.state.showMiniPlayer)
-      _this.setState({ showMiniPlayer: true })
-    else if (event.nativeEvent.contentOffset.y < 266 && _this.state.showMiniPlayer)
-      _this.setState({ showMiniPlayer: false })
+    if (event.nativeEvent.contentOffset.y >= 266 && !_this.state.showMiniPlayer) {
+      _this.setState({
+        showMiniPlayer: true,
+      });
+
+      Animated.timing(_this.state.animatedValue, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    }
+    else if (event.nativeEvent.contentOffset.y < 266 && _this.state.showMiniPlayer) {
+      _this.setState({ 
+        showMiniPlayer: false,
+      });
+
+      Animated.timing(_this.state.animatedValue, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    }
   }
 
   render() {
@@ -217,7 +245,7 @@ export default class SoundPlayer extends Component {
           {this.props.children}
         </ScrollView>
 
-        { this.state.showMiniPlayer &&
+        { this.translateY &&
           <View style={styles.miniSoundPlayerContainer}>
             <MiniSoundPlayer
               image={this.props.image}
@@ -226,7 +254,7 @@ export default class SoundPlayer extends Component {
               playing={this.state.playing}
               disabledColor={this.disabledColor()}
               openModal={() => this.setState({ modalVisible: true })}
-              // containerStyle={{ position: 'absolute', bottom: 0, width: '100%', backgroundColor: 'white', transform: [{ translateY: this.state.scrollY }]}}
+              containerStyle={{ position: 'absolute', bottom: 0, width: '100%', backgroundColor: 'white', transform: [{ translateY: this.translateY }]}}
             />
           </View>
         }

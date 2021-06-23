@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import {
   Text,
   Dimensions,
-  StyleSheet,
-  Animated,
 } from 'react-native';
 import RenderHtml from 'react-native-render-html';
 
@@ -16,7 +14,7 @@ import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/bas
 import Images from '../../utils/images';
 
 import Departure from '../../models/Departure';
-import CategoryAudioPlayer from '../../components/LeafCategory/categoryAudioPlayer';
+import LeafCategoryAudioPlayer from '../../components/LeafCategory/leafCategoryAudioPlayer';
 
 const screenHeight = Dimensions.get('screen').height;
 
@@ -44,8 +42,6 @@ class LeafCategory extends Component {
 
     this.state = {
       category: Departure.find(props.route.params['parent_id']),
-      showMiniPlayer: false,
-      scrollY: new Animated.Value(screenHeight)
     };
   }
 
@@ -56,33 +52,6 @@ class LeafCategory extends Component {
       </Text>
     )
   }
-
-  // handleScroll(event) {
-  //   if (event.nativeEvent.contentOffset.y >= 266 && !_this.state.showMiniPlayer) {
-  //     _this.setState({
-  //       showMiniPlayer: true,
-  //       scrollY: new Animated.Value(screenHeight - 70)
-  //     }, () => {
-  //       Animated.timing(_this.state.scrollY, {
-  //         toValue: 0,
-  //         duration: 200,
-  //         useNativeDriver: true,
-  //       }).start();
-  //     });
-  //   }
-  //   else if (event.nativeEvent.contentOffset.y < 266 && _this.state.showMiniPlayer) {
-  //     _this.setState({ 
-  //       showMiniPlayer: false,
-  //       scrollY: new Animated.Value(screenHeight)
-  //     }, () => {
-  //       Animated.timing(_this.state.scrollY, {
-  //         toValue: screenHeight,
-  //         duration: 200,
-  //         useNativeDriver: true,
-  //       }).start();
-  //     });
-  //   }
-  // }
 
   render() {
     let image = this.state.category.imageSource || Images.default;
@@ -111,7 +80,7 @@ class LeafCategory extends Component {
     };
 
     return (
-      <CategoryAudioPlayer
+      <LeafCategoryAudioPlayer
         category={this.state.category}
         image={image}
         iconStyle={{tintColor: Color.white, color: 'black'}}
@@ -127,30 +96,9 @@ class LeafCategory extends Component {
             tagsStyles={tagsStyles}
           />
         {/* } */}
-      </CategoryAudioPlayer>
+      </LeafCategoryAudioPlayer>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  cateImage: {
-    minHeight: 160,
-    width: '100%',
-    alignSelf: 'center',
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 14,
-    marginBottom: 16,
-    shadowColor: "#000",
-    overflow: 'hidden',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 3
-  }
-});
 
 export default withTranslation()(LeafCategory);
