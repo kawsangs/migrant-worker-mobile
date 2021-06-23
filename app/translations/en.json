@@ -114,6 +114,9 @@
         },
         "NotificationListScreen": {
             "HeaderTitle": "Notifications"
+        },
+        "NotificationDetailScreen": {
+            "HeaderTitle": "Notification Detail"
         }
     }
 }

@@ -7,10 +7,7 @@ const notificationHelper = (() => {
   };
 
   function getReceiveDateTime(receivedDateTime) {
-    const currentDate = Moment().format('DD/MM/YYYY');
-    const receivedDate = Moment(receivedDateTime).format('DD/MM/YYYY');
-
-    if (Moment(currentDate).isSame(receivedDate))
+    if (Moment().diff(receivedDateTime, 'days') == 0)
       return Moment(receivedDateTime).format('hh:mm A');
 
     return getTranslatedDate(receivedDateTime);
