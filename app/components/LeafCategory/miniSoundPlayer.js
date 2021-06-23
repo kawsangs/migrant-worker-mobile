@@ -15,14 +15,14 @@ class MiniSoundPlayer extends Component {
     return (
       // <Animated.View style={this.props.containerStyle}>
         <View style={styles.container}>
-          <TouchableOpacity style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+          <TouchableOpacity onPress={() => this.props.openModal()} style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
             <ImageBackground
               source={this.props.image}
-              style={{width: 70, height: 60}}
+              style={{width: 70, height: 50}}
               resizeMode='contain'
             />
 
-            <Text style={{flex: 1, fontFamily: FontFamily.title, fontSize: 14, paddingHorizontal: 10}} numberOfLines={1}>
+            <Text style={{flex: 1, fontFamily: FontFamily.title, fontSize: 14, paddingHorizontal: 14}} numberOfLines={1}>
               { this.props.title }
             </Text>
           </TouchableOpacity>
@@ -42,9 +42,7 @@ const styles = StyleSheet.create({
     height: 70,
     paddingHorizontal: 10,
     alignItems: 'center',
-    borderTopColor: Color.gray,
-    elevation: 1,
-  }
+  },
 });
 
 export default MiniSoundPlayer;

@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View,
   Text,
-  ScrollView,
-  ImageBackground,
   Dimensions,
   StyleSheet,
   Animated,
@@ -19,9 +16,6 @@ import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/bas
 import Images from '../../utils/images';
 
 import Departure from '../../models/Departure';
-
-import SoundPlayer from '../../components/sound_player';
-import MiniSoundPlayer from '../../components/LeafCategory/miniSoundPlayer';
 import CategoryAudioPlayer from '../../components/LeafCategory/categoryAudioPlayer';
 
 const screenHeight = Dimensions.get('screen').height;
@@ -63,43 +57,32 @@ class LeafCategory extends Component {
     )
   }
 
-  _renderPlayAudio() {
-    return (
-      <SoundPlayer
-        filePath={this.state.category.audio}
-        iconStyle={{tintColor: Color.white, color: 'black'}}
-        iconSize={35}
-        progressBarContainerStyle={{width: '100%'}}
-      />
-    )
-  }
-
-  handleScroll(event) {
-    if (event.nativeEvent.contentOffset.y >= 266 && !_this.state.showMiniPlayer) {
-      _this.setState({
-        showMiniPlayer: true,
-        scrollY: new Animated.Value(screenHeight - 70)
-      }, () => {
-        Animated.timing(_this.state.scrollY, {
-          toValue: 0,
-          duration: 200,
-          useNativeDriver: true,
-        }).start();
-      });
-    }
-    else if (event.nativeEvent.contentOffset.y < 266 && _this.state.showMiniPlayer) {
-      _this.setState({ 
-        showMiniPlayer: false,
-        scrollY: new Animated.Value(screenHeight)
-      }, () => {
-        Animated.timing(_this.state.scrollY, {
-          toValue: screenHeight,
-          duration: 200,
-          useNativeDriver: true,
-        }).start();
-      });
-    }
-  }
+  // handleScroll(event) {
+  //   if (event.nativeEvent.contentOffset.y >= 266 && !_this.state.showMiniPlayer) {
+  //     _this.setState({
+  //       showMiniPlayer: true,
+  //       scrollY: new Animated.Value(screenHeight - 70)
+  //     }, () => {
+  //       Animated.timing(_this.state.scrollY, {
+  //         toValue: 0,
+  //         duration: 200,
+  //         useNativeDriver: true,
+  //       }).start();
+  //     });
+  //   }
+  //   else if (event.nativeEvent.contentOffset.y < 266 && _this.state.showMiniPlayer) {
+  //     _this.setState({ 
+  //       showMiniPlayer: false,
+  //       scrollY: new Animated.Value(screenHeight)
+  //     }, () => {
+  //       Animated.timing(_this.state.scrollY, {
+  //         toValue: screenHeight,
+  //         duration: 200,
+  //         useNativeDriver: true,
+  //       }).start();
+  //     });
+  //   }
+  // }
 
   render() {
     let image = this.state.category.imageSource || Images.default;
@@ -146,41 +129,6 @@ class LeafCategory extends Component {
         {/* } */}
       </CategoryAudioPlayer>
     )
-
-
-    // return (
-    //   <View style={[Style.container, { flex: 1, marginBottom: 0, marginHorizontal: 0 }]}>
-    //     <Animated.ScrollView style={{flex:1, paddingHorizontal: 16}}
-    //       contentContainerStyle={{paddingBottom: 70}}
-    //       onScroll={this.handleScroll}
-    //       scrollEventThrottle={26}
-    //     >
-    //       <ImageBackground
-    //         source={image}
-    //         style={[styles.cateImage]}
-    //         resizeMode='contain'
-    //       />
-
-    //       { this._renderPlayAudio() }
-
-    //       { this._renderTitle() }
-
-    //       { !!this.state.category.description &&
-    //         <RenderHtml
-    //           source={{html: this.state.category.description}}
-    //           contentWidth={Dimensions.get('screen').width}
-    //           tagsStyles={tagsStyles}
-    //         />
-    //       }
-    //     </Animated.ScrollView>
-
-    //     { this.state.showMiniPlayer &&
-    //       <MiniSoundPlayer image={image} title={this.state.category.name}
-    //         containerStyle={{ position: 'absolute', bottom: 0, width: '100%', backgroundColor: 'white', transform: [{ translateY: this.state.scrollY }]}}
-    //       />
-    //     }
-    //   </View>
-    // );
   }
 }
 

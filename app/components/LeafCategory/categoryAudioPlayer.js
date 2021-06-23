@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
 import {
   View,
-  StyleSheet,
   TouchableOpacity,
   Text,
   ImageBackground,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import Sound from 'react-native-sound';
-import { Icon } from 'react-native-material-ui';
+import { Icon, Drawer } from 'react-native-material-ui';
 import * as Progress from 'react-native-progress';
 
 import { environment } from '../../config/environment';
-import { Color } from '../../assets/stylesheets/base_style';
+import { Color, FontFamily } from '../../assets/stylesheets/base_style';
 import styles from '../../styles/categoryAudioPlayerComponentStyle';
 
 import MiniSoundPlayer from './miniSoundPlayer';
+import BottomHalfModal from '../bottomHalfModal';
 
+const screenHeight = Dimensions.get('screen').height;
 let _this = this;
 
 export default class SoundPlayer extends Component {
@@ -28,6 +30,7 @@ export default class SoundPlayer extends Component {
 
     this.state = {
       showMiniPlayer: false,
+      modalVisible: false,
     }
   }
 
@@ -204,7 +207,7 @@ export default class SoundPlayer extends Component {
   render() {
     return (
       <View style={[styles.container, this.props.containerStyle]}>
-        <ScrollView contentContainerStyle={{paddingHorizontal: 16}}
+        <ScrollView contentContainerStyle={{paddingHorizontal: 16, paddingBottom: 70}}
           onScroll={this.handleScroll}
         >
           { this._renderImage() }
@@ -215,16 +218,33 @@ export default class SoundPlayer extends Component {
         </ScrollView>
 
         { this.state.showMiniPlayer &&
-          <View style={{position: 'absolute', bottom: 0, width: '100%', backgroundColor: 'white'}}>
+          <View style={styles.miniSoundPlayerContainer}>
             <MiniSoundPlayer
               image={this.props.image}
               title={this.props.category.name}
               playAudio={() => this._playAudio()}
               playing={this.state.playing}
               disabledColor={this.disabledColor()}
+              openModal={() => this.setState({ modalVisible: true })}
+              // containerStyle={{ position: 'absolute', bottom: 0, width: '100%', backgroundColor: 'white', transform: [{ translateY: this.state.scrollY }]}}
             />
           </View>
         }
+
+        <BottomHalfModal
+          isVisible={this.state.modalVisible}
+          closeModal={() => this.setState({ modalVisible: false })}
+          modalContentStyle={{ height: screenHeight / 1.8 }}
+        >
+          <View>
+            { this._renderImage() }
+            { this._rendeProgressBar() }
+            { this._renderPlayIcons() }
+            <Text numberOfLines={1} style={{fontFamily: FontFamily.title, fontSize: 18, textAlign: 'center', marginBottom: 25}}>
+              {this.props.category.name}
+            </Text>
+          </View>
+        </BottomHalfModal>
       </View>
     )
   }

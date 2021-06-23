@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
+import { Color, FontFamily } from '../assets/stylesheets/base_style';
 
 const CategoryAudioPlayerStyles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    marginTop: 10,
-    paddingBottom: 30
+    marginTop: 16,
   },
   iconStyle: {
     padding: 0,
@@ -25,7 +25,7 @@ const CategoryAudioPlayerStyles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 8,
     padding: 14,
-    marginBottom: 16,
+    marginBottom: 30,
     shadowColor: "#000",
     overflow: 'hidden',
     shadowOffset: {
@@ -35,6 +35,15 @@ const CategoryAudioPlayerStyles = StyleSheet.create({
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
     elevation: 3
+  },
+  miniSoundPlayerContainer: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    borderTopColor: Color.lightGray,
+    borderTopWidth: 1,
+    elevation: 4,
+    backgroundColor: Color.white,
   }
 });
 
