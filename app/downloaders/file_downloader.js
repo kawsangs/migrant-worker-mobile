@@ -8,9 +8,8 @@ const FileDownloader = (()=> {
   }
 
   async function download(fileName, filePath, successCallback, failsCallback) {
-    let domain = environment.state == 'development' ? environment.domain : "";
     let options = {
-      fromUrl: `${domain}/${filePath}`,
+      fromUrl: `${filePath}`,
       toFile: `${RNFS.DocumentDirectoryPath}/${fileName}`,
     };
 

@@ -1,81 +1,75 @@
 const videoList = [
   {
     "code": "01",
-    "url": "https://www.youtube.com/watch?v=ttSsAGmpC_U",
-    "title": "CTIP Ambassador Gives Safe Migration Advice to the People of Cambodia",
-    "category": "departure"
+    "title": "Intro to the App",
+    "url": "https://www.youtube.com/watch?v=kQ-83Nt3EvU&t=14s",
+    "category": "all"
   },
   {
     "code": "02",
-    "url": "https://www.youtube.com/watch?v=Lsd-wDnQC1o",
-    "title": "យុទ្ធនាការធ្វើចំណាកស្រុកដោយសុវត្ថិភាពអាស៊ាន - ខ្មែរ",
-    "category": "departure"
+    "title": "Know before you go",
+    "url": "https://www.youtube.com/watch?v=ZsP4kYUpwaI",
+    "category": "your_journey"
   },
   {
     "code": "03",
-    "url": "https://www.youtube.com/watch?v=0CVF4Om6KT4",
-    "title": "ពលករមួយរូបបង្ហាញបទពិសោធន៍ចំណាកស្រុកដោយសុវត្ថិភាព",
-    "category": "departure"
+    "title": "Know your Rights",
+    "url": "https://www.youtube.com/watch?v=4PstnUwKYYQ",
+    "category": "your_safety"
   },
   {
     "code": "04",
-    "url": "https://www.youtube.com/watch?v=l8gf4labqVw",
-    "title": "ខ្សែវីដេអូចំណាកស្រុកដោយសុវត្ថិភាព៖ Know Before You Go",
-    "category": "departure"
+    "title": "SAF Programme",
+    "url": "https://www.youtube.com/watch?v=69vG5JOMfrY",
+    "category": "about_safe_and_fair"
   },
   {
     "code": "05",
-    "url": "https://www.youtube.com/watch?v=3huHzKQ6KQM",
-    "title": "ការធ្វើចំណាកស្រុក ដោយសុវត្ថភាព",
-    "category": "departure"
+    "title": "Saving Tips",
+    "url": "https://www.youtube.com/watch?v=RgeKg5iGZKI&list=RDCMUCsMW60l4zLO11NB6ckap57g",
+    "category": "coming_home"
   },
   {
     "code": "06",
-    "url": "https://www.youtube.com/watch?v=MygplobHhTQ&list=RDCMUCsMW60l4zLO11NB6ckap57g&index=9",
-    "title": "ចំណេះដឹងដ៏ល្អក្នុងការសន្សំលុយ!",
-    "category": "departure"
+    "title": "Successful Migration",
+    "url": "https://www.youtube.com/watch?v=P7C7fBGmk_Q",
+    "category": "coming_home"
   },
   {
     "code": "07",
-    "url": "https://www.youtube.com/watch?v=RgeKg5iGZKI&list=RDCMUCsMW60l4zLO11NB6ckap57g&index=28",
-    "title": "វិធីសន្សំលុយងាយៗ",
-    "category": "departure"
+    "title": "Sarah’s Story",
+    "url": "https://www.youtube.com/watch?v=NnyEiC8MzQs",
+    "category": "your_safety"
+  },
+  {
+    "code": "08",
+    "title": "Spotlight initiative",
+    "url": "https://www.youtube.com/watch?v=mqyvYk2nkVA",
+    "category": "about_safe_and_fair"
   },
   {
     "code": "09",
-    "url": "https://www.youtube.com/watch?v=P7C7fBGmk_Q",
-    "title": "ចំណាកស្រុកដោយជោគជ័យ (Successful Migration)",
-    "category": "safety"
+    "title": "Sexual harassment",
+    "url": "https://www.youtube.com/watch?v=RoJEu_sMfJ0",
+    "category": "your_safety"
   },
   {
     "code": "10",
-    "url": "https://www.youtube.com/watch?v=3LBkILLtj3I",
-    "title": "ឯកសារចាំបាច់សម្រាប់ការធ្វើចំណាកស្រុក",
-    "category": "safety"
+    "title": "Contraception",
+    "url": "https://www.youtube.com/watch?v=X4mbTPncojk",
+    "category": "your_safety"
   },
   {
     "code": "11",
-    "url": "https://www.youtube.com/watch?v=9fjLUf6Cz08",
-    "title": "បញ្ហាប្រឈមរបស់ពលករចំណាកស្រុក",
-    "category": "safety"
+    "title": "Speak Up",
+    "url": "https://www.youtube.com/watch?v=UrkNgSuwQMM&t=255s",
+    "category": "your_safety"
   },
   {
     "code": "12",
-    "url": "https://www.youtube.com/watch?v=9lj8dJPetYQ",
-    "title": "គ្រោះថ្នាក់នៃការចំណាកស្រុកដោយខុសច្បាប់",
-    "category": "safety"
-  },
-  {
-    "code": "13",
-    "url": "https://www.youtube.com/watch?v=F552JNOb9CM",
-    "title": "រឿងនិទានរបស់អ្នកបំរើ",
-    "category": "safety"
-  },
-  {
-    "code": "15",
-    "url": "https://www.youtube.com/watch?v=oJ9Kpkyz2e4",
-    "title": "វិលត្រឡប់វិញ Retuning Home",
-    "category": "safety"
+    "title": "Safe workplace, Safe community",
+    "url": "https://www.youtube.com/watch?v=5B-ev5IGGKY",
+    "category": "your_safety"
   }
 ];
 
@@ -85,12 +79,20 @@ const videoSteps = [
     "stepTitle": "ទាំងអស់"
   },
   {
-    "stepCode": "departure",
+    "stepCode": "your_journey",
     "stepTitle": "ដំណើរឆ្លងដែនរបស់អ្នក"
   },
   {
-    "stepCode": "safety",
+    "stepCode": "your_safety",
     "stepTitle": "សុវត្ថិភាពរបស់អ្នក"
+  },
+  {
+    "stepCode": "about_safe_and_fair",
+    "stepTitle": "អំពី Safe and Fair",
+  },
+  {
+    "stepCode": "coming_home",
+    "stepTitle": "ត្រឡប់មកផ្ទះវិញ",
   }
 ];
 
