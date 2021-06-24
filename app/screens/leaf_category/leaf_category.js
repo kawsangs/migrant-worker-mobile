@@ -25,12 +25,16 @@ const tagsStyles = {
   div: {
     fontFamily: FontFamily.body,
     fontSize: FontSize.small,
-    lineHeight: 30
+    lineHeight: 30,
+    marginBottom: 10,
   },
   p: {
     fontFamily: FontFamily.body,
     fontSize: FontSize.small,
-    lineHeight: 30
+    lineHeight: 30,
+  },
+  li: {
+    marginTop: -4
   },
 }
 
