@@ -6,7 +6,6 @@ import {
   ImageBackground,
   ScrollView,
   Dimensions,
-  Animated,
 } from 'react-native';
 import Sound from 'react-native-sound';
 import { Icon } from 'react-native-material-ui';
@@ -20,6 +19,7 @@ import MiniSoundPlayer from './miniSoundPlayer';
 import BottomHalfModal from '../bottomHalfModal';
 
 const screenHeight = Dimensions.get('screen').height;
+const screenWidth = Dimensions.get('screen').width;
 let _this = this;
 
 export default class LeafCategoryAudioPlayer extends Component {
@@ -32,16 +32,7 @@ export default class LeafCategoryAudioPlayer extends Component {
     this.state = {
       showMiniPlayer: false,
       modalVisible: false,
-      animatedValue: new Animated.Value(0)
     }
-  }
-
-  componentDidMount() {
-    this.translateY = this.state.animatedValue.interpolate({
-      inputRange: [0, 1],
-      outputRange: [0, screenHeight],
-      extrapolate: 'clamp'
-    })
   }
 
   componentWillUnmount() {
@@ -133,7 +124,7 @@ export default class LeafCategoryAudioPlayer extends Component {
     let icon = this.state.playing ? 'pause' : 'play';
 
     return (
-      <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 40}}>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 40, width: 200, alignSelf: 'center'}}>
         <TouchableOpacity onPress={() => this.forwardRewindAudio('backward')} hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}>
           <Icon name='backward' size={20} iconSet="FontAwesome" style={[styles.iconStyle, this.disabledColor()]} />
         </TouchableOpacity>
@@ -208,34 +199,16 @@ export default class LeafCategoryAudioPlayer extends Component {
   }
 
   handleScroll(event) {
-    if (event.nativeEvent.contentOffset.y >= 266 && !_this.state.showMiniPlayer) {
-      _this.setState({
-        showMiniPlayer: true,
-      });
-
-      Animated.timing(_this.state.animatedValue, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    }
-    else if (event.nativeEvent.contentOffset.y < 266 && _this.state.showMiniPlayer) {
-      _this.setState({ 
-        showMiniPlayer: false,
-      });
-
-      Animated.timing(_this.state.animatedValue, {
-        toValue: 1,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    }
+    if (event.nativeEvent.contentOffset.y >= 266 && !_this.state.showMiniPlayer)
+      _this.setState({ showMiniPlayer: true });
+    else if (event.nativeEvent.contentOffset.y < 266 && _this.state.showMiniPlayer)
+      _this.setState({ showMiniPlayer: false });
   }
 
   render() {
     return (
-      <View style={[styles.container, this.props.containerStyle]}>
-        <ScrollView contentContainerStyle={{paddingHorizontal: 16, paddingBottom: 70}}
+      <View style={[styles.container, this.props.containerStyle, { width: screenWidth }]}>
+        <ScrollView contentContainerStyle={{paddingHorizontal: 16, paddingBottom: 90, width: screenWidth}}
           onScroll={this.handleScroll}
         >
           { this._renderImage() }
@@ -245,7 +218,7 @@ export default class LeafCategoryAudioPlayer extends Component {
           {this.props.children}
         </ScrollView>
 
-        { this.translateY &&
+        { this.state.showMiniPlayer &&
           <View style={styles.miniSoundPlayerContainer}>
             <MiniSoundPlayer
               image={this.props.image}
@@ -254,7 +227,6 @@ export default class LeafCategoryAudioPlayer extends Component {
               playing={this.state.playing}
               disabledColor={this.disabledColor()}
               openModal={() => this.setState({ modalVisible: true })}
-              containerStyle={{ position: 'absolute', bottom: 0, width: '100%', backgroundColor: 'white', transform: [{ translateY: this.translateY }]}}
             />
           </View>
         }

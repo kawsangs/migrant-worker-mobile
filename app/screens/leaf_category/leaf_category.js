@@ -3,7 +3,7 @@ import {
   Text,
   Dimensions,
 } from 'react-native';
-import RenderHtml from 'react-native-render-html';
+import HTML from 'react-native-render-html';
 
 import { StackActions } from '@react-navigation/native';
 import { withTranslation } from 'react-i18next';
@@ -16,8 +16,6 @@ import Images from '../../utils/images';
 import Departure from '../../models/Departure';
 import LeafCategoryAudioPlayer from '../../components/LeafCategory/leafCategoryAudioPlayer';
 
-const screenHeight = Dimensions.get('screen').height;
-
 const tagsStyles = {
   h2: {
     fontFamily: FontFamily.title,
@@ -26,11 +24,14 @@ const tagsStyles = {
   },
   div: {
     fontFamily: FontFamily.body,
-    fontSize: FontSize.body
+    fontSize: FontSize.small,
+    lineHeight: 30
   },
-  li: {
-    marginRight: 10
-  }
+  p: {
+    fontFamily: FontFamily.body,
+    fontSize: FontSize.small,
+    lineHeight: 30
+  },
 }
 
 let _this = null;
@@ -56,29 +57,6 @@ class LeafCategory extends Component {
   render() {
     let image = this.state.category.imageSource || Images.default;
 
-    const source = {
-      html: `
-      <h2>យោង​តាម​សេចក្ដី​ប្រកាសព័ត៌មាន​របស់​អគ្គនាយកដ្ឋានអត្តសញ្ញាណកម្មនៃក្រសួង​មហាផ្ទៃ ​តម្លៃលិខិត​ឆ្លង​ដែន​ធម្មតា ត្រូវបាន​កំណត់​ថ្លៃសេវាដូច​ខាង​ក្រោម​៖</h2>
-      <ul style="margin-top: 20px">
-        <li>១. សេវា​រយៈពេល ២០​ថ្ងៃ​ តម្លៃ ០១​ក្បាល ១០០​ដុល្លារ​អាមេរិក</li>
-        <li>២. សេវា​រយៈពេល​ ១០​ថ្ងៃ តម្លៃ ០១​ក្បាល ១៥០​ដុល្លារ​អាមេរិក</li>
-        <li>៣. ​សេវា​រយៈពេល ១​ថ្ងៃ តម្លៃ​ ០១​ក្បាល ២០០​ដុល្លារ​អាមេរិក</li>
-      </ul>
-      <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua. Ut enim ad minim veniam, quis
-        nostrud exercitation ullamco laboris nisi ut aliquip
-        ex ea commodo consequat. 
-      </div>
-      <div>
-        Duis aute irure dolor in
-        reprehenderit in voluptate velit esse cillum dolore
-        eu fugiat nulla pariatur. Excepteur sint occaecat
-        cupidatat non proident, sunt in culpa qui officia
-        deserunt mollit anim id est laborum.
-      </div>
-      `
-    };
-
     return (
       <LeafCategoryAudioPlayer
         category={this.state.category}
@@ -89,13 +67,13 @@ class LeafCategory extends Component {
       >
         { this._renderTitle() }
 
-        {/* { !!this.state.category.description && */}
-          <RenderHtml
-            source={source}
+        { !!this.state.category.description &&
+          <HTML
+            source={{ html: this.state.category.description }}
             contentWidth={Dimensions.get('screen').width}
             tagsStyles={tagsStyles}
           />
-        {/* } */}
+        }
       </LeafCategoryAudioPlayer>
     )
   }

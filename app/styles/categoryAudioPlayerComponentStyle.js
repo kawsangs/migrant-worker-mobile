@@ -19,12 +19,12 @@ const CategoryAudioPlayerStyles = StyleSheet.create({
     fontWeight: 'bold',
   },
   cateImage: {
-    minHeight: 160,
+    minHeight: 145,
+    padding: 0,
     width: '100%',
     alignSelf: 'center',
     backgroundColor: '#fff',
     borderRadius: 8,
-    padding: 14,
     marginBottom: 30,
     shadowColor: "#000",
     overflow: 'hidden',
@@ -34,7 +34,7 @@ const CategoryAudioPlayerStyles = StyleSheet.create({
     },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
-    elevation: 3
+    elevation: 3,
   },
   miniSoundPlayerContainer: {
     position: 'absolute',
