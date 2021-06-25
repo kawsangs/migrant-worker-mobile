@@ -25,7 +25,7 @@ const CategoryAudioPlayerStyles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: '#fff',
     borderRadius: 8,
-    marginBottom: 30,
+    marginBottom: 20,
     shadowColor: "#000",
     overflow: 'hidden',
     shadowOffset: {

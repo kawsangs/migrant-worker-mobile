@@ -16,6 +16,7 @@ import { Color, FontFamily } from '../../assets/stylesheets/base_style';
 import styles from '../../styles/categoryAudioPlayerComponentStyle';
 
 import MiniSoundPlayer from './miniSoundPlayer';
+import AudioProgressBar from './audioProgressBar';
 import BottomHalfModal from '../bottomHalfModal';
 
 const screenHeight = Dimensions.get('screen').height;
@@ -32,6 +33,7 @@ export default class LeafCategoryAudioPlayer extends Component {
     this.state = {
       showMiniPlayer: false,
       modalVisible: false,
+      hasAudioPlayer: false,
     }
   }
 
@@ -71,7 +73,7 @@ export default class LeafCategoryAudioPlayer extends Component {
     this.sound = new Sound(this.props.category.audio, folder, (error) => {
       if (error) { return console.log('failed to load the sound', error); }
 
-      this.setState({playing: true});
+      this.setState({playing: true, hasAudioPlayer: true});
       this.countSecond();
       this.sound.play(this.playComplete);
     });
@@ -84,6 +86,7 @@ export default class LeafCategoryAudioPlayer extends Component {
       this.setState({
         playing: false,
         playSecond: null,
+        hasAudioPlayer: false,
       });
 
       this.sound.release();
@@ -154,22 +157,14 @@ export default class LeafCategoryAudioPlayer extends Component {
     }, 100);
   };
 
-  getReverseSecond() {
-    if (this.state.playSecond) {
-      const reverseSecond = this.sound.getDuration() - this.state.playSecond;
-
-      return this.getFormattedSecond(reverseSecond);
-    }
-
-    return '00:00';
-  }
-
-  getFormattedSecond = (second) => {
-    return new Date(Math.round(second) * 1000).toISOString().substr(14, 5);
-  }
-
   _renderImage() {
     return (<ImageBackground source={this.props.image} style={styles.cateImage} resizeMode='contain' />)
+  }
+
+  changePlaySecond(newSecond) {
+    clearInterval(_this.countInterval);
+    _this.sound.setCurrentTime(newSecond);
+    _this.setState({ playSecond: newSecond });
   }
 
   _rendeProgressBar() {
@@ -177,18 +172,16 @@ export default class LeafCategoryAudioPlayer extends Component {
     const playDuration = this.sound ? Math.round(this.sound.getDuration()) : 180;
 
     return (
-      <View style={[styles.progressBarContainer, this.props.progressBarContainerStyle]}>
-        <Progress.Bar progress={loadedProgress / playDuration} width={null} color={Color.primary} unfilledColor='rgb(216, 216, 216)' borderColor='transparent' />
-
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Text style={[styles.durationLabel, {textAlign: 'left'}, this.disabledColor()]}>
-            { this.state.playSecond ? this.getFormattedSecond(this.state.playSecond) : '00:00' }
-          </Text>
-
-          <Text style={[styles.durationLabel, {textAlign: 'right'}, this.disabledColor()]}>- { this.getReverseSecond() }</Text>
-        </View>
-      </View>
-    );
+      <AudioProgressBar
+        hasAudioPlayer={this.state.hasAudioPlayer}
+        loadedProgress={loadedProgress}
+        playDuration={playDuration}
+        changePlayingSecond={this.changePlaySecond}
+        onSlidingStart={() => clearInterval(this.countInterval)}
+        isPlaying={this.state.playing}
+        playAudio={() => this._playAudio()}
+      />
+    )
   }
 
   disabledColor() {
