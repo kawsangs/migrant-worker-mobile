@@ -74,7 +74,7 @@ class LookingForHelp extends React.Component {
       audioPlayer: null,
     });
     this.checkInternet(() => {
-      InstitutionService.fetch(this.state.country.id, (res) => {
+      InstitutionService.fetch(this.state.country.code, (res) => {
         this.setState({
           institutions: res,
           isFetching: false
