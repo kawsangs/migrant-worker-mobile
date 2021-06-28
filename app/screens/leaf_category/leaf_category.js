@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import {
-  View,
   Text,
-  ScrollView,
-  ImageBackground,
   Dimensions,
-  StyleSheet,
 } from 'react-native';
+import HTML from 'react-native-render-html';
 
 import { StackActions } from '@react-navigation/native';
 import { withTranslation } from 'react-i18next';
@@ -17,14 +14,36 @@ import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/bas
 import Images from '../../utils/images';
 
 import Departure from '../../models/Departure';
+import LeafCategoryAudioPlayer from '../../components/LeafCategory/leafCategoryAudioPlayer';
 
-import SoundPlayer from '../../components/sound_player';
+const tagsStyles = {
+  h2: {
+    fontFamily: FontFamily.title,
+    fontWeight: "400",
+    fontSize: 18,
+  },
+  div: {
+    fontFamily: FontFamily.body,
+    fontSize: FontSize.small,
+    lineHeight: 30,
+    marginBottom: 10,
+  },
+  p: {
+    fontFamily: FontFamily.body,
+    fontSize: FontSize.small,
+    lineHeight: 30,
+  },
+  li: {
+    marginTop: -4
+  },
+}
 
-const screenHeight = Dimensions.get('screen').height;
+let _this = null;
 
 class LeafCategory extends Component {
   constructor(props) {
     super(props);
+    _this = this;
 
     this.state = {
       category: Departure.find(props.route.params['parent_id']),
@@ -33,30 +52,9 @@ class LeafCategory extends Component {
 
   _renderTitle() {
     return (
-      <View style={{alignItems: 'center'}}>
-        <Text style={{fontFamily: FontFamily.title, fontSize: 18, textAlign: 'center'}}>
-          {this.state.category.name}
-        </Text>
-        <View style={{maxHeight: screenHeight * 0.2, borderWidth: 0,}}>
-          <ScrollView>
-            <Text style={{fontSize: FontSize.small, textAlign: 'center'}}>
-              {this.state.category.description}
-            </Text>
-          </ScrollView>
-        </View>
-      </View>
-    )
-  }
-
-  _renderPlayAudio() {
-    return (
-      <SoundPlayer
-        filePath={this.state.category.audio}
-        containerStyle={{flex: 1}}
-        iconStyle={{tintColor: Color.white, color: 'black'}}
-        iconSize={35}
-        progressBarContainerStyle={{width: '100%'}}
-      />
+      <Text style={{fontFamily: FontFamily.title, fontSize: 18, textAlign: 'center', marginBottom: 25}}>
+        {this.state.category.name}
+      </Text>
     )
   }
 
@@ -64,39 +62,25 @@ class LeafCategory extends Component {
     let image = this.state.category.imageSource || Images.default;
 
     return (
-      <View style={[Style.container, { flex: 1, marginBottom: 0, borderWidth: 0 }]}>
-        <ImageBackground
-          source={image}
-          style={[styles.cateImage]}
-          resizeMode='contain'
-        />
+      <LeafCategoryAudioPlayer
+        category={this.state.category}
+        image={image}
+        iconStyle={{tintColor: Color.white, color: 'black'}}
+        iconSize={35}
+        progressBarContainerStyle={{width: '100%'}}
+      >
         { this._renderTitle() }
 
-        { this._renderPlayAudio() }
-      </View>
-    );
+        { !!this.state.category.description &&
+          <HTML
+            source={{ html: this.state.category.description }}
+            contentWidth={Dimensions.get('screen').width}
+            tagsStyles={tagsStyles}
+          />
+        }
+      </LeafCategoryAudioPlayer>
+    )
   }
 }
-
-const styles = StyleSheet.create({
-  cateImage: {
-    minHeight: 160,
-    width: '100%',
-    alignSelf: 'center',
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 14,
-    marginBottom: 16,
-    shadowColor: "#000",
-    overflow: 'hidden',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 3
-  }
-});
 
 export default withTranslation()(LeafCategory);
