@@ -23,10 +23,11 @@
     "@sentry/react-native": "1.4.1",
     "apisauce": "1.1.1",
     "axios": "^0.19.2",
-    "i18next": "19.9.1",
+    "i18next": "^19.9.2",
+    "logkitty": "^0.7.1",
     "moment": "2.24.0",
     "react": "16.11.0",
-    "react-i18next": "11.8.9",
+    "react-i18next": "^11.11.0",
     "react-native": "0.62.0",
     "react-native-audio": "4.3.0",
     "react-native-autocomplete-input": "^5.0.0",
@@ -59,7 +60,8 @@
     "realm": "10.1.2",
     "redux": "^4.1.0",
     "rn-fetch-blob": "0.12.0",
-    "underscore": "^1.13.1"
+    "underscore": "^1.13.1",
+    "y18n": "^5.0.8"
   },
   "devDependencies": {
     "@babel/core": "7.6.2",
