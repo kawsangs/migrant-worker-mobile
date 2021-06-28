@@ -20,7 +20,7 @@ const CountryInstitution = (() => {
   }
 
   function isExist(countryCode, institutionId) {
-    return realm.objects(MODEL_NAME).filtered(`country_code = ${countryCode} AND institution_id = ${institutionId}`)[0];
+    return realm.objects(MODEL_NAME).filtered(`country_code = '${countryCode}' AND institution_id = ${institutionId}`)[0];
   }
 })();
 
