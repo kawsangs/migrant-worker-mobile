@@ -87,12 +87,12 @@ const videoSteps = [
     "stepTitle": "សុវត្ថិភាពរបស់អ្នក"
   },
   {
-    "stepCode": "about_safe_and_fair",
-    "stepTitle": "អំពី Safe and Fair",
-  },
-  {
     "stepCode": "coming_home",
     "stepTitle": "ត្រឡប់មកផ្ទះវិញ",
+  },
+  {
+    "stepCode": "about_safe_and_fair",
+    "stepTitle": "អំពី Safe and Fair",
   }
 ];
 
