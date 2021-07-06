@@ -15,11 +15,14 @@ import Images from '../utils/images';
 export default class ButtonNav extends React.Component {
   render() {
     let textColor = this.props.active ? Color.white : Color.primary;
-    let buttonColor = this.props.active ? Color.primary : Color.white;
+    // let buttonColor = this.props.active ? Color.primary : Color.white;
+    let buttonColor = this.props.active ? this.props.buttonColor ? this.props.buttonColor : Color.primary : Color.white;
+    let borderColor = this.props.buttonColor ? this.props.buttonColor : Color.primary;
+
     let iconTintColor = this.props.active ? Color.primary : Color.white;
 
     return (
-      <View style={[styles.buttonWrapper, Style.boxShadow, { borderColor: Color.primary, backgroundColor: buttonColor }]}>
+      <View style={[styles.buttonWrapper, Style.boxShadow, { borderColor: borderColor, backgroundColor: buttonColor }]}>
         <TouchableOpacity
           onPress={() => this.props.onPress()}
           style={[styles.buttonTextWrapper]}

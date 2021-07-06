@@ -7,6 +7,7 @@ import {
   ImageBackground,
   Image,
   TouchableOpacity,
+  Dimensions
 } from 'react-native';
 
 import { Icon } from 'react-native-material-ui';
@@ -25,6 +26,8 @@ import uuidv4 from '../utils/uuidv4';
 
 import { connect } from 'react-redux';
 import { setCurrentUser } from '../actions/currentUserAction';
+
+const screenHeight = Dimensions.get('screen').height;
 
 class Welcome extends React.Component {
   state = {};
@@ -52,6 +55,10 @@ class Welcome extends React.Component {
   }
 
   _renderButtonNavs() {
+
+    // first button: #2bacb9
+    // second button: #e44977
+
     return (
       <View style={[Style.container, {marginTop: 0}]}>
         <ButtonNav
@@ -65,6 +72,7 @@ class Welcome extends React.Component {
         />
 
         <ButtonNav
+          active={true}
           title={"បន្តចូលមើល ជាភ្ញៀវ"}
           image={"head_profile"}
           iconSet={'MaterialCommunityIcons'}
@@ -72,6 +80,7 @@ class Welcome extends React.Component {
           audioPlayer={this.state.audioPlayer}
           updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
           onPress={() => this._loginAsGuest()}
+          buttonColor="#e44977"
         />
       </View>
     )
@@ -87,30 +96,47 @@ class Welcome extends React.Component {
     });
   }
 
+  _renderWelcomeMessage() {
+    return (
+      <View style={{marginTop: 10, marginBottom: -10}}>
+        <Text style={{fontFamily: FontFamily.title, fontSize: FontSize.title, textAlign: 'center'}}>សូមស្វាគមន៍</Text>
+        <Text style={{padding: 16, textAlign: 'center', fontSize: 15}}>
+          ដំណើរឆ្លងដែនរបស់ខ្ញុំគឺជាកម្មវិធីប្រពន្ធ័ទូរស័ព្ទ (អែប) ដើម្បីជួយដល់អ្នកប្រើប្រាស់អាចរកបាននូវព័ត៌មានដែលមានសារៈ​សំខាន់សម្រាប់ការធ្វើចំណាកស្រុក
+        </Text>
+      </View>
+    )
+  }
+
   _renderContent() {
     return (
-      <View style={{flex: 1}}>
-        <ImageBackground
+      <View style={{flex: 1, backgroundColor: '#f6f6f6'}}>
+        {/* <ImageBackground
           source={Images.welcome_bg}
-          style={{ width: '100%', height: '100%', resizeMode: "cover" }} >
+          resizeMode='contain'
+          style={{ width: '100%', height: '100%' }} > */}
 
-          <LinearGradient colors={['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, 0.01)',  '#fff']} style={{flex: 1}}>
-            <View style={{flex: 1, paddingHorizontal: 16}}>
-              <Image source={Images.spotlight_one_line} style={{width: "100%", height: 100, resizeMode: 'cover'}}/>
-            </View>
+          { this._renderWelcomeMessage() }
+          { this._renderButtonNavs() }
 
-            { this._renderVideoButton() }
 
-            <Text style={{fontFamily: FontFamily.title, fontSize: FontSize.title, textAlign: 'center'}}>សូមស្វាគមន៍</Text>
-          </LinearGradient>
-        </ImageBackground>
+          <View style={{paddingHorizontal: 16, marginTop: -25}}>
+            <Image source={Images.spotlight_one_line} style={{width: "100%", height: 100, resizeMode: 'contain'}}/>
+          </View>
+
+          { this._renderVideoButton() }
+        {/* </ImageBackground> */}
+        <Image
+          source={Images.welcome_bg}
+          style={{ width: '100%', height: '45%', position: 'absolute', bottom: 0, zIndex: -1 }}
+        />
       </View>
     )
   }
 
   _renderVideoButton() {
     return (
-      <View style={{width: '100%', height: '100%', position: 'absolute', alignItems: 'center', justifyContent: 'center'}}>
+      // <View style={{width: '100%', height: '100%', position: 'absolute', alignItems: 'center', justifyContent: 'center'}}>
+      <View style={{ width: '100%', position: 'absolute', alignItems: 'center', bottom: screenHeight / 7}}>
         <TouchableOpacity
           activeOpacity={0.8}
           style={{backgroundColor: '#fff', width: 50, height: 50, borderRadius: 25, justifyContent: 'center', alignItems: 'center'}}
@@ -134,13 +160,14 @@ class Welcome extends React.Component {
   render() {
     return (
       <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1, backgroundColor: '#fff' }}>
-        { this._renderContent() }
-
+        {/* <Text style={{fontFamily: FontFamily.title, fontSize: FontSize.title, textAlign: 'center'}}>សូមស្វាគមន៍</Text>
         <Text style={{padding: 16, textAlign: 'center'}}>
           ដំណើរឆ្លងដែនរបស់ខ្ញុំគឺជាកម្មវិធីប្រពន្ធ័ទូរស័ព្ទ (អែប) ដើម្បីជួយដល់អ្នកប្រើប្រាស់អាចរកបាននូវព័ត៌មានដែលមានសារៈ​សំខាន់សម្រាប់ការធ្វើចំណាកស្រុក
         </Text>
 
-        { this._renderButtonNavs() }
+        { this._renderButtonNavs() } */}
+
+        { this._renderContent() }
       </ScrollView>
     );
   }
