@@ -92,7 +92,7 @@ class CardItem extends React.Component {
         onPress={() => this.callOrOpenLink(contactInfo)}  
       >
         <Icon iconSet="FontAwesome"
-          name={contactInfo.type.toLowerCase()}
+          name={contactInfo.type.toLowerCase() == 'website' ? 'globe' : contactInfo.type.toLowerCase()}
           size={24}
           color={Color.yellow}
         />
