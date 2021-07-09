@@ -7,14 +7,15 @@ import {
   ImageBackground,
   Image,
   TouchableOpacity,
+  Dimensions
 } from 'react-native';
 
 import { Icon } from 'react-native-material-ui';
+import DeviceInfo from 'react-native-device-info'
 import { Color, Style, FontFamily, FontSize } from '../assets/stylesheets/base_style';
 import ButtonNav from '../components/button_nav';
 import NetInfo from "@react-native-community/netinfo";
 import Images from '../utils/images';
-import LinearGradient from 'react-native-linear-gradient';
 
 import { getVideoId } from '../utils/youtube';
 import i18n from 'i18next';
@@ -25,6 +26,8 @@ import uuidv4 from '../utils/uuidv4';
 
 import { connect } from 'react-redux';
 import { setCurrentUser } from '../actions/currentUserAction';
+
+const screenHeight = Dimensions.get('screen').height;
 
 class Welcome extends React.Component {
   state = {};
@@ -65,6 +68,7 @@ class Welcome extends React.Component {
         />
 
         <ButtonNav
+          active={true}
           title={"បន្តចូលមើល ជាភ្ញៀវ"}
           image={"head_profile"}
           iconSet={'MaterialCommunityIcons'}
@@ -72,6 +76,7 @@ class Welcome extends React.Component {
           audioPlayer={this.state.audioPlayer}
           updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
           onPress={() => this._loginAsGuest()}
+          buttonColor="#e44977"
         />
       </View>
     )
@@ -87,30 +92,59 @@ class Welcome extends React.Component {
     });
   }
 
+  _renderWelcomeMessage() {
+    return (
+      <View style={{marginTop: 5, marginBottom: -20}}>
+        <Text style={{fontFamily: FontFamily.title, fontSize: FontSize.title, textAlign: 'center'}}>សូមស្វាគមន៍</Text>
+        <Text style={{padding: 16, paddingTop: 5, textAlign: 'center', fontSize: 15}}>
+          ដំណើរឆ្លងដែនរបស់ខ្ញុំគឺជាកម្មវិធីប្រពន្ធ័ទូរស័ព្ទ (អែប) ដើម្បីជួយដល់អ្នកប្រើប្រាស់អាចរកបាននូវព័ត៌មានដែលមានសារៈ​សំខាន់សម្រាប់ការធ្វើចំណាកស្រុក
+        </Text>
+      </View>
+    )
+  }
+
+  imageBackgroundTop() {
+    if (DeviceInfo.isTablet())
+      return screenHeight / 7.5;
+
+    return screenHeight < 732 ? (screenHeight / 3.2) : (screenHeight / 4.6);
+  }
+
   _renderContent() {
     return (
-      <View style={{flex: 1}}>
+      <View style={{flex: 1, backgroundColor: '#fff'}}>
         <ImageBackground
           source={Images.welcome_bg}
-          style={{ width: '100%', height: '100%', resizeMode: "cover" }} >
+          style={{ width: '100%', height: '100%', backgroundColor: '#fff'}}
+          imageStyle={{
+            borderWidth: 1,
+            resizeMode: 'contain',
+            alignSelf: 'flex-end',
+            top: this.imageBackgroundTop()
+          }}
+        >
+          { this._renderWelcomeMessage() }
+          { this._renderButtonNavs() }
 
-          <LinearGradient colors={['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, 0.01)',  '#fff']} style={{flex: 1}}>
-            <View style={{flex: 1, paddingHorizontal: 16}}>
-              <Image source={Images.spotlight_one_line} style={{width: "100%", height: 100, resizeMode: 'cover'}}/>
-            </View>
-
-            { this._renderVideoButton() }
-
-            <Text style={{fontFamily: FontFamily.title, fontSize: FontSize.title, textAlign: 'center'}}>សូមស្វាគមន៍</Text>
-          </LinearGradient>
+          <View style={{paddingHorizontal: 16, marginTop: -25}}>
+            <Image source={Images.spotlight_one_line} style={{width: "100%", height: 100, resizeMode: 'contain'}}/>
+          </View>
+          { this._renderVideoButton() }
         </ImageBackground>
       </View>
     )
   }
 
+  videoButtonBottom() {
+    if (DeviceInfo.isTablet())
+      return screenHeight / 3.2;
+
+    return screenHeight < 732 ? screenHeight / 5.8 : screenHeight / 5;
+  }
+
   _renderVideoButton() {
     return (
-      <View style={{width: '100%', height: '100%', position: 'absolute', alignItems: 'center', justifyContent: 'center'}}>
+      <View style={{ width: '100%', position: 'absolute', alignItems: 'center', bottom: this.videoButtonBottom()}}>
         <TouchableOpacity
           activeOpacity={0.8}
           style={{backgroundColor: '#fff', width: 50, height: 50, borderRadius: 25, justifyContent: 'center', alignItems: 'center'}}
@@ -135,12 +169,6 @@ class Welcome extends React.Component {
     return (
       <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1, backgroundColor: '#fff' }}>
         { this._renderContent() }
-
-        <Text style={{padding: 16, textAlign: 'center'}}>
-          ដំណើរឆ្លងដែនរបស់ខ្ញុំគឺជាកម្មវិធីប្រពន្ធ័ទូរស័ព្ទ (អែប) ដើម្បីជួយដល់អ្នកប្រើប្រាស់អាចរកបាននូវព័ត៌មានដែលមានសារៈ​សំខាន់សម្រាប់ការធ្វើចំណាកស្រុក
-        </Text>
-
-        { this._renderButtonNavs() }
       </ScrollView>
     );
   }

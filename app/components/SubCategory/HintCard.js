@@ -22,11 +22,11 @@ class HintCard extends Component {
           style={{ width: '100%', height: '100%', resizeMode: "cover"}}>
 
           <View style={[Style.cardContent, styles.mainCardContent]}>
-            <View style={{ marginRight: 10, paddingHorizontal: 10, justifyContent: "center" }}>
+            <View style={{ paddingRight: 8, justifyContent: "center" }}>
               <Text style={styles.mainCardNumber}>{this.props.totalItem}</Text>
             </View>
 
-            <View style={{ flex: 1, justifyContent: "center" }}>
+            <View style={{ flex: 1, justifyContent: "center", marginTop: -6}}>
               <Text style={styles.mainCardLabel}>{this.props.label}</Text>
             </View>
 
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   },
   mainCardNumber: {
     fontFamily: FontFamily.title,
-    fontSize: FontSize.title + 30,
+    fontSize: FontSize.title + 60,
     color: Color.white,
   },
   mainCardLabel: {

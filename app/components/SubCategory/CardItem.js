@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.title,
     fontSize: FontSize.title + 15,
     color: Color.red,
-    marginBottom: 5
+    marginTop: 3
   },
   title: {
     flex: 1,
