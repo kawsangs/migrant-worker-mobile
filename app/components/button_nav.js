@@ -19,7 +19,7 @@ export default class ButtonNav extends React.Component {
     let buttonColor = this.props.active ? this.props.buttonColor ? this.props.buttonColor : Color.primary : Color.white;
     let borderColor = this.props.buttonColor ? this.props.buttonColor : Color.primary;
 
-    let iconTintColor = this.props.active ? Color.primary : Color.white;
+    let iconTintColor = this.props.active ? Color.primary : Color.pink;
 
     return (
       <View style={[styles.buttonWrapper, Style.boxShadow, { borderColor: borderColor, backgroundColor: buttonColor }]}>

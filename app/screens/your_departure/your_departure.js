@@ -42,7 +42,7 @@ class YourDeparture extends Component {
   }
 
   _clearAudioPlayer() {
-    if (this.state.audioPlayer) {
+    if (this.state.audioPlayer){
       this.state.audioPlayer.release();
       this.setState({ audioPlayer: null });
     }

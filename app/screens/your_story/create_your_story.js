@@ -27,6 +27,7 @@ import { setCurrentQuiz } from '../../actions/currentQuizAction';
 import uuidv4 from '../../utils/uuidv4';
 import { HeaderBackButton } from '@react-navigation/stack';
 import HomeButton from '../../components/Toolbar/HomeButton';
+import PlaySound from '../../components/play_sound';
 
 class CreateYourStory extends Component {
   state = {loading: true};
@@ -108,7 +109,14 @@ class CreateYourStory extends Component {
         <View style={[Style.card]}>
           <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 10}}>
             <OutlineInfoIcon />
-            <Text style={{fontFamily: FontFamily.title}}>អបអរសារទរ</Text>
+            <Text style={{fontFamily: FontFamily.title, flex: 1}}>អបអរសារទរ</Text>
+            <PlaySound
+              iconStyle={{ tintColor: Color.white }}
+              buttonAudioStyle={{ backgroundColor: Color.pink }}
+              filePath={"congratulation_for_more_knowledge.mp3"}
+              audioPlayer={this.state.audioPlayer}
+              updateMainAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
+            />
           </View>
 
           <Text>អ្នកបានដឹងគន្លឹះសំខាន់ខ្លះៗ ដែលគាំទ្រអ្នកក្នុងការទទួលបានការងារដោយសុវត្ថិភាពនៅប្រទេសគោលដៅ</Text>
@@ -118,7 +126,7 @@ class CreateYourStory extends Component {
           { !!this.state.nextForm &&
             <TouchableOpacity
               activeOpacity={0.8}
-              style={{backgroundColor: Color.primary, padding: 8, borderRadius: 8, flexDirection: 'row', width: '100%', justifyContent: 'center', marginBottom: 10}}
+              style={{backgroundColor: Color.pink, padding: 8, borderRadius: 8, flexDirection: 'row', width: '100%', justifyContent: 'center', marginBottom: 10}}
               onPress={() => this._setForm(this.state.nextForm.id)}>
 
               <View style={{flex: 1}}/>
@@ -131,7 +139,7 @@ class CreateYourStory extends Component {
 
           <TouchableOpacity
             activeOpacity={0.8}
-            style={{backgroundColor: Color.primary, padding: 8, borderRadius: 8, flexDirection: 'row', width: '100%', justifyContent: 'center'}}
+            style={{backgroundColor: Color.pink, padding: 8, borderRadius: 8, flexDirection: 'row', width: '100%', justifyContent: 'center'}}
             onPress={() => this.props.navigation.goBack()}>
 
             <View style={{flex: 1, alignItems: 'flex-start'}}>
