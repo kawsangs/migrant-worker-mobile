@@ -77,7 +77,7 @@ export default function ListVideos(props) {
 
   const onPressItem = (video) => {
     addStatistic('ViewVideo', { videoId: getVideoId(video.url), title: video[`title_${i18n.language}`] });
-    navigation.navigate('ViewVideoScreen', { videoId: getVideoId(video.url) });
+    navigation.navigate('ViewVideoScreen', { videoId: getVideoId(video.url), isLocalVideo: false });
   }
 
   const _renderItem = (video, index) => {
