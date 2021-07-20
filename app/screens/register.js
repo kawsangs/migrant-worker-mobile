@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 import { Icon } from 'react-native-material-ui';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
 import Audio from '../components/Register/Audio';
 
@@ -149,13 +150,17 @@ class Register extends Component {
     )
   }
 
-  _submit() {
+  async _submit() {
     if (!this.state.isFormValid)
       return ToastAndroid.show(this.props.t("RegisterScreen.WarningFillRequiredInfo"), ToastAndroid.SHORT);
 
     User.upsert(this._buildData());
     User.uploadAsync(this.state.uuid);
     this.props.setCurrentUser(User.find(this.state.uuid));
+    try {
+      await AsyncStorage.setItem('IS_NEW_SESSION', 'true');
+    } catch (e) {
+    }
 
     if (this.action == 'edit') {
       this.props.navigation.goBack();
