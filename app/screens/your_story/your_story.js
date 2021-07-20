@@ -65,8 +65,8 @@ class YourStory extends Component {
         audio={item.audio}
         image={item.imageSource}
         onPress={() => this._onPress(item)}
-        buttonAudioStyle={{backgroundColor: Color.pink}}
-        audioIconStyle={{tintColor: Color.white}}
+        buttonAudioStyle={{backgroundColor: Color.white}}
+        audioIconStyle={{tintColor: Color.pink}}
         audioPlayer={this.state.audioPlayer}
         updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
       />
