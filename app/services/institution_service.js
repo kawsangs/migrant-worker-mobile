@@ -7,10 +7,13 @@ import institutionHelper from '../helpers/institution_helper';
 
 import RNFS from 'react-native-fs';
 
+import institutions from '../data/json/institutions'
+
 const InstitutionService = (() => {
   return {
     fetch,
-    getInstitutionByCountry
+    getInstitutionByCountry,
+    getNameKhmer,
   }
 
   function fetch(countryCode, successCallback, errorCallback) {
@@ -71,6 +74,15 @@ const InstitutionService = (() => {
     });
 
     return institutions;
+  }
+
+  function getNameKhmer(id) {
+    const institution = institutions.filter(item => item.id == id);
+
+    if (institution.length > 0)
+      return institution[0].name_km;
+
+    return '';
   }
 
   // private function
