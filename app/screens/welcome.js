@@ -82,14 +82,8 @@ class Welcome extends React.Component {
     )
   }
 
-  _onPressItem(video) {
-    NetInfo.fetch().then(state => {
-      if (!state.isConnected) {
-        return ToastAndroid.show("សូមភ្ជាប់បណ្តាញអ៊ិនធឺណេតជាមុនសិន!", ToastAndroid.SHORT);
-      }
-
-      this.props.navigation.navigate('ViewVideoScreen', { videoId: getVideoId("https://www.youtube.com/watch?v=ttSsAGmpC_U") });
-    });
+  _onPressItem() {
+    this.props.navigation.navigate('ViewVideoScreen', { videoId: require('../assets/videos/MYJOURNEY_LAUNCH_FILM_small.mp4'), isLocalVideo: true });
   }
 
   _renderWelcomeMessage() {
