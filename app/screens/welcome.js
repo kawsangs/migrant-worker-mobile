@@ -72,7 +72,7 @@ class Welcome extends React.Component {
           title={"បន្តចូលមើល ជាភ្ញៀវ"}
           image={"head_profile"}
           iconSet={'MaterialCommunityIcons'}
-          audio={""}
+          audio={"login_as_guest.mp3"}
           audioPlayer={this.state.audioPlayer}
           updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
           onPress={() => this._loginAsGuest()}

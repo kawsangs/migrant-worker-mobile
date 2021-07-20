@@ -105,7 +105,7 @@ class Register extends Component {
       <View style={[{ marginBottom: 24 }, registerHelper.validationBorder(this.state.sex, 'sex', this.state.isFormValid)]}>
         <View style={{ marginBottom: 10, flexDirection: 'row' }}>
           <Text style={{ flex: 1 }}>{this.props.t('RegisterScreen.ChooseGender')}</Text>
-          {this._buildButtonAudio('')}
+          {this._buildButtonAudio('choose_gender.mp3')}
         </View>
 
         <SexOption
@@ -210,8 +210,8 @@ class Register extends Component {
 
   render() {
     let list = [
-      { stateName: 'name', iconName: 'person', placeholder: 'EnterYourName', audioFilename: '' },
-      { stateName: 'age', iconName: 'person', placeholder: 'EnterYourAge', audioFilename: '', keyboardType: 'number-pad' },
+      { stateName: 'name', iconName: 'person', placeholder: 'EnterYourName', audioFilename: 'insert_your_name.mp3' },
+      { stateName: 'age', iconName: 'person', placeholder: 'EnterYourAge', audioFilename: 'insert_your_age.mp3', keyboardType: 'number-pad' },
     ]
 
     return (

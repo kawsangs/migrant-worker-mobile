@@ -9,7 +9,7 @@ export default [
     screenName: 'YourDepartureScreen',
     imageWidth: '480',
     imageHeight: '360',
-    audioFileName: '',
+    audio: 'your_migration_02.mp3',
     backgroundColor: Color.red
   },
   {
@@ -20,7 +20,7 @@ export default [
     screenName: 'YourSafetyScreen',
     imageWidth: '300',
     imageHeight: '372',
-    audioFileName: '',
+    audio: 'your_safety_03.mp3',
     backgroundColor: Color.primary
   },
   {
@@ -31,7 +31,7 @@ export default [
     screenName: 'CountriesListingScreen',
     imageWidth: '440',
     imageHeight: '344',
-    audioFileName: '',
+    audio: 'looking_for_help_05.mp3',
     backgroundColor: Color.yellow
   },
   {
@@ -42,7 +42,7 @@ export default [
     screenName: 'YourStoryScreen',
     imageWidth: '440',
     imageHeight: '344',
-    audioFileName: '',
+    audio: 'your_story_04.mp3',
     backgroundColor: Color.pink
   },
 ]
