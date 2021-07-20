@@ -368,7 +368,7 @@ export default [
       {
         "id": 25,
         "type": "Website",
-        "value": " http://www.maple.org.cn/"
+        "value": "http://www.maple.org.cn/"
       }
     ],
     "country_institutions": [
