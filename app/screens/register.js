@@ -50,6 +50,10 @@ class Register extends Component {
     this.action = props.route.params.action || "register";
   }
 
+  componentDidMount() {
+    this._validateForm()
+  }
+
   _setState(stateName, value) {
     let obj = {};
     obj[stateName] = value;
