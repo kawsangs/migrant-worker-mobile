@@ -203,7 +203,7 @@ class Register extends Component {
         <View style={styles.coverRegisterLabel}>
           <Text style={[styles.buttonNextText, !this.state.isFormValid ? { color: 'black' } : {}]}>{this.props.t("RegisterScreen.ButtonRegister")}</Text>
         </View>
-        {this._buildButtonAudio('register.mp3', true)}
+        {this._buildButtonAudio('save.mp3', true)}
       </TouchableOpacity>
     )
   }

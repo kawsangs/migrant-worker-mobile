@@ -161,7 +161,7 @@ export default [
         "name": "ប្រទេសផ្សេងទៀត (សូមបញ្ជាក់ពីឈ្មោះប្រទេស)",
         "type": "Questions::Text",
         "hint": null,
-        "audio_url": null,
+        "audio_url": "/uploads/questions/text/audio/2/other_country.mp3",
         "display_order": 2,
         "relevant": null,
         "required": null,
@@ -183,6 +183,7 @@ export default [
         "options": [
 
         ],
+        "audio": "other_country.mp3",
         "offline": true
       },
       {
@@ -823,7 +824,7 @@ export default [
         "name": "មធ្យោបាយផ្សេងទៀត (សូមបញ្ជាក់ពីមធ្យោបាយ)",
         "type": "Questions::Text",
         "hint": null,
-        "audio_url": null,
+        "audio_url": "/uploads/questions/text/audio/12/other_transportation.mp3",
         "display_order": 2,
         "relevant": null,
         "required": null,
@@ -845,6 +846,7 @@ export default [
         "options": [
 
         ],
+        "audio": "other_transportation.mp3",
         "offline": true
       },
       {

@@ -185,7 +185,7 @@ class CreateYourStory extends Component {
           message={"តើអ្នកប្រាកដថាចង់ចាកចេញពីហ្គេមនេះដែរឬទេ?"}
           onPressAction={() => this._handleHideMessage()}
           onPressCancel={() => this._closeAlertMessage()}
-          audio={""}
+          audio={"exit_game.mp3"}
           audioPlayer={this.state.audioPlayer}
           updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
         />

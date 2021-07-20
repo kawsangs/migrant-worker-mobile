@@ -32,7 +32,7 @@ class NextButton extends Component {
           </View>
 
           <PlaySound
-            filePath={''}
+            filePath={'next.mp3'}
             buttonAudioStyle={{ backgroundColor: Color.white }}
             iconStyle={{ tintColor: Color.pink }}
             style={{ marginHorizontal: 10 }}
