@@ -14,6 +14,33 @@ import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
 
 class HintCard extends Component {
+  getTotalItem() {
+    switch (this.props.totalItem) {
+      case 1:
+        return '១';
+      case 2:
+        return '២';
+      case 3:
+        return '៣';
+      case 4:
+        return '៤';
+      case 5:
+        return '៥';
+      case 6:
+        return '៦';
+      case 7:
+        return '៧';
+      case 8:
+        return '៨';
+      case 9:
+        return '៩';
+      case 10:
+        return '១០';
+      default:
+        return this.props.totalItem;
+    }
+  }
+
   render() {
     return (
       <View style={[Style.card, { maxHeight: 150, padding: 0, backgroundColor: Color.red }]}>
@@ -23,7 +50,7 @@ class HintCard extends Component {
 
           <View style={[Style.cardContent, styles.mainCardContent]}>
             <View style={{ paddingRight: 8, justifyContent: "center" }}>
-              <Text style={styles.mainCardNumber}>{this.props.totalItem}</Text>
+              <Text style={styles.mainCardNumber}>{this.getTotalItem()}</Text>
             </View>
 
             <View style={{ flex: 1, justifyContent: "center", marginTop: -6}}>
