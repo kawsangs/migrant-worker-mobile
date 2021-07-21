@@ -60,6 +60,7 @@ class AppNavigator extends Component {
     if (!isNewSession) {
       AsyncStorage.removeItem('CURRENT_USER');
       this.props.setCurrentUser(null);
+      sessionHelper.removeQuizQueue();
     }
 
     this.getUser();
