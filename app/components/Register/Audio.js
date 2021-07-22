@@ -73,7 +73,7 @@ export default class Audio extends Component {
         }
 
         let seconds = Math.ceil(this.sound.getDuration());
-        this.setState({visiblePlayButton: true, recordedTime: seconds});
+        this.setState({visiblePlayButton: true, recordedTime: seconds, playSeconds: seconds});
       });
     }
   }
@@ -141,29 +141,29 @@ export default class Audio extends Component {
     if (this.props.audioPlayer)
       this.props.audioPlayer.release();
 
-    if (this.recorder) {
-      this.sound = new Sound(this.recorder.fsPath, '', (error) => {
-        if (error)
-          return console.log('failed to load the sound', error);
+    const filePath = this.recorder ? this.recorder.fsPath : this.state.audioPath;
 
-        this._countPlaySeconds();
-        this.setState({ isPlaying: true });
+    this.sound = new Sound(filePath, '', (error) => {
+      if (error)
+        return console.log('failed to load the sound', error);
 
-        this.sound.play((success) => {
-          if (success) {
-            this.setState({
-              isPlaying: false,
-              playSeconds: this.state.recordedTime
-            });
-          }
-          else
-            this.sound.release();
-        });
+      this._countPlaySeconds();
+      this.setState({ isPlaying: true });
+
+      this.sound.play((success) => {
+        if (success) {
+          this.setState({
+            isPlaying: false,
+            playSeconds: this.state.recordedTime
+          });
+        }
+        else
+          this.sound.release();
       });
+    });
 
-      if (this.props.updateAudioPlayer)
-        this.props.updateAudioPlayer(this.sound);
-    }
+    if (this.props.updateAudioPlayer)
+      this.props.updateAudioPlayer(this.sound);
   }
 
   _record() {

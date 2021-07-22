@@ -51,6 +51,10 @@ class Register extends Component {
     this.action = props.route.params.action || "register";
   }
 
+  componentDidMount() {
+    this._validateForm()
+  }
+
   _setState(stateName, value) {
     let obj = {};
     obj[stateName] = value;
@@ -206,7 +210,7 @@ class Register extends Component {
       >
         <View style={{ width: 58 }} />
         <View style={styles.coverRegisterLabel}>
-          <Text style={[styles.buttonNextText, !this.state.isFormValid ? { color: 'black' } : {}]}>{this.props.t("RegisterScreen.ButtonRegister")}</Text>
+          <Text style={[styles.buttonNextText, !this.state.isFormValid ? { color: 'black' } : {}]}>{this.props.t("RegisterScreen.ButtonSave")}</Text>
         </View>
         {this._buildButtonAudio('save.mp3', true)}
       </TouchableOpacity>
