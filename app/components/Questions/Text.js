@@ -44,7 +44,7 @@ class QuestionsText extends Component {
     return (
       <TextInput
         value={this.state.answer}
-        style={{borderWidth: 1, borderColor: Color.gray, marginTop: 10}}
+        style={[{borderWidth: 1.5, paddingHorizontal: 10, marginTop: 10, borderRadius: 10}, !this.state.answer && !this.state.voice ? { borderColor: Color.red } : { borderColor: Color.gray }]}
         onChangeText={(value) => this.setState({answer: value})}
       />
     );
