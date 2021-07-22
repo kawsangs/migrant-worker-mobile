@@ -41,6 +41,7 @@ import HomeButton from '../components/Toolbar/HomeButton';
 import DeleteNotificationButton from '../components/Toolbar/deleteNotificationButton';
 import LoadingIndicator from '../components/loading_indicator';
 import Sidekiq from '../models/Sidekiq';
+import sessionHelper from '../helpers/session_helper';
 
 const Stack = createStackNavigator();
 
@@ -53,7 +54,15 @@ export function navigate(name, params) {
 class AppNavigator extends Component {
   state = { loading: true };
 
-  componentDidMount() {
+  async componentDidMount() {
+    const isNewSession = await sessionHelper.isNewSession();
+
+    if (!isNewSession) {
+      AsyncStorage.removeItem('CURRENT_USER');
+      this.props.setCurrentUser(null);
+      sessionHelper.removeQuizQueue();
+    }
+
     this.getUser();
 
     setTimeout(() => {

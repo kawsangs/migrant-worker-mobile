@@ -12,6 +12,7 @@ import {
 
 import { Icon } from 'react-native-material-ui';
 import DeviceInfo from 'react-native-device-info'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Color, Style, FontFamily, FontSize } from '../assets/stylesheets/base_style';
 import ButtonNav from '../components/button_nav';
 import NetInfo from "@react-native-community/netinfo";
@@ -32,7 +33,7 @@ const screenHeight = Dimensions.get('screen').height;
 class Welcome extends React.Component {
   state = {};
 
-  _loginAsGuest() {
+  async _loginAsGuest() {
     this._clearAudioPlayer();
 
     let uuid = uuidv4();
@@ -40,6 +41,10 @@ class Welcome extends React.Component {
     User.uploadAsync(uuid);
 
     this.props.setCurrentUser(User.find(uuid));
+    try {
+      await AsyncStorage.setItem('IS_NEW_SESSION', 'true');
+    } catch (e) {
+    }
   }
 
   _register() {
