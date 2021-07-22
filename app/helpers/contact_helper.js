@@ -14,7 +14,7 @@ const contactHelper = (() => {
       case WHATSAPP:
         return `https://api.whatsapp.com/send?phone=${value}`;
       default:
-        return value;
+        return value.replace(/\s/g, '');
     }
   }
 })();

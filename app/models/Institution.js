@@ -82,7 +82,7 @@ const Institution = (() => {
     let params = {
       id: item.id,
       name: item.name,
-      kind: '',
+      name_km: item.name_km,
       address: item.address,
       logo_url: item.logo_url,
       audio_url: item.audio_url,

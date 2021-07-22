@@ -5,6 +5,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មជ្ឈមណ្ឌលធនធានជាតិប្រឆំាងអំពើជួញដូរមនុស្ស",
     "contacts": [
       {
         "id": 1,
@@ -26,6 +27,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "បណ្តាញទូរស័ព្ទជំនួយកុមារកម្ពុជា",
     "contacts": [
       {
         "id": 2,
@@ -52,6 +54,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "នាយកដ្ឋានប្រឆាំងការជួញដូរមនុស្ស និងការពារអនីតិជន",
     "contacts": [
       {
         "id": 4,
@@ -73,6 +76,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "អង្គការអន្តរជាតិទេសន្តរប្រវេសន៍ប្រចាំកម្ពុជា(IOM)",
     "contacts": [
       {
         "id": 5,
@@ -99,6 +103,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "អង្គការ​សម្ព័ន្ធ​ចាប់ដៃ",
     "contacts": [
       {
         "id": 7,
@@ -125,6 +130,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "សម្ព័ន្ធខ្មែរ​ជំរឿន និង​ការពារ​សិទិ្ធមនុស្ស លីកាដូ​",
     "contacts": [
       {
         "id": 9,
@@ -156,6 +162,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "សមាគមអាដហុក ADHOC",
     "contacts": [
       {
         "id": 12,
@@ -182,6 +189,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មជ្ឈមណ្ឌលសម័្ពន្ធភាពការងារ និងសិទ្ធមនុស្ស(CENTRAL)",
     "contacts": [
       {
         "id": 14,
@@ -218,6 +226,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មជ្ឈមណ្ឌលធនធានជាតិប្រឆំាងអំពើជួញដូរមនុស្ស",
     "contacts": [
       {
         "id": 18,
@@ -239,6 +248,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "ស្ថានទូតកម្ពុជានៅប៉េកំាង",
     "contacts": [
       {
         "id": 19,
@@ -260,6 +270,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "ស្ថានកុងស៊ុលកម្ពុជា នៅខេត្តក្វាងចូវ",
     "contacts": [
       {
         "id": 20,
@@ -281,6 +292,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "ស្ថានកុងស៊ុលកម្ពុជានៅក្រុងស៊ាងហៃ",
     "contacts": [
       {
         "id": 21,
@@ -302,6 +314,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "General of the Kingdom of Cambodia in Nanning",
     "contacts": [
       {
         "id": 22,
@@ -323,6 +336,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "រាយការណ៍ករណីជួញដូរ និងទទួលសេវាបញ្ជូនបន្ត",
     "contacts": [
       {
         "id": 23,
@@ -344,6 +358,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មជ្ឍមណ្ឌលម៉ាផលប្រឹក្សាផ្នែកចិត្តសាស្រ្តស្ត្រីនៅទីក្រុងប៉េកាំង",
     "contacts": [
       {
         "id": 24,
@@ -370,6 +385,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "បណ្តាញជំនួយដល់ស្រ្តី",
     "contacts": [
       {
         "id": 26,
@@ -396,6 +412,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មជ្ឈមណ្ឌលធនធានជាតិប្រឆំាងអំពើជួញដូរមនុស្ស",
     "contacts": [
       {
         "id": 28,
@@ -417,6 +434,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "ស្ថានកុងស៊ុលកម្ពុជាប្រចាំហុងកុង",
     "contacts": [
       {
         "id": 29,
@@ -438,6 +456,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មន្រ្តីប៉ូលីស",
     "contacts": [
       {
         "id": 30,
@@ -469,6 +488,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "នាយកដ្ឋានសុខមាលភាពសង្គម",
     "contacts": [
       {
         "id": 33,
@@ -490,6 +510,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "អង្គការប្រឆាំងនឹងការរំលោភបំពានលើកុមារ",
     "contacts": [
       {
         "id": 34,
@@ -516,6 +537,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មជ្ឈមណ្ឌលធនធានជាតិប្រឆំាងអំពើជួញដូរមនុស្ស",
     "contacts": [
       {
         "id": 36,
@@ -537,6 +559,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "ស្ថានកុងស៊ុលកម្ពុជាប្រចាំប្រទេសជប៉ុន",
     "contacts": [
       {
         "id": 37,
@@ -563,6 +586,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មន្រ្តីប៉ូលីស ",
     "contacts": [
       {
         "id": 39,
@@ -589,6 +613,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "អង្គការសេវាសង្គម និងសុខភាព ផ្តល់ជម្រកដល់ស្ត្រីអាស៊ី",
     "contacts": [
       {
         "id": 41,
@@ -615,6 +640,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "អង្គការការ៉ាសាន",
     "contacts": [
       {
         "id": 43,
@@ -636,6 +662,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "បណ្តាញកុមារ",
     "contacts": [
       {
         "id": 44,
@@ -662,6 +689,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មជ្ឈមណ្ឌលធនធានជាតិប្រឆំាងអំពើជួញដូរមនុស្ស",
     "contacts": [
       {
         "id": 46,
@@ -683,6 +711,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "ស្ថានកុងស៊ុលកម្ពុជាប្រចាំប្រទេសគុយវ៉េត",
     "contacts": [
       {
         "id": 47,
@@ -714,6 +743,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មន្រ្តីប៉ូលីស",
     "contacts": [
       {
         "id": 50,
@@ -745,6 +775,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មជ្ឈមណ្ឌលធនធានជាតិប្រឆំាងអំពើជួញដូរមនុស្ស",
     "contacts": [
       {
         "id": 53,
@@ -766,6 +797,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "ស្ថានទូតកម្ពុជាប្រចំាប្រទេសម៉ាឡេស៊ី ",
     "contacts": [
       {
         "id": 54,
@@ -797,6 +829,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មន្រ្តីប៉ូលីស",
     "contacts": [
       {
         "id": 57,
@@ -818,6 +851,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "អង្គការជំនួយស្ត្រី",
     "contacts": [
       {
         "id": 58,
@@ -844,6 +878,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មជ្ឈមណ្ឌលធនធានជាតិប្រឆំាងអំពើជួញដូរមនុស្ស",
     "contacts": [
       {
         "id": 60,
@@ -865,6 +900,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "ស្ថានទូតកម្ពុជាប្រចំាប្រទេសហ្វីលីពីន",
     "contacts": [
       {
         "id": 61,
@@ -896,6 +932,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មន្រ្តីប៉ូលីស",
     "contacts": [
       {
         "id": 64,
@@ -917,6 +954,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មជ្ឈមណ្ឌលការពារស្ត្រី និងកុមារហ្វីលីពីន",
     "contacts": [
       {
         "id": 65,
@@ -943,6 +981,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មជ្ឈមណ្ឌលធនធានជាតិប្រឆំាងអំពើជួញដូរមនុស្ស",
     "contacts": [
       {
         "id": 67,
@@ -964,6 +1003,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "ស្ថានទូតកម្ពុជាប្រចំាប្រទេសកូរ៉េ",
     "contacts": [
       {
         "id": 68,
@@ -985,6 +1025,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មន្រ្តីប៉ូលីស",
     "contacts": [
       {
         "id": 69,
@@ -1016,6 +1057,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "សមាគមនារីកូរ៉េ (KWA)",
     "contacts": [
       {
         "id": 72,
@@ -1042,6 +1084,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មជ្ឈមណ្ឌលធនធានជាតិប្រឆំាងអំពើជួញដូរមនុស្ស",
     "contacts": [
       {
         "id": 74,
@@ -1063,6 +1106,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មន្រ្តីប៉ូលីស",
     "contacts": [
       {
         "id": 75,
@@ -1084,6 +1128,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "នាយកដ្ឋានប៉ូលីសចរាចរណ៍និងល្បាត",
     "contacts": [
       {
         "id": 76,
@@ -1105,6 +1150,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មជ្ឈមណ្ឌលធនធានជាតិប្រឆំាងអំពើជួញដូរមនុស្ស",
     "contacts": [
       {
         "id": 77,
@@ -1126,6 +1172,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មន្រ្តីប៉ូលីស",
     "contacts": [
       {
         "id": 78,
@@ -1152,6 +1199,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "លេខទាន់ហេតុការ នៅប្រទេសអារ៉ាប់ប៊ីសាអូឌីត (មិនត្រូវការស៊ីមកាត)",
     "contacts": [
       {
         "id": 80,
@@ -1173,6 +1221,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "រាយការណ៍អំពីការរំលោភ ទាក់ទងនឹងការងារនិងការស្នាក់នៅ",
     "contacts": [
       {
         "id": 81,
@@ -1194,6 +1243,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មជ្ឈមណ្ទលជំនួយ",
     "contacts": [
       {
         "id": 82,
@@ -1220,6 +1270,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មជ្ឈមណ្ឌលធនធានជាតិប្រឆំាងអំពើជួញដូរមនុស្ស",
     "contacts": [
       {
         "id": 84,
@@ -1241,6 +1292,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "ស្ថានទូតកម្ពុជាប្រចំាប្រទេសសិង្ហបុរី",
     "contacts": [
       {
         "id": 85,
@@ -1272,6 +1324,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មន្រ្តីប៉ូលីស",
     "contacts": [
       {
         "id": 88,
@@ -1293,6 +1346,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "សមាគមស្ត្រីសម្រាប់សកម្មភាពនិង​ ការស្រាវជ្រាវ",
     "contacts": [
       {
         "id": 89,
@@ -1334,6 +1388,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មជ្ឈមណ្ឌលធនធានជាតិប្រឆំាងអំពើជួញដូរមនុស្ស",
     "contacts": [
       {
         "id": 94,
@@ -1355,6 +1410,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "ស្ថានទូតកម្ពុជាប្រចំាប្រទេសថៃ",
     "contacts": [
       {
         "id": 95,
@@ -1401,6 +1457,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "ស្ថានកុងស៊ុលកម្ពុជា នៅសាកែវ ប្រទេសថៃ",
     "contacts": [
       {
         "id": 101,
@@ -1427,6 +1484,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មន្រ្តីប៉ូលីស",
     "contacts": [
       {
         "id": 103,
@@ -1448,6 +1506,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "នាយកដ្ឋានប្រឆាំងអំពើជួញដូរមនុស្ស ",
     "contacts": [
       {
         "id": 104,
@@ -1469,6 +1528,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "បណ្តាញជំនួយពលករចំណាកស្រុក",
     "contacts": [
       {
         "id": 105,
@@ -1490,6 +1550,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "បណ្តាញកុមារនៅប្រទេសថៃ",
     "contacts": [
       {
         "id": 106,
@@ -1521,6 +1582,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មជ្ឈមណ្ឌលច្រកតែមួយដើម្បីដោះស្រាយវិបត្តិ",
     "contacts": [
       {
         "id": 109,
@@ -1547,6 +1609,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មូលនិធិដើម្បីស្រ្តី",
     "contacts": [
       {
         "id": 111,
@@ -1573,6 +1636,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មជ្ឈមណ្ឌលសម័្ពន្ធភាពការងារ និងសិទ្ធមនុស្ស(CENTRAL)",
     "contacts": [
       {
         "id": 113,
@@ -1604,6 +1668,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មជ្ឈមណ្ឌលធនធានជាតិប្រឆំាងអំពើជួញដូរមនុស្ស",
     "contacts": [
       {
         "id": 116,
@@ -1625,6 +1690,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "ស្ថានទូតកម្ពុជាប្រចំាប្រទេសវៀតណាម",
     "contacts": [
       {
         "id": 117,
@@ -1651,6 +1717,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "ស្ថានកុងស៊ុលកម្ពុជានៅហូជីមិញ",
     "contacts": [
       {
         "id": 119,
@@ -1672,6 +1739,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "មន្រ្តីប៉ូលីស",
     "contacts": [
       {
         "id": 120,
@@ -1693,6 +1761,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "សម្ព័ន្ធប្រយុទ្ធប្រឆំាងអំពើជួញដូរមនុស្ស",
     "contacts": [
       {
         "id": 121,
@@ -1719,6 +1788,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "សហជីពស្ត្រីវៀតណាម",
     "contacts": [
       {
         "id": 123,
@@ -1740,6 +1810,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
+    "name_km": "បណ្តាញអង្គការក្រៅរដ្ឋាភិបាលវៀតណាមអាមេរិកាំង(វ៉ាងហ្គោ)",
     "contacts": [
       {
         "id": 124,

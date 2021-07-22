@@ -27,7 +27,7 @@ class CardItem extends React.Component {
   render() {
     let item = this.props.institute;
     let list_phone_number = item.contacts || [];
-    const institutionName = item.name;
+    const institutionName = item.name_km ? item.name_km : item.name;
 
     return (
       <View style={{ marginHorizontal: 16 }}>
@@ -42,7 +42,7 @@ class CardItem extends React.Component {
               { this._renderLogo(item) }
 
               <View style={styles.institutionNameContainer}>
-                <Text style={{fontFamily: FontFamily.title}}>{item.name}</Text>
+                <Text style={{fontFamily: FontFamily.title, fontSize: 15}}>{institutionName}</Text>
               </View>
 
               <PlaySound
