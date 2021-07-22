@@ -9,7 +9,15 @@ const ViewVideo = ({ route, navigation }) => {
   const { videoId, isLocalVideo } = route.params;
   const playerRef = useRef(null);
   const [playing, setPlaying] = useState(true);
+  const [isLandscapeView, setIsLandScapeView] = useState(false);
   const { width, height } = Dimensions.get('window');
+
+  Dimensions.addEventListener('change', () => {
+    if (Dimensions.get('window').width > Dimensions.get('window').height)
+      setIsLandScapeView(true);
+    else
+      setIsLandScapeView(false);
+  });
 
   return (
     <View style={{ backgroundColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -19,7 +27,9 @@ const ViewVideo = ({ route, navigation }) => {
           style={styles.videoPlayer}
           controls={true}
           resizeMode='contain'
-          fullscreenOrientation='landscape'
+          fullscreenOrientation='all'
+          fullscreenAutorotate={true}
+          fullscreen={isLandscapeView}
         />
         :
         <YouTube
@@ -29,6 +39,7 @@ const ViewVideo = ({ route, navigation }) => {
           play={playing}
           videoId={videoId}
           resumePlayAndroid={false}
+          fullscreen={isLandscapeView}
         />
       }
     </View>
