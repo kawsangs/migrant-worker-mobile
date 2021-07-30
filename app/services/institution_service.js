@@ -73,7 +73,8 @@ const InstitutionService = (() => {
       institutions.push(Institution.find(countryInstitution.institution_id));
     });
 
-    return institutions;
+    // return institutions;
+    return institutions.sort((a, b) => a.id > b.id);
   }
 
   function getNameKhmer(id) {

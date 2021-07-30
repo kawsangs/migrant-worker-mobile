@@ -1,28 +1,6 @@
 export default [
   {
     "id": 1,
-    "name": "The National Human Trafficking Hotline",
-    "address": null,
-    "logo_url": null,
-    "audio_url": null,
-    "name_km": "មជ្ឈមណ្ឌលធនធានជាតិប្រឆំាងអំពើជួញដូរមនុស្ស",
-    "contacts": [
-      {
-        "id": 1,
-        "type": "Phone",
-        "value": "+18883737888"
-      }
-    ],
-    "country_institutions": [
-      {
-        "country_id": 1,
-        "country_code": "kh"
-      }
-    ],
-    "offline": true
-  },
-  {
-    "id": 2,
     "name": "Child Helpline Cambodia",
     "address": null,
     "logo_url": null,
@@ -30,12 +8,12 @@ export default [
     "name_km": "បណ្តាញទូរស័ព្ទជំនួយកុមារកម្ពុជា",
     "contacts": [
       {
-        "id": 2,
+        "id": 1,
         "type": "Phone",
         "value": "1280"
       },
       {
-        "id": 3,
+        "id": 2,
         "type": "Facebook",
         "value": "https://web.facebook.com/chc1280/"
       }
@@ -49,7 +27,7 @@ export default [
     "offline": true
   },
   {
-    "id": 3,
+    "id": 2,
     "name": "Department of Anti-Human Trafficking and Juvenile Protection",
     "address": null,
     "logo_url": null,
@@ -57,9 +35,31 @@ export default [
     "name_km": "នាយកដ្ឋានប្រឆាំងការជួញដូរមនុស្ស និងការពារអនីតិជន",
     "contacts": [
       {
-        "id": 4,
+        "id": 3,
         "type": "Phone",
         "value": "1288"
+      }
+    ],
+    "country_institutions": [
+      {
+        "country_id": 1,
+        "country_code": "kh"
+      }
+    ],
+    "offline": true
+  },
+  {
+    "id": 3,
+    "name": "The National Human Trafficking Hotline",
+    "address": null,
+    "logo_url": null,
+    "audio_url": null,
+    "name_km": "មជ្ឈមណ្ឌលធនធានជាតិប្រឆំាងអំពើជួញដូរមនុស្ស",
+    "contacts": [
+      {
+        "id": 4,
+        "type": "Phone",
+        "value": "+18883737888"
       }
     ],
     "country_institutions": [
@@ -314,7 +314,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
-    "name_km": "General of the Kingdom of Cambodia in Nanning",
+    "name_km": "ស្ថានកុងស៊ុលកម្ពុជានៅណាននីង",
     "contacts": [
       {
         "id": 22,
@@ -812,7 +812,7 @@ export default [
       {
         "id": 56,
         "type": "Facebook",
-        "value": "<html><u>https://web.facebook.com/Royal-Embassy-of-Cambodia-to-Malaysia-1577860455843158/</u></html>"
+        "value": "https://web.facebook.com/Royal-Embassy-of-Cambodia-to-Malaysia-1577860455843158/"
       }
     ],
     "country_institutions": [

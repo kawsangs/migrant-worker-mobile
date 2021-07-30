@@ -62,8 +62,8 @@ class About extends Component {
   _renderSpotlightDescription() {
     return (
       <Text>
-        <Text style={{fontFamily: FontFamily.title}}>The Spotlight Initiative </Text>
-        is a global, multi-year partnership between the European Union and the United Nations to eliminate all forms of violence against women and girls.
+        <Text style={{fontFamily: FontFamily.title}}>គំនិតផ្តួចផ្តើម  ស្ពតឡៃត៍ (Spotlight Initiative) </Text>
+        គឺ​ជា​កិច្ច​ខិត​ខំប្រឹង​ប្រែង​ជា​សកល​ របស់​អង្គការ​សហ​ប្រជាជាតិ​ និង​ សហភាព​អឺរ៉ុប​ ដើម្បី​បញ្ចប់​រាល់​ទម្រង់​នៃ​អំពើ​ហិង្សា​លើ​ស្រ្តី​ និង​កុមារ។
       </Text>
     )
   }

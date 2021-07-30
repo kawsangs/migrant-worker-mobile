@@ -52,7 +52,7 @@ class Other extends Component {
         </View>
 
         <ListItem
-          title={"ចែកចាយ/ចែករំលែកអែប"}
+          title={"ចែកចាយ/ចែករំលែកអ៊ែប"}
           avata={Images.share}
           onPress={() => this.onShare() }
         />
