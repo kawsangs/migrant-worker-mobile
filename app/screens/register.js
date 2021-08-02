@@ -160,15 +160,18 @@ class Register extends Component {
 
     User.upsert(this._buildData());
     User.uploadAsync(this.state.uuid);
-    this.props.setCurrentUser(User.find(this.state.uuid));
     try {
       await AsyncStorage.setItem('IS_NEW_SESSION', 'true');
     } catch (e) {
     }
 
     if (this.action == 'edit') {
+      this.props.setCurrentUser(User.find(this.state.uuid));
       this.props.navigation.goBack();
+      return;
     }
+
+    this.props.navigation.navigate('WelcomeVideoScreen', { user_uuid: this.state.uuid });
   }
 
   _buildData() {

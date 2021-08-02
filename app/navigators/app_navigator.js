@@ -33,6 +33,7 @@ import LookingForHelpScreen from '../screens/looking_for_help/looking_for_help';
 import CountriesListingScreen from '../screens/looking_for_help/countries_listing';
 import NotificationListScreen from '../screens/notification_list/notification_list';
 import NotificationDetailScreen from '../screens/notification_detail/notification_detail';
+import WelcomeVideoScreen from '../screens/welcome_video/welcome_video';
 
 import SubCategoryScreen from '../screens/sub_category/sub_category';
 import LeafCategoryScreen from '../screens/leaf_category/leaf_category';
@@ -93,6 +94,12 @@ class AppNavigator extends Component {
             headerStyle: { backgroundColor: Color.primary },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
+        />
+        <Stack.Screen name="WelcomeVideoScreen" component={WelcomeVideoScreen}
+          options={{
+            title: 'ដំណើរឆ្លងដែនរបស់ខ្ញុំ',
+            headerLeft: null,
+          }}
         />
       </>
     )

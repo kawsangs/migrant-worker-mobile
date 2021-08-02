@@ -1,9 +1,7 @@
 import React from 'react';
 import {
   View,
-  Text,
   ScrollView,
-  ToastAndroid,
   ImageBackground,
   Image,
   TouchableOpacity,
@@ -13,13 +11,11 @@ import {
 import { Icon } from 'react-native-material-ui';
 import DeviceInfo from 'react-native-device-info'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Color, Style, FontFamily, FontSize } from '../assets/stylesheets/base_style';
+import { Color, Style } from '../assets/stylesheets/base_style';
 import ButtonNav from '../components/button_nav';
-import NetInfo from "@react-native-community/netinfo";
 import Images from '../utils/images';
+import WelcomeMessage from '../components/welcome_message';
 
-import { getVideoId } from '../utils/youtube';
-import i18n from 'i18next';
 import { withTranslation } from 'react-i18next';
 
 import User from '../models/User';
@@ -35,16 +31,15 @@ class Welcome extends React.Component {
 
   async _loginAsGuest() {
     this._clearAudioPlayer();
-
     let uuid = uuidv4();
     User.upsert({uuid: uuid, name: "Guest", created_at: new Date()});
     User.uploadAsync(uuid);
-
-    this.props.setCurrentUser(User.find(uuid));
     try {
       await AsyncStorage.setItem('IS_NEW_SESSION', 'true');
     } catch (e) {
     }
+
+    this.props.navigation.navigate('WelcomeVideoScreen', { user_uuid: uuid });
   }
 
   _register() {
@@ -91,17 +86,6 @@ class Welcome extends React.Component {
     this.props.navigation.navigate('ViewVideoScreen', { videoId: require('../assets/videos/MYJOURNEY_LAUNCH_FILM_small.mp4'), isLocalVideo: true });
   }
 
-  _renderWelcomeMessage() {
-    return (
-      <View style={{marginTop: 5, marginBottom: -20}}>
-        <Text style={{fontFamily: FontFamily.title, fontSize: FontSize.title, textAlign: 'center'}}>សូមស្វាគមន៍</Text>
-        <Text style={{padding: 16, paddingTop: 5, textAlign: 'center', fontSize: 15}}>
-          ដំណើរឆ្លងដែនរបស់ខ្ញុំគឺជាកម្មវិធីប្រពន្ធ័ទូរស័ព្ទ (អ៊ែប) ដើម្បីជួយដល់អ្នកប្រើប្រាស់អាចរកបាននូវព័ត៌មានដែលមានសារៈ​សំខាន់សម្រាប់ការធ្វើចំណាកស្រុក
-        </Text>
-      </View>
-    )
-  }
-
   imageBackgroundTop() {
     if (DeviceInfo.isTablet())
       return screenHeight / 7.5;
@@ -122,7 +106,8 @@ class Welcome extends React.Component {
             top: this.imageBackgroundTop()
           }}
         >
-          { this._renderWelcomeMessage() }
+
+          <WelcomeMessage showTitle={true} />
           { this._renderButtonNavs() }
 
           <View style={{paddingHorizontal: 16, marginTop: -25}}>
