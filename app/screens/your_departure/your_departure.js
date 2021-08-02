@@ -12,7 +12,8 @@ import { addStatistic } from '../../utils/statistic';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
 
-import CardItem from '../../components/YourDeparture/CardItem';
+// import CardItem from '../../components/YourDeparture/CardItem';
+import CardItem from '../../components/YourSafety/CardItem';
 import Departure from '../../models/Departure';
 
 import CategoryService from '../../services/category_service';
@@ -70,6 +71,7 @@ class YourDeparture extends Component {
         onPress={() => this._onPress(item)}
         audioPlayer={this.state.audioPlayer}
         updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
+        audioIconStyle={{tintColor: Color.red}}
       />
     )
   }
@@ -104,7 +106,6 @@ class YourDeparture extends Component {
             renderItem={(item, i) => this._renderItem(item.item, i)}
             keyExtractor={item => item.id}
             contentContainerStyle={{padding: 8, alignSelf: 'stretch'}}
-            numColumns={2}
             onRefresh={ () => this._onRefresh() }
             refreshing={ this.state.isFetching }
           />
