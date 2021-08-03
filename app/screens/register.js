@@ -142,7 +142,10 @@ class Register extends Component {
   _renderVoiceRecord() {
     return (
       <View style={[styles.voiceRecord, registerHelper.validationBorder(this.state.voiceRecord, 'voice', this.state.isFormValid)]}>
-        <Text>{this.props.t('RegisterScreen.RecordVoice')}</Text>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={{marginTop: 4}}>{this.props.t('RegisterScreen.RecordVoice')}</Text>
+          {this._buildButtonAudio('record_your_voice.mp3')}
+        </View>
         <Audio
           uuid={this.props.currentUser && this.props.currentUser.uuid }
           callback={(path) => this._updateVoiceRecord(path)}
