@@ -7,6 +7,7 @@ const CountryInstitution = (() => {
     findByCountryCode,
     create,
     isExist,
+    deleteBatch,
   }
 
   function findByCountryCode(countryCode) {
@@ -21,6 +22,12 @@ const CountryInstitution = (() => {
 
   function isExist(countryCode, institutionId) {
     return realm.objects(MODEL_NAME).filtered(`country_code = '${countryCode}' AND institution_id = ${institutionId}`)[0];
+  }
+
+  function deleteBatch() {
+    realm.write(() => {
+      realm.delete(realm.objects(MODEL_NAME))
+    })
   }
 })();
 

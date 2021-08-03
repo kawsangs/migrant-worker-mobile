@@ -1,5 +1,6 @@
 import realm from '../db/schema'
 import countries from '../data/json/countries'
+import Institution from './Institution';
 
 const MODEL_NAME = 'Country'
 const Country = (() => {
@@ -56,7 +57,7 @@ const Country = (() => {
   }
 
   function loadIfNotExists(callback) {
-    if( !isExist() ) {
+    if( !isExist() || !Institution.hasDisplayOrder() ) {
       createBatch(countries)
       callback()
     }

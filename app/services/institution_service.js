@@ -20,7 +20,7 @@ const InstitutionService = (() => {
     return Api.get(`/countries/${countryCode}/country_institutions`)
       .then(response => response.data)
       .then((data) => {
-        data.map(item => {
+        data.map((item, index) => {
           let institution = item.institution;
 
           if (Institution.isExist(institution.id)) {
@@ -44,7 +44,7 @@ const InstitutionService = (() => {
           }
           else {
             // If institution is not exist in realm -> create new record in realm
-            Institution.create(institution);
+            Institution.create(institution, index);
 
             const countryInstitutionData = {
               uuid: uuidv4(),
@@ -73,7 +73,7 @@ const InstitutionService = (() => {
       institutions.push(Institution.find(countryInstitution.institution_id));
     });
 
-    return institutions.sort((a, b) => a.id > b.id);
+    return institutions.sort((a, b) => a.display_order > b.display_order);
   }
 
   function getNameKhmer(id) {

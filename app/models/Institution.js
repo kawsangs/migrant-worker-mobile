@@ -17,10 +17,11 @@ const Institution = (() => {
     deleteBatch,
     createBatch,
     reloadBatch,
+    hasDisplayOrder,
   }
 
   function createBatch() {
-    return _.map( institutions, serializer => create(serializer))
+    return _.map( institutions, (serializer, index) => create(serializer, index))
   }
 
   function where(field, query) {
@@ -35,9 +36,9 @@ const Institution = (() => {
     return realm.objects(MODEL_NAME).filtered(`id = ${id}`)[0];
   }
 
-  function create(item) {
+  function create(item, index) {
     realm.write(() => {
-      realm.create(MODEL_NAME, _buildData(item), 'modified');
+      realm.create(MODEL_NAME, _buildData(item, index), 'modified');
     });
 
     item.country_institutions.map(countryInstitution => {
@@ -68,12 +69,23 @@ const Institution = (() => {
   }
 
   function reloadBatch() {
+    CountryInstitution.deleteBatch()
     deleteBatch()
     Contact.deleteBatch()
     createBatch()
   }
 
-  function _buildData(item) {
+  function hasDisplayOrder() {
+    const institutions = all();
+    for (let i = 0; i < institutions.length; i++) {
+      if (!institutions[i].display_order)
+        return false;
+    }
+
+    return true;
+  }
+
+  function _buildData(item, index) {
     let contacts = []
     item.contacts.map(contact => {
       contacts.push(JSON.stringify(contact))
@@ -87,6 +99,7 @@ const Institution = (() => {
       logo_url: item.logo_url,
       audio_url: item.audio_url,
       contacts: contacts,
+      display_order: item.display_order ? item.display_order : index + 1,
     }
 
     if (!!item.offline && !!item.logo_url)
