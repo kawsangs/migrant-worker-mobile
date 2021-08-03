@@ -144,7 +144,9 @@ class Register extends Component {
       <View style={[styles.voiceRecord, registerHelper.validationBorder(this.state.voiceRecord, 'voice', this.state.isFormValid)]}>
         <View style={{flexDirection: 'row'}}>
           <Text style={{marginTop: 4}}>{this.props.t('RegisterScreen.RecordVoice')}</Text>
-          {this._buildButtonAudio('record_your_voice.mp3')}
+          <View style={{flex: 1, alignItems: 'flex-end', marginRight: -10}}>
+            {this._buildButtonAudio('record_your_voice.mp3')}
+          </View>
         </View>
         <Audio
           uuid={this.props.currentUser && this.props.currentUser.uuid }
@@ -209,6 +211,11 @@ class Register extends Component {
   }
 
   _renderButtonNext() {
+    const button = {
+      register: { label: this.props.t("RegisterScreen.ButtonRegister"), audio: 'register.mp3' },
+      edit: { label: this.props.t("RegisterScreen.ButtonSave"), audio: 'save.mp3' }
+    }
+
     return (
       <TouchableOpacity
         onPress={() => this._submit()}
@@ -216,9 +223,9 @@ class Register extends Component {
       >
         <View style={{ width: 58 }} />
         <View style={styles.coverRegisterLabel}>
-          <Text style={[styles.buttonNextText, !this.state.isFormValid ? { color: 'black' } : {}]}>{this.props.t("RegisterScreen.ButtonSave")}</Text>
+          <Text style={[styles.buttonNextText, !this.state.isFormValid ? { color: 'black' } : {}]}>{button[this.action].label}</Text>
         </View>
-        {this._buildButtonAudio('save.mp3', true)}
+        {this._buildButtonAudio(button[this.action].audio, true)}
       </TouchableOpacity>
     )
   }
