@@ -11,7 +11,7 @@ class WelcomeVideoSkipButton extends Component {
         style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: 58}}
         buttonAudioStyle={{ backgroundColor: Color.white }}
         iconStyle={{ tintColor: Color.primary }}
-        filePath=''
+        filePath='skip.mp3'
         audioPlayer={this.props.audioPlayer}
         updateMainAudioPlayer={(sound) => this.props.updateMainAudioPlayer(sound)}
       />
