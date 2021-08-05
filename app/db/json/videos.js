@@ -43,7 +43,7 @@ const videoList = [
   },
   {
     "code": "08",
-    "title": "គំនិតផ្តួចផ្តើម ស្តត់ឡាយ",
+    "title": "គំនិតផ្តួចផ្តើម ស្ពតឡៃត៍",
     "url": "https://www.youtube.com/watch?v=mqyvYk2nkVA",
     "category": "about_safe_and_fair"
   },
@@ -92,7 +92,7 @@ const videoSteps = [
   },
   {
     "stepCode": "about_safe_and_fair",
-    "stepTitle": "អំពី Safe and Fair",
+    "stepTitle": "អំពី ដំណើរឆ្លងដែនរបស់ខ្ញុំ",
   }
 ];
 
