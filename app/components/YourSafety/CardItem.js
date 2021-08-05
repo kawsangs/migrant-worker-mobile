@@ -15,7 +15,6 @@ import PlaySound from '../../components/play_sound';
 class CardItem extends Component {
   render() {
     let image = this.props.image || Images.default;
-    let bgColor = this.props.backgroundColor || Color.primary;
 
     return (
       <TouchableOpacity
@@ -25,7 +24,7 @@ class CardItem extends Component {
 
         <ImageBackground
           source={image}
-          style={[{ flex: 1, backgroundColor: bgColor }]}>
+          style={[{ flex: 1}]}>
 
           <View style={[Style.cardContent, { marginBottom: 0, paddingBottom: 0, minHeight: 160}]}>
             <View style={{ flex: 1 }} />

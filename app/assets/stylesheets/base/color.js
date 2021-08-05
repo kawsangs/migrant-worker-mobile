@@ -14,5 +14,6 @@ export default Color = {
   pink: '#e44877',
 
   gray: '#9a9a9a',
-  green: '#009e69'
+  green: '#009e69',
+  beforeYouGoColor: '#bf2c19'
 };

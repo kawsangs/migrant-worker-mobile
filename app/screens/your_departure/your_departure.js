@@ -12,7 +12,6 @@ import { addStatistic } from '../../utils/statistic';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
 
-// import CardItem from '../../components/YourDeparture/CardItem';
 import CardItem from '../../components/YourSafety/CardItem';
 import Departure from '../../models/Departure';
 
@@ -71,7 +70,7 @@ class YourDeparture extends Component {
         onPress={() => this._onPress(item)}
         audioPlayer={this.state.audioPlayer}
         updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
-        audioIconStyle={{tintColor: Color.red}}
+        audioIconStyle={{tintColor: Color.beforeYouGoColor}}
       />
     )
   }
@@ -96,7 +95,7 @@ class YourDeparture extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <StatusBar barStyle={'light-content'} backgroundColor={Color.red} />
+        <StatusBar barStyle={'light-content'} backgroundColor={Color.beforeYouGoColor} />
 
         <LoadingIndicator loading={this.state.loading}/>
 
