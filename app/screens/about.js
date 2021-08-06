@@ -28,7 +28,7 @@ class About extends Component {
     return (
       <View style={{marginBottom: 15}}>
         <Image source={require('../assets/images/logos/myjourney.png')} style={{ width: 120, height: 120, alignSelf: 'center', marginBottom: 15 }} />
-        <Text style={{ fontFamily: FontFamily.title, textAlign: 'center' }}>កម្មវិធីអ៊ែប ដំណើរឆ្លងដែនរបស់ខ្ញុំ</Text>
+        <Text style={{ fontFamily: FontFamily.title, textAlign: 'center' }}>ដំណើរឆ្លងដែនរបស់ខ្ញុំ</Text>
       </View>
     )
   }

@@ -92,7 +92,7 @@ const videoSteps = [
   },
   {
     "stepCode": "about_safe_and_fair",
-    "stepTitle": "អំពី ដំណើរឆ្លងដែនរបស់ខ្ញុំ",
+    "stepTitle": "សុវត្ថិភាព និងយុត្តិធម៌",
   }
 ];
 
