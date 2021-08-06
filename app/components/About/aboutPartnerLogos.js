@@ -5,7 +5,7 @@ import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import { FontFamily } from '../../assets/stylesheets/base_style';
 import Images from '../../utils/images';
 import { autoImageHeight } from '../../utils/image_style';
-import { getDeviceStyle } from '../../utils/responsive_util';
+import { getDeviceStyle, isShortWidthScreen } from '../../utils/responsive_util';
 import uuidv4 from '../../utils/uuidv4';
 
 class AboutPartnerLogos extends Component {
@@ -49,7 +49,9 @@ class AboutPartnerLogos extends Component {
         { this._renderLogo(logos[0])}
 
         <View style={{ flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', marginTop: -10 }}>
-          {logos.slice(1, 5).map((logo) => this._renderLogo(logo))}
+          {logos.slice(1, 3).map((logo) => this._renderLogo(logo))}
+          <View style={{borderLeftWidth: 1, height: '65%', borderLeftColor: '#c6c6c6', marginHorizontal: isShortWidthScreen() ? 0 : 10}}/>
+          {logos.slice(3, 5).map((logo) => this._renderLogo(logo))}
         </View>
       </View>
     )
