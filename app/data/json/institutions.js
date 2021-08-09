@@ -570,6 +570,11 @@ export default [
         "id": 38,
         "type": "Phone",
         "value": "+818046899374"
+      },
+      {
+        "id": 39,
+        "type": "Website",
+        "value": "http://www.cambodianembassy.jp/"
       }
     ],
     "country_institutions": [
@@ -589,13 +594,13 @@ export default [
     "name_km": "មន្រ្តីប៉ូលីស ",
     "contacts": [
       {
-        "id": 39,
+        "id": 40,
         "type": "Phone",
         "value": "+81-(0)3-3581-0141"
       },
       {
-        "id": 40,
-        "type": "Facebook",
+        "id": 41,
+        "type": "Website",
         "value": "https://www.npa.go.jp/english/index.html"
       }
     ],
@@ -616,13 +621,13 @@ export default [
     "name_km": "អង្គការសេវាសង្គម និងសុខភាព ផ្តល់ជម្រកដល់ស្ត្រីអាស៊ី",
     "contacts": [
       {
-        "id": 41,
+        "id": 42,
         "type": "Phone",
         "value": "03-33688855"
       },
       {
-        "id": 42,
-        "type": "Facebook",
+        "id": 43,
+        "type": "Website",
         "value": "https://kyofukai.jp/"
       }
     ],
@@ -643,7 +648,7 @@ export default [
     "name_km": "អង្គការការ៉ាសាន",
     "contacts": [
       {
-        "id": 43,
+        "id": 44,
         "type": "Phone",
         "value": "044-5111562"
       }
@@ -665,12 +670,12 @@ export default [
     "name_km": "បណ្តាញកុមារ",
     "contacts": [
       {
-        "id": 44,
+        "id": 45,
         "type": "Phone",
         "value": "0120-99-7777"
       },
       {
-        "id": 45,
+        "id": 46,
         "type": "Website",
         "value": "http://www.childline.or.jp"
       }
@@ -692,7 +697,7 @@ export default [
     "name_km": "មជ្ឈមណ្ឌលធនធានជាតិប្រឆំាងអំពើជួញដូរមនុស្ស",
     "contacts": [
       {
-        "id": 46,
+        "id": 47,
         "type": "Phone",
         "value": "+18883737888"
       }
@@ -714,17 +719,17 @@ export default [
     "name_km": "ស្ថានកុងស៊ុលកម្ពុជាប្រចាំប្រទេសគុយវ៉េត",
     "contacts": [
       {
-        "id": 47,
+        "id": 48,
         "type": "Phone",
         "value": "+965-2531-0029"
       },
       {
-        "id": 48,
+        "id": 49,
         "type": "Phone",
         "value": "+965-2531-0026"
       },
       {
-        "id": 49,
+        "id": 50,
         "type": "Facebook",
         "value": "https://web.facebook.com/Royal-Embassy-of-Cambodia-to-the-State-of-Kuwait-1590807354522817/"
       }
@@ -746,17 +751,17 @@ export default [
     "name_km": "មន្រ្តីប៉ូលីស",
     "contacts": [
       {
-        "id": 50,
+        "id": 51,
         "type": "Phone",
         "value": "112"
       },
       {
-        "id": 51,
+        "id": 52,
         "type": "Facebook",
         "value": "https://web.facebook.com/MOIKuwait/"
       },
       {
-        "id": 52,
+        "id": 53,
         "type": "Website",
         "value": "https://www.moi.gov.kw/main/"
       }
@@ -778,7 +783,7 @@ export default [
     "name_km": "មជ្ឈមណ្ឌលធនធានជាតិប្រឆំាងអំពើជួញដូរមនុស្ស",
     "contacts": [
       {
-        "id": 53,
+        "id": 54,
         "type": "Phone",
         "value": "+18883737888"
       }
@@ -800,17 +805,17 @@ export default [
     "name_km": "ស្ថានទូតកម្ពុជាប្រចំាប្រទេសម៉ាឡេស៊ី ",
     "contacts": [
       {
-        "id": 54,
+        "id": 55,
         "type": "Phone",
         "value": "+60342571150"
       },
       {
-        "id": 55,
+        "id": 56,
         "type": "Phone",
         "value": "+60342573711"
       },
       {
-        "id": 56,
+        "id": 57,
         "type": "Facebook",
         "value": "https://web.facebook.com/Royal-Embassy-of-Cambodia-to-Malaysia-1577860455843158/"
       }
@@ -832,7 +837,7 @@ export default [
     "name_km": "មន្រ្តីប៉ូលីស",
     "contacts": [
       {
-        "id": 57,
+        "id": 58,
         "type": "Phone",
         "value": "999"
       }
@@ -854,12 +859,12 @@ export default [
     "name_km": "អង្គការជំនួយស្ត្រី",
     "contacts": [
       {
-        "id": 58,
+        "id": 59,
         "type": "Phone",
         "value": "+60379563488"
       },
       {
-        "id": 59,
+        "id": 60,
         "type": "Facebook",
         "value": "https://web.facebook.com/womens.aid.org/"
       }
@@ -881,7 +886,7 @@ export default [
     "name_km": "មជ្ឈមណ្ឌលធនធានជាតិប្រឆំាងអំពើជួញដូរមនុស្ស",
     "contacts": [
       {
-        "id": 60,
+        "id": 61,
         "type": "Phone",
         "value": "+18883737888"
       }
@@ -903,17 +908,17 @@ export default [
     "name_km": "ស្ថានទូតកម្ពុជាប្រចំាប្រទេសហ្វីលីពីន",
     "contacts": [
       {
-        "id": 61,
+        "id": 62,
         "type": "Phone",
         "value": "(+63)288189981"
       },
       {
-        "id": 62,
+        "id": 63,
         "type": "Phone",
         "value": "(+63)288101896"
       },
       {
-        "id": 63,
+        "id": 64,
         "type": "Facebook",
         "value": "https://web.facebook.com/Royal-Embassy-of-Cambodia-to-the-Republic-of-the-Philippines-1777323232495594/"
       }
@@ -935,7 +940,7 @@ export default [
     "name_km": "មន្រ្តីប៉ូលីស",
     "contacts": [
       {
-        "id": 64,
+        "id": 65,
         "type": "Phone",
         "value": "177"
       }
@@ -957,12 +962,12 @@ export default [
     "name_km": "មជ្ឈមណ្ឌលការពារស្ត្រី និងកុមារហ្វីលីពីន",
     "contacts": [
       {
-        "id": 65,
+        "id": 66,
         "type": "Phone",
         "value": "09197777377"
       },
       {
-        "id": 66,
+        "id": 67,
         "type": "Facebook",
         "value": "https://www.facebook.com/1wcpcpnp/"
       }
@@ -984,7 +989,7 @@ export default [
     "name_km": "មជ្ឈមណ្ឌលធនធានជាតិប្រឆំាងអំពើជួញដូរមនុស្ស",
     "contacts": [
       {
-        "id": 67,
+        "id": 68,
         "type": "Phone",
         "value": "+18883737888"
       }
@@ -1006,7 +1011,7 @@ export default [
     "name_km": "ស្ថានទូតកម្ពុជាប្រចំាប្រទេសកូរ៉េ",
     "contacts": [
       {
-        "id": 68,
+        "id": 69,
         "type": "Phone",
         "value": "+82237851041"
       }
@@ -1028,17 +1033,17 @@ export default [
     "name_km": "មន្រ្តីប៉ូលីស",
     "contacts": [
       {
-        "id": 69,
+        "id": 70,
         "type": "Phone",
         "value": "1345"
       },
       {
-        "id": 70,
+        "id": 71,
         "type": "Facebook",
         "value": "https://web.facebook.com/polinlove1/"
       },
       {
-        "id": 71,
+        "id": 72,
         "type": "Website",
         "value": "https://www.police.go.kr/eng/main.do"
       }
@@ -1060,12 +1065,12 @@ export default [
     "name_km": "សមាគមនារីកូរ៉េ (KWA)",
     "contacts": [
       {
-        "id": 72,
+        "id": 73,
         "type": "Phone",
         "value": "253-359-0470"
       },
       {
-        "id": 73,
+        "id": 74,
         "type": "Facebook",
         "value": "https://web.facebook.com/KWACares/"
       }
@@ -1087,7 +1092,7 @@ export default [
     "name_km": "មជ្ឈមណ្ឌលធនធានជាតិប្រឆំាងអំពើជួញដូរមនុស្ស",
     "contacts": [
       {
-        "id": 74,
+        "id": 75,
         "type": "Phone",
         "value": "+18883737888"
       }
@@ -1109,7 +1114,7 @@ export default [
     "name_km": "មន្រ្តីប៉ូលីស",
     "contacts": [
       {
-        "id": 75,
+        "id": 76,
         "type": "Phone",
         "value": "+9744466000"
       }
@@ -1131,7 +1136,7 @@ export default [
     "name_km": "នាយកដ្ឋានប៉ូលីសចរាចរណ៍និងល្បាត",
     "contacts": [
       {
-        "id": 76,
+        "id": 77,
         "type": "Phone",
         "value": "44890666"
       }
@@ -1153,7 +1158,7 @@ export default [
     "name_km": "មជ្ឈមណ្ឌលធនធានជាតិប្រឆំាងអំពើជួញដូរមនុស្ស",
     "contacts": [
       {
-        "id": 77,
+        "id": 78,
         "type": "Phone",
         "value": "+18883737888"
       }
@@ -1175,12 +1180,12 @@ export default [
     "name_km": "មន្រ្តីប៉ូលីស",
     "contacts": [
       {
-        "id": 78,
+        "id": 79,
         "type": "Phone",
         "value": "999"
       },
       {
-        "id": 79,
+        "id": 80,
         "type": "Phone",
         "value": "911"
       }
@@ -1202,7 +1207,7 @@ export default [
     "name_km": "លេខទាន់ហេតុការ នៅប្រទេសអារ៉ាប់ប៊ីសាអូឌីត (មិនត្រូវការស៊ីមកាត)",
     "contacts": [
       {
-        "id": 80,
+        "id": 81,
         "type": "Phone",
         "value": "112"
       }
@@ -1224,7 +1229,7 @@ export default [
     "name_km": "រាយការណ៍អំពីការរំលោភ ទាក់ទងនឹងការងារនិងការស្នាក់នៅ",
     "contacts": [
       {
-        "id": 81,
+        "id": 82,
         "type": "Phone",
         "value": "989"
       }
@@ -1246,12 +1251,12 @@ export default [
     "name_km": "មជ្ឈមណ្ទលជំនួយ",
     "contacts": [
       {
-        "id": 82,
+        "id": 83,
         "type": "Phone",
         "value": "(+996-2)6631113"
       },
       {
-        "id": 83,
+        "id": 84,
         "type": "Facebook",
         "value": "https://web.facebook.com/Helpcenterjeddah/"
       }
@@ -1273,7 +1278,7 @@ export default [
     "name_km": "មជ្ឈមណ្ឌលធនធានជាតិប្រឆំាងអំពើជួញដូរមនុស្ស",
     "contacts": [
       {
-        "id": 84,
+        "id": 85,
         "type": "Phone",
         "value": "+18883737888"
       }
@@ -1295,17 +1300,17 @@ export default [
     "name_km": "ស្ថានទូតកម្ពុជាប្រចំាប្រទេសសិង្ហបុរី",
     "contacts": [
       {
-        "id": 85,
+        "id": 86,
         "type": "Phone",
         "value": "+6567324764"
       },
       {
-        "id": 86,
+        "id": 87,
         "type": "Phone",
         "value": "+6563419785"
       },
       {
-        "id": 87,
+        "id": 88,
         "type": "Facebook",
         "value": "https://web.facebook.com/royalembassycambodiasingapore/"
       }
@@ -1327,7 +1332,7 @@ export default [
     "name_km": "មន្រ្តីប៉ូលីស",
     "contacts": [
       {
-        "id": 88,
+        "id": 89,
         "type": "Phone",
         "value": "999"
       }
@@ -1349,27 +1354,27 @@ export default [
     "name_km": "សមាគមស្ត្រីសម្រាប់សកម្មភាពនិង​ ការស្រាវជ្រាវ",
     "contacts": [
       {
-        "id": 89,
+        "id": 90,
         "type": "Phone",
         "value": "18007775555"
       },
       {
-        "id": 90,
+        "id": 91,
         "type": "Phone",
         "value": "67790282"
       },
       {
-        "id": 91,
+        "id": 92,
         "type": "Phone",
         "value": "67797137"
       },
       {
-        "id": 92,
+        "id": 93,
         "type": "Facebook",
         "value": "https://web.facebook.com/awaresg/"
       },
       {
-        "id": 93,
+        "id": 94,
         "type": "Website",
         "value": "https://www.aware.org.sg/womens-care-centre/helpline/"
       }
@@ -1391,7 +1396,7 @@ export default [
     "name_km": "មជ្ឈមណ្ឌលធនធានជាតិប្រឆំាងអំពើជួញដូរមនុស្ស",
     "contacts": [
       {
-        "id": 94,
+        "id": 95,
         "type": "Phone",
         "value": "+18883737888"
       }
@@ -1413,32 +1418,32 @@ export default [
     "name_km": "ស្ថានទូតកម្ពុជាប្រចំាប្រទេសថៃ",
     "contacts": [
       {
-        "id": 95,
+        "id": 96,
         "type": "Phone",
         "value": "+6629575851"
       },
       {
-        "id": 96,
+        "id": 97,
         "type": "Phone",
         "value": "+6629575852"
       },
       {
-        "id": 97,
+        "id": 98,
         "type": "Phone",
         "value": "092-805-0561"
       },
       {
-        "id": 98,
+        "id": 99,
         "type": "Phone",
         "value": "094-092-5905"
       },
       {
-        "id": 99,
+        "id": 100,
         "type": "Facebook",
         "value": "https://web.facebook.com/Royal-Embassy-of-Cambodia-in-Bangkok-515427841947524"
       },
       {
-        "id": 100,
+        "id": 101,
         "type": "Website",
         "value": "www.cambodiaembassyinthailand.wordpress.com"
       }
@@ -1460,12 +1465,12 @@ export default [
     "name_km": "ស្ថានកុងស៊ុលកម្ពុជា នៅសាកែវ ប្រទេសថៃ",
     "contacts": [
       {
-        "id": 101,
+        "id": 102,
         "type": "Phone",
         "value": "+6637230204"
       },
       {
-        "id": 102,
+        "id": 103,
         "type": "Facebook",
         "value": "https://web.facebook.com/consulatesakaeo/"
       }
@@ -1487,7 +1492,7 @@ export default [
     "name_km": "មន្រ្តីប៉ូលីស",
     "contacts": [
       {
-        "id": 103,
+        "id": 104,
         "type": "Phone",
         "value": "191"
       }
@@ -1509,7 +1514,7 @@ export default [
     "name_km": "នាយកដ្ឋានប្រឆាំងអំពើជួញដូរមនុស្ស ",
     "contacts": [
       {
-        "id": 104,
+        "id": 105,
         "type": "Phone",
         "value": "1191"
       }
@@ -1531,7 +1536,7 @@ export default [
     "name_km": "បណ្តាញជំនួយពលករចំណាកស្រុក",
     "contacts": [
       {
-        "id": 105,
+        "id": 106,
         "type": "Phone",
         "value": "1694"
       }
@@ -1553,17 +1558,17 @@ export default [
     "name_km": "បណ្តាញកុមារនៅប្រទេសថៃ",
     "contacts": [
       {
-        "id": 106,
+        "id": 107,
         "type": "Phone",
         "value": "1387"
       },
       {
-        "id": 107,
+        "id": 108,
         "type": "Facebook",
         "value": "https://web.facebook.com/childlinethailand/"
       },
       {
-        "id": 108,
+        "id": 109,
         "type": "Website",
         "value": "http://www.childlinethailand.org"
       }
@@ -1585,12 +1590,12 @@ export default [
     "name_km": "មជ្ឈមណ្ឌលច្រកតែមួយដើម្បីដោះស្រាយវិបត្តិ",
     "contacts": [
       {
-        "id": 109,
+        "id": 110,
         "type": "Phone",
         "value": "1300"
       },
       {
-        "id": 110,
+        "id": 111,
         "type": "Facebook",
         "value": "https://web.facebook.com/Msociety.go.th/"
       }
@@ -1612,12 +1617,12 @@ export default [
     "name_km": "មូលនិធិដើម្បីស្រ្តី",
     "contacts": [
       {
-        "id": 111,
+        "id": 112,
         "type": "Phone",
         "value": "+6624335149"
       },
       {
-        "id": 112,
+        "id": 113,
         "type": "Website",
         "value": "http://www.womenthai.org"
       }
@@ -1632,38 +1637,6 @@ export default [
   },
   {
     "id": 64,
-    "name": "Center for Alliance of Labor and Human Rights (CENTRAL)",
-    "address": null,
-    "logo_url": null,
-    "audio_url": null,
-    "name_km": "មជ្ឈមណ្ឌលសម័្ពន្ធភាពការងារ និងសិទ្ធមនុស្ស(CENTRAL)",
-    "contacts": [
-      {
-        "id": 113,
-        "type": "Phone",
-        "value": "+66944412215"
-      },
-      {
-        "id": 114,
-        "type": "Facebook",
-        "value": "https://web.facebook.com/CentralCambodiaOrg/"
-      },
-      {
-        "id": 115,
-        "type": "Website",
-        "value": "https://www.central-cambodia.org/"
-      }
-    ],
-    "country_institutions": [
-      {
-        "country_id": 2,
-        "country_code": "th"
-      }
-    ],
-    "offline": true
-  },
-  {
-    "id": 65,
     "name": "The National Human Trafficking Hotline",
     "address": null,
     "logo_url": null,
@@ -1671,7 +1644,7 @@ export default [
     "name_km": "មជ្ឈមណ្ឌលធនធានជាតិប្រឆំាងអំពើជួញដូរមនុស្ស",
     "contacts": [
       {
-        "id": 116,
+        "id": 114,
         "type": "Phone",
         "value": "+18883737888"
       }
@@ -1685,7 +1658,7 @@ export default [
     "offline": true
   },
   {
-    "id": 66,
+    "id": 65,
     "name": "Royal Embassy of Cambodia",
     "address": null,
     "logo_url": null,
@@ -1693,12 +1666,12 @@ export default [
     "name_km": "ស្ថានទូតកម្ពុជាប្រចំាប្រទេសវៀតណាម",
     "contacts": [
       {
-        "id": 117,
+        "id": 115,
         "type": "Phone",
         "value": "+842439424789"
       },
       {
-        "id": 118,
+        "id": 116,
         "type": "Facebook",
         "value": "https://web.facebook.com/TheRoyalEmbassyOfCambodiaToVietnam/"
       }
@@ -1712,7 +1685,7 @@ export default [
     "offline": true
   },
   {
-    "id": 67,
+    "id": 66,
     "name": "Cambodian Consulate in Ho Chi Minh City",
     "address": null,
     "logo_url": null,
@@ -1720,7 +1693,7 @@ export default [
     "name_km": "ស្ថានកុងស៊ុលកម្ពុជានៅហូជីមិញ",
     "contacts": [
       {
-        "id": 119,
+        "id": 117,
         "type": "Phone",
         "value": "+8488292751"
       }
@@ -1734,7 +1707,7 @@ export default [
     "offline": true
   },
   {
-    "id": 68,
+    "id": 67,
     "name": "Police",
     "address": null,
     "logo_url": null,
@@ -1742,7 +1715,7 @@ export default [
     "name_km": "មន្រ្តីប៉ូលីស",
     "contacts": [
       {
-        "id": 120,
+        "id": 118,
         "type": "Phone",
         "value": "113"
       }
@@ -1756,7 +1729,7 @@ export default [
     "offline": true
   },
   {
-    "id": 69,
+    "id": 68,
     "name": "ALLIANCE ANTI TRAFIC VIETNAM",
     "address": null,
     "logo_url": null,
@@ -1764,12 +1737,12 @@ export default [
     "name_km": "សម្ព័ន្ធប្រយុទ្ធប្រឆំាងអំពើជួញដូរមនុស្ស",
     "contacts": [
       {
-        "id": 121,
+        "id": 119,
         "type": "Phone",
         "value": "+84902944334"
       },
       {
-        "id": 122,
+        "id": 120,
         "type": "Facebook",
         "value": "https://web.facebook.com/aatvietnam/"
       }
@@ -1783,7 +1756,7 @@ export default [
     "offline": true
   },
   {
-    "id": 70,
+    "id": 69,
     "name": "Vietnamese Women's Union",
     "address": null,
     "logo_url": null,
@@ -1791,7 +1764,7 @@ export default [
     "name_km": "សហជីពស្ត្រីវៀតណាម",
     "contacts": [
       {
-        "id": 123,
+        "id": 121,
         "type": "Phone",
         "value": "1900969680"
       }
@@ -1805,7 +1778,7 @@ export default [
     "offline": true
   },
   {
-    "id": 71,
+    "id": 70,
     "name": "VANGO Network (HIPE Team)",
     "address": null,
     "logo_url": null,
@@ -1813,12 +1786,12 @@ export default [
     "name_km": "បណ្តាញអង្គការក្រៅរដ្ឋាភិបាលវៀតណាមអាមេរិកាំង(វ៉ាងហ្គោ)",
     "contacts": [
       {
-        "id": 124,
+        "id": 122,
         "type": "Phone",
         "value": "+842343936526"
       },
       {
-        "id": 125,
+        "id": 123,
         "type": "Facebook",
         "value": "https://web.facebook.com/HIPE-Team-257939004325785/"
       }

@@ -5,7 +5,7 @@ export default [
     items: [
       {
         title_en: 'Share App',
-        title_km: 'ចែកចាយ/ចែករំលែកអែប',
+        title_km: 'ចែកចាយ/ចែករំលែកអ៊ែប',
         icon: Images.share,
         routeName: ''
       },
