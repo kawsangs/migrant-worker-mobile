@@ -4,7 +4,7 @@
             "HeaderTitle": "ជ្រើសរើសប្រទេសចំណាកស្រុក",
         },
         "AboutScreen": {
-            "HeaderTitle": "អំពីអែបនេះ",
+            "HeaderTitle": "អំពីអ៊ែបនេះ",
         },
         "RegisterScreen": {
             "HeaderTitle": "ចុះឈ្មោះ",
@@ -23,7 +23,7 @@
         },
         "MoreScreen": {
             "More": "បន្ថែមទៀត",
-            "Edit": "កែសំរួល",
+            "Edit": "កែសម្រួល",
             "AppVersion": "កំណែ"
         },
         "HomeScreen": {

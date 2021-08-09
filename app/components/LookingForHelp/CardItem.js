@@ -126,8 +126,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderBottomColor: Color.border,
     alignItems: 'center',
-    paddingTop: 10,
-    paddingBottom: 5
+    paddingVertical: 10
   },
   contact: {
     color: Color.yellow,

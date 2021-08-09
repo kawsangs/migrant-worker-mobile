@@ -18,13 +18,13 @@ class AboutList extends Component {
         </View>
 
         <ListItem
-          title={"Spotlight Initiative"}
+          title={"អំពីគំនិតផ្តួចផ្តើម ស្ពតឡៃត៍"}
           avata={Images.info}
           onPress={() => this.props.navigation.navigate('AboutScreen', {type: 'spotlight_initiative'})}
         />
 
         <ListItem
-          title={"Safe and Fair App"}
+          title={"អំពីអ៊ែប ដំណើរឆ្លងដែនរបស់ខ្ញុំ"}
           avata={Images.info}
           onPress={() => this.props.navigation.navigate('AboutScreen', {type: 'safe_and_fair_app'})}
         />

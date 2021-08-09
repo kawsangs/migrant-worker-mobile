@@ -670,7 +670,7 @@ export default [
       {
         "id": 9,
         "code": "f1_qu_result",
-        "name": "បូកសរុបពិន្ទុ​ យោងទៅលើចម្លើយរបស់អ្នកប្រើប្រាស់អែប",
+        "name": "បូកសរុបពិន្ទុ​ យោងទៅលើចម្លើយរបស់អ្នកប្រើប្រាស់អ៊ែប",
         "type": "Questions::Result",
         "hint": null,
         "audio_url": null,
