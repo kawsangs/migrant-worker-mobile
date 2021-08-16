@@ -8,14 +8,18 @@ import {
 import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
 import { Dialog, DialogDefaultActions, Icon } from 'react-native-material-ui';
 import PlaySound from './play_sound';
-
 import OutlineInfoIcon from './OutlineInfoIcon';
+import AppIcon from './AppIcon';
 
 import i18n from 'i18next';
 import { withTranslation } from 'react-i18next';
 
 class AlertMessage extends Component {
   state = {};
+
+  renderIcon() {
+    return this.props.warning ? <AppIcon iconType='warning' customStyles={{marginRight: 10}} /> : <OutlineInfoIcon/>;
+  }
 
   render() {
     if (!this.props.show) {
@@ -29,7 +33,8 @@ class AlertMessage extends Component {
           <Dialog.Content>
             <View style={{marginHorizontal: -10}}>
               <View style={{flexDirection: 'row'}}>
-                <OutlineInfoIcon />
+                {this.renderIcon()}
+
                 <View style={{flex: 1, paddingRight: 5, justifyContent: 'center'}}>
                   { this.props.title ?
                     <Text style={{fontFamily: FontFamily.title}}>{this.props.title}</Text>

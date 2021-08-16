@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Icon } from 'react-native-material-ui';
+import { View, StyleSheet, Image } from 'react-native';
 
 class OutlineInfoIcon extends Component {
   render() {
     return (
       <View style={[styles.iconContainer, this.props.customIconContainerStyles]}>
-        <Icon name='exclamation' color={"#ffc107"} style={{}} iconSet={'MaterialCommunityIcons'} />
+        <Image source={require('../assets/images/icons/exclamation.png')} resizeMode='contain' style={[{width: 10, height: 32}, this.props.customIconStyles]} />
       </View>
     );
   }

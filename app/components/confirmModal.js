@@ -14,7 +14,7 @@ class ConfirmModal extends Component {
         <View style={{flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0,0,0,0.3)'}}>
           <View style={styles.modalView}>
             <View style={{flexDirection: 'row', alignContent: 'flex-start'}}>
-              <OutlineInfoIcon />
+              <OutlineInfoIcon/>
               <Text style={{flex: 1}}>{this.props.message}</Text>
             </View>
 
