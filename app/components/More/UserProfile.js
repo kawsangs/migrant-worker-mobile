@@ -74,7 +74,8 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontSize: 18,
-    fontWeight: '700'
+    fontFamily: FontFamily.title,
+    marginBottom: -4
   },
   userEditText: {
     color: Color.gray,

@@ -12,7 +12,7 @@ class WelcomeMessage extends Component {
         }
 
         <View style={{ flexDirection: 'row'}}>
-          <Text style={[{flex: 1, paddingTop: 5, textAlign: 'center', fontSize: 15}, this.props.contentStyle]}>
+          <Text style={[{flex: 1, paddingTop: 5, paddingRight: 6, textAlign: 'center', fontSize: 15}, this.props.contentStyle]}>
             ដំណើរឆ្លងដែនរបស់ខ្ញុំ គឺជាកម្មវិធីប្រព័ន្ធទូរស័ព្ទ (អ៊ែប) ដើម្បីជួយដល់អ្នកប្រើប្រាស់អាចរកបាននូវព័ត៌មានដែលមានសារៈ​សំខាន់សម្រាប់ការធ្វើចំណាកស្រុក។
           </Text>
 
