@@ -37,7 +37,9 @@ class WelcomeVideo extends Component {
         <WelcomeVideoPlayer onVideoEnd={() => this.goToHomeScreen()} />
 
         <View style={{paddingHorizontal: 16, flex: 1, paddingBottom: 22}}>
-          <WelcomeMessage showTitle={false} containerStyle={{ marginTop: 10, paddingHorizontal: 0 }} contentStyle={{padding: 0}}/>
+          <WelcomeMessage showTitle={false} containerStyle={{ marginTop: 10, paddingHorizontal: 0 }} contentStyle={{padding: 0}}
+            audioPlayer={this.state.audioPlayer} updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
+          />
           <View style={{flex: 1}} />
           <WelcomeVideoSkipButton
             onPress={() => this.goToHomeScreen()}
