@@ -33,7 +33,7 @@ class More extends Component {
 
           <ListItem
             title={"ចាកចេញ"}
-            avata={Images.doc}
+            avata={Images.logout}
             onPress={ () => this.props.setCurrentUser(null) }
           />
 
