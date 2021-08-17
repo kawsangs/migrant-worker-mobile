@@ -358,7 +358,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
-    "name_km": "មជ្ឍមណ្ឌលម៉ាផលប្រឹក្សាផ្នែកចិត្តសាស្រ្តស្ត្រីនៅទីក្រុងប៉េកាំង",
+    "name_km": "មជ្ឈមណ្ឌលម៉ាផលប្រឹក្សាផ្នែកចិត្តសាស្រ្តស្ត្រីនៅទីក្រុងប៉េកាំង",
     "contacts": [
       {
         "id": 24,
@@ -1226,7 +1226,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
-    "name_km": "រាយការណ៍អំពីការរំលោភ ទាក់ទងនឹងការងារនិងការស្នាក់នៅ",
+    "name_km": "រាយការណ៍អំពីការរំលោភបំពាន ទាក់ទងនឹងការងារនិងការស្នាក់នៅ",
     "contacts": [
       {
         "id": 82,
@@ -1248,7 +1248,7 @@ export default [
     "address": null,
     "logo_url": null,
     "audio_url": null,
-    "name_km": "មជ្ឈមណ្ទលជំនួយ",
+    "name_km": "មជ្ឈមណ្ឌលជំនួយ",
     "contacts": [
       {
         "id": 83,
