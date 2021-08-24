@@ -109,7 +109,11 @@ class Welcome extends React.Component {
         >
 
           <View style={{padding: 16, paddingTop: 0}}>
-            <WelcomeMessage showTitle={true} audioPlayer={this.state.audioPlayer} updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })} />
+            <WelcomeMessage showTitle={true}
+              audioPlayer={this.state.audioPlayer}
+              updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
+              hasAudioButton={false}
+            />
           </View>
           { this._renderButtonNavs() }
 
