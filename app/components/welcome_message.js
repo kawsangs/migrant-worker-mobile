@@ -8,7 +8,7 @@ class WelcomeMessage extends Component {
     return (
       <View style={[{marginTop: 5, marginBottom: -20}, this.props.containerStyle]}>
         { this.props.showTitle &&
-          <Text style={{fontFamily: FontFamily.title, fontSize: FontSize.title, textAlign: 'center'}}>សូមស្វាគមន៍</Text>
+          <Text style={[{fontFamily: FontFamily.title, fontSize: FontSize.title, textAlign: 'center'}, this.props.titleStyle]}>សូមស្វាគមន៍</Text>
         }
 
         <View style={{ flexDirection: 'row'}}>

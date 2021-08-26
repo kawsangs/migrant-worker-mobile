@@ -15,28 +15,27 @@ import Images from '../utils/images';
 export default class ButtonNav extends React.Component {
   render() {
     let textColor = this.props.active ? Color.white : Color.primary;
-    // let buttonColor = this.props.active ? Color.primary : Color.white;
     let buttonColor = this.props.active ? this.props.buttonColor ? this.props.buttonColor : Color.primary : Color.white;
     let borderColor = this.props.buttonColor ? this.props.buttonColor : Color.primary;
 
     let iconTintColor = this.props.active ? Color.primary : Color.pink;
 
     return (
-      <View style={[styles.buttonWrapper, Style.boxShadow, { borderColor: borderColor, backgroundColor: buttonColor }]}>
+      <View style={[styles.buttonWrapper, Style.boxShadow, { borderColor: borderColor, backgroundColor: buttonColor }, this.props.buttonWrapperStyle]}>
         <TouchableOpacity
           onPress={() => this.props.onPress()}
-          style={[styles.buttonTextWrapper]}
+          style={[styles.buttonTextWrapper, this.props.textWrapperStyle]}
         >
-          { !!this.props.icon && <Icon name={this.props.icon} color={textColor} size={28} iconSet={this.props.iconSet || "MaterialIcons"} />}
-          { !!this.props.image && <Image source={Images[this.props.image]} color={textColor} size={24} style={{width: 24, height: 26}} />}
+          { !!this.props.icon && <Icon name={this.props.icon} color={textColor} size={this.props.iconSize} iconSet={this.props.iconSet || "MaterialIcons"} />}
+          { !!this.props.image && <Image source={Images[this.props.image]} color={textColor} size={this.props.iconSize} style={this.props.imageStyle} />}
 
-          <Text style={[styles.buttonText, { color: textColor }]}>{this.props.title}</Text>
+          <Text style={[styles.buttonText, { color: textColor }, this.props.textStyle]}>{this.props.title}</Text>
         </TouchableOpacity>
 
         <PlaySound
-          style={[styles.buttonAudioWrapper]}
-          buttonAudioStyle={{ backgroundColor: textColor }}
-          iconStyle={{ tintColor: iconTintColor }}
+          style={[styles.buttonAudioWrapper, this.props.audioWrapperStyle]}
+          buttonAudioStyle={[{ backgroundColor: textColor}, this.props.playSoundSize]}
+          iconStyle={[{ tintColor: iconTintColor }, this.props.playSoundSize]}
           filePath={this.props.audio}
           audioPlayer={this.props.audioPlayer}
           updateMainAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}
