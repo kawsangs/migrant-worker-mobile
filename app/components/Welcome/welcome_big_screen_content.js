@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { View, Image, ImageBackground, Dimensions } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
 
 import Images from '../../utils/images';
 import { backgroundImageTopPosition } from '../../utils/image_style';
-import { mediumMobileHeight } from '../../constants/screen_size_constant';
 
 import { Style } from '../../assets/stylesheets/base_style';
 import WelcomeMessage from '../welcome_message';
@@ -46,6 +46,8 @@ class WelcomeBigScreenContent extends Component {
   }
 
   render() {
+    const sportLightLogo = DeviceInfo.isTablet() ? Images.spotlight_one_line : Images.spotlight_one_line_small;
+
     return (
       <View style={{flex: 1, backgroundColor: '#fff'}}>
         <ImageBackground
@@ -68,8 +70,8 @@ class WelcomeBigScreenContent extends Component {
           </View>
           { this._renderButtonNavs() }
 
-          <View style={{paddingHorizontal: 16, marginTop: screenHeight > mediumMobileHeight ? -18 : -25}}>
-            <Image source={Images.spotlight_one_line} style={{width: "100%", height: 100, resizeMode: 'contain'}}/>
+          <View style={{paddingHorizontal: 16, marginTop: -25 }}>
+            <Image source={sportLightLogo} style={{width: "100%", height: 100, resizeMode: 'contain'}}/>
           </View>
           { this.props.videoButton }
         </ImageBackground>

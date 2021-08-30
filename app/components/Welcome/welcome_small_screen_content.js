@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { View, Image, ImageBackground, Dimensions } from 'react-native';
+import { View, Image, ImageBackground, Dimensions, PixelRatio } from 'react-native';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 import Images from '../../utils/images';
-import { backgroundImageTopPosition } from '../../utils/image_style';
 
 import { Color, Style } from '../../assets/stylesheets/base_style';
 import WelcomeMessage from '../welcome_message';
 import ButtonNav from '../button_nav';
+import { HDPIRatio } from '../../constants/screen_size_constant';
 
 const screenHeight = Dimensions.get('screen').height;
 
@@ -53,36 +54,35 @@ class WelcomeSmallScreenContent extends Component {
   }
 
   render() {
-    return (
-      <View style={{flex: 1, backgroundColor: '#fff'}}>
-        <ImageBackground
-          source={Images.welcome_bg}
-          style={{ width: '100%', height: '100%', backgroundColor: '#fff'}}
-          imageStyle={{
-            borderWidth: 1,
-            resizeMode: 'contain',
-            alignSelf: 'flex-end',
-            top: backgroundImageTopPosition(screenHeight)
-          }}
-        >
+    const contentFontSize = PixelRatio.get() <= HDPIRatio ? 11 : 14;
 
-          <View style={{padding: 16, paddingTop: 0}}>
-            <WelcomeMessage showTitle={true}
-              audioPlayer={this.props.audioPlayer}
-              updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
-              hasAudioButton={false}
-              titleStyle={{fontSize: 18}}
-              contentStyle={{fontSize: 14, paddingTop: 0}}
+    return (
+      <View style={{flexGrow: 1, backgroundColor: '#fff'}}>
+        <View style={{flex: 1, flexDirection: 'column'}}>
+          <View style={{flex: 1}}>
+            <View style={{padding: 16, paddingTop: 0}}>
+              <WelcomeMessage showTitle={true}
+                audioPlayer={this.props.audioPlayer}
+                updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
+                hasAudioButton={false}
+                titleStyle={{fontSize: 18}}
+                contentStyle={{ fontSize: contentFontSize, paddingTop: 0 }}
+              />
+            </View>
+            { this._renderButtonNavs() }
+
+            <Image source={Images.spotlight_one_line_small} style={{width: "100%", height: 50, resizeMode: 'contain', marginTop: -8}}/>
+          </View>
+
+          <View style={{flex: 1, flexDirection: 'row'}}>
+            <ImageBackground
+              source={Images.welcome_bg}
+              style={{width: Dimensions.get('screen').width, height: wp('100%')}}
+              resizeMode='contain'
+              imageStyle={{ borderWidth: 1}}
             />
           </View>
-          { this._renderButtonNavs() }
-
-          <View style={{paddingHorizontal: 16, marginTop: -28}}>
-            <Image source={Images.spotlight_one_line_small} style={{width: "100%", height: 100, resizeMode: 'contain'}}/>
-          </View>
-
-          { this.props.videoButton }
-        </ImageBackground>
+        </View>
       </View>
     )
   }
