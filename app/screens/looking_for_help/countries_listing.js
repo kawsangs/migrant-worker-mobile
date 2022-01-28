@@ -52,7 +52,10 @@ class CountriesListing extends React.Component {
   }
 
   onChangeQuery = (query) => {
-    this.setState({ query })
+    this.setState({
+      query,
+      countries: Country.filterByName(query),
+    })
   }
 
   onSubmit = () => {

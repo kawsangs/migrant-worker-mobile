@@ -13,6 +13,7 @@ import { addStatistic } from '../../utils/statistic';
 import { withTranslation } from 'react-i18next';
 import CountryInstitution from '../../models/CountryInstitution';
 import InstitutionService from '../../services/institution_service';
+import institutionHelper from '../../helpers/institution_helper';
 import { Icon } from 'react-native-material-ui';
 
 class LookingForHelp extends React.Component {
@@ -28,10 +29,8 @@ class LookingForHelp extends React.Component {
   }
 
   onChangeQuery = (query) => {
-    let institutions = this.state.institutions.filter( institution =>  institution.name.indexOf(query) != -1);
-
     this.setState({query: query});
-    this.props.onChangeQuery(institutions);
+    this.props.onChangeQuery(institutionHelper.getFilteredInstitutions(this.state.institutions, query));
   }
 
   render() {
@@ -78,7 +77,8 @@ const styles = StyleSheet.create({
   searchInput: {
     fontFamily: FontFamily.body,
     fontSize: 16,
-    width: '90%'
+    width: '90%',
+    height: 50
   },
 });
 

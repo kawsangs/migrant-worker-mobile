@@ -14,6 +14,7 @@ const Country = (() => {
     reloadBatch,
     createBatch,
     loadIfNotExists,
+    filterByName,
   }
 
   function find(code) {
@@ -65,6 +66,10 @@ const Country = (() => {
 
   function isExist() {
     return all().length > 0
+  }
+
+  function filterByName(query) {
+    return all().filtered(`name_km BEGINSWITH[c] "${query}" || name BEGINSWITH[c] "${query}"`);
   }
 
   // private method
