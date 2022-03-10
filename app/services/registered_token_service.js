@@ -1,5 +1,6 @@
 import messaging from '@react-native-firebase/messaging';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import NetInfo from '@react-native-community/netinfo';
 import { Api } from '../utils/api';
 
 const TOKEN_KEY = 'registeredToken';
@@ -10,12 +11,16 @@ const RegisteredTokenService = (() => {
   }
 
   function handleSyncingToken() {
-    messaging()
-      .getToken()
-      .then(token => {
-        console.log('== firebase token == ', token)
-        return handleToken(token);
-      });
+    NetInfo.fetch().then(state => {
+      if (state.isConnected && state.isInternetReachable) {
+        messaging()
+          .getToken()
+          .then(token => {
+            console.log('== firebase token == ', token)
+            return handleToken(token);
+          });
+      }
+    });
 
     // // Listen to whether the token changes
     // return messaging().onTokenRefresh(token => {
