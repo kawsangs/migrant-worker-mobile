@@ -40,6 +40,7 @@ export default Images = {
 
   // Welcome
   welcome_bg: require('../assets/images/icons/welcome_bg.png'),
+  spotlight_one_line_small: require('../assets/images/logos/spotlight_one_line_small.png'),
   spotlight_one_line: require('../assets/images/logos/spotlight_one_line.png'),
   head_profile: require('../assets/images/icons/head_profile_white.png'),
 };

@@ -142,7 +142,12 @@ class Register extends Component {
   _renderVoiceRecord() {
     return (
       <View style={[styles.voiceRecord, registerHelper.validationBorder(this.state.voiceRecord, 'voice', this.state.isFormValid)]}>
-        <Text>{this.props.t('RegisterScreen.RecordVoice')}</Text>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={{marginTop: 4}}>{this.props.t('RegisterScreen.RecordVoice')}</Text>
+          <View style={{flex: 1, alignItems: 'flex-end', marginRight: -10}}>
+            {this._buildButtonAudio('record_your_voice.mp3')}
+          </View>
+        </View>
         <Audio
           uuid={this.props.currentUser && this.props.currentUser.uuid }
           callback={(path) => this._updateVoiceRecord(path)}
@@ -160,15 +165,18 @@ class Register extends Component {
 
     User.upsert(this._buildData());
     User.uploadAsync(this.state.uuid);
-    this.props.setCurrentUser(User.find(this.state.uuid));
     try {
       await AsyncStorage.setItem('IS_NEW_SESSION', 'true');
     } catch (e) {
     }
 
     if (this.action == 'edit') {
+      this.props.setCurrentUser(User.find(this.state.uuid));
       this.props.navigation.goBack();
+      return;
     }
+
+    this.props.navigation.navigate('WelcomeVideoScreen', { user_uuid: this.state.uuid });
   }
 
   _buildData() {
@@ -203,6 +211,11 @@ class Register extends Component {
   }
 
   _renderButtonNext() {
+    const button = {
+      register: { label: this.props.t("RegisterScreen.ButtonRegister"), audio: 'register.mp3' },
+      edit: { label: this.props.t("RegisterScreen.ButtonSave"), audio: 'save.mp3' }
+    }
+
     return (
       <TouchableOpacity
         onPress={() => this._submit()}
@@ -210,9 +223,9 @@ class Register extends Component {
       >
         <View style={{ width: 58 }} />
         <View style={styles.coverRegisterLabel}>
-          <Text style={[styles.buttonNextText, !this.state.isFormValid ? { color: 'black' } : {}]}>{this.props.t("RegisterScreen.ButtonSave")}</Text>
+          <Text style={[styles.buttonNextText, !this.state.isFormValid ? { color: 'black' } : {}]}>{button[this.action].label}</Text>
         </View>
-        {this._buildButtonAudio('save.mp3', true)}
+        {this._buildButtonAudio(button[this.action].audio, true)}
       </TouchableOpacity>
     )
   }

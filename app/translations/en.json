@@ -14,6 +14,7 @@
             "OR": "OR",
             "RecordVoice": "Record voice",
             "ButtonSave": "Save",
+            "ButtonRegister": "Register",
             "CanNotBeBlank": "Can not be blank",
             "WarningFillRequiredInfo": "Fill in required information ...!",
             "Gender": {
