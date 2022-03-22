@@ -13,6 +13,7 @@ import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
 import OutlineInfoIcon from '../OutlineInfoIcon';
 import notificationHelper from '../../helpers/notification_helper';
 import uuidv4 from '../../utils/uuidv4';
+import { getDeviceStyle } from '../../utils/responsive_util';
 
 class NotificationItem extends React.Component {
   constructor(props) {
@@ -52,7 +53,9 @@ class NotificationItem extends React.Component {
           style={[Style.card, { marginBottom: 10 }]}
         >
           <View style={{flexDirection: 'row', marginBottom: 5}}>
-            <OutlineInfoIcon customIconContainerStyles={{width: 35, height: 35, alignSelf: 'center', marginRight: 10}}/>
+            <OutlineInfoIcon customIconContainerStyles={{width: 35, height: 35, alignSelf: 'center', marginRight: 10}}
+              customIconStyles={{width: 6, height: 20, marginLeft: getDeviceStyle(-1, 0)}}
+            />
 
             <View style={{flex: 1, flexDirection: 'row'}}>
               <Text numberOfLines={1} style={styles.title}>{ this.props.notification.title }</Text>

@@ -17,6 +17,7 @@ export default Images = {
   info: require('../assets/images/icons/info.png'),
   share: require('../assets/images/icons/share.png'),
   doc: require('../assets/images/icons/doc.png'),
+  logout: require('../assets/images/icons/logout.png'),
   next: require('../assets/images/icons/next.png'),
   left_arrow: require('../assets/images/icons/left_arrow.png'),
   down: require('../assets/images/icons/down.png'),

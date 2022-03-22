@@ -22,7 +22,7 @@ import { connect } from 'react-redux';
 import { setQuestions } from '../../actions/questionAction';
 import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexAction';
 import AlertMessage from '../../components/AlertMessage';
-import OutlineInfoIcon from '../../components/OutlineInfoIcon';
+import AppIcon from '../../components/AppIcon';
 import { setCurrentQuiz } from '../../actions/currentQuizAction';
 import uuidv4 from '../../utils/uuidv4';
 import { HeaderBackButton } from '@react-navigation/stack';
@@ -108,7 +108,7 @@ class CreateYourStory extends Component {
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', padding: 20}}>
         <View style={[Style.card]}>
           <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 10}}>
-            <OutlineInfoIcon />
+            <AppIcon iconType='clap' customStyles={{ marginRight: 15 }}/>
             <Text style={{fontFamily: FontFamily.title, flex: 1}}>អបអរសារទរ</Text>
             <PlaySound
               iconStyle={{ tintColor: Color.white }}
@@ -180,7 +180,7 @@ class CreateYourStory extends Component {
 
         <AlertMessage
           show={this.state.showAlert}
-          warning={true}
+          warning={false}
           title={"ចាកចេញពីសាច់រឿង"}
           message={"តើអ្នកប្រាកដថាចង់ចាកចេញពីហ្គេមនេះដែរឬទេ?"}
           onPressAction={() => this._handleHideMessage()}

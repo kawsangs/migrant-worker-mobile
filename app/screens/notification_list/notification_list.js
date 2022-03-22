@@ -13,7 +13,6 @@ import uuidv4 from '../../utils/uuidv4';
 
 import { connect } from 'react-redux';
 import { setNotifications } from '../../actions/notificationAction';
-import { Color } from '../../assets/stylesheets/base_style';
 
 class NotificationList extends Component {
   constructor(props) {
