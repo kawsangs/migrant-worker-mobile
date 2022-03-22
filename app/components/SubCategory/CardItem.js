@@ -48,7 +48,7 @@ class SubCategory extends Component {
               <View>
                 <PlaySound
                   filePath={this.props.audio}
-                  buttonAudioStyle={{backgroundColor: Color.red}}
+                  buttonAudioStyle={{backgroundColor: Color.beforeYouGoColor}}
                   iconStyle={{tintColor: Color.white}}
                   audioPlayer={this.props.audioPlayer}
                   updateMainAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}

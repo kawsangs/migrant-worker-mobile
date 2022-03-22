@@ -10,7 +10,7 @@ export default [
     imageWidth: '480',
     imageHeight: '360',
     audio: 'your_migration_02.mp3',
-    backgroundColor: Color.red
+    backgroundColor: Color.beforeYouGoColor
   },
   {
     title_en: 'Your Safety',

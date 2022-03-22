@@ -43,7 +43,7 @@ class HintCard extends Component {
 
   render() {
     return (
-      <View style={[Style.card, { maxHeight: 150, padding: 0, backgroundColor: Color.red }]}>
+      <View style={[Style.card, { maxHeight: 150, padding: 0, backgroundColor: Color.beforeYouGoColor }]}>
         <ImageBackground
           source={this.props.image}
           style={{ width: '100%', height: '100%', resizeMode: "cover"}}>
@@ -60,8 +60,8 @@ class HintCard extends Component {
             <View style={{ marginLeft: 20 }}>
               <PlaySound
                 filePath={this.props.audio}
-                buttonAudioStyle={{backgroundColor: Color.red}}
-                iconStyle={{tintColor: Color.white}}
+                buttonAudioStyle={{backgroundColor: Color.white}}
+                iconStyle={{tintColor: Color.beforeYouGoColor}}
                 audioPlayer={this.props.audioPlayer}
                 updateMainAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}
               />

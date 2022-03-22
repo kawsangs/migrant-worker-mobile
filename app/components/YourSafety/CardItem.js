@@ -24,7 +24,7 @@ class CardItem extends Component {
 
         <ImageBackground
           source={image}
-          style={{ flex: 1 }}>
+          style={[{ flex: 1}]}>
 
           <View style={[Style.cardContent, { marginBottom: 0, paddingBottom: 0, minHeight: 160}]}>
             <View style={{ flex: 1 }} />
@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: 14,
     paddingVertical: 10,
+    alignItems: 'center'
   },
   title: {
     flex: 1,

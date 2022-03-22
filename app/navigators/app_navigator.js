@@ -112,7 +112,7 @@ class AppNavigator extends Component {
         <Stack.Screen name="YourDepartureScreen" component={YourDepartureScreen}
           options={({route, navigation}) => ({
             title: this.props.t("BeforeYouGoScreen.HeaderTitle"),
-            headerStyle: { backgroundColor: Color.red },
+            headerStyle: { backgroundColor: Color.beforeYouGoColor },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
         />
@@ -130,7 +130,7 @@ class AppNavigator extends Component {
         <Stack.Screen name="SubCategoryScreen" component={SubCategoryScreen}
           options={({route, navigation}) => ({
             title: route.params.title,
-            headerStyle: { backgroundColor: Color.red },
+            headerStyle: { backgroundColor: Color.beforeYouGoColor },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
         />
@@ -138,7 +138,7 @@ class AppNavigator extends Component {
         <Stack.Screen name="LeafCategoryScreen" component={LeafCategoryScreen}
           options={({route, navigation}) => ({
             title: route.params.title,
-            headerStyle: { backgroundColor: Color.red },
+            headerStyle: { backgroundColor: Color.beforeYouGoColor },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
         />
