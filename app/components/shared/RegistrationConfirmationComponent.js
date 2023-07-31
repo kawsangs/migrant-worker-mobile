@@ -5,12 +5,15 @@ import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 import BottomSheetModalContentComponent from './BottomSheetModalContentComponent';
 import BigButtonComponent from './BigButtonComponent';
+import PlaySound from '../play_sound';
 import { Color, FontFamily } from '../../assets/stylesheets/base_style';
 import {PRIVACY_POLICY_URL, TERMS_AND_CONDITIONS_URL} from '../../constants/url_constant';
 
 const FONTSIZE = 15;
 
 const RegistrationConfirmationComponent = (props) => {
+  const [audioPlayer, setAudioPlayer] = useState(null)
+
   const renderUrl = (label, url) => {
     return <Text onPress={() =>  Linking.openURL(url)} style={{color: Color.primary, fontSize: 15}}>{label}</Text>
   }
@@ -18,7 +21,9 @@ const RegistrationConfirmationComponent = (props) => {
   const renderButton = () => {
     return <BigButtonComponent
               label="យល់ព្រម"
-              buttonStyle={{marginTop: 6}}
+              buttonStyle={{marginTop: 6, paddingRight: 16}}
+              rightComponent={renderAudioBtn('choose_gender.mp3', {backgroundColor: Color.white}, {tintColor: Color.primary})}
+              onPress={() => props.onPress()}
            />
   }
 
@@ -34,6 +39,18 @@ const RegistrationConfirmationComponent = (props) => {
            </React.Fragment>
   }
 
+  const renderAudioBtn = (filePath, btnStyle = {}, iconStyle = {}) => {
+    return (
+      <PlaySound
+        filePath={filePath}
+        audioPlayer={audioPlayer}
+        updateMainAudioPlayer={(sound) => setAudioPlayer(sound)}
+        buttonAudioStyle={btnStyle}
+        iconStyle={iconStyle}
+      />
+    )
+  }
+
   const renderIcon = () => {
     return <View style={styles.infoIcon}>
               <Icon name="exclamation" size={18} color={Color.pink} />
@@ -44,6 +61,9 @@ const RegistrationConfirmationComponent = (props) => {
     <BottomSheetModalContentComponent
       title='លក្ខខណ្ឌចុះឈ្មោះប្រើប្រាស់'
       titleIcon={renderIcon()}
+      titleStyle={{flex: 1, marginTop: 2}}
+      audioButton={renderAudioBtn('register.mp3')}
+      titleContainerStyle={{marginBottom: 6}}
     >
       {renderContent()}
     </BottomSheetModalContentComponent>
@@ -57,7 +77,7 @@ const styles = StyleSheet.create({
     borderColor: Color.pink,
     borderRadius: 40,
     justifyContent: 'center',
-    marginTop: -6,
+    marginTop: -4,
     marginRight: 16,
     height: 38,
     width: 38

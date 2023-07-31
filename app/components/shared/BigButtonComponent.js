@@ -5,7 +5,7 @@ import { Color, FontFamily } from '../../assets/stylesheets/base_style';
 const BigButtonComponent = (props) => {
   return (
       <TouchableOpacity
-        onPress={() => this._submit()}
+        onPress={() => !props.disabled && props.onPress()}
         style={[styles.button, props.disabled ? { backgroundColor: Color.gray } : {}, props.buttonStyle]}
       >
         {!!props.rightComponent && <View style={{ width: 58 }} /> }

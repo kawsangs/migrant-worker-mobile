@@ -19,8 +19,13 @@ class WelcomeBigScreenContent extends Component {
     this.modalRef = React.createRef();
   }
 
+  confirmConsentForm() {
+    this.modalRef.current?.dismiss();
+    this.props.loginAsGuest()
+  }
+
   showConsentForm() {
-    this.modalRef.current?.setContent(<RegistrationConfirmationComponent/>);
+    this.modalRef.current?.setContent(<RegistrationConfirmationComponent  onPress={() => this.confirmConsentForm()} />);
     this.modalRef.current?.present()
   }
 
@@ -47,7 +52,6 @@ class WelcomeBigScreenContent extends Component {
           audio={"login_as_guest.mp3"}
           audioPlayer={this.props.audioPlayer}
           updateAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}
-          // onPress={() => this.props.loginAsGuest()}
           onPress={() => this.showConsentForm()}
           buttonColor="#e44977"
           iconSize={24}
