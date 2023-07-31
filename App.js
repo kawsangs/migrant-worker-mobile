@@ -4,6 +4,7 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
+import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 
 import { ThemeContext, getTheme } from 'react-native-material-ui';
 import { setCustomText} from 'react-native-global-props';
@@ -59,7 +60,9 @@ class App extends React.Component {
     return (
       <Provider store={store}>
         <ThemeContext.Provider value={getTheme(uiTheme)}>
-          <AppNavigator/>
+          <BottomSheetModalProvider>
+            <AppNavigator/>
+          </BottomSheetModalProvider>
         </ThemeContext.Provider>
       </Provider>
     )

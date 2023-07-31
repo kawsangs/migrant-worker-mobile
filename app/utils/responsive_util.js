@@ -1,6 +1,6 @@
 import { Dimensions, PixelRatio } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
-import { smallMobileHeight, smallWidthMobile, XXHDPIRatio } from '../constants/screen_size_constant';
+import { smallMobileHeight, smallWidthMobile, XXHDPIRatio, XHDPIRatio } from '../constants/screen_size_constant';
 
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
@@ -25,4 +25,9 @@ const isSmallScreenDevice = () => {
   return false;
 }
 
-export { getDeviceStyle, isShortScreenDevice, isShortWidthScreen, isSmallScreenDevice };
+const isLowPixelDensityDevice = () => {
+  const devicePixelRatio = Math.round(PixelRatio.roundToNearestPixel(PixelRatio.get()));
+  return devicePixelRatio <= XHDPIRatio
+}
+
+export { getDeviceStyle, isShortScreenDevice, isShortWidthScreen, isSmallScreenDevice, isLowPixelDensityDevice };
