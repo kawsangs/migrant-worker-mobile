@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {View, Linking, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 import BottomSheetModalContentComponent from './BottomSheetModalContentComponent';
 import BigButtonComponent from './BigButtonComponent';
@@ -30,9 +29,9 @@ const RegistrationConfirmationComponent = (props) => {
   const renderContent = () => {
     return <React.Fragment>
               <Text style={{lineHeight: 30, color: 'black', fontSize: FONTSIZE}}>
-                សូមអានលក្ខខណ្ឌខាងក្រោម មុនពេលធ្វើការចុះឈ្មោះចូលប្រើប្រាស់កម្មវិធី សុខភាពយុវជន។ ដោយចុច
+                សូមអានលក្ខខណ្ឌខាងក្រោម មុនពេលធ្វើការចុះឈ្មោះចូលប្រើប្រាស់កម្មវិធី ដំណើរឆ្លងដែនរបស់ខ្ញុំ។ ដោយចុច
                 <Text style={{fontFamily: FontFamily.title, fontSize: FONTSIZE}}> "យល់ព្រម" </Text>
-                បញ្ចាក់ថាអ្នកបានអាន និងយល់ព្រមទៅនឹង {renderUrl('“គោលការណ៍ឯកជនភាព”', PRIVACY_POLICY_URL)} និង {renderUrl('“គោលការណ៍ និងលក្ខខណ្ឌ”', TERMS_AND_CONDITIONS_URL)} ប្រើប្រាស់កម្មវិធីសុខភាពយុវជន។
+                បញ្ចាក់ថាអ្នកបានអាន និងយល់ព្រមទៅនឹង {renderUrl('“គោលការណ៍ឯកជនភាព”', PRIVACY_POLICY_URL)} និង {renderUrl('“គោលការណ៍ និងលក្ខខណ្ឌ”', TERMS_AND_CONDITIONS_URL)} ប្រើប្រាស់កម្មវិធីដំណើរឆ្លងដែនរបស់ខ្ញុំ។
               </Text>
               <Text style={{color: 'red', marginTop: 20, textAlign: 'center', fontSize: FONTSIZE}}>ការសម្ងាត់ព័ត៌មាន និងសុវត្តិភាពអ្នកជាអាទិភាពរបស់យើង!</Text>
               {renderButton()}

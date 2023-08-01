@@ -1,19 +1,11 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  Platform,
-  ToastAndroid,
-} from 'react-native';
+import { View, Text, ScrollView, ToastAndroid } from 'react-native';
 
-import { Icon } from 'react-native-material-ui';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
+import { Color } from '../assets/stylesheets/base_style';
 import Audio from '../components/Register/Audio';
+import BigButtonComponent from '../components/shared/BigButtonComponent';
+import RegisterTextInputComponent from '../components/Register/RegisterTextInputComponent';
 
 import uuidv4 from '../utils/uuidv4';
 import registerHelper from '../helpers/register_helper';
@@ -26,6 +18,7 @@ import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { setCurrentUser } from '../actions/currentUserAction';
 import User from '../models/User';
+import styles from '../styles/registerScreenStyle';
 
 const requiredFields = ['uuid', 'name', 'sex', 'age'];
 
@@ -34,9 +27,7 @@ class Register extends Component {
 
   constructor(props) {
     super(props);
-
     let currentUser = props.currentUser || {};
-
     this.state = {
       uuid: currentUser.uuid || uuidv4(),
       name: currentUser.name,
@@ -64,26 +55,17 @@ class Register extends Component {
   }
 
   _renderTextInput(item) {
-    return (
-      <View style={{
-        marginBottom: 16
-      }}>
-        <View style={[styles.buttonWrapper, Style.boxShadow]}>
-          <View style={[styles.textInputWrapper, registerHelper.validationBorder(this.state[item.stateName], item.stateName, this.state.isFormValid)]}>
-            <Icon name={item.iconName} size={24} style={styles.inputIcon} />
-            <TextInput
-              placeholder={this.props.t("RegisterScreen." + item.placeholder)}
-              style={styles.textInput}
-              keyboardType={item.keyboardType || 'default'}
-              onChangeText={value => this._setState(item.stateName, value)}
+    return <RegisterTextInputComponent
               value={this.state[item.stateName]}
-            />
-
-            {this._buildButtonAudio(item.audioFilename)}
-          </View>
-        </View>
-      </View>
-    )
+              placeholder={this.props.t("RegisterScreen." + item.placeholder)}
+              keyboardType={item.keyboardType}
+              iconName={item.iconName}
+              onChange={value => this._setState(item.stateName, value)}
+              textContainerStyle={registerHelper.validationBorder(this.state[item.stateName], item.stateName, this.state.isFormValid)}
+              audio={item.audioFilename}
+              audioPlayer={this.state.audioPlayer}
+              updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
+           />
   }
 
   _buildButtonAudio(audio, active) {
@@ -215,19 +197,12 @@ class Register extends Component {
       register: { label: this.props.t("RegisterScreen.ButtonRegister"), audio: 'register.mp3' },
       edit: { label: this.props.t("RegisterScreen.ButtonSave"), audio: 'save.mp3' }
     }
-
-    return (
-      <TouchableOpacity
-        onPress={() => this._submit()}
-        style={[styles.buttonNext, !this.state.isFormValid ? { backgroundColor: Color.gray } : {}]}
-      >
-        <View style={{ width: 58 }} />
-        <View style={styles.coverRegisterLabel}>
-          <Text style={[styles.buttonNextText, !this.state.isFormValid ? { color: 'black' } : {}]}>{button[this.action].label}</Text>
-        </View>
-        {this._buildButtonAudio(button[this.action].audio, true)}
-      </TouchableOpacity>
-    )
+    return <BigButtonComponent
+              label={button[this.action].label}
+              disabled={!this.state.isFormValid}
+              rightComponent={this._buildButtonAudio(button[this.action].audio, true)}
+              onPress={() => this._submit()}
+           />
   }
 
   render() {
@@ -250,93 +225,6 @@ class Register extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    margin: 24,
-    flexDirection: 'column'
-  },
-  buttonWrapper: {
-    flexDirection: 'row',
-    borderRadius: 10,
-    overflow: 'hidden',
-    alignItems: 'center',
-    backgroundColor: Color.white,
-    borderColor: Color.border,
-  },
-  buttonAudioWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 58,
-  },
-  textInputWrapper: {
-    flexDirection: 'row'
-  },
-  textInput: {
-    height: 52,
-    paddingLeft: 38,
-    flex: 1,
-    fontSize: 16,
-    fontFamily: FontFamily.body
-  },
-  buttonNext: {
-    height: 60,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: Color.primary,
-    flexDirection: 'row'
-  },
-  buttonNextText: {
-    color: Color.white,
-    fontFamily: FontFamily.title,
-  },
-  errorText: {
-    color: Color.errorText,
-    fontSize: 12
-  },
-  inputIcon: {
-    position: 'absolute',
-    top: 14,
-    left: 10
-  },
-  separatorCover: {
-    marginBottom: 16,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  line: {
-    flex: 1,
-    height: 1,
-    backgroundColor: Color.border
-  },
-  separatorLabel: {
-    fontWeight: '700',
-    color: Color.gray
-  },
-  separatorCoverLabel: {
-    paddingHorizontal: 10,
-    alignSelf: 'center',
-    marginBottom: 5
-  },
-  voiceRecord: {
-    backgroundColor: Color.white,
-    minHeight: 105,
-    borderWidth: 1,
-    borderColor: Color.border,
-    borderRadius: 8,
-    paddingHorizontal: 15,
-    paddingVertical: 6,
-    marginBottom: 34,
-  },
-  coverRegisterLabel: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
-});
 
 function mapStateToProps(state) {
   return {
