@@ -6,6 +6,8 @@ import { Color } from '../assets/stylesheets/base_style';
 import Audio from '../components/Register/Audio';
 import BigButtonComponent from '../components/shared/BigButtonComponent';
 import RegisterTextInputComponent from '../components/Register/RegisterTextInputComponent';
+import BottomSheetModalComponent from '../components/shared/BottomSheetModalComponent';
+import RegistrationConfirmationComponent from '../components/shared/RegistrationConfirmationComponent';
 
 import uuidv4 from '../utils/uuidv4';
 import registerHelper from '../helpers/register_helper';
@@ -38,8 +40,8 @@ class Register extends Component {
       isFormValid: false,
       audioPlayer: null,
     };
-
     this.action = props.route.params.action || "register";
+    this.modalRef = React.createRef();
   }
 
   componentDidMount() {
@@ -192,6 +194,16 @@ class Register extends Component {
     this.setState({ isFormValid: isValid })
   }
 
+  onConfirmRegister() {
+    this.modalRef.current?.dismiss();
+    this._submit();
+  }
+
+  showConsentForm() {
+    this.modalRef.current?.setContent(<RegistrationConfirmationComponent  onPress={() => this.onConfirmRegister()} />);
+    this.modalRef.current?.present()
+  }
+
   _renderButtonNext() {
     const button = {
       register: { label: this.props.t("RegisterScreen.ButtonRegister"), audio: 'register.mp3' },
@@ -201,7 +213,7 @@ class Register extends Component {
               label={button[this.action].label}
               disabled={!this.state.isFormValid}
               rightComponent={this._buildButtonAudio(button[this.action].audio, true)}
-              onPress={() => this._submit()}
+              onPress={() => this.action == 'register' ? this.showConsentForm() : this._submit()}
            />
   }
 
@@ -221,6 +233,7 @@ class Register extends Component {
           {this._renderVoiceRecord()}
           {this._renderButtonNext()}
         </View>
+        <BottomSheetModalComponent ref={this.modalRef} />
       </ScrollView>
     );
   }
