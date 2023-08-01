@@ -15,7 +15,7 @@ const BigButtonComponent = (props) => {
   return (
       <TouchableOpacity
         onPress={() => onPress()}
-        style={[styles.button, props.disabled ? { backgroundColor: Color.gray } : {}, props.buttonStyle]}
+        style={[styles.button, !!props.rightComponent && {paddingRight: 4}, props.disabled ? { backgroundColor: Color.gray } : {}, props.buttonStyle]}
       >
         {!!props.rightComponent && <View style={{ width: 58 }} /> }
         <View style={styles.labelContainer}>

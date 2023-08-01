@@ -25,7 +25,7 @@ class WelcomeBigScreenContent extends Component {
   }
 
   showConsentForm() {
-    this.modalRef.current?.setContent(<RegistrationConfirmationComponent  onPress={() => this.confirmConsentForm()} />);
+    this.modalRef.current?.setContent(<RegistrationConfirmationComponent onPress={() => this.confirmConsentForm()} />);
     this.modalRef.current?.present()
   }
 
