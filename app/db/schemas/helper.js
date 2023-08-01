@@ -14,7 +14,6 @@ import QuizSchema from '../migrations/v1/quiz';
 import AnswerSchema from '../migrations/v1/answer';
 import CriteriaSchema from '../migrations/v1/criteria';
 
-import CategoryShema from '../migrations/v1/category';
 import CategoryImageShema from '../migrations/v1/category_image';
 import CountrySchema from '../migrations/v1/country';
 import InstitutionSchema from '../migrations/v1/institution';
@@ -22,6 +21,7 @@ import ContactSchema from '../migrations/v1/contact';
 
 import CountryInstitutionSchema from '../migrations/v1/country_institution';
 import NotificationSchema from '../migrations/v1/notification';
+import VideoSchema from '../migrations/v4/video';
 
 const schemaNames = [
   "User",
@@ -39,6 +39,7 @@ const schemaNames = [
   "Contact",
   "CountryInstitution",
   "Notification",
+  "Video",
 ]
 
 const schemaHelper = (() => {
@@ -63,6 +64,7 @@ const schemaHelper = (() => {
       ContactSchema,
       CountryInstitutionSchema,
       NotificationSchema,
+      VideoSchema,
     ];
 
     changedSchemas.map((schema) => {
