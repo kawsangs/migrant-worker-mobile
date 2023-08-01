@@ -39,26 +39,6 @@ const registerScreenStyles = StyleSheet.create({
     top: 14,
     left: 10
   },
-  separatorCover: {
-    marginBottom: 16,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  line: {
-    flex: 1,
-    height: 1,
-    backgroundColor: Color.border
-  },
-  separatorLabel: {
-    fontWeight: '700',
-    color: Color.gray
-  },
-  separatorCoverLabel: {
-    paddingHorizontal: 10,
-    alignSelf: 'center',
-    marginBottom: 5
-  },
   voiceRecord: {
     backgroundColor: Color.white,
     minHeight: 105,

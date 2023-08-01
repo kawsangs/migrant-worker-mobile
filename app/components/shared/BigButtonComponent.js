@@ -3,9 +3,18 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Color, FontFamily } from '../../assets/stylesheets/base_style';
 
 const BigButtonComponent = (props) => {
+  const onPress = () => {
+    if (props.disabled) {
+      !!props.onDisabledPress && props.onDisabledPress();
+      return
+    }
+
+    !!props.onPress && props.onPress();
+  }
+
   return (
       <TouchableOpacity
-        onPress={() => !props.disabled && props.onPress()}
+        onPress={() => onPress()}
         style={[styles.button, props.disabled ? { backgroundColor: Color.gray } : {}, props.buttonStyle]}
       >
         {!!props.rightComponent && <View style={{ width: 58 }} /> }
