@@ -4,8 +4,7 @@ const VideoSchema = {
   properties: {
     uuid: 'string',
     id: 'string?',
-    title: 'string',
-    description: 'string?',
+    name: 'string',
     url: 'string',
     display_order: 'int',
     author: 'string?',
