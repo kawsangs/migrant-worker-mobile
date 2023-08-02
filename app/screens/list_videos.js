@@ -1,39 +1,27 @@
 import * as React from 'react';
-import {
-  View,
-  Dimensions,
-  Text,
-  TouchableOpacity,
-  Button,
-  ActivityIndicator,
-  FlatList
-} from 'react-native';
+import { View, Dimensions, FlatList, RefreshControl } from 'react-native';
 
-import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
+import { Color, FontFamily } from '../assets/stylesheets/base_style';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-import { Icon } from 'react-native-material-ui';
-import listData from '../db/json/videos';
 
-import { addStatistic } from '../utils/statistic';
-import Thumbnail from '../components/thumbnail';
-import { getVideoId } from '../utils/youtube';
-import { useNavigation } from '@react-navigation/native';
+import VideoListItemComponent from '../components/VideoList/VideoListItemComponent';
+import VideoListNoInternetMessageComponent from '../components/VideoList/VideoListNoInternetMessageComponent';
 import NetInfo from "@react-native-community/netinfo";
 
 import { useTranslation } from 'react-i18next';
 import uuidv4 from '../utils/uuidv4';
+import videoSyncService from '../services/video_sync_service';
+import Video from '../models/Video';
+import videoHelper from '../helpers/video_helper';
 
-export default function ListVideos(props) {
-  const { t, i18n } = useTranslation();
-  const stepIndex = !!props.route.params && !!props.route.params.category ? listData.findIndex(d => d.stepCode == props.route.params.category) : 0;
-
-  const [index, setIndex] = React.useState(stepIndex);
+export default function ListVideos() {
+  const { i18n } = useTranslation();
+  const [index, setIndex] = React.useState(0);
   const initialLayout = { width: Dimensions.get('window').width };
-  const states = listData.map((item) => ({ key: item.stepCode, title_km: item.stepTitle }));
-  const [routes] = React.useState(states);
+  const [routes, setRoutes] = React.useState(videoHelper.getTabBarItems());
   const [isConnected, setIsConnected] = React.useState(false);
   const [showLoading, setShowLoading] = React.useState(true);
-  const navigation = useNavigation();
+  const [refreshing, setRefreshing] = React.useState(false);
 
   React.useEffect(() => {
     NetInfo.fetch().then(state => {
@@ -48,25 +36,6 @@ export default function ListVideos(props) {
     return () => { unsubscribe }
   }, [NetInfo]);
 
-  const renderNoInternetConnection = () => {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <View style={{ flexDirection: 'row' }}>
-          <Icon name='info-outline' color='#111' size={24} style={{ marginRight: 8 }} iconSet='MaterialIcons' />
-          <Text>{t('InternetConnection.NoInternetConnection')}</Text>
-        </View>
-
-        <Text>{t('InternetConnection.PleaseRetry')}</Text>
-
-        { showLoading && <ActivityIndicator size="small" />}
-
-        <View style={{ marginTop: 20 }}>
-          <Button title={t('InternetConnection.PleaseRetry')} onPress={() => retryConnection()} />
-        </View>
-      </View>
-    )
-  }
-
   const retryConnection = () => {
     setShowLoading(true);
     NetInfo.fetch().then(state => {
@@ -75,51 +44,36 @@ export default function ListVideos(props) {
     });
   }
 
-  const onPressItem = (video) => {
-    addStatistic('ViewVideo', { videoId: getVideoId(video.url), title: video[`title_${i18n.language}`] });
-    navigation.navigate('ViewVideoScreen', { videoId: getVideoId(video.url), isLocalVideo: false });
+  const onRefresh = () => {
+    if (!isConnected) return
+
+    setRefreshing(true)
+    videoSyncService.syncAll(() => {
+      setRoutes(videoHelper.getTabBarItems())
+      setRefreshing(false)
+    }, () => setRefreshing(false));
   }
 
-  const _renderItem = (video, index) => {
-    return (
-      <View
-        key={uuidv4()}
-        style={[Style.card, { flexDirection: 'column', margin: 8, marginBottom: 8, padding: 0 }]}>
-        <Thumbnail
-          onPress={() => onPressItem(video)}
-          imageWidth={'100%'}
-          imageHeight={150}
-          url={video.url} />
-
-        <TouchableOpacity onPress={() => onPressItem(video)}>
-          <Text style={{ fontFamily: FontFamily.title, padding: 10 }}>{video[`title`]}</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-
-  const sreenList = (props) => {
-    let step = listData.filter(l => l.stepCode == props.route.key)[0];
-
-    if (!isConnected && !showLoading) {
-      return renderNoInternetConnection();
-    }
+  const screenList = (props) => {
+    if (!isConnected && !showLoading)
+      return <VideoListNoInternetMessageComponent showLoading={showLoading} retryConnection={() => retryConnection()} />
 
     return (
       <FlatList
         key={uuidv4()}
-        data={step.list}
-        renderItem={(item, i) => _renderItem(item.item, i)}
+        data={props.route.key == 'ទាំងអស់' ? Video.getAll() : Video.findByTag(props.route.key)}
+        renderItem={(item, i) => <VideoListItemComponent key={uuidv4()} video={item.item} />}
         keyExtractor={item => uuidv4()}
         contentContainerStyle={{padding: 8}}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={[Color.primary]} />}
       />
     )
   };
 
   const scenMap = () => {
     let obj = {};
-    for (let i = 0; i < states.length; i++) {
-      obj[states[i].key] = sreenList
+    for (let i = 0; i < routes.length; i++) {
+      obj[routes[i].key] = screenList
     }
     return obj;
   }

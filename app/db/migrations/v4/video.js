@@ -8,7 +8,7 @@ const VideoSchema = {
     url: 'string',
     display_order: 'int',
     author: 'string?',
-    tag: 'string?'
+    tag_list: 'string?'
   }
 }
 

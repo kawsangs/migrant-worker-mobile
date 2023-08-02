@@ -1,15 +1,12 @@
 import { Api } from '../utils/api';
 
 class VideoApi {
-  load = (successCallback, failureCallback) => {
-    console.log('==== start fetch videos ====')
-    Api.get('/videos')
+  load = (page, successCallback, failureCallback) => {
+    Api.get('/videos', {page: page})
       .then(res => {
-        console.log('=== success get videos = ', res)
-        !!successCallback && successCallback(res)
+        !!successCallback && successCallback(res.data)
       })
       .catch(error => {
-        console.log('==== Error get videos === ', error)
         !!failureCallback && failureCallback(error)
       })
   }
