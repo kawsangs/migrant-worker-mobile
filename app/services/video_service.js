@@ -1,8 +1,8 @@
-import VideoApi from '../api/videoApi';
+import webService from './web_service';
 import {itemsPerPage} from '../constants/sync_data_constant';
 import Video from '../models/Video';
 
-const videoSyncService = (() => {
+const videoService = (() => {
   return {
     syncAll,
   }
@@ -20,13 +20,14 @@ const videoSyncService = (() => {
       return
     }
 
-    new VideoApi().load(page, (res) => {
-      const allPage = Math.ceil(res.pagy.count / itemsPerPage)
-      _syncAndRemoveByPage(page+1, allPage, successCallback, failureCallback, [...prevVideos, ...res.videos]);
-    }, (error) => {
-      !!failureCallback && failureCallback();
-    })
+    webService.get(`/videos?page=${page}`)
+      .then(res => JSON.parse(res.data))
+      .then(data => {
+        const allPage = Math.ceil(data.pagy.count / itemsPerPage)
+        _syncAndRemoveByPage(page+1, allPage, successCallback, failureCallback, [...prevVideos, ...data.videos]);
+      })
+      .catch(error => !!failureCallback && failureCallback())
   }
 })();
 
-export default videoSyncService;
+export default videoService;

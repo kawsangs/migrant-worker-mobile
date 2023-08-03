@@ -1,8 +1,8 @@
 import Form from '../models/Form';
-import { Api } from '../utils/api';
 import FileDownloader from '../downloaders/file_downloader';
 import realm from '../db/schema';
 import formList from '../db/json/form_stories';
+import webService from './web_service';
 
 const FormService = (()=> {
   return {
@@ -10,8 +10,8 @@ const FormService = (()=> {
   }
 
   function updateForm(callback) {
-    Api.get('/forms')
-      .then(response => response.data)
+    webService.get('/forms')
+      .then(res => JSON.parse(res.data))
       .then(data => {
         let newForms = data.filter(form => !formList.filter(x => x.id == form.id).length)
         Form.upsertCollection(newForms);

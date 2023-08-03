@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
 import NetInfo from "@react-native-community/netinfo";
-import { ApiBlob } from '../utils/api';
+import webService from './web_service';
 import RNFetchBlob from 'rn-fetch-blob'
 import Sidekiq from '../models/Sidekiq';
 import User from '../models/User';
@@ -13,9 +12,8 @@ export default class UserService  {
 
       if(!user) return;
 
-      ApiBlob.post('/users', this._buildData(user)).then((resp) => {
-        Sidekiq.destroy(uuid);
-      })
+      webService.post('users', this._buildData(user))
+        .then(res => Sidekiq.destroy(uuid))
     });
   }
 

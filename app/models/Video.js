@@ -18,8 +18,12 @@ const Video = (() => {
     return realm.objects(MODEL).sorted('display_order', false)
   }
 
+  function isExisted() {
+    return getAll().length > 0
+  }
+
   function seedData() {
-    console.log('==== seed Data')
+    if (isExisted()) return;
 
     videos.map(video => {
       create(video);

@@ -1,10 +1,8 @@
-import React, {Component} from 'react';
 import NetInfo from "@react-native-community/netinfo";
-import { ApiBlob, Api } from '../utils/api';
-import RNFetchBlob from 'rn-fetch-blob'
 import Sidekiq from '../models/Sidekiq';
 import Quiz from '../models/Quiz';
 import Answer from '../models/Answer';
+import webService from './web_service';
 
 export default class QuizService  {
   static async upload(uuid) {
@@ -16,8 +14,8 @@ export default class QuizService  {
 
       if(!quiz || !!quiz.uploaded_id || !answers.length) return;
 
-      Api.post('/quizzes', this._buildParams(quiz, answers))
-        .then(response => response.data)
+      webService.post('quizzes', JSON.stringify(this._buildParams(quiz, answers)), 'application/json')
+        .then(response => JSON.parse(response.data))
         .then(data => {
           Answer.uploadVoiceAnsync(uuid);
           Sidekiq.destroy(uuid);
