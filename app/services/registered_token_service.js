@@ -16,7 +16,6 @@ const RegisteredTokenService = (() => {
         messaging()
           .getToken()
           .then(token => {
-            console.log('== firebase token == ', token)
             return handleToken(token);
           });
       }

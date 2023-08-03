@@ -4,6 +4,8 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
+import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 import { ThemeContext, getTheme } from 'react-native-material-ui';
 import { setCustomText} from 'react-native-global-props';
@@ -59,7 +61,11 @@ class App extends React.Component {
     return (
       <Provider store={store}>
         <ThemeContext.Provider value={getTheme(uiTheme)}>
-          <AppNavigator/>
+          <GestureHandlerRootView style={{flex: 1}}>
+            <BottomSheetModalProvider>
+              <AppNavigator/>
+            </BottomSheetModalProvider>
+          </GestureHandlerRootView>
         </ThemeContext.Provider>
       </Provider>
     )

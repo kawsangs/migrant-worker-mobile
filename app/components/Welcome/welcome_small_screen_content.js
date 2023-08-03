@@ -8,10 +8,27 @@ import { Color, Style } from '../../assets/stylesheets/base_style';
 import WelcomeMessage from '../welcome_message';
 import ButtonNav from '../button_nav';
 import { HDPIRatio } from '../../constants/screen_size_constant';
+import BottomSheetModalComponent from '../shared/BottomSheetModalComponent';
+import RegistrationConfirmationComponent from '../shared/RegistrationConfirmationComponent';
 
-const screenHeight = Dimensions.get('screen').height;
+const contentFontSize = PixelRatio.get() <= HDPIRatio ? 11 : 14;
 
 class WelcomeSmallScreenContent extends Component {
+  constructor(props) {
+    super(props);
+    this.modalRef = React.createRef();
+  }
+
+  confirmConsentForm() {
+    this.modalRef.current?.dismiss();
+    this.props.loginAsGuest()
+  }
+
+  showConsentForm() {
+    this.modalRef.current?.setContent(<RegistrationConfirmationComponent onPress={() => this.confirmConsentForm()} />);
+    this.modalRef.current?.present()
+  }
+
   _renderButtonNavs() {
     return (
       <View style={[Style.container, {marginTop: 0}]}>
@@ -39,7 +56,7 @@ class WelcomeSmallScreenContent extends Component {
           audio={"login_as_guest.mp3"}
           audioPlayer={this.props.audioPlayer}
           updateAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}
-          onPress={() => this.props.loginAsGuest()}
+          onPress={() => this.showConsentForm()}
           buttonColor="#e44977"
           iconSize={24}
           buttonWrapperStyle={{ marginTop: 14 }}
@@ -54,8 +71,6 @@ class WelcomeSmallScreenContent extends Component {
   }
 
   render() {
-    const contentFontSize = PixelRatio.get() <= HDPIRatio ? 11 : 14;
-
     return (
       <View style={{flexGrow: 1, backgroundColor: '#fff'}}>
         <View style={{flex: 1, flexDirection: 'column'}}>
@@ -83,6 +98,7 @@ class WelcomeSmallScreenContent extends Component {
             />
           </View>
         </View>
+        <BottomSheetModalComponent ref={this.modalRef} />
       </View>
     )
   }
