@@ -3221,6 +3221,11 @@
   "resolved" "https://registry.npmjs.org/eventemitter3/-/eventemitter3-3.1.2.tgz"
   "version" "3.1.2"
 
+"events@^3.2.0":
+  "integrity" "sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q=="
+  "resolved" "https://registry.npmjs.org/events/-/events-3.3.0.tgz"
+  "version" "3.3.0"
+
 "exec-sh@^0.3.2":
   "integrity" "sha512-sEFIkc61v75sWeOe72qyrqg2Qg0OuLESziUDk/O/z2qgS15y2gWVFrI6f2Qn/qw/0/NCfCEsmNA4zOjkwEZT1A=="
   "resolved" "https://registry.npmjs.org/exec-sh/-/exec-sh-0.3.4.tgz"
@@ -5493,10 +5498,10 @@
   "resolved" "https://registry.npmjs.org/nan/-/nan-2.14.0.tgz"
   "version" "2.14.0"
 
-"nanoid@^3.1.15", "nanoid@^3.1.20", "nanoid@^3.3.1":
-  "integrity" "sha512-BGcqMMJuToF7i1rt+2PWSNVnWIkGCU78jBG3RxO/bZlnZPK2Cmi2QaffxGO/2RvWi9sL+FAiRiXMgsyxQ1DIDA=="
-  "resolved" "https://registry.npmjs.org/nanoid/-/nanoid-3.3.6.tgz"
-  "version" "3.3.6"
+"nanoid@^3.1.15":
+  "integrity" "sha512-FiB0kzdP0FFVGDKlRLEQ1BgDzU87dy5NnzjeW9YZNt+/c3+q82EQDUwniSAUxp/F0gFNI1ZhKU1FqYsMuqZVnw=="
+  "resolved" "https://registry.npmjs.org/nanoid/-/nanoid-3.1.23.tgz"
+  "version" "3.1.23"
 
 "nanomatch@^1.2.9":
   "integrity" "sha512-fpoe2T0RbHwBTBUOftAfBPaDEi06ufaUai0mE6Yn1kacc3SnTErfb/h+X94VXzI64rKFHYImXSvdwGGCmwOqCA=="
@@ -6138,7 +6143,7 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.4"
 
-"prop-types@^15.5.0", "prop-types@^15.5.10", "prop-types@^15.5.6", "prop-types@^15.6.2", "prop-types@^15.7.2":
+"prop-types@^15.5.10", "prop-types@^15.5.6", "prop-types@^15.6.2", "prop-types@^15.7.2":
   "integrity" "sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.7.2.tgz"
   "version" "15.7.2"
@@ -6369,15 +6374,6 @@
   dependencies:
     "fbjs" "^1.0.0"
 
-"react-native-redash@^14.2.4":
-  "integrity" "sha512-/1R9UxXv3ffKcrbxolqa2B247Cgd3ikyEm2q1VlBng77Es6PAD4LAOXQ83pBavvwNfOsbhF3ebkbMpJcLaVt3Q=="
-  "resolved" "https://registry.npmjs.org/react-native-redash/-/react-native-redash-14.2.4.tgz"
-  "version" "14.2.4"
-  dependencies:
-    "abs-svg-path" "^0.1.1"
-    "normalize-svg-path" "^1.0.1"
-    "parse-svg-path" "^0.1.2"
-
 "react-native-render-html@^5.1.1":
   "integrity" "sha512-K4vP50555eZyVTbS0jv356I+S2WX/TavSlYi3zsg/XhYzZFO4sIFW8MZBZx/IFSQXlWueCuw6poGAXguz+SO3w=="
   "resolved" "https://registry.npmjs.org/react-native-render-html/-/react-native-render-html-5.1.1.tgz"
@@ -6437,6 +6433,7 @@
     "yargs" "^13.2.2"
 
 "react-native-video@git+https://github.com/r0b0t3d/react-native-video.git#feature/android-fullscreen":
+  "integrity" "sha512-YeuUa5BRZfdajjwU9bMEyMRL9pe1Mcr70APJ4KzPTGHLGRWMMejF2N2ZHoGy4MMFlVMCfFbEzDkUTSqHTPRaIg=="
   "resolved" "git+ssh://git@github.com/r0b0t3d/react-native-video.git#4951c2e13c177bf57c81f6ac3c0f28eacf1c08b9"
   "version" "5.1.1"
   dependencies:
@@ -6452,12 +6449,12 @@
     "escape-string-regexp" "2.0.0"
     "invariant" "2.2.4"
 
-"react-native-youtube@^2.0.2":
-  "integrity" "sha512-tyoGG8mqv0q2327BUYCXBmloUO8twFTOsGdwYvj0tiINAwtxNid8bS0KxnjViH3f/HmBqATDbPwhHpNXpOCsLA=="
-  "resolved" "https://registry.npmjs.org/react-native-youtube/-/react-native-youtube-2.0.2.tgz"
-  "version" "2.0.2"
+"react-native-youtube-iframe@^2.3.0":
+  "integrity" "sha512-M+z63xwXVtS4dX3k8PbtHUUcWN+gRZt6J1EtPE7Y60BMOB979KjpkdrHqeR96or9pNR2W8K5tQhIkMXW2jwo7Q=="
+  "resolved" "https://registry.npmjs.org/react-native-youtube-iframe/-/react-native-youtube-iframe-2.3.0.tgz"
+  "version" "2.3.0"
   dependencies:
-    "prop-types" "^15.5.0"
+    "events" "^3.2.0"
 
 "react-native@0.62.0":
   "integrity" "sha512-P21YHLaRkXTiS4xuC0BAdpwIJc8r0acYWUAOCBApqG3H4eiBe/d3b0oADz8EwTu6jBtoebydabJlScu0b/59bg=="
