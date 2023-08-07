@@ -27,7 +27,7 @@ const RegistrationConfirmationComponent = (props) => {
     return <BigButtonComponent
               label="យល់ព្រម"
               buttonStyle={{marginTop: 6, paddingRight: 16}}
-              rightComponent={renderAudioBtn('choose_gender.mp3', {backgroundColor: Color.white}, {tintColor: Color.primary})}
+              rightComponent={renderAudioBtn('confirm.mp3', {backgroundColor: Color.white}, {tintColor: Color.primary})}
               onPress={() => props.onPress()}
            />
   }
