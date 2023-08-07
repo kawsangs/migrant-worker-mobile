@@ -1,9 +1,8 @@
-import React, {Component} from 'react';
 import NetInfo from "@react-native-community/netinfo";
-import { ApiBlob } from '../utils/api';
 import RNFetchBlob from 'rn-fetch-blob'
 import Sidekiq from '../models/Sidekiq';
 import Answer from '../models/Answer';
+import webService from './web_service';
 
 export default class AnswerService  {
   static async upload(uuid) {
@@ -14,9 +13,8 @@ export default class AnswerService  {
 
       if(!answer || !answer.voice) return;
 
-      ApiBlob.put(`/answers/${uuid}`, this._buildParam(answer)).then((resp) => {
-        Sidekiq.destroy(uuid);
-      })
+      webService.put(`answers/${uuid}`, this._buildParam(answer))
+        .then(res => Sidekiq.destroy(uuid))
     });
   }
 

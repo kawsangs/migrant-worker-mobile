@@ -1,9 +1,9 @@
 import Institution from '../models/Institution';
 import CountryInstitution from '../models/CountryInstitution';
-import { Api } from '../utils/api';
 import FileDownloader from '../downloaders/file_downloader'
 import uuidv4 from '../utils/uuidv4';
 import institutionHelper from '../helpers/institution_helper';
+import webService from '../services/web_service';
 
 import RNFS from 'react-native-fs';
 
@@ -17,9 +17,9 @@ const InstitutionService = (() => {
   }
 
   function fetch(countryCode, successCallback, errorCallback) {
-    return Api.get(`/countries/${countryCode}/country_institutions`)
-      .then(response => response.data)
-      .then((data) => {
+    webService.get(`/countries/${countryCode}/country_institutions`)
+      .then(res => JSON.parse(res.data))
+      .then(data => {
         data.map((item, index) => {
           let institution = item.institution;
 
@@ -61,9 +61,7 @@ const InstitutionService = (() => {
           successCallback(_getInstitutions(countryCode))
         }, 1500);
       })
-      .catch( err => {
-        errorCallback(err);
-      })
+      .catch(error => errorCallback(error))
   }
 
   function getInstitutionByCountry(countryInstitutions) {

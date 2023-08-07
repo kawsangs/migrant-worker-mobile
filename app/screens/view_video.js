@@ -1,16 +1,13 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { View, Dimensions, StyleSheet } from 'react-native';
-import YouTube from 'react-native-youtube';
+import YoutubePlayer from "react-native-youtube-iframe";
 import Video from 'react-native-video';
 
-import { environment } from '../config/environment';
+import {isSmallScreenDevice} from '../utils/responsive_util';
 
 const ViewVideo = ({ route, navigation }) => {
   const { videoId, isLocalVideo } = route.params;
-  const playerRef = useRef(null);
-  const [playing, setPlaying] = useState(true);
   const [isLandscapeView, setIsLandScapeView] = useState(false);
-  const { width, height } = Dimensions.get('window');
 
   Dimensions.addEventListener('change', () => {
     if (Dimensions.get('window').width > Dimensions.get('window').height)
@@ -32,16 +29,13 @@ const ViewVideo = ({ route, navigation }) => {
           fullscreen={isLandscapeView}
         />
         :
-        <YouTube
-          apiKey={environment.youtube_api_key}
-          style={{ height: '50%', width: width }}
-          ref={playerRef}
-          play={playing}
+        <YoutubePlayer
+          height={isSmallScreenDevice() ? 220 : 300}
+          width='100%'
+          play={true}
           videoId={videoId}
-          resumePlayAndroid={false}
-          fullscreen={isLandscapeView}
         />
-      }
+      } 
     </View>
   );
 };

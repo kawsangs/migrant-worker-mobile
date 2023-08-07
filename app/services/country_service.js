@@ -1,5 +1,5 @@
 import Country from '../models/Country';
-import { Api } from '../utils/api';
+import webService from '../services/web_service';
 import {reject, contains, map} from 'underscore';
 
 const CountryService = (() => {
@@ -8,17 +8,12 @@ const CountryService = (() => {
   }
 
   function fetch() {
-    return Api.get('/countries')
-      .then(response => response.data)
+    webService.get('/countries')
+      .then(res => JSON.parse(res.data))
       .then(data => {
         const newCountries = reject(data, c => contains(existingCodes(), c.id))
-        // alert( JSON.stringify(newCountries) )
         Country.createBatch(newCountries)
         // upsert to realm & download assets
-        return newCountries.length
-      })
-      .catch( err => {
-        return 0; 
       })
   }
 

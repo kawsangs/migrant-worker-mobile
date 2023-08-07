@@ -1,9 +1,9 @@
 import Departure from '../models/Departure';
 import Safety from '../models/Safety';
-import { Api } from '../utils/api';
 import FileDownloader from '../downloaders/file_downloader';
 import realm from '../db/schema';
 import categoryList from '../db/json/categories';
+import webService from './web_service';
 
 const departureList = categoryList.filter(cat => cat.type == "Categories::Departure");
 const safetyList = categoryList.filter(cat => cat.type == "Categories::Safety");
@@ -15,24 +15,22 @@ const CategoryService = (()=> {
   }
 
   function updateDepartures(callback) {
-    Api.get('/departures')
-      .then(response => response.data)
+    webService.get('/departures')
+      .then(res => JSON.parse(res.data))
       .then(data => {
         let newCategories = data.filter(cat => !departureList.filter(x => x.id == cat.id).length)
         Departure.upsertCollection(newCategories);
-
         let items = Departure.getPendingDownload();
         download(0, items, callback);
       })
   }
 
   function updateSafeties(callback) {
-    Api.get('/safeties')
-      .then(response => response.data)
+    webService.get('/safeties')
+      .then(res => JSON.parse(res.data))
       .then(data => {
         let newCategories = data.filter(cat => !safetyList.filter(x => x.id == cat.id).length)
         Safety.upsertCollection(newCategories);
-
         let items = Safety.getPendingDownload();
         download(0, items, callback);
       })
