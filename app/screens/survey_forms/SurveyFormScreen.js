@@ -12,7 +12,7 @@ import { setQuestions } from '../../actions/questionAction';
 import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexAction';
 import { setCurrentQuiz } from '../../actions/currentQuizAction';
 
-const SurveyFormScreen = (props) => {
+const SurveyFormScreen = ({route, navigation}) => {
   const dispatch = useDispatch();
   const questions = useSelector(state => state.questions)
   const currentIndex = useSelector(state => state.currentQuestionIndex)
@@ -20,20 +20,18 @@ const SurveyFormScreen = (props) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    new SurveyFormService().findAndSave(props.route.params.form_id, () => {
-      setForm()
-    });
+    new SurveyFormService().findAndSave(route.params.form_id, () => setForm());
   }, [])
 
   const setForm = () => {
-    dispatch(setQuestions(Question.byForm(props.route.params.form_id)));
+    dispatch(setQuestions(Question.byForm(route.params.form_id)));
     dispatch(setCurrentQuestionIndex(0));
 
     let uuid = uuidv4();
     Quiz.upsert({
       uuid: uuid,
       user_uuid: currentUser.uuid,
-      form_id: props.route.params.form_id,
+      form_id: route.params.form_id,
       quizzed_at: new Date()
     });
 
