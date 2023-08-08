@@ -44,18 +44,13 @@ const CategoryService = (()=> {
 
     let item = items[index];
 
-    FileDownloader.download(_getFileName(item), item.url, function(fileUrl) {
+    FileDownloader.download(item.url, function(fileUrl) {
       realm.write(() => {
         item.obj[item.type] = fileUrl
       });
 
       download(index + 1, items, callback);
     })
-  }
-
-  function _getFileName(category={}) {
-    let fileNames = category.url.split('/');
-    return `${category.type}_${category.uuid}_${fileNames[fileNames.length - 1]}`;
   }
 })();
 

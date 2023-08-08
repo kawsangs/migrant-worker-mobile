@@ -15,7 +15,7 @@ const SurveyFormContentComponent = (props) => {
         style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: 58}}
         buttonAudioStyle={{ backgroundColor: Color.white }}
         iconStyle={{ tintColor: Color.primary }}
-        filePath={'choose_gender.mp3'}
+        filePath={'next.mp3'}
         audioPlayer={audioPlayer}
         updateMainAudioPlayer={(sound) => setAudioPlayer(sound)}
       />

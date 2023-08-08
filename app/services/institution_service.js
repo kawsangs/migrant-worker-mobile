@@ -91,8 +91,7 @@ const InstitutionService = (() => {
 
     if (!isFileDownloaded) {
       const filePath = type == 'logo' ? institution.logo_url : institution.audio_url;
-
-      FileDownloader.download(fileName, filePath, async function(fileUrl) {
+      FileDownloader.download(filePath, async function(fileUrl) {
         _updateFileUrl(institution, type, fileUrl);
       }),
       () => { console.log('error download file') }

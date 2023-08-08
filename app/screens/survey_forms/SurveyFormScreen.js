@@ -1,15 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
-import DeviceInfo from 'react-native-device-info';
 import {useDispatch, useSelector} from 'react-redux';
 
 import SurveyFormContentComponent from '../../components/SurveyForms/SurveyFormContentComponent';
-
 import SurveyFormService from '../../services/survey_form_service';
-import Form from '../../models/Form';
 import Question from '../../models/Question';
 import Quiz from '../../models/Quiz';
-import { Color } from '../../assets/stylesheets/base_style';
 import uuidv4 from '../../utils/uuidv4';
 
 import { setQuestions } from '../../actions/questionAction';
@@ -24,18 +20,9 @@ const SurveyFormScreen = (props) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    syncSurveyForm();
+    new SurveyFormService().findAndSave(props.route.params.form_id);
     setForm();
   }, [])
-
-  const syncSurveyForm = () => {
-    new SurveyFormService().get(props.route.params.form_id)
-      .then(response => JSON.parse(response.data))
-      .then(data => {
-        Form.upsert({...data, type: 'survey'}, DeviceInfo.getVersion())
-      })
-      .catch(error => console.log('survey form error = ', error))
-  }
 
   const setForm = () => {
     dispatch(setQuestions(Question.byForm(props.route.params.form_id)));
@@ -56,11 +43,8 @@ const SurveyFormScreen = (props) => {
 
   const currentQuestion = questions[currentIndex];
 
-  // console.log('=== questions  = ', currentQuestion)
-
   return (
     <View style={{ flex: 1 }}>
-      {/* <Text>Survey form screen</Text> */}
       { !isLoading && <SurveyFormContentComponent currentQuestion={currentQuestion} /> }
     </View>
   )

@@ -29,19 +29,13 @@ const FormService = (()=> {
     }
 
     let item = items[index];
-
-    FileDownloader.download(_getFileName(item), item.url, function(fileUrl) {
+    FileDownloader.download(item.url, function(fileUrl) {
       realm.write(() => {
         item.obj[item.type] = fileUrl
       });
 
       download(index + 1, items, callback);
     })
-  }
-
-  function _getFileName(item={}) {
-    let fileNames = item.url.split('/');
-    return `${item.type}_${item.uuid}_${fileNames[fileNames.length - 1]}`;
   }
 })();
 
