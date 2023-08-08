@@ -42,8 +42,6 @@ const SurveyFormContentComponent = (props) => {
     <React.Fragment>
       { !!props.currentQuestion && Questions(props.currentQuestion, Color.primary) }
       { !props.currentQuestion && renderFinish() }
-      {/* { Questions(props.currentQuestion, Color.primary) }
-      { renderFinish() } */}
     </React.Fragment>
   )
 }

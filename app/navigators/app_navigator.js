@@ -249,7 +249,7 @@ class AppNavigator extends Component {
 
         <Stack.Screen name="SurveyFormScreen" component={SurveyFormScreen}
           options={({route, navigation}) => ({
-            title: route.params.title || "Survey Form",
+            title: route.params.title || "ការស្ទង់មតិ",
             headerStyle: { backgroundColor: Color.primary },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}

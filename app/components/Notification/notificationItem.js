@@ -50,7 +50,7 @@ class NotificationItem extends React.Component {
         containerStyle={{elevation: 0, padding: 0, padding: 2}}
       >
         {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('NotificationDetailScreen', { uuid: this.props.notification.uuid })} */}
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('SurveyFormScreen', { form_id: 8 })}
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('SurveyFormScreen', { form_id: 8, title: "ការស្រង់មតិ" })}
           style={[Style.card, { marginBottom: 10 }]}
         >
           <View style={{flexDirection: 'row', marginBottom: 5}}>

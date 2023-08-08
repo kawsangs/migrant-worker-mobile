@@ -10,12 +10,12 @@ class SurveyFormService extends WebService {
     super();
   }
 
-  findAndSave(id) {
+  findAndSave(id, callback) {
     this.get(endpointHelper.detailEndpoint('survey_forms', id))
       .then(response => JSON.parse(response.data))
       .then(data => {
         Form.upsert({...data, type: 'survey'}, DeviceInfo.getVersion())
-        questionService.downloadAudioCollection(data.questions);
+        questionService.downloadAudioCollection(data.questions, callback);
       })
       .catch(error => console.log('survey form error = ', error))
   }

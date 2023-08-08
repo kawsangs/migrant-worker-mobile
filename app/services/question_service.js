@@ -6,22 +6,24 @@ const questionService = (() => {
     downloadAudioCollection
   }
 
-  function downloadAudioCollection(questions) {
-    _downloadAudio(0, questions);
+  function downloadAudioCollection(questions, callback) {
+    _downloadAudio(0, questions, callback);
   }
 
   // private method
-  function _downloadAudio(index, questions) {
-    if (index == questions.length)
-      return;
+  function _downloadAudio(index, questions, callback) {
+    if (index >= questions.length - 1) {
+      !!callback && callback();
+      return 
+    }
 
     const question = questions[index]
     if (!question.audio_url) return;
 
     FileDownloader.download(question.audio_url, function(fileUrl) {
       Question.update(question.id, { audio: fileUrl });
-      _downloadAudio(index + 1, questions);
-    });
+      _downloadAudio(index + 1, questions, callback);
+    }, () => !!callback && callback());
   }
 })();
 

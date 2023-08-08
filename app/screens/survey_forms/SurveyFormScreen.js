@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View} from 'react-native';
+import {View, ActivityIndicator} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import SurveyFormContentComponent from '../../components/SurveyForms/SurveyFormContentComponent';
@@ -7,7 +7,7 @@ import SurveyFormService from '../../services/survey_form_service';
 import Question from '../../models/Question';
 import Quiz from '../../models/Quiz';
 import uuidv4 from '../../utils/uuidv4';
-
+import { Color } from '../../assets/stylesheets/base_style';
 import { setQuestions } from '../../actions/questionAction';
 import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexAction';
 import { setCurrentQuiz } from '../../actions/currentQuizAction';
@@ -20,8 +20,9 @@ const SurveyFormScreen = (props) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    new SurveyFormService().findAndSave(props.route.params.form_id);
-    setForm();
+    new SurveyFormService().findAndSave(props.route.params.form_id, () => {
+      setForm()
+    });
   }, [])
 
   const setForm = () => {
@@ -41,11 +42,11 @@ const SurveyFormScreen = (props) => {
     setIsLoading(false);
   }
 
-  const currentQuestion = questions[currentIndex];
-
   return (
     <View style={{ flex: 1 }}>
-      { !isLoading && <SurveyFormContentComponent currentQuestion={currentQuestion} /> }
+      { !isLoading ? <SurveyFormContentComponent currentQuestion={questions[currentIndex]} />
+        : <View style={{flex: 1, justifyContent: 'center'}}><ActivityIndicator size="large" color={Color.primary} /></View>
+      }
     </View>
   )
 }
