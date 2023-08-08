@@ -19,7 +19,9 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
 });
 
 messaging().onNotificationOpenedApp(remoteMessage => {
-  console.log('== notification remove msg = ', remoteMessage)
+  const data = JSON.parse(remoteMessage.data.payload).data
+  if (!!data.form_id)
+    return RootNavigation.navigate('SurveyFormScreen', { form_id: data.form_id })
 
   const notification = Notification.findByTitle(remoteMessage.notification.title);
   RootNavigation.navigate('NotificationDetailScreen', { uuid: notification.uuid });
