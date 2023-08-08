@@ -16,7 +16,7 @@ class NextButton extends Component {
   render() {
     const { disabled } = this.props;
     let hasSelectedAnswer = false;
-    let bgStyle = disabled ? { backgroundColor: Color.gray } : { backgroundColor: Color.pink };
+    let bgStyle = disabled ? { backgroundColor: Color.gray } : { backgroundColor: this.props.buttonColor || Color.pink };
     let textStyle = disabled ? { color:  Color.textBlack} : { color: Color.white };
 
     return (
@@ -34,7 +34,7 @@ class NextButton extends Component {
           <PlaySound
             filePath={'next.mp3'}
             buttonAudioStyle={{ backgroundColor: Color.white }}
-            iconStyle={{ tintColor: Color.pink }}
+            iconStyle={{ tintColor: this.props.buttonColor || Color.pink }}
             style={{ marginHorizontal: 10 }}
             audioPlayer={this.props.audioPlayer}
             updateMainAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}

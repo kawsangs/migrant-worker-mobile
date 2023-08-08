@@ -49,7 +49,8 @@ class NotificationItem extends React.Component {
         renderRightActions={this.renderDeleteAction}
         containerStyle={{elevation: 0, padding: 0, padding: 2}}
       >
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('NotificationDetailScreen', { uuid: this.props.notification.uuid })}
+        {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('NotificationDetailScreen', { uuid: this.props.notification.uuid })} */}
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('SurveyFormScreen', { form_id: 8 })}
           style={[Style.card, { marginBottom: 10 }]}
         >
           <View style={{flexDirection: 'row', marginBottom: 5}}>

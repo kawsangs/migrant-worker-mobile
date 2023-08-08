@@ -161,6 +161,7 @@ class QuestionsMultiple extends Component {
             onPress={() => this._onPressNext() }
             audioPlayer={this.state.audioPlayer}
             updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
+            buttonColor={this.props.buttonColor}
           />
         </View>
 
