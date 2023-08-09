@@ -20,6 +20,11 @@ const Form = (() => {
     upsert,
     seedData,
     findNext,
+    findById,
+  }
+
+  function findById(id) {
+    return realm.objects(MODEL).filtered(`id = ${id}`)[0];
   }
 
   function findNext(formId) {
