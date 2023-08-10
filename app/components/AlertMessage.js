@@ -43,15 +43,17 @@ class AlertMessage extends Component {
                   }
                 </View>
 
-                <View style={{marginTop: 5}}>
-                  <PlaySound
-                    filePath={this.props.audio}
-                    buttonAudioStyle={{backgroundColor: Color.red}}
-                    iconStyle={{tintColor: Color.white}}
-                    audioPlayer={this.props.audioPlayer}
-                    updateMainAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}
-                  />
-                </View>
+                { !this.props.hideAudio &&
+                  <View style={{marginTop: 5}}>
+                    <PlaySound
+                      filePath={this.props.audio}
+                      buttonAudioStyle={{backgroundColor: Color.red}}
+                      iconStyle={{tintColor: Color.white}}
+                      audioPlayer={this.props.audioPlayer}
+                      updateMainAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}
+                    />
+                  </View>
+                }
               </View>
             </View>
 

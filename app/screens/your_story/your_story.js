@@ -30,7 +30,6 @@ class YourStory extends Component {
 
     this.state = {
       loading: true,
-      // forms: Form.getAll(),
       forms: Form.getAllYourStory(),
       isFetching: false,
       audioPlayer: null,

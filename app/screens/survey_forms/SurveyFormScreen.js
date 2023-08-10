@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import SurveyFormContentComponent from '../../components/SurveyForms/SurveyFormContentComponent';
 import SurveyFormService from '../../services/survey_form_service';
+import Notification from '../../models/Notification';
 import Form from '../../models/Form';
 import Question from '../../models/Question';
 import Quiz from '../../models/Quiz';
@@ -21,6 +22,7 @@ const SurveyFormScreen = ({route, navigation}) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Notification.update(this.props.route.params.uuid, { is_read: true });
     if (!Form.findById(route.params.form_id))
       new SurveyFormService().findAndSave(route.params.form_id, () => setForm());
     else

@@ -43,7 +43,7 @@ const Form = (() => {
   }
 
   function getAllYourStory() {
-    return realm.objects(MODEL).filtered(`type == 'your_story'`);
+    return realm.objects(MODEL).filtered(`type == 'your_story' || type == ''`);
   }
 
   function isDownloaded() {

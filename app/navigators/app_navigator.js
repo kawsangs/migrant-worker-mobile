@@ -251,7 +251,6 @@ class AppNavigator extends Component {
           options={({route, navigation}) => ({
             title: route.params.title || "ការស្ទង់មតិ",
             headerStyle: { backgroundColor: Color.primary },
-            headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
         />
       </>

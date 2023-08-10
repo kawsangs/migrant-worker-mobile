@@ -12,7 +12,7 @@ const questionService = (() => {
 
   // private method
   function _downloadAudio(index, questions, callback) {
-    if (index >= questions.length - 1) {
+    if (index == questions.length) {
       !!callback && callback();
       return 
     }
