@@ -1,6 +1,6 @@
 import DeviceInfo from 'react-native-device-info';
 
-import {WebService} from './web_service';
+import WebService from './web_service';
 import questionService from './question_service';
 import endpointHelper from '../helpers/endpoint_helper';
 import Form from '../models/Form';

@@ -2,10 +2,20 @@ import { environment } from '../config/environment';
 
 const endpointHelper = (() => {
   return {
+    listingEndpoint,
+    listingNestedEndpoint,
     pagingEndpoint,
     detailEndpoint,
     getAbsoluteEndpoint,
     isUrlWithHostname,
+  }
+
+  function listingEndpoint(model) {
+    return `${environment.apiUrl}/${model}`;
+  }
+
+  function listingNestedEndpoint(responsibleModel, id, subModel) {
+    return `${listingEndpoint(responsibleModel)}/${id}/${subModel}`;
   }
 
   function pagingEndpoint(model, page) {
@@ -13,7 +23,7 @@ const endpointHelper = (() => {
   }
 
   function detailEndpoint(model, id) {
-    return `${environment.apiUrl}/${model}/${id}`;
+    return `${listingEndpoint(model)}/${id}`;
   }
 
   function getAbsoluteEndpoint(relativeUrl) {

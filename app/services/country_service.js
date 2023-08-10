@@ -1,28 +1,23 @@
 import Country from '../models/Country';
-import webService from '../services/web_service';
+import WebService from '../services/web_service';
 import {reject, contains, map} from 'underscore';
+import endpointHelper from '../helpers/endpoint_helper';
 
-const CountryService = (() => {
-  return {
-    fetch
-  }
-
-  function fetch() {
-    webService.get('/countries')
+class CountryService extends WebService {
+  fetch() {
+    this.get(endpointHelper.listingEndpoint('/countries'))
       .then(res => JSON.parse(res.data))
       .then(data => {
-        const newCountries = reject(data, c => contains(existingCodes(), c.id))
+        const newCountries = reject(data, c => contains(this._existingCodes(), c.id))
         Country.createBatch(newCountries)
         // upsert to realm & download assets
       })
   }
 
-  function existingCodes() {
+  // private method
+  _existingCodes() {
     return map(Country.all(), c => c.code)
   }
-
-  
-})()
-
+}
 
 export default CountryService

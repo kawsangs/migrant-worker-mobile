@@ -9,7 +9,7 @@ export default class QuizWorker {
     }
 
     queue.addWorker(new Worker('uploadQuiz', (payload) => {
-      QuizService.upload(payload.uuid);
+      new QuizService().upload(payload.uuid);
     }));
   }
 

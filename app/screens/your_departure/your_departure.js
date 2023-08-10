@@ -85,10 +85,7 @@ class YourDeparture extends Component {
 
         return ToastAndroid.show("សូមភ្ជាប់បណ្តាញអ៊ិនធឺណេតជាមុនសិន!", ToastAndroid.SHORT);
       }
-
-      CategoryService.updateDepartures(() => {
-        this.setState({isFetching: false});
-      })
+      new CategoryService().syncDepartures(() => this.setState({isFetching: false}));
     });
   }
 

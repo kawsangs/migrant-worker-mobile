@@ -44,7 +44,7 @@ class LookingForHelp extends React.Component {
     const countryInstitutions = CountryInstitution.findByCountryCode(this.props.route.params.code);
 
     this.setState({
-      institutions: InstitutionService.getInstitutionByCountry(countryInstitutions)
+      institutions: new InstitutionService().getInstitutionByCountry(countryInstitutions)
     });
   }
 
@@ -74,7 +74,7 @@ class LookingForHelp extends React.Component {
       audioPlayer: null,
     });
     this.checkInternet(() => {
-      InstitutionService.fetch(this.state.country.code, (res) => {
+      new InstitutionService().fetch(this.state.country.code, (res) => {
         this.setState({
           institutions: res,
           isFetching: false

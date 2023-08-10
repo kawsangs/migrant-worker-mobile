@@ -10,7 +10,7 @@ import NetInfo from "@react-native-community/netinfo";
 
 import { useTranslation } from 'react-i18next';
 import uuidv4 from '../utils/uuidv4';
-import videoService from '../services/video_service';
+import VideoService from '../services/video_service';
 import Video from '../models/Video';
 import videoHelper from '../helpers/video_helper';
 
@@ -48,7 +48,7 @@ export default function ListVideos() {
     if (!isConnected) return
 
     setRefreshing(true)
-    videoService.syncAll(() => {
+    new VideoService().syncAll(() => {
       setRoutes(videoHelper.getTabBarItems())
       setRefreshing(false)
     }, () => setRefreshing(false));

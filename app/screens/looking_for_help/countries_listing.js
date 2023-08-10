@@ -112,7 +112,7 @@ class CountriesListing extends React.Component {
   _onRefresh() {
     this.setState({isFetching: true});
     this.checkInternet(async () => {
-      CountryService.fetch();
+      new CountryService().fetch();
       this.setState({isFetching: false});
     })
   }

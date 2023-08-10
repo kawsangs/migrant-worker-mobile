@@ -88,7 +88,7 @@ class YourStory extends Component {
         return ToastAndroid.show("សូមភ្ជាប់បណ្តាញអ៊ិនធឺណេតជាមុនសិន!", ToastAndroid.SHORT);
       }
 
-      FormService.updateForm(() => {
+      new FormService().updateForm(() => {
         this.setState({isFetching: false});
       })
     });

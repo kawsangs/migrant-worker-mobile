@@ -2,10 +2,11 @@ import NetInfo from "@react-native-community/netinfo";
 import Sidekiq from '../models/Sidekiq';
 import Quiz from '../models/Quiz';
 import Answer from '../models/Answer';
-import webService from './web_service';
+import WebService from './web_service';
+import endpointHelper from '../helpers/endpoint_helper';
 
-export default class QuizService  {
-  static async upload(uuid) {
+export default class QuizService extends WebService {
+  upload(uuid) {
     NetInfo.fetch().then(state => {
       if (!state.isConnected) return;
 
@@ -14,7 +15,7 @@ export default class QuizService  {
 
       if(!quiz || !!quiz.uploaded_id || !answers.length) return;
 
-      webService.post('quizzes', JSON.stringify(this._buildParams(quiz, answers)), 'application/json')
+      this.post(endpointHelper.listingEndpoint('quizzes'), JSON.stringify(this._buildParams(quiz, answers)), 'application/json')
         .then(response => JSON.parse(response.data))
         .then(data => {
           Answer.uploadVoiceAnsync(uuid);
@@ -24,7 +25,7 @@ export default class QuizService  {
     });
   }
 
-  static _buildParams(quiz, answers) {
+  _buildParams(quiz, answers) {
     let answers_attributes = answers.map(answer => {
       return {
         uuid: answer.uuid,

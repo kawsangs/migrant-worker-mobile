@@ -60,10 +60,7 @@ class YourSafety extends Component {
 
         return ToastAndroid.show("សូមភ្ជាប់បណ្តាញអ៊ិនធឺណេតជាមុនសិន!", ToastAndroid.SHORT);
       }
-
-      CategoryService.updateSafeties(() => {
-        this.setState({isFetching: false});
-      })
+      new CategoryService().syncSafeties(() => this.setState({isFetching: false}));
     });
   }
 

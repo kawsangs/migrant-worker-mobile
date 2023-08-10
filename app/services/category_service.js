@@ -3,40 +3,42 @@ import Safety from '../models/Safety';
 import FileDownloader from '../downloaders/file_downloader';
 import realm from '../db/schema';
 import categoryList from '../db/json/categories';
-import webService from './web_service';
+import WebService from './web_service';
+import endpointHelper from '../helpers/endpoint_helper';
 
 const departureList = categoryList.filter(cat => cat.type == "Categories::Departure");
 const safetyList = categoryList.filter(cat => cat.type == "Categories::Safety");
 
-const CategoryService = (()=> {
-  return {
-    updateDepartures,
-    updateSafeties,
+class CategoryService extends WebService {
+  constructor() {
+    super();
+    _this = this;
   }
 
-  function updateDepartures(callback) {
-    webService.get('/departures')
+  syncDepartures(callback) {
+    this.get(endpointHelper.listingEndpoint('departures'))
       .then(res => JSON.parse(res.data))
       .then(data => {
         let newCategories = data.filter(cat => !departureList.filter(x => x.id == cat.id).length)
         Departure.upsertCollection(newCategories);
         let items = Departure.getPendingDownload();
-        download(0, items, callback);
+        this._download(0, items, callback);
       })
   }
 
-  function updateSafeties(callback) {
-    webService.get('/safeties')
+  syncSafeties(callback) {
+    this.get(endpointHelper.listingEndpoint('safeties'))
       .then(res => JSON.parse(res.data))
       .then(data => {
         let newCategories = data.filter(cat => !safetyList.filter(x => x.id == cat.id).length)
         Safety.upsertCollection(newCategories);
         let items = Safety.getPendingDownload();
-        download(0, items, callback);
+        this._download(0, items, callback);
       })
   }
 
-  function download(index, items, callback) {
+  // private method
+  _download(index, items, callback) {
     if(index == items.length) {
       !!callback && callback();
       return;
@@ -49,9 +51,9 @@ const CategoryService = (()=> {
         item.obj[item.type] = fileUrl
       });
 
-      download(index + 1, items, callback);
+      _this._download(index + 1, items, callback);
     })
   }
-})();
+}
 
 export default CategoryService;
