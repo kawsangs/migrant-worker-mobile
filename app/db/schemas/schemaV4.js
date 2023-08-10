@@ -1,11 +1,13 @@
 import Institution from '../migrations/v3/institution'
 import Form from '../migrations/v4/form'
+import Notification from '../migrations/v4/notification';
 import Video from '../migrations/v4/video'
 import helper from './helper';
 
 const changedSchemas = [
   { label: 'Institution', data: Institution },
   { label: 'Form', data: Form },
+  { label: 'Notification', data: Notification },
   { label: 'Video', data: Video }
 ];
 

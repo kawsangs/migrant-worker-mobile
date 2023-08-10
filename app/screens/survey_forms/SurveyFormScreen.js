@@ -13,6 +13,7 @@ import { Color } from '../../assets/stylesheets/base_style';
 import { setQuestions } from '../../actions/questionAction';
 import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexAction';
 import { setCurrentQuiz } from '../../actions/currentQuizAction';
+import { setNotifications } from '../../actions/notificationAction';
 
 const SurveyFormScreen = ({route, navigation}) => {
   const dispatch = useDispatch();
@@ -22,7 +23,8 @@ const SurveyFormScreen = ({route, navigation}) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Notification.update(this.props.route.params.uuid, { is_read: true });
+    Notification.update(route.params.uuid, { is_read: true });
+    dispatch(setNotifications(Notification.all()));
     if (!Form.findById(route.params.form_id))
       new SurveyFormService().findAndSave(route.params.form_id, () => setForm());
     else
