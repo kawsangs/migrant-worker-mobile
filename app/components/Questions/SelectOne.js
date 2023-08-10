@@ -69,7 +69,7 @@ class QuestionsSelectOne extends Component {
     }
 
     Answer.upsert(data);
-    addStatistic(`YourStory_${this.props.question.name}`, {answer: selectedOption.value});
+    addStatistic(`${this.props.statisticPrefix}_${this.props.question.name}`, {answer: selectedOption.value});
   }
 
   _onPressNext() {

@@ -37,7 +37,7 @@ class QuestionsResult extends Component {
   }
 
   _onPressNext() {
-    addStatistic(`YourStory_${this.props.question.name}`, {});
+    addStatistic(`${this.props.statisticPrefix}_${this.props.question.name}`, {});
 
     let nextIndex = Question.findIndexNextQuestion(this.props.currentIndex, this.props.questions, this.props.currentQuiz.uuid);
     this.props.setCurrentIndex(nextIndex);

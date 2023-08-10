@@ -87,7 +87,7 @@ class QuestionsMultiple extends Component {
     }
 
     Answer.upsert(data);
-    addStatistic(`YourStory_${this.props.question.name}`, {answer: this.answerOptions.map(o => o.value).join(',')});
+    addStatistic(`${this.props.statisticPrefix}_${this.props.question.name}`, {answer: this.answerOptions.map(o => o.value).join(',')});
   }
 
   _onPressNext() {

@@ -13,7 +13,7 @@ const Questions = {
   Result,
 };
 
-export default (question={}, buttonColor) => {
+export default (question={}, buttonColor, statisticPrefix='YourStory') => {
   if (!question.type) {
     return null;
   }
@@ -26,6 +26,7 @@ export default (question={}, buttonColor) => {
       key: uuidv4(),
       question: question,
       buttonColor: buttonColor,
+      statisticPrefix: statisticPrefix,
     });
   }
 

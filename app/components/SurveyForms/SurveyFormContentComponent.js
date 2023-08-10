@@ -71,7 +71,7 @@ const SurveyFormContentComponent = (props) => {
 
   return (
     <React.Fragment>
-      { !!props.currentQuestion && Questions(props.currentQuestion, Color.primary) }
+      { !!props.currentQuestion && Questions(props.currentQuestion, Color.primary, 'Survey') }
       { !props.currentQuestion && renderFinish() }
       <AlertMessage
         show={alertVisible}
