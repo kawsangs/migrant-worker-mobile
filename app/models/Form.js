@@ -73,12 +73,13 @@ const Form = (() => {
     }
   }
 
-  function upsert(item, appVersion) {
+  function upsert(item, appVersion, autoSaveQuestions = true) {
     realm.write(() => {
       realm.create(MODEL, _buildData(item, appVersion), 'modified');
     });
 
-    Question.upsertCollection(item.questions);
+    if (!!autoSaveQuestions)
+      Question.upsertCollection(item.questions);
   }
 
   function _buildData(item, appVersion) {
@@ -88,7 +89,7 @@ const Form = (() => {
       name: item.name,
       audio: item.audio,
       version: item.version,
-      question_count: item.questions.length,
+      question_count: !!item.question_count ? item.question_count : item.questions.length,
       appVersion: appVersion,
       type: item.type || 'your_story',
     };

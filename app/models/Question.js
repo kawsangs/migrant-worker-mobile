@@ -2,6 +2,7 @@ import realm from '../db/schema';
 import Option from './Option';
 import Answer from './Answer';
 import Criteria from './Criteria';
+import Section from './Section';
 
 const MODEL = 'Question';
 
@@ -17,6 +18,7 @@ const Question = (() => {
     findIndexNextQuestion,
     find,
     update,
+    findBySectionId,
   }
 
   function byForm(form_id) {
@@ -28,7 +30,8 @@ const Question = (() => {
   }
 
   function getAll() {
-    return realm.objects(MODEL).filtered("SORT(display_order ASC)");
+    // return realm.objects(MODEL).filtered("SORT(display_order ASC)");
+    return realm.objects(MODEL);
   }
 
   function deleteAll() {
@@ -62,6 +65,7 @@ const Question = (() => {
 
   function upsert(item) {
     realm.write(() => {
+      console.log('==== save question ====')
       realm.create(MODEL, _buildData(item), 'modified');
     });
 
@@ -97,6 +101,7 @@ const Question = (() => {
       failing_audio: item.failing_audio,
       failing_audio_url: item.failing_audio_url,
       form_id: item.form_id,
+      section_id: item.section_id || null
     });
   }
 
@@ -118,6 +123,10 @@ const Question = (() => {
     return data.map(item => {
       return { uuid: item.id, url: item[`${type}_url`], type: type, obj: item };
     })
+  }
+
+  function findBySectionId(id) {
+    return realm.objects(MODEL).filtered(`section_id = '${id}'`)
   }
 
   // -------------------------------Skip Logic start
