@@ -8,15 +8,15 @@ import { Color } from '../../assets/stylesheets/base_style';
 const {useImperativeHandle} = React;
 
 const SurveyFormButtonComponent = React.forwardRef((props, ref) => {
-  const questions = Question.findBySectionId(props.sections[props.currentSection].id);
-  const [isValid, setIsValid] = useState(Object.keys(props.answers).length == questions.length);
+  const [isValid, setIsValid] = useState(false);
 
   useImperativeHandle(ref, () => ({
     validateForm
   }))
 
-  const validateForm = () => {
-    setIsValid(Object.keys(props.answers).length == questions.length)
+  const validateForm = (currentSection) => {
+    const questions = Question.findBySectionId(props.sections[currentSection].id);
+    setIsValid(Object.keys(props.answers[currentSection]).length == questions.length)
   }
 
   const renderAudioBtn = () => {
@@ -37,7 +37,7 @@ const SurveyFormButtonComponent = React.forwardRef((props, ref) => {
             label={props.currentSection != props.sections.length - 1 ? 'បន្ទាប់' : 'បញ្ចប់'}
             buttonStyle={{marginTop: 30}}
             rightComponent={renderAudioBtn()}
-            onPress={() => {}}
+            onPress={() => props.onPress()}
          />
 })
 

@@ -17,6 +17,7 @@ const SurveyFormQuestionComponent = (props) => {
     SelectOne: SurveyFormSelectOneComponent,
     SelectMultiple: SurveyFormSelectMultipleComponent,
     Text: SurveyFormTextComponent,
+    VoiceRecording: SurveyFormVoiceRecordComponent,
   };
 
   const renderTitle = () => {
@@ -46,18 +47,6 @@ const SurveyFormQuestionComponent = (props) => {
             })
     }
   }
-
-  if (type == 'VoiceRecording')
-    return <SurveyFormVoiceRecordComponent
-              question={props.question}
-              options={Option.byQuestion(props.question.id)}
-              buttonColor={Color.primary}
-              statisticPrefix={'Survey'}
-              audioPlayer={props.audioPlayer}
-              updateAnswer={(answer) => props.updateAnswers(answer)}
-              updateAudioPlayer={(audioPlayer) => props.updateAudioPlayer(audioPlayer)}
-              renderTitle={() => renderTitle()}
-           />
 
   return (
     <View style={{padding: 16, marginTop: 16, borderWidth: 1.5, borderColor: '#dbdbdb', borderRadius: 10}}>

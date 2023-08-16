@@ -1,5 +1,4 @@
 import React, { useState } from 'react';;
-import {Text, View} from 'react-native';
 import {useSelector} from 'react-redux';
 
 import Audio from '../Register/Audio';
@@ -19,31 +18,20 @@ const SurveyFormVoiceRecordComponent = (props) => {
       question_code: props.question.code,
       user_uuid: currentUser.uuid,
       quiz_uuid: currentQuiz.uuid,
+      value: audioPath || '',
       voice: audioPath || ''
     }
     props.updateAnswer(answerParams);
   }
 
-  return (
-    <View style={{padding: 16, marginTop: 16, borderWidth: 1.5, borderColor: '#dbdbdb', borderRadius: 10}}>
-      {/* { !!voice && props.renderTitle()} */}
-      { props.renderTitle()}
-      <Audio
-        uuid={uuidv4()}
-        callback={(path) => onVoiceChange(path)}
-        audioPath={voice}
-        audioPlayer={props.audioPlayer}
-        updateAudioPlayer={(sound) => props.updateAudioPlayer(sound)}
-        containerStyle={{height: 140}}
-        // progressBarContainerStyle={{marginTop: 16}}
-      />
-      {/* { !voice &&
-        <View style={{marginTop: 12, justifyContent: 'center'}}>
-          { props.renderTitle() }
-        </View>
-      } */}
-    </View>
-  )
+  return <Audio
+            uuid={uuidv4()}
+            callback={(path) => onVoiceChange(path)}
+            audioPath={voice}
+            audioPlayer={props.audioPlayer}
+            updateAudioPlayer={(sound) => props.updateAudioPlayer(sound)}
+            containerStyle={{height: 140}}
+         />
 }
 
 export default SurveyFormVoiceRecordComponent;

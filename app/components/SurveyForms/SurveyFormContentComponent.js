@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollView} from 'react-native';
 import {useSelector} from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
@@ -7,20 +7,27 @@ import { HeaderBackButton } from '@react-navigation/stack';
 import SurveyFormQuestionComponent from './SurveyFormQuestionComponent';
 import SurveyFormButtonComponent from './SurveyFormButtonComponent';
 import AlertMessage from '../AlertMessage';
-import Quiz from '../../models/Quiz';
 import Section from '../../models/Section';
 import Question from '../../models/Question';
+import SurveyFormService from '../../services/survey_form_service';
 
 const SurveyFormContentComponent = (props) => {
   const navigation = useNavigation();
   const currentQuiz = useSelector(state => state.currentQuiz)
-  // const currentIndex = useSelector(state => state.currentQuestionIndex)
   const [audioPlayer, setAudioPlayer] = useState(null)
   const [alertVisible, setAlertVisible] = useState(false);
   const [sections] = useState(Section.findByFormId(props.formId));
   const [currentSection, setCurrentSection] = useState(0);
   const [answers, setAnswers] = useState({});
   const buttonRef = React.createRef();
+
+  useEffect(() => {
+    let formattedAnswers = {};
+    sections.map((section, index) => {
+      formattedAnswers[index] = {};
+    });
+    setAnswers(formattedAnswers)
+  }, [])
 
   navigation.setOptions({
     headerLeft: () => (<HeaderBackButton tintColor={"#fff"} onPress={() =>handleBack()}/>)
@@ -33,10 +40,6 @@ const SurveyFormContentComponent = (props) => {
     navigation.goBack()
   }
 
-  const renderFinish = () => {
-    Quiz.setFinished(currentQuiz.uuid);
-  }
-
   const existSurvey = () => {
     setAlertVisible(false);
     navigation.goBack();
@@ -45,12 +48,12 @@ const SurveyFormContentComponent = (props) => {
   const updateAnswers = (key, answer) => {
     let newAnswers = answers;
     if (!!answer)
-      newAnswers[key] = answer;
+      newAnswers[currentSection][key] = answer;
     else
-      delete newAnswers[key];
+      delete newAnswers[currentSection][key];
 
     setAnswers(newAnswers);
-    buttonRef.current?.validateForm();
+    buttonRef.current?.validateForm(currentSection);
   }
 
   const renderQuestionsOfSection = () => {
@@ -67,16 +70,18 @@ const SurveyFormContentComponent = (props) => {
   }
 
   const goNextOrFinish = () => {
-    if (currentSection < sections.length - 1)
+    if (currentSection < sections.length - 1) {
+      buttonRef.current?.validateForm(currentSection + 1);
       setCurrentSection(currentSection + 1);
-
-    console.log('+++ Survey answer = ', answers)
+    }
+    else if (currentSection == sections.length - 1) {
+      new SurveyFormService().submitSurvey(answers, currentQuiz.uuid);
+    }
   }
 
   const renderButton = () => {
     return <SurveyFormButtonComponent ref={buttonRef}
               answers={answers}
-              currentSection={currentSection}
               sections={sections}
               audioPlayer={audioPlayer}
               updateAudioPlayer={setAudioPlayer}
