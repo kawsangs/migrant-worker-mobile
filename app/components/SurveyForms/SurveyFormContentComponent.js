@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {ScrollView} from 'react-native';
+import {ScrollView, BackHandler} from 'react-native';
 import {useSelector} from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { HeaderBackButton } from '@react-navigation/stack';
@@ -27,22 +27,21 @@ const SurveyFormContentComponent = (props) => {
       formattedAnswers[index] = {};
     });
     setAnswers(formattedAnswers)
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      setAlertVisible(true)
+      return true;
+    })
+    return () => !!backHandler && backHandler.remove()
   }, [])
 
   navigation.setOptions({
-    headerLeft: () => (<HeaderBackButton tintColor={"#fff"} onPress={() =>handleBack()}/>)
+    headerLeft: () => (<HeaderBackButton tintColor={"#fff"} onPress={() => setAlertVisible(true)}/>)
   });
-
-  const handleBack = () => {
-    if (currentSection == 0)
-      return setAlertVisible(true);
-
-    navigation.goBack()
-  }
 
   const existSurvey = () => {
     setAlertVisible(false);
-    navigation.goBack();
+    navigation.reset({ index: 1, routes: [{name: 'HomeScreen'}, { name: 'NotificationListScreen' }]});
   }
 
   const updateAnswers = (key, answer) => {
@@ -76,6 +75,7 @@ const SurveyFormContentComponent = (props) => {
     }
     else if (currentSection == sections.length - 1) {
       new SurveyFormService().submitSurvey(answers, currentQuiz.uuid);
+      navigation.reset({ index: 1, routes: [{name: 'HomeScreen'}, { name: 'NotificationListScreen' }]});
     }
   }
 

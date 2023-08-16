@@ -2,7 +2,6 @@ import realm from '../db/schema';
 import Option from './Option';
 import Answer from './Answer';
 import Criteria from './Criteria';
-import Section from './Section';
 
 const MODEL = 'Question';
 
@@ -30,8 +29,7 @@ const Question = (() => {
   }
 
   function getAll() {
-    // return realm.objects(MODEL).filtered("SORT(display_order ASC)");
-    return realm.objects(MODEL);
+    return realm.objects(MODEL).filtered("SORT(display_order ASC)");
   }
 
   function deleteAll() {
@@ -65,7 +63,6 @@ const Question = (() => {
 
   function upsert(item) {
     realm.write(() => {
-      console.log('==== save question ====')
       realm.create(MODEL, _buildData(item), 'modified');
     });
 
