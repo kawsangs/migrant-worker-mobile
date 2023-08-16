@@ -1,67 +1,40 @@
 import React, {useState} from 'react';
-import {View, Text} from 'react-native';
+import {ScrollView} from 'react-native';
 import {useSelector} from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { HeaderBackButton } from '@react-navigation/stack';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
-import Questions from '../Questions';
-import AppIcon from '../AppIcon';
+import SurveyFormQuestionComponent from './SurveyFormQuestionComponent';
+import SurveyFormButtonComponent from './SurveyFormButtonComponent';
 import AlertMessage from '../AlertMessage';
-import BigButtonComponent from '../shared/BigButtonComponent';
-import PlaySound from '../play_sound';
-import { Color, FontFamily } from '../../assets/stylesheets/base_style';
 import Quiz from '../../models/Quiz';
+import Section from '../../models/Section';
+import Question from '../../models/Question';
 
 const SurveyFormContentComponent = (props) => {
   const navigation = useNavigation();
   const currentQuiz = useSelector(state => state.currentQuiz)
-  const currentIndex = useSelector(state => state.currentQuestionIndex)
+  // const currentIndex = useSelector(state => state.currentQuestionIndex)
   const [audioPlayer, setAudioPlayer] = useState(null)
   const [alertVisible, setAlertVisible] = useState(false);
+  const [sections] = useState(Section.findByFormId(props.formId));
+  const [currentSection, setCurrentSection] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const buttonRef = React.createRef();
 
   navigation.setOptions({
     headerLeft: () => (<HeaderBackButton tintColor={"#fff"} onPress={() =>handleBack()}/>)
   });
 
   const handleBack = () => {
-    if (currentIndex > -1)
+    if (currentSection == 0)
       return setAlertVisible(true);
 
     navigation.goBack()
   }
 
-  const renderAudioBtn = () => {
-    return (
-      <PlaySound
-        style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: 58}}
-        buttonAudioStyle={{ backgroundColor: Color.white }}
-        iconStyle={{ tintColor: Color.primary }}
-        filePath={'next.mp3'}
-        audioPlayer={audioPlayer}
-        updateMainAudioPlayer={(sound) => setAudioPlayer(sound)}
-      />
-    )
-  }
-
   const renderFinish = () => {
     Quiz.setFinished(currentQuiz.uuid);
-
-    return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', padding: 16, paddingBottom: 10}}>
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <AppIcon iconType='survey' customStyles={{width: wp('45%'), height: wp('45%'), marginBottom: 20, marginTop: -30}} />
-          <Text>អរគុណសម្រាប់ការឆ្លើយសំណួរនៃការស្ទង់មតិ។</Text>
-          <Text>សូមចុចប៊ូតុង <Text style={{fontFamily: FontFamily.title}}>"បញ្ចប់"</Text> ដើម្បីចាក់ចេញ។</Text>
-        </View>
-        <BigButtonComponent
-          label='បញ្ចប់'
-          rightComponent={renderAudioBtn()}
-          onPress={() => navigation.reset({index: 0, routes: [{ name: 'HomeScreen' }]})}
-          onDisabledPress={() => ToastAndroid.show(t("RegisterScreen.WarningFillRequiredInfo"), ToastAndroid.SHORT)}
-        />
-      </View>
-    )
   }
 
   const existSurvey = () => {
@@ -69,10 +42,54 @@ const SurveyFormContentComponent = (props) => {
     navigation.goBack();
   }
 
+  const updateAnswers = (key, answer) => {
+    let newAnswers = answers;
+    if (!!answer)
+      newAnswers[key] = answer;
+    else
+      delete newAnswers[key];
+
+    setAnswers(newAnswers);
+    buttonRef.current?.validateForm();
+  }
+
+  const renderQuestionsOfSection = () => {
+    return Question.findBySectionId(sections[currentSection].id).map((question, index) => {
+      const key = `section_${currentSection}_q_${index}`;
+      return <SurveyFormQuestionComponent
+                key={key}
+                question={question}
+                audioPlayer={audioPlayer}
+                updateAudioPlayer={setAudioPlayer}
+                updateAnswers={(answer) => updateAnswers(key, answer)}
+             />
+    })
+  }
+
+  const goNextOrFinish = () => {
+    if (currentSection < sections.length - 1)
+      setCurrentSection(currentSection + 1);
+
+    console.log('+++ Survey answer = ', answers)
+  }
+
+  const renderButton = () => {
+    return <SurveyFormButtonComponent ref={buttonRef}
+              answers={answers}
+              currentSection={currentSection}
+              sections={sections}
+              audioPlayer={audioPlayer}
+              updateAudioPlayer={setAudioPlayer}
+              onPress={() => goNextOrFinish()}
+           />
+  }
+
   return (
     <React.Fragment>
-      { !!props.currentQuestion && Questions(props.currentQuestion, Color.primary, 'Survey') }
-      { !props.currentQuestion && renderFinish() }
+      <ScrollView contentContainerStyle={{flexGrow: 1, paddingHorizontal: 16, paddingBottom: 26}}>
+        { renderQuestionsOfSection() }
+        { renderButton() }
+      </ScrollView>
       <AlertMessage
         show={alertVisible}
         warning={false}

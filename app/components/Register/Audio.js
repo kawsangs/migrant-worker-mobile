@@ -296,7 +296,6 @@ export default class Audio extends Component {
         </TouchableOpacity>
 
         <View style={{flex: 1, paddingHorizontal: 10}}>
-          <Text>លេង</Text>
           <Text>{ this._renderTime(this.state.playSeconds) }</Text>
         </View>
 
@@ -309,7 +308,7 @@ export default class Audio extends Component {
 
   render() {
     return (
-      <View style={{height: 180}}>
+      <View style={[{height: 180}, this.props.containerStyle]}>
         { this.state.visiblePlayButton && this._renderButtonPlay() }
         { this.state.visibleProgressBar && this._renderProgressBar() }
 

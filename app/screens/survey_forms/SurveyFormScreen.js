@@ -3,7 +3,6 @@ import {View, ActivityIndicator} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import SurveyFormContentComponent from '../../components/SurveyForms/SurveyFormContentComponent';
-import SurveyFormQuestionsComponent from '../../components/SurveyForms/SurveyFormQuestionsComponent';
 import SurveyFormService from '../../services/survey_form_service';
 import Notification from '../../models/Notification';
 import Form from '../../models/Form';
@@ -20,14 +19,14 @@ import Section from '../../models/Section';
 
 const SurveyFormScreen = ({route, navigation}) => {
   const dispatch = useDispatch();
-  const questions = useSelector(state => state.questions)
-  const currentIndex = useSelector(state => state.currentQuestionIndex)
+  // const questions = useSelector(state => state.questions)
+  // const currentIndex = useSelector(state => state.currentQuestionIndex)
   const currentUser = useSelector(state => state.currentUser)
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    Notification.update(route.params.uuid, { is_read: true });
-    dispatch(setNotifications(Notification.all()));
+    // Notification.update(route.params.uuid, { is_read: true });
+    // dispatch(setNotifications(Notification.all()));
 
     if (!Form.findById(route.params.form_id)) {
       console.log('====== SAVE survey form ======')
@@ -58,15 +57,9 @@ const SurveyFormScreen = ({route, navigation}) => {
 
   return (
     <View style={{ flex: 1 }}>
-      {/* { !isLoading ? <SurveyFormContentComponent currentQuestion={questions[currentIndex]} />
-        : <View style={{flex: 1, justifyContent: 'center'}}><ActivityIndicator size="large" color={Color.primary} /></View>
-      } */}
-
-      { !isLoading ? <SurveyFormQuestionsComponent formId={route.params.form_id} />
+      { !isLoading ? <SurveyFormContentComponent formId={route.params.form_id} />
         : <View style={{flex: 1, justifyContent: 'center'}}><ActivityIndicator size="large" color={Color.primary} /></View>
       }
-
-      {/* <SurveyFormQuestionsComponent formId={route.params.form_id}/> */}
     </View>
   )
 }
