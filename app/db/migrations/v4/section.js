@@ -7,6 +7,7 @@ const SectionSchema = {
     id: 'string',
     name: 'string',
     form_id: 'int',
+    display_order: 'int',
   }
 };
 

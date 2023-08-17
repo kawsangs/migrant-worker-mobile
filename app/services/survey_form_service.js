@@ -39,7 +39,7 @@ class SurveyFormService extends WebService {
 
   _saveSectionsAndQuestions(sections, formId, callback) {
     sections.map(section => {
-      Section.upsert({ id: section.id, name: section.name, form_id: formId });
+      Section.upsert({ id: section.id, name: section.name, form_id: formId, display_order: section.display_order });
       const questions = section.questions.map(question => ({ ...question, form_id: formId }));
       Question.upsertCollection(questions);
     });

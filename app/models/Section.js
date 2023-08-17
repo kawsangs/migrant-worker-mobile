@@ -14,18 +14,13 @@ const Section = (() => {
   }
 
   function findByFormId(id) {
-    return realm.objects(MODEL).filtered(`form_id ==  ${id}`);
+    return realm.objects(MODEL).filtered(`form_id ==  ${id} SORT(display_order ASC)`);
   }
 
   function upsert(data) {
     realm.write(() => {
-      realm.create(MODEL, _buildData(data), 'modified');
+      realm.create(MODEL, data, 'modified');
     });
-  }
-
-  // private method
-  function _buildData(data) {
-    return {id: data.id, name: data.name, form_id: data.form_id}
   }
 })()
 

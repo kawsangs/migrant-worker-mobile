@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {View} from 'react-native';
 
 import BigButtonComponent from '../shared/BigButtonComponent';
 import PlaySound from '../play_sound';
@@ -6,6 +7,11 @@ import Question from '../../models/Question';
 import { Color } from '../../assets/stylesheets/base_style';
 
 const {useImperativeHandle} = React;
+
+const BUTTONS = {
+  next: {label: 'បន្ទាប់', audio: 'next.mp3'},
+  finish: {label: 'បញ្ចប់', audio: null}
+}
 
 const SurveyFormButtonComponent = React.forwardRef((props, ref) => {
   const [isValid, setIsValid] = useState(false);
@@ -25,20 +31,21 @@ const SurveyFormButtonComponent = React.forwardRef((props, ref) => {
         style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: 58}}
         buttonAudioStyle={{ backgroundColor: Color.white }}
         iconStyle={{ tintColor: Color.primary }}
-        filePath={'next.mp3'}
+        filePath={props.currentSection != props.sections.length - 1 ? BUTTONS.next.audio : BUTTONS.finish.audio}
         audioPlayer={props.audioPlayer}
         updateMainAudioPlayer={(sound) => props.updateAudioPlayer(sound)}
       />
     )
   }
 
-  return <BigButtonComponent
-            disabled={!isValid}
-            label={props.currentSection != props.sections.length - 1 ? 'បន្ទាប់' : 'បញ្ចប់'}
-            buttonStyle={{marginTop: 30}}
-            rightComponent={renderAudioBtn()}
-            onPress={() => props.onPress()}
-         />
+  return <View style={{paddingHorizontal: 16, paddingVertical: 12}}>
+            <BigButtonComponent
+              disabled={!isValid}
+              label={props.currentSection != props.sections.length - 1 ? BUTTONS.next.label : BUTTONS.finish.label}
+              rightComponent={renderAudioBtn()}
+              onPress={() => props.onPress()}
+            />
+         </View>
 })
 
 export default SurveyFormButtonComponent;

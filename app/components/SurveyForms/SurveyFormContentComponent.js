@@ -62,7 +62,7 @@ const SurveyFormContentComponent = (props) => {
                 key={key}
                 question={question}
                 audioPlayer={audioPlayer}
-                updateAudioPlayer={setAudioPlayer}
+                updateAudioPlayer={(audioPlayer) => setAudioPlayer(audioPlayer)}
                 updateAnswers={(answer) => updateAnswers(key, answer)}
              />
     })
@@ -83,6 +83,7 @@ const SurveyFormContentComponent = (props) => {
     return <SurveyFormButtonComponent ref={buttonRef}
               answers={answers}
               sections={sections}
+              currentSection={currentSection}
               audioPlayer={audioPlayer}
               updateAudioPlayer={setAudioPlayer}
               onPress={() => goNextOrFinish()}
@@ -93,8 +94,8 @@ const SurveyFormContentComponent = (props) => {
     <React.Fragment>
       <ScrollView contentContainerStyle={{flexGrow: 1, paddingHorizontal: 16, paddingBottom: 26}}>
         { renderQuestionsOfSection() }
-        { renderButton() }
       </ScrollView>
+      { renderButton() }
       <AlertMessage
         show={alertVisible}
         warning={false}
@@ -102,7 +103,6 @@ const SurveyFormContentComponent = (props) => {
         message={"តើអ្នក​ពិតជា​ចង់​ចាកចេញ​ពី​ការស្ទង់​មតិ​នេះ​មែន​ទេ?"}
         onPressAction={() => existSurvey()}
         onPressCancel={() => setAlertVisible(false)}
-        audio={"exit_game.mp3"}
         hideAudio={true}
       />
     </React.Fragment>

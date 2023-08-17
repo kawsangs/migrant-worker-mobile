@@ -40,21 +40,22 @@ const SurveyFormSelectMultipleComponent = (props) => {
 
   const renderOptions = () => {
     return options.map(option => {
-      return <Checkbox
-                key={option.id}
-                label={option.name}
-                value={option.id.toString()}
-                answers={answers}
-                checked={answers.includes(option.id.toString())}
-                onCheck={(checked, value) => onCheckOption(option, value)}
-              />
+      return <View key={option.id} style={{minHeight: 48, marginVertical: 5}}>
+                <Checkbox
+                  label={option.name}
+                  value={option.id.toString()}
+                  answers={answers}
+                  checked={answers.includes(option.id.toString())}
+                  onCheck={(checked, value) => onCheckOption(option, value)}
+                />
+             </View>
     });
   }
 
   return (
-    <View style={{height: options.length * 48}}>
+    <React.Fragment>
       { renderOptions() }
-    </View>
+    </React.Fragment>
   )
 }
 

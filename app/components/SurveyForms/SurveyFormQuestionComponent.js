@@ -25,7 +25,7 @@ const SurveyFormQuestionComponent = (props) => {
               <Text style={{flex: 1, fontFamily: FontFamily.title}}>{props.question.name}</Text>
               <PlaySound
                 filePath={props.question.audio}
-                buttonAudioStyle={{ backgroundColor: Color.pink }}
+                buttonAudioStyle={{ backgroundColor: Color.primary }}
                 iconStyle={{ tintColor: Color.white }}
                 audioPlayer={props.audioPlayer}
                 updateMainAudioPlayer={(sound) => props.updateAudioPlayer(sound)}

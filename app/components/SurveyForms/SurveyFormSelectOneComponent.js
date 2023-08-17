@@ -1,5 +1,6 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
+import {View} from 'react-native';
 import RadioButton from '../Questions/radioButton';
 
 const SurveyFormSelectOneComponent = (props) => {
@@ -20,19 +21,19 @@ const SurveyFormSelectOneComponent = (props) => {
       user_uuid: currentUser.uuid,
       quiz_uuid: currentQuiz.uuid,
     }
-    // console.log('select one params = ', answerParams)
     props.updateAnswer(answerParams);
   }
 
   return options.map(option => {
-    return <RadioButton
-              key={option.id}
-              label={option.name}
-              checked={ !!selectedOption ? option.id.toString() == selectedOption.id : false }
-              value={option.id.toString()}
-              onSelect={id => onSelect(id)}
-              avata={option.imageSource}
-            />
+    return <View key={option.id} style={{minHeight: 48, marginVertical: 5}}>
+              <RadioButton
+                label={option.name}
+                checked={ !!selectedOption ? option.id.toString() == selectedOption.id : false }
+                value={option.id.toString()}
+                onSelect={id => onSelect(id)}
+                avata={option.imageSource}
+              />
+           </View>
   })
 }
 
