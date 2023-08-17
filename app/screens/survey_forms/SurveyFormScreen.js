@@ -21,10 +21,8 @@ const SurveyFormScreen = ({route, navigation}) => {
     Notification.update(route.params.uuid, { is_read: true });
     dispatch(setNotifications(Notification.all()));
 
-    if (!Form.findById(route.params.form_id)) {
-      console.log('====== SAVE survey form ======')
+    if (!Form.findById(route.params.form_id))
       new SurveyFormService().findAndSave(route.params.form_id, () => setForm());
-    }
     else
       setForm()
   }, [])
