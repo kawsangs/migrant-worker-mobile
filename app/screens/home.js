@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import { View } from 'react-native';
 import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
@@ -9,6 +10,7 @@ import { withTranslation } from 'react-i18next';
 import uuidv4 from '../utils/uuidv4';
 import CardItem from '../components/Home/CardItem';
 import homeMenuList from '../db/json/home_menu';
+import {setCurrentPlaying} from '../actions/currentPlayingAudioAction';
 
 class Home extends Component {
   state = {};
@@ -27,6 +29,7 @@ class Home extends Component {
   }
 
   _goTo(screenName) {
+    this.props.setCurrentPlaying(null);
     addStatistic(`goTo${screenName.split('Screen')[0]}`);
     this.props.navigation.navigate(screenName);
   }
@@ -40,8 +43,6 @@ class Home extends Component {
         backgroundColor={item.backgroundColor}
         onPress={ () => this._goTo(item.screenName) }
         audio={item.audio}
-        audioPlayer={this.state.audioPlayer}
-        updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
       />
     )
   }
@@ -75,4 +76,13 @@ class Home extends Component {
   }
 }
 
-export default withTranslation()(Home);
+function mapDispatchToProps(dispatch) {
+  return {
+    setCurrentPlaying: (uuid) => dispatch(setCurrentPlaying(uuid)) 
+  }
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(withTranslation()(Home));

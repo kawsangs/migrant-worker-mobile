@@ -28,7 +28,7 @@ const BigButtonComponent = (props) => {
 
 const styles = StyleSheet.create({
   button: {
-    height: 60,
+    height: 66,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
   label: {
     color: Color.white,
     fontFamily: FontFamily.title,
+    fontSize: 18
   },
   labelContainer: {
     flex: 1,
