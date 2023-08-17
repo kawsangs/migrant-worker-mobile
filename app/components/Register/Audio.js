@@ -283,7 +283,7 @@ export default class Audio extends Component {
 
   _renderButtonPlay() {
     return (
-      <View style={[Style.boxShadow, {marginTop: 13, marginHorizontal: 0, flexDirection: 'row', alignItems: 'center', padding: 10, backgroundColor: '#fff', borderRadius: 8}]}>
+      <View style={[Style.boxShadow, {marginTop: 13, marginHorizontal: 0, flexDirection: 'row', alignItems: 'center', padding: 10, backgroundColor: '#fff', borderRadius: 8}, this.props.buttonPlayStyle]}>
         <TouchableOpacity onPress={() => this._handlePlaying()}>
           { this.state.isPlaying &&
             <View style={{backgroundColor: Color.delete, width: 32, height: 32, borderRadius: 50, justifyContent: 'center', alignItems: 'center', marginHorizontal: 3}}>

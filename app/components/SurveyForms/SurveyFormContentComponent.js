@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, BackHandler} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { HeaderBackButton } from '@react-navigation/stack';
 
@@ -10,16 +10,17 @@ import AlertMessage from '../AlertMessage';
 import Section from '../../models/Section';
 import Question from '../../models/Question';
 import SurveyFormService from '../../services/survey_form_service';
+import {setCurrentPlaying} from '../../actions/currentPlayingAudioAction';
 
 const SurveyFormContentComponent = (props) => {
   const navigation = useNavigation();
   const currentQuiz = useSelector(state => state.currentQuiz)
-  const [audioPlayer, setAudioPlayer] = useState(null)
   const [alertVisible, setAlertVisible] = useState(false);
   const [sections] = useState(Section.findByFormId(props.formId));
   const [currentSection, setCurrentSection] = useState(0);
   const [answers, setAnswers] = useState({});
   const buttonRef = React.createRef();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     let formattedAnswers = {};
@@ -39,8 +40,9 @@ const SurveyFormContentComponent = (props) => {
     headerLeft: () => (<HeaderBackButton tintColor={"#fff"} onPress={() => setAlertVisible(true)}/>)
   });
 
-  const existSurvey = () => {
+  const exitSurvey = () => {
     setAlertVisible(false);
+    dispatch(setCurrentPlaying(null));
     navigation.reset({ index: 1, routes: [{name: 'HomeScreen'}, { name: 'NotificationListScreen' }]});
   }
 
@@ -61,14 +63,13 @@ const SurveyFormContentComponent = (props) => {
       return <SurveyFormQuestionComponent
                 key={key}
                 question={question}
-                audioPlayer={audioPlayer}
-                updateAudioPlayer={(audioPlayer) => setAudioPlayer(audioPlayer)}
                 updateAnswers={(answer) => updateAnswers(key, answer)}
              />
     })
   }
 
   const goNextOrFinish = () => {
+    dispatch(setCurrentPlaying(null));
     if (currentSection < sections.length - 1) {
       buttonRef.current?.validateForm(currentSection + 1);
       setCurrentSection(currentSection + 1);
@@ -84,8 +85,6 @@ const SurveyFormContentComponent = (props) => {
               answers={answers}
               sections={sections}
               currentSection={currentSection}
-              audioPlayer={audioPlayer}
-              updateAudioPlayer={setAudioPlayer}
               onPress={() => goNextOrFinish()}
            />
   }
@@ -101,7 +100,7 @@ const SurveyFormContentComponent = (props) => {
         warning={false}
         title={"ចាកចេញពីការស្ទង់មតិ"}
         message={"តើអ្នក​ពិតជា​ចង់​ចាកចេញ​ពី​ការស្ទង់​មតិ​នេះ​មែន​ទេ?"}
-        onPressAction={() => existSurvey()}
+        onPressAction={() => exitSurvey()}
         onPressCancel={() => setAlertVisible(false)}
         hideAudio={true}
       />

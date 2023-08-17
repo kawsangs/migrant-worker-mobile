@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 
 import BigButtonComponent from '../shared/BigButtonComponent';
-import PlaySound from '../play_sound';
+import CustomAudioPlayerComponent from '../shared/CustomAudioPlayerComponent';
 import Question from '../../models/Question';
 import { Color } from '../../assets/stylesheets/base_style';
 
@@ -26,16 +26,14 @@ const SurveyFormButtonComponent = React.forwardRef((props, ref) => {
   }
 
   const renderAudioBtn = () => {
-    return (
-      <PlaySound
-        style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: 58}}
-        buttonAudioStyle={{ backgroundColor: Color.white }}
-        iconStyle={{ tintColor: Color.primary }}
-        filePath={props.currentSection != props.sections.length - 1 ? BUTTONS.next.audio : BUTTONS.finish.audio}
-        audioPlayer={props.audioPlayer}
-        updateMainAudioPlayer={(sound) => props.updateAudioPlayer(sound)}
-      />
-    )
+    return <CustomAudioPlayerComponent
+              itemUuid='btn-next-audio'
+              audio={props.currentSection != props.sections.length - 1 ? BUTTONS.next.audio : BUTTONS.finish.audio}
+              isFromAppBundle={true}
+              buttonStyle={{backgroundColor: Color.white, marginRight: 8}}
+              iconStyle={{color: Color.primary}}
+              rippled={true}
+           />
   }
 
   return <View style={{paddingHorizontal: 16, paddingVertical: 12}}>
