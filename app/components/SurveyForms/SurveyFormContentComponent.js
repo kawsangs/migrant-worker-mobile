@@ -6,7 +6,7 @@ import { HeaderBackButton } from '@react-navigation/stack';
 
 import SurveyFormQuestionComponent from './SurveyFormQuestionComponent';
 import SurveyFormButtonComponent from './SurveyFormButtonComponent';
-import AlertMessage from '../AlertMessage';
+import SurveyFormAlertMessageComponent from './SurveyFormAlertMessageComponent';
 import Section from '../../models/Section';
 import Question from '../../models/Question';
 import SurveyFormService from '../../services/survey_form_service';
@@ -15,11 +15,11 @@ import {setCurrentPlaying} from '../../actions/currentPlayingAudioAction';
 const SurveyFormContentComponent = (props) => {
   const navigation = useNavigation();
   const currentQuiz = useSelector(state => state.currentQuiz)
-  const [alertVisible, setAlertVisible] = useState(false);
   const [sections] = useState(Section.findByFormId(props.formId));
   const [currentSection, setCurrentSection] = useState(0);
   const [answers, setAnswers] = useState({});
-  const buttonRef = React.createRef();
+  const buttonRef = React.useRef(null);
+  const alertRef = React.useRef(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,21 +30,15 @@ const SurveyFormContentComponent = (props) => {
     setAnswers(formattedAnswers)
 
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-      setAlertVisible(true)
+      alertRef.current?.setAlertVisibility(true)
       return true;
     })
     return () => !!backHandler && backHandler.remove()
   }, [])
 
   navigation.setOptions({
-    headerLeft: () => (<HeaderBackButton tintColor={"#fff"} onPress={() => setAlertVisible(true)}/>)
+    headerLeft: () => (<HeaderBackButton tintColor={"#fff"} onPress={() => alertRef.current?.setAlertVisibility(true)}/>)
   });
-
-  const exitSurvey = () => {
-    setAlertVisible(false);
-    dispatch(setCurrentPlaying(null));
-    navigation.reset({ index: 1, routes: [{name: 'HomeScreen'}, { name: 'NotificationListScreen' }]});
-  }
 
   const updateAnswers = (key, answer) => {
     let newAnswers = answers;
@@ -95,15 +89,7 @@ const SurveyFormContentComponent = (props) => {
         { renderQuestionsOfSection() }
       </ScrollView>
       { renderButton() }
-      <AlertMessage
-        show={alertVisible}
-        warning={false}
-        title={"ចាកចេញពីការស្ទង់មតិ"}
-        message={"តើអ្នក​ពិតជា​ចង់​ចាកចេញ​ពី​ការស្ទង់​មតិ​នេះ​មែន​ទេ?"}
-        onPressAction={() => exitSurvey()}
-        onPressCancel={() => setAlertVisible(false)}
-        hideAudio={true}
-      />
+      <SurveyFormAlertMessageComponent ref={alertRef} />
     </React.Fragment>
   )
 }
