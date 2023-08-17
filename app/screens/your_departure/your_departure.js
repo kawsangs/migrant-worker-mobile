@@ -62,7 +62,7 @@ class YourDeparture extends Component {
     return (
       <CardItem
         key={index}
-        item={item}
+        uuid={item.uuid}
         backgroundColor={Color.red}
         title={item.name}
         image={item.imageSource}
@@ -70,7 +70,7 @@ class YourDeparture extends Component {
         onPress={() => this._onPress(item)}
         audioPlayer={this.state.audioPlayer}
         updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
-        audioIconStyle={{tintColor: Color.beforeYouGoColor}}
+        audioIconColor={Color.beforeYouGoColor}
       />
     )
   }

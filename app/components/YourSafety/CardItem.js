@@ -11,10 +11,13 @@ import {
 import { Icon } from 'react-native-material-ui';
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
 import PlaySound from '../../components/play_sound';
+import CustomAudioPlayerComponent from '../../components/shared/CustomAudioPlayerComponent';
 
 class CardItem extends Component {
   render() {
     let image = this.props.image || Images.default;
+
+    // console.log('cate = ', this.props.uuid)
 
     return (
       <TouchableOpacity
@@ -29,15 +32,25 @@ class CardItem extends Component {
           <View style={[Style.cardContent, { marginBottom: 0, paddingBottom: 0, minHeight: 160}]}>
             <View style={{ flex: 1 }} />
 
-            <View>
-              <PlaySound
+            <View style={{marginTop: 10, marginRight: 10}}>
+              <CustomAudioPlayerComponent
+                itemUuid={this.props.uuid}
+                // audio={!!this.props.audio ? {uri: this.props.audio} : null}
+                audio={this.props.audio}
+                isFromAppBundle={true}
+                buttonStyle={{backgroundColor: this.props.audioButtonBackground || Color.white}}
+                iconStyle={{color: this.props.audioIconColor || Color.primary}}
+                rippled={true}
+              />
+
+              {/* <PlaySound
                 filePath={this.props.audio}
                 buttonAudioStyle={[{backgroundColor: Color.white}, this.props.buttonAudioStyle]}
                 iconStyle={[{tintColor: Color.primary}, this.props.audioIconStyle]}
                 style={[{ marginTop: 10, marginRight: 10 }]}
                 audioPlayer={this.props.audioPlayer}
                 updateMainAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}
-              />
+              /> */}
             </View>
           </View>
         </ImageBackground>

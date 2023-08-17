@@ -67,6 +67,7 @@ class YourSafety extends Component {
   _renderItem(item, index) {
     return (
       <CardItem
+        uuid={item.uuid}
         title={item.name}
         audio={item.audio}
         image={item.imageSource}

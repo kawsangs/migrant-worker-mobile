@@ -6,7 +6,6 @@ import SurveyFormSelectMultipleComponent from './SurveyFormSelectMultipleCompone
 import SurveyFormTextComponent from './SurveyFormTextComponent';
 import SurveyFormVoiceRecordComponent from './SurveyFormVoiceRecordComponent';
 import CustomAudioPlayerComponent from '../shared/CustomAudioPlayerComponent';
-
 import { Color, FontFamily } from '../../assets/stylesheets/base_style';
 import uuidv4 from '../../utils/uuidv4';
 import Option from '../../models/Option';

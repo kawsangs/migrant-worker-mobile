@@ -61,12 +61,13 @@ class YourStory extends Component {
     return (
       <CardItem
         key={index}
+        uuid={item.id}
         title={item.name}
         audio={item.audio}
         image={item.imageSource}
         onPress={() => this._onPress(item)}
         buttonAudioStyle={{backgroundColor: Color.white}}
-        audioIconStyle={{tintColor: Color.pink}}
+        audioIconColor={Color.pink}
         audioPlayer={this.state.audioPlayer}
         updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
       />

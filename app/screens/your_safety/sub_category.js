@@ -38,14 +38,15 @@ class YourSafetySubCategory extends Component {
     return (
       <CardItem
         key={index}
+        uuid={item.uuid}
         title={item.name}
         audio={item.audio}
         image={item.imageSource}
         onPress={() => this._onPress(item)}
-        buttonAudioStyle={{backgroundColor: Color.primary}}
-        audioIconStyle={{tintColor: Color.white}}
         audioPlayer={this.state.audioPlayer}
         updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
+        audioButtonBackground={Color.primary}
+        audioIconColor={Color.white}
       />
     )
   }
