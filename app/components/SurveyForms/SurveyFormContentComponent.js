@@ -10,7 +10,7 @@ import SurveyFormAlertMessageComponent from './SurveyFormAlertMessageComponent';
 import Section from '../../models/Section';
 import Question from '../../models/Question';
 import SurveyFormService from '../../services/survey_form_service';
-import {setCurrentPlaying} from '../../actions/currentPlayingAudioAction';
+import {setCurrentPlayingAudio} from '../../actions/currentPlayingAudioAction';
 
 const SurveyFormContentComponent = (props) => {
   const navigation = useNavigation();
@@ -63,7 +63,7 @@ const SurveyFormContentComponent = (props) => {
   }
 
   const goNextOrFinish = () => {
-    dispatch(setCurrentPlaying(null));
+    dispatch(setCurrentPlayingAudio(null));
     if (currentSection < sections.length - 1) {
       buttonRef.current?.validateForm(currentSection + 1);
       setCurrentSection(currentSection + 1);

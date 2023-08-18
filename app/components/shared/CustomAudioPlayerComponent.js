@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import AudioPlayerButton from 'react-native-audio-player-button';
 import {useDispatch, useSelector} from 'react-redux';
 import { Color } from '../../assets/stylesheets/base_style';
-import {setCurrentPlaying} from '../../actions/currentPlayingAudioAction';
+import {setCurrentPlayingAudio} from '../../actions/currentPlayingAudioAction';
 
 const CustomAudioPlayerComponent = (props) => {
   const btnSize = 48;
@@ -27,7 +27,7 @@ const CustomAudioPlayerComponent = (props) => {
               iconSecondaryColor={Color.secondaryColor}
               allowPause={true}
               playingUuid={currentPlayingAudio}
-              updatePlayingUuid={(uuid) => dispatch(setCurrentPlaying(uuid))}
+              updatePlayingUuid={(uuid) => dispatch(setCurrentPlayingAudio(uuid))}
             />
          </View>
 }

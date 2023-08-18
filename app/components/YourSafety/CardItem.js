@@ -1,23 +1,13 @@
 import React, { Component } from 'react';
-import {
-  View,
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  Image,
-  ImageBackground
-} from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, ImageBackground } from 'react-native';
 
 import { Icon } from 'react-native-material-ui';
-import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
-import PlaySound from '../../components/play_sound';
+import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
 import CustomAudioPlayerComponent from '../../components/shared/CustomAudioPlayerComponent';
 
 class CardItem extends Component {
   render() {
     let image = this.props.image || Images.default;
-
-    // console.log('cate = ', this.props.uuid)
 
     return (
       <TouchableOpacity
@@ -42,15 +32,6 @@ class CardItem extends Component {
                 iconStyle={{color: this.props.audioIconColor || Color.primary}}
                 rippled={true}
               />
-
-              {/* <PlaySound
-                filePath={this.props.audio}
-                buttonAudioStyle={[{backgroundColor: Color.white}, this.props.buttonAudioStyle]}
-                iconStyle={[{tintColor: Color.primary}, this.props.audioIconStyle]}
-                style={[{ marginTop: 10, marginRight: 10 }]}
-                audioPlayer={this.props.audioPlayer}
-                updateMainAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}
-              /> */}
             </View>
           </View>
         </ImageBackground>

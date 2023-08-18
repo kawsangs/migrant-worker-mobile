@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { FlatList, ToastAndroid } from 'react-native';
+import { connect } from 'react-redux';
 
-import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
 import { addStatistic } from '../../utils/statistic';
 import { withTranslation } from 'react-i18next';
-import i18n from 'i18next';
 import CardItem from '../../components/YourSafety/CardItem';
 import Safety from '../../models/Safety';
 import NetInfo from "@react-native-community/netinfo";
 import CategoryService from '../../services/category_service';
 import uuidv4 from '../../utils/uuidv4';
 import LoadingIndicator from '../../components/loading_indicator';
+import {setCurrentPlayingAudio} from '../../actions/currentPlayingAudioAction';
 
 class YourSafety extends Component {
   constructor(props) {
@@ -20,7 +20,6 @@ class YourSafety extends Component {
       loading: true,
       isFetching: false,
       categories: Safety.getRoots(),
-      audioPlayer: null,
     };
   }
 
@@ -29,15 +28,8 @@ class YourSafety extends Component {
     Safety.seedData(() => this.setState({loading: false}));
   }
 
-  componentWillUnmount() {
-    this._clearAudioPlayer();
-  }
-
   _clearAudioPlayer() {
-    if (this.state.audioPlayer) {
-      this.state.audioPlayer.release();
-      this.setState({ audioPlayer: null });
-    }
+    this.props.setCurrentPlayingAudio(null);
   }
 
   _onPress(item) {
@@ -74,8 +66,6 @@ class YourSafety extends Component {
         onPress={() => this._onPress(item)}
         onRefresh={ () => this._onRefresh() }
         refreshing={ this.state.isFetching }
-        audioPlayer={this.state.audioPlayer}
-        updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
       />
     );
   }
@@ -100,4 +90,13 @@ class YourSafety extends Component {
   }
 }
 
-export default withTranslation()(YourSafety);
+function mapDispatchToProps(dispatch) {
+  return {
+    setCurrentPlayingAudio: (uuid) => dispatch(setCurrentPlayingAudio(uuid))
+  };
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(withTranslation()(YourSafety));

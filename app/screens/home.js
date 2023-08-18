@@ -10,7 +10,7 @@ import { withTranslation } from 'react-i18next';
 import uuidv4 from '../utils/uuidv4';
 import CardItem from '../components/Home/CardItem';
 import homeMenuList from '../db/json/home_menu';
-import {setCurrentPlaying} from '../actions/currentPlayingAudioAction';
+import {setCurrentPlayingAudio} from '../actions/currentPlayingAudioAction';
 
 class Home extends Component {
   state = {};
@@ -29,7 +29,7 @@ class Home extends Component {
   }
 
   _goTo(screenName) {
-    this.props.setCurrentPlaying(null);
+    this.props.setCurrentPlayingAudio(null);
     addStatistic(`goTo${screenName.split('Screen')[0]}`);
     this.props.navigation.navigate(screenName);
   }
@@ -78,7 +78,7 @@ class Home extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setCurrentPlaying: (uuid) => dispatch(setCurrentPlaying(uuid)) 
+    setCurrentPlayingAudio: (uuid) => dispatch(setCurrentPlayingAudio(uuid)) 
   }
 }
 

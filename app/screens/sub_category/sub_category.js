@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, ScrollView } from 'react-native';
+import { connect } from 'react-redux';
 
 import { StackActions } from '@react-navigation/native';
 import { withTranslation } from 'react-i18next';
@@ -10,6 +11,7 @@ import CardItem from '../../components/SubCategory/CardItem';
 import HintCard from '../../components/SubCategory/HintCard';
 import ArrowDown from '../../components/SubCategory/ArrowDown';
 import Departure from '../../models/Departure';
+import {setCurrentPlayingAudio} from '../../actions/currentPlayingAudioAction';
 
 class SubCategory extends Component {
   constructor(props) {
@@ -22,12 +24,17 @@ class SubCategory extends Component {
     };
   }
 
-  _onPress(item) {
-    if (this.state.audioPlayer) {
-      this.state.audioPlayer.release();
-      this.setState({ audioPlayer: null });
-    }
+  componentWillUnmount() {
+    this._clearAudioPlayer();
+  }
 
+  _clearAudioPlayer() {
+    if (!!this.props.currentPlayingAudio)
+      this.props.setCurrentPlayingAudio(null);
+  }
+
+  _onPress(item) {
+    this._clearAudioPlayer();
     if (item.leaf) { 
       const pushAction = StackActions.push('LeafCategoryScreen', { title: item.name, parent_id: item.id });
       return this.props.navigation.dispatch(pushAction);
@@ -47,8 +54,6 @@ class SubCategory extends Component {
         image={item.imageSource}
         audio={item.audio}
         number={index + 1}
-        audioPlayer={this.state.audioPlayer}
-        updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
       />
     );
 
@@ -63,8 +68,6 @@ class SubCategory extends Component {
         label={ category.hint }
         image={ category.hintImageSource }
         audio={ category.hint_audio }
-        audioPlayer={this.state.audioPlayer}
-        updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
       />
     )
   }
@@ -90,4 +93,19 @@ class SubCategory extends Component {
   }
 }
 
-export default withTranslation()(SubCategory);
+function mapStateToProps(state) {
+  return {
+    currentPlayingAudio: state.currentPlayingAudio
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setCurrentPlayingAudio: (uuid) => dispatch(setCurrentPlayingAudio(uuid))
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTranslation()(SubCategory));

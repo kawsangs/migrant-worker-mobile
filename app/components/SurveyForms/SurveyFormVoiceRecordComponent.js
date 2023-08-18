@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import Audio from '../Register/Audio';
 import uuidv4 from '../../utils/uuidv4';
-import {setCurrentPlaying} from '../../actions/currentPlayingAudioAction';
+import {setCurrentPlayingAudio} from '../../actions/currentPlayingAudioAction';
 
 const SurveyFormVoiceRecordComponent = (props) => {
   const [voice, setVoice] = useState('');
@@ -39,7 +39,7 @@ const SurveyFormVoiceRecordComponent = (props) => {
   }
 
   const updateAudioPlayer = (sound) => {
-    dispatch(setCurrentPlaying(null));
+    dispatch(setCurrentPlayingAudio(null));
     setAudioPlayer(sound);
   }
 

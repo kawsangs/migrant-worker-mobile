@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 
 import AlertMessage from '../AlertMessage';
-import {setCurrentPlaying} from '../../actions/currentPlayingAudioAction';
+import {setCurrentPlayingAudio} from '../../actions/currentPlayingAudioAction';
 
 const {useImperativeHandle} = React;
 
@@ -22,7 +22,7 @@ const SurveyFormAlertMessageComponent = React.forwardRef((props, ref) => {
 
   const exitSurvey = () => {
     setVisible(false);
-    dispatch(setCurrentPlaying(null));
+    dispatch(setCurrentPlayingAudio(null));
     navigation.reset({ index: 1, routes: [{name: 'HomeScreen'}, { name: 'NotificationListScreen' }]});
   }
 
