@@ -1,4 +1,5 @@
 import React from 'react';
+import {View} from 'react-native';
 import AudioPlayerButton from 'react-native-audio-player-button';
 import {useDispatch, useSelector} from 'react-redux';
 import { Color } from '../../assets/stylesheets/base_style';
@@ -16,17 +17,19 @@ const CustomAudioPlayerComponent = (props) => {
   const dispatch = useDispatch();
   const currentPlayingAudio = useSelector(state => state.currentPlayingAudio);
 
-  return <AudioPlayerButton
-            {...props}
-            {...rippleProps}
-            isSpeakerIcon={true}
-            iconSize={24}
-            iconPrimaryColor={props.iconPrimaryColor || Color.primaryColor}
-            iconSecondaryColor={Color.secondaryColor}
-            allowPause={true}
-            playingUuid={currentPlayingAudio}
-            updatePlayingUuid={(uuid) => dispatch(setCurrentPlaying(uuid))}
-         />
+  return <View>
+            <AudioPlayerButton
+              {...props}
+              {...rippleProps}
+              isSpeakerIcon={true}
+              iconSize={24}
+              iconPrimaryColor={props.iconPrimaryColor || Color.primaryColor}
+              iconSecondaryColor={Color.secondaryColor}
+              allowPause={true}
+              playingUuid={currentPlayingAudio}
+              updatePlayingUuid={(uuid) => dispatch(setCurrentPlaying(uuid))}
+            />
+         </View>
 }
 
 export default CustomAudioPlayerComponent;

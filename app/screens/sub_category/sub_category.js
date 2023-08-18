@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-} from 'react-native';
+import { View, ScrollView } from 'react-native';
 
 import { StackActions } from '@react-navigation/native';
 import { withTranslation } from 'react-i18next';
@@ -14,7 +10,6 @@ import CardItem from '../../components/SubCategory/CardItem';
 import HintCard from '../../components/SubCategory/HintCard';
 import ArrowDown from '../../components/SubCategory/ArrowDown';
 import Departure from '../../models/Departure';
-import Images from '../../utils/images';
 
 class SubCategory extends Component {
   constructor(props) {
@@ -47,6 +42,7 @@ class SubCategory extends Component {
       <CardItem
         key={index}
         onPress={() => this._onPress(item)}
+        uuid={item.uuid}
         title={item.name}
         image={item.imageSource}
         audio={item.audio}

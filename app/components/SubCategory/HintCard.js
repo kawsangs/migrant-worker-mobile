@@ -6,10 +6,8 @@ import {
   ImageBackground
 } from 'react-native';
 
-import { Icon } from 'react-native-material-ui';
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
-import PlaySound from '../../components/play_sound';
-import Images from '../../utils/images';
+import CustomAudioPlayerComponent from '../../components/shared/CustomAudioPlayerComponent';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
 
@@ -58,12 +56,13 @@ class HintCard extends Component {
             </View>
 
             <View style={{ marginLeft: 20 }}>
-              <PlaySound
-                filePath={this.props.audio}
-                buttonAudioStyle={{backgroundColor: Color.white}}
-                iconStyle={{tintColor: Color.beforeYouGoColor}}
-                audioPlayer={this.props.audioPlayer}
-                updateMainAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}
+              <CustomAudioPlayerComponent
+                itemUuid='hint-card'
+                audio={this.props.audio}
+                isFromAppBundle={true}
+                buttonStyle={{backgroundColor: Color.white}}
+                iconStyle={{color: Color.beforeYouGoColor}}
+                rippled={true}
               />
             </View>
           </View>
