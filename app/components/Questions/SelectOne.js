@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-} from 'react-native';
+import { View, ScrollView } from 'react-native';
 
-import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
+import { Style } from '../../assets/stylesheets/base_style';
 import uuidv4 from '../../utils/uuidv4';
 
-import i18n from 'i18next';
 import { withTranslation } from 'react-i18next';
 
 import Question from '../../models/Question';
@@ -31,8 +26,7 @@ class QuestionsSelectOne extends Component {
     this.state = {
       options: Option.byQuestion(props.question.id),
       answer: '',
-      selectedOption: {},
-      audioPlayer: null,
+      selectedOption: {}
     };
   }
 
@@ -95,10 +89,7 @@ class QuestionsSelectOne extends Component {
   }
 
   _handleHideMessage() {
-    if (this.state.audioPlayer)
-      this.state.audioPlayer.release();
-
-    this.setState({showAlert: false, audioPlayer: null});
+    this.setState({showAlert: false});
 
     if (this.state.selectedOption.recursive) {
       this._resetCurrentQuestion();
@@ -114,26 +105,15 @@ class QuestionsSelectOne extends Component {
           <ScrollView
             style={{ flex: 1 }}
             contentContainerStyle={{ flexGrow: 1 }}
-            showsVerticalScrollIndicator={false}>
-
+            showsVerticalScrollIndicator={false}
+          >
             <View style={[Style.container, Style.card]}>
-              <QuestionName
-                question={this.props.question }
-                audioPlayer={this.state.audioPlayer}
-                updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
-              />
-
+              <QuestionName question={this.props.question } />
               { this._renderInputField() }
             </View>
           </ScrollView>
 
-          <NextButton
-            disabled={!this.state.answer}
-            onPress={() => this._onPressNext() }
-            audioPlayer={this.state.audioPlayer}
-            updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
-            buttonColor={this.props.buttonColor}
-          />
+          <NextButton disabled={!this.state.answer} onPress={() => this._onPressNext() } />
         </View>
 
         <AlertMessage
@@ -142,8 +122,6 @@ class QuestionsSelectOne extends Component {
           message={this.state.selectedOption.alert_message}
           onPressAction={() => this._handleHideMessage()}
           audio={this.state.selectedOption.alert_audio}
-          audioPlayer={this.state.audioPlayer}
-          updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
         />
       </>
     );

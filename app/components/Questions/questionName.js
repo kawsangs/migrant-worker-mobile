@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-} from 'react-native';
+import { View, Text } from 'react-native';
 
 import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
-import PlaySound from '../../components/play_sound';
+import CustomAudioPlayerComponent from '../shared/CustomAudioPlayerComponent';
 
 class QuestonName extends Component {
   render() {
@@ -17,12 +14,13 @@ class QuestonName extends Component {
           <Text style={{ fontFamily: FontFamily.title }}>{question.name}</Text>
         </View>
 
-        <PlaySound
-          filePath={this.props.audio || question.audio}
-          buttonAudioStyle={{ backgroundColor: Color.pink }}
-          iconStyle={{ tintColor: Color.white }}
-          audioPlayer={this.props.audioPlayer}
-          updateMainAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}
+        <CustomAudioPlayerComponent
+          itemUuid={`question_${question.id}`}
+          audio={this.props.audio || question.audio}
+          isFromAppBundle={true}
+          buttonBackgroundColor={Color.pink}
+          iconColor={Color.white}
+          rippled={true}
         />
       </View>
     );

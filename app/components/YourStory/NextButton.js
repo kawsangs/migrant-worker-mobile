@@ -1,45 +1,40 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import {connect} from 'react-redux';
 
-import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
-import PlaySound from '../../components/play_sound';
-import uuidv4 from '../../utils/uuidv4';
-import i18n from 'i18next';
+import { Color, Style } from '../../assets/stylesheets/base_style';
+import BigButtonComponent from '../shared/BigButtonComponent';
+import CustomAudioPlayerComponent from '../shared/CustomAudioPlayerComponent';
 import { withTranslation } from 'react-i18next';
+import { setCurrentPlayingAudio } from '../../actions/currentPlayingAudioAction';
 
 class NextButton extends Component {
-  render() {
-    const { disabled } = this.props;
-    let hasSelectedAnswer = false;
-    let bgStyle = disabled ? { backgroundColor: Color.gray } : { backgroundColor: this.props.buttonColor || Color.pink };
-    let textStyle = disabled ? { color:  Color.textBlack} : { color: Color.white };
+  renderAudioBtn() {
+    return <CustomAudioPlayerComponent
+              itemUuid='your-story-btn-next-audio'
+              audio='next.mp3'
+              isFromAppBundle={true}
+              buttonStyle={{backgroundColor: Color.white, marginRight: 8}}
+              iconStyle={{color: Color.pink}}
+              rippled={true}
+           />
+  }
 
+  onPress() {
+    !!this.props.currentPlayingAudio && this.props.setCurrentPlayingAudio(null);
+    this.props.onPress()
+  }
+
+  render() {
     return (
       <View style={[Style.boxShadow, styles.nextButton]}>
-        <TouchableOpacity
-          style={[styles.nextBtnAction, bgStyle]}
-          { ...this.props }>
-
-          <View style={{ width: 58 }} />
-
-          <View style={styles.coverNextText}>
-            <Text style={[styles.nextText, textStyle]}>{this.props.t('CreateYourStoryScreen.Next')}</Text>
-          </View>
-
-          <PlaySound
-            filePath={'next.mp3'}
-            buttonAudioStyle={{ backgroundColor: Color.white }}
-            iconStyle={{ tintColor: this.props.buttonColor || Color.pink }}
-            style={{ marginHorizontal: 10 }}
-            audioPlayer={this.props.audioPlayer}
-            updateMainAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}
-          />
-        </TouchableOpacity>
+        <BigButtonComponent
+          disabled={this.props.disabled}
+          label={this.props.t('CreateYourStoryScreen.Next')}
+          rightComponent={this.renderAudioBtn()}
+          buttonStyle={{backgroundColor: Color.pink}}
+          onPress={() => this.onPress()}
+        />
       </View>
     )
   }
@@ -50,25 +45,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 10,
     backgroundColor: Color.white,
-  },
-  nextBtnAction: {
-    height: 60,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: Color.pink,
-    flexDirection: 'row'
-  },
-  coverNextText: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  nextText: {
-    color: Color.white,
-    fontFamily: FontFamily.title,
-    textTransform: 'uppercase',
-  },
+  }
 });
 
-export default withTranslation()(NextButton);
+function mapStateToProps(state) {
+  return {
+    currentPlayingAudio: state.currentPlayingAudio
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setCurrentPlayingAudio: (uuid) => dispatch(setCurrentPlayingAudio(uuid))
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withTranslation()(NextButton));

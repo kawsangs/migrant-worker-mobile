@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { View, StatusBar, Text, TouchableOpacity, BackHandler } from 'react-native';
+import { View, StatusBar, BackHandler } from 'react-native';
 
-import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
-import { Button, Icon } from 'react-native-material-ui';
+import { Color } from '../../assets/stylesheets/base_style';
 
-import i18n from 'i18next';
 import { withTranslation } from 'react-i18next';
 
 // Model
@@ -16,18 +14,17 @@ import Form from '../../models/Form';
 // Component
 import ProgressHeader from '../../components/YourStory/ProgressHeader';
 import Questions from '../../components/Questions';
+import YourStoryFinishComponent from '../../components/YourStory/YourStoryFinishComponent';
 
 // Redux
 import { connect } from 'react-redux';
 import { setQuestions } from '../../actions/questionAction';
 import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexAction';
 import AlertMessage from '../../components/AlertMessage';
-import AppIcon from '../../components/AppIcon';
 import { setCurrentQuiz } from '../../actions/currentQuizAction';
 import uuidv4 from '../../utils/uuidv4';
 import { HeaderBackButton } from '@react-navigation/stack';
 import HomeButton from '../../components/Toolbar/HomeButton';
-import PlaySound from '../../components/play_sound';
 
 class CreateYourStory extends Component {
   state = {loading: true};
@@ -103,61 +100,14 @@ class CreateYourStory extends Component {
 
   renderEnd() {
     Quiz.setFinished(this.state.currentQuizUuid);
-
-    return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', padding: 20}}>
-        <View style={[Style.card]}>
-          <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 10}}>
-            <AppIcon iconType='clap' customStyles={{ marginRight: 15 }}/>
-            <Text style={{fontFamily: FontFamily.title, flex: 1}}>អបអរសារទរ</Text>
-            <PlaySound
-              iconStyle={{ tintColor: Color.white }}
-              buttonAudioStyle={{ backgroundColor: Color.pink }}
-              filePath={"congratulation_for_more_knowledge.mp3"}
-              audioPlayer={this.state.audioPlayer}
-              updateMainAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
-            />
-          </View>
-
-          <Text>អ្នកបានដឹងគន្លឹះសំខាន់ខ្លះៗ ដែលគាំទ្រអ្នកក្នុងការទទួលបានការងារដោយសុវត្ថិភាពនៅប្រទេសគោលដៅ</Text>
-        </View>
-
-        <View style={{position: 'absolute', bottom: 20, width: '100%'}}>
-          { !!this.state.nextForm &&
-            <TouchableOpacity
-              activeOpacity={0.8}
-              style={{backgroundColor: Color.pink, padding: 8, borderRadius: 8, flexDirection: 'row', width: '100%', justifyContent: 'center', marginBottom: 10}}
-              onPress={() => this._setForm(this.state.nextForm.id)}>
-
-              <View style={{flex: 1}}/>
-              <Text style={{fontFamily: FontFamily.title, color: '#fff', textAlign: 'center'}}>ចូលទៅសាច់រឿង "{this.state.nextForm.name}"</Text>
-              <View style={{flex: 1, alignItems: 'flex-end'}}>
-                <Icon name={'arrow-forward'} style={{color: '#fff'}}/>
-              </View>
-            </TouchableOpacity>
-          }
-
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={{backgroundColor: Color.pink, padding: 8, borderRadius: 8, flexDirection: 'row', width: '100%', justifyContent: 'center'}}
-            onPress={() => this.props.navigation.goBack()}>
-
-            <View style={{flex: 1, alignItems: 'flex-start'}}>
-              <Icon name={'arrow-back'} style={{color: '#fff'}}/>
-            </View>
-            <Text style={{fontFamily: FontFamily.title, color: '#fff', textAlign: 'center'}}>ត្រឡប់ទៅកាន់ "សាច់រឿងរបស់អ្នក"</Text>
-            <View style={{flex: 1}}/>
-          </TouchableOpacity>
-        </View>
-      </View>
-    )
+    return <YourStoryFinishComponent
+              nextForm={this.state.nextForm}
+              setForm={() => this._setForm(this.state.nextForm.id)}
+           />
   }
 
   _closeAlertMessage() {
-    if (this.state.audioPlayer)
-      this.state.audioPlayer.release();
-
-    this.setState({showAlert: false, audioPlayer: null});
+    this.setState({showAlert: false});
   }
 
   _handleHideMessage() {
@@ -186,8 +136,6 @@ class CreateYourStory extends Component {
           onPressAction={() => this._handleHideMessage()}
           onPressCancel={() => this._closeAlertMessage()}
           audio={"exit_game.mp3"}
-          audioPlayer={this.state.audioPlayer}
-          updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
         />
       </View>
     );

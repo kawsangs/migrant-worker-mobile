@@ -12,7 +12,6 @@ const SurveyFormVoiceRecordComponent = (props) => {
   const currentQuiz = useSelector(state => state.currentQuiz)
   const currentPlayingAudio = useSelector(state => state.currentPlayingAudio)
   const dispatch = useDispatch();
-
   const audioRef = React.createRef()
 
   useEffect(() => {
