@@ -19,7 +19,6 @@ const SurveyFormVoiceRecordComponent = (props) => {
       audioRef.current?._stopPlaying();
       setAudioPlayer(null)
     }
-
   }, [currentPlayingAudio])
 
   const onVoiceChange = (audioPath) => {
