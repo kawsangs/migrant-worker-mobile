@@ -13,6 +13,7 @@ import uuidv4 from '../utils/uuidv4';
 
 import { connect } from 'react-redux';
 import { setCurrentUser } from '../actions/currentUserAction';
+import {setCurrentPlayingAudio} from '../actions/currentPlayingAudioAction';
 
 class Welcome extends React.Component {
   state = {};
@@ -36,13 +37,11 @@ class Welcome extends React.Component {
   }
 
   _clearAudioPlayer() {
-    if (this.state.audioPlayer) {
-      this.state.audioPlayer.release();
-      this.setState({ audioPlayer: null });
-    }
+    !!this.props.currentPlayingAudio && this.props.setCurrentPlayingAudio(null);
   }
 
   _onPressItem() {
+    this._clearAudioPlayer()
     this.props.navigation.navigate('ViewVideoScreen', { videoId: require('../assets/videos/MYJOURNEY_LAUNCH_FILM_small.mp4'), isLocalVideo: true });
   }
 
@@ -54,8 +53,6 @@ class Welcome extends React.Component {
           videoButton={<WelcomeVideoButton onPressItem={() => this._onPressItem()} />}
           register={() => this._register()}
           loginAsGuest={() => this._loginAsGuest()}
-          updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
-          audioPlayer={this.state.audioPlayer}
         />
       :
         <WelcomeBigScreenContent
@@ -63,8 +60,6 @@ class Welcome extends React.Component {
           videoButton={<WelcomeVideoButton onPressItem={() => this._onPressItem()} />}
           register={() => this._register()}
           loginAsGuest={() => this._loginAsGuest()}
-          updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
-          audioPlayer={this.state.audioPlayer}
         />
     )
   }
@@ -76,13 +71,15 @@ class Welcome extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    currentPlayingAudio: state.currentPlayingAudio
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+    setCurrentPlayingAudio: (uuid) => dispatch(setCurrentPlayingAudio(uuid))
   };
 }
 

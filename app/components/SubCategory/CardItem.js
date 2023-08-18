@@ -45,7 +45,6 @@ class SubCategory extends Component {
               <CustomAudioPlayerComponent
                 itemUuid={this.props.uuid}
                 audio={this.props.audio}
-                isFromAppBundle={true}
                 buttonStyle={{backgroundColor: Color.beforeYouGoColor}}
                 iconStyle={{color: Color.white}}
                 rippled={true}

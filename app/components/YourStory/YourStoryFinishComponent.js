@@ -18,7 +18,6 @@ const YourStoryFinishComponent = (props) => {
                 <CustomAudioPlayerComponent
                   itemUuid='your-story-finish-message'
                   audio="congratulation_for_more_knowledge.mp3"
-                  isFromAppBundle={true}
                   buttonStyle={{backgroundColor: Color.pink}}
                   iconStyle={{color: Color.white}}
                   rippled={true}

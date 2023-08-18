@@ -36,7 +36,6 @@ class CardItem extends Component {
           <CustomAudioPlayerComponent
             itemUuid={uuid}
             audio={this.props.audio}
-            isFromAppBundle={true}
             buttonStyle={{backgroundColor: Color.white}}
             iconStyle={{color: bgColor}}
             rippled={true}

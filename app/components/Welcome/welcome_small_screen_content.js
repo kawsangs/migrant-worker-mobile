@@ -33,12 +33,11 @@ class WelcomeSmallScreenContent extends Component {
     return (
       <View style={[Style.container, {marginTop: 0}]}>
         <ButtonNav
+          audioUuid="register"
           active={true}
           title={"ចុះឈ្មោះ"}
           icon={"person"}
           audio={'register.mp3'}
-          audioPlayer={this.props.audioPlayer}
-          updateAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}
           onPress={() => this.props.register()}
           iconSize={24}
           buttonWrapperStyle={{ marginTop: 14 }}
@@ -49,13 +48,12 @@ class WelcomeSmallScreenContent extends Component {
         />
 
         <ButtonNav
+          audioUuid="register-as-guest"
           active={true}
           title={"បន្តចូលមើល ជាភ្ញៀវ"}
           image={"head_profile"}
           iconSet={'MaterialCommunityIcons'}
           audio={"login_as_guest.mp3"}
-          audioPlayer={this.props.audioPlayer}
-          updateAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}
           onPress={() => this.showConsentForm()}
           buttonColor="#e44977"
           iconSize={24}
@@ -77,8 +75,6 @@ class WelcomeSmallScreenContent extends Component {
           <View style={{flex: 1}}>
             <View style={{padding: 16, paddingTop: 0}}>
               <WelcomeMessage showTitle={true}
-                audioPlayer={this.props.audioPlayer}
-                updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
                 hasAudioButton={false}
                 titleStyle={{fontSize: 18}}
                 contentStyle={{ fontSize: contentFontSize, paddingTop: 0 }}

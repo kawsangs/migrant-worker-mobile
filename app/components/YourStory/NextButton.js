@@ -13,7 +13,6 @@ class NextButton extends Component {
     return <CustomAudioPlayerComponent
               itemUuid='your-story-btn-next-audio'
               audio='next.mp3'
-              isFromAppBundle={true}
               buttonStyle={{backgroundColor: Color.white, marginRight: 8}}
               iconStyle={{color: Color.pink}}
               rippled={true}

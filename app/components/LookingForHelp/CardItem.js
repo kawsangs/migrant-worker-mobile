@@ -27,7 +27,6 @@ class CardItem extends React.Component {
     return <CustomAudioPlayerComponent
               itemUuid={`institute_${item.id}`}
               audio={item.audio}
-              isFromAppBundle={true}
               buttonBackgroundColor={Color.primary}
               iconColor={Color.white}
               rippled={true}

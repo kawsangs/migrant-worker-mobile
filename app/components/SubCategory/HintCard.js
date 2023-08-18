@@ -59,7 +59,6 @@ class HintCard extends Component {
               <CustomAudioPlayerComponent
                 itemUuid='hint-card'
                 audio={this.props.audio}
-                isFromAppBundle={true}
                 buttonStyle={{backgroundColor: Color.white}}
                 iconStyle={{color: Color.beforeYouGoColor}}
                 rippled={true}

@@ -69,7 +69,6 @@ const RegisterFormComponent = (props) => {
     return <CustomAudioPlayerComponent
               itemUuid={uuid}
               audio={audio}
-              isFromAppBundle={true}
               buttonBackgroundColor={buttonColor}
               iconColor={iconColor}
               buttonStyle={{marginRight: 10}}

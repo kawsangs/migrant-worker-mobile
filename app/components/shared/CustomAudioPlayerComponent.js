@@ -30,6 +30,7 @@ const CustomAudioPlayerComponent = (props) => {
               updatePlayingUuid={(uuid) => dispatch(setCurrentPlayingAudio(uuid))}
               buttonStyle={[{backgroundColor: !props.audio ? Color.lightGray : props.buttonBackgroundColor || Color.white}, props.buttonStyle]}
               iconStyle={[(!!props.iconColor && !!props.audio) && {color: props.iconColor}, props.iconStyle]}
+              isFromAppBundle={true}
             />
          </View>
 }

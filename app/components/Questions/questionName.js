@@ -17,7 +17,6 @@ class QuestonName extends Component {
         <CustomAudioPlayerComponent
           itemUuid={`question_${question.id}`}
           audio={this.props.audio || question.audio}
-          isFromAppBundle={true}
           buttonBackgroundColor={Color.pink}
           iconColor={Color.white}
           rippled={true}

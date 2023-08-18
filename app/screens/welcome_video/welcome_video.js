@@ -3,32 +3,37 @@ import { View } from 'react-native';
 
 import { connect } from 'react-redux';
 import { setCurrentUser } from '../../actions/currentUserAction';
+import { setCurrentPlayingAudio } from '../../actions/currentPlayingAudioAction';
 
 import User from '../../models/User';
 import WelcomeMessage from '../../components/welcome_message';
 import WelcomeVideoPlayer from '../../components/WelcomeVideo/welcomeVideoPlayer';
-import WelcomeVideoSkipButton from '../../components/WelcomeVideo/welcomeVideoSkipButton';
+import BigButtonComponent from '../../components/shared/BigButtonComponent';
+import CustomAudioPlayerComponent from '../../components/shared/CustomAudioPlayerComponent';
 
 class WelcomeVideo extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      audioPlayer: null,
       isFullScreen: false,
     };
   }
 
   async goToHomeScreen() {
-    this._clearAudioPlayer();
+    !!this.props.currentPlayingAudio && this.props.setCurrentPlayingAudio(null);
     this.props.setCurrentUser(User.find(this.props.route.params.user_uuid));
   }
 
-  _clearAudioPlayer() {
-    if (this.state.audioPlayer) {
-      this.state.audioPlayer.release();
-      this.setState({ audioPlayer: null });
-    }
+  renderAudioButton() {
+    return <CustomAudioPlayerComponent
+              itemUuid='skip-button'
+              audio='skip.mp3'
+              buttonBackgroundColor={Color.white}
+              iconColor={Color.primary}
+              buttonStyle={{marginRight: 10}}
+              rippled={true}
+            />
   }
 
   render() {
@@ -37,15 +42,12 @@ class WelcomeVideo extends Component {
         <WelcomeVideoPlayer onVideoEnd={() => this.goToHomeScreen()} />
 
         <View style={{paddingHorizontal: 16, flex: 1, paddingBottom: 22}}>
-          <WelcomeMessage showTitle={false} containerStyle={{ marginTop: 10, paddingHorizontal: 0 }} contentStyle={{padding: 0}}
-            audioPlayer={this.state.audioPlayer} updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
-            hasAudioButton={true}
-          />
+          <WelcomeMessage showTitle={false} containerStyle={{ marginTop: 10, paddingHorizontal: 0 }} contentStyle={{padding: 0}} hasAudioButton={true} />
           <View style={{flex: 1}} />
-          <WelcomeVideoSkipButton
+          <BigButtonComponent
+            label="រំលង"
             onPress={() => this.goToHomeScreen()}
-            audioPlayer={this.state.audioPlayer}
-            updateMainAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
+            rightComponent={this.renderAudioButton()}
           />
         </View>
       </View>
@@ -55,13 +57,15 @@ class WelcomeVideo extends Component {
 
 function mapStateToProps(state) {
   return {
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    currentPlayingAudio: state.currentPlayingAudio
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    setCurrentUser: (user) => dispatch(setCurrentUser(user))
+    setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+    setCurrentPlayingAudio: (uuid) => dispatch(setCurrentPlayingAudio(uuid))
   }
 }
 

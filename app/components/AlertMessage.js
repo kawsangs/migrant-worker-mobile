@@ -27,7 +27,6 @@ class AlertMessage extends Component {
     return <CustomAudioPlayerComponent
               itemUuid='alert-dialog'
               audio={this.props.audio}
-              isFromAppBundle={true}
               buttonStyle={{backgroundColor: Color.red}}
               iconStyle={{color: Color.white}}
               rippled={true}
