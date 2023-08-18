@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text, StyleSheet, ImageBackground } from 'react
 
 import { Icon } from 'react-native-material-ui';
 import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
-import CustomAudioPlayerComponent from '../../components/shared/CustomAudioPlayerComponent';
+import CustomAudioPlayerComponent from '../shared/CustomAudioPlayerComponent';
 
 class CardItem extends Component {
   render() {

@@ -8,12 +8,11 @@ import {
   Linking,
 } from 'react-native';
 
-import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
+import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
 import { Icon } from 'react-native-material-ui';
 import { withTranslation } from 'react-i18next';
-
-import PlaySound from '../play_sound';
 import contactHelper from '../../helpers/contact_helper';
+import CustomAudioPlayerComponent from '../shared/CustomAudioPlayerComponent';
 
 const mapping = {
   colors: {
@@ -24,11 +23,21 @@ const mapping = {
 }
 
 class CardItem extends React.Component {
+  renderAudioPlayer(item) {
+    return <CustomAudioPlayerComponent
+              itemUuid={`institute_${item.id}`}
+              audio={item.audio}
+              isFromAppBundle={true}
+              buttonBackgroundColor={Color.primary}
+              iconColor={Color.white}
+              rippled={true}
+            />
+  }
+
   render() {
     let item = this.props.institute;
     let list_phone_number = item.contacts || [];
     const institutionName = item.name_km ? item.name_km : item.name;
-
     return (
       <View style={{ marginHorizontal: 16 }}>
         <View style={styles.institutionContainer}>
@@ -45,14 +54,7 @@ class CardItem extends React.Component {
                 <Text style={{fontFamily: FontFamily.title, fontSize: 15}}>{institutionName}</Text>
               </View>
 
-              <PlaySound
-                filePath={item.audio}
-                buttonAudioStyle={{backgroundColor: Color.red}}
-                iconStyle={{tintColor: Color.white}}
-                buttonAudioStyle={{ backgroundColor: Color.yellow }}
-                audioPlayer={this.props.audioPlayer}
-                updateMainAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}
-              />
+              {this.renderAudioPlayer(item)}
             </View>
             <View style={{flex: 1}}>
               {list_phone_number && list_phone_number.map((item, index) => {
