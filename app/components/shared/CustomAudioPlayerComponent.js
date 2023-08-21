@@ -14,7 +14,7 @@ const CustomAudioPlayerComponent = (props) => {
 
   const dispatch = useDispatch();
   const currentPlayingAudio = useSelector(state => state.currentPlayingAudio);
-  const buttonColor = !props.audio ? Color.lightGray : props.buttonBackgroundColor || Color.white
+  const buttonColor = !props.audio ? props.isOutline ? Color.gray : Color.lightGray : props.buttonBackgroundColor || Color.white;
   const outlineStyle = {
     backgroundColor: 'none',
     borderColor: buttonColor,

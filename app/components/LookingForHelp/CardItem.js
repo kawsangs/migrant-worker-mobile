@@ -28,7 +28,7 @@ class CardItem extends React.Component {
               itemUuid={`institute_${item.id}`}
               audio={item.audio}
               buttonBackgroundColor={Color.primary}
-              iconColor={Color.white}
+              isOutline={true}
             />
   }
 
