@@ -17,17 +17,24 @@ const schemaV4 = {
   schema: helper.getSchemas(changedSchemas),
   schemaVersion: 4,
   migration: (oldRealm, newRealm) => {
-    const oldObjects = oldRealm.objects('Form');
-    const newObjects = newRealm.objects('Form');
+    if (oldRealm.schemaVersion < 4) {
+      const oldObjects = oldRealm.objects('Form');
+      const newObjects = newRealm.objects('Form');
+      for (let i = 0; i < oldObjects.length; i++) {
+        newObjects[i].type = !oldObjects[i].type ? 'your_story' : oldObjects[i].type;
+      }
 
-    for (let i = 0; i < oldObjects.length; i++) {
-      newObjects[i].type = !oldObjects[i].type ? 'your_story' : oldObjects[i].type;
-    }
+      const oldQuestions = oldRealm.objects('Question');
+      const newQuestions = newRealm.objects('Question');
+      for (let i = 0; i < oldQuestions.length; i++) {
+        newQuestions[i].section_id = !oldQuestions[i].section_id ? null : oldQuestions[i].section_id;
+      }
 
-    const oldQuestions = oldRealm.objects('Question');
-    const newQuestions = newRealm.objects('Question');
-    for (let i = 0; i < oldQuestions.length; i++) {
-      newQuestions[i].section_id = !oldQuestions[i].section_id ? null : oldQuestions[i].section_id;
+      const oldNotifications = oldRealm.objects('Notification');
+      const newNotifications = newRealm.objects('Notification');
+      for (let i = 0; i < oldNotifications.length; i++) {
+        newNotifications[i].data = !oldNotifications[i].data ? null : oldNotifications[i].data;
+      }
     }
   }
 }
