@@ -18,7 +18,7 @@ class QuestonName extends Component {
           itemUuid={`question_${question.id}`}
           audio={this.props.audio || question.audio}
           buttonBackgroundColor={Color.pink}
-          iconColor={Color.white}
+          isOutline={true}
         />
       </View>
     );

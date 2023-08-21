@@ -5,21 +5,18 @@ import {
   ScrollView,
 } from 'react-native';
 
-import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
-import uuidv4 from '../../utils/uuidv4';
+import { Color, Style } from '../../assets/stylesheets/base_style';
 
-import i18n from 'i18next';
 import { withTranslation } from 'react-i18next';
 
 import Question from '../../models/Question';
 import Answer from '../../models/Answer';
 
 import NextButton from '../../components/YourStory/NextButton';
-import QuestionName from './questionName';
+import CustomAudioPlayerComponent from '../shared/CustomAudioPlayerComponent';
 
 import { connect } from 'react-redux';
 import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexAction';
-import PlaySound from '../../components/play_sound';
 import { addStatistic } from '../../utils/statistic';
 
 class QuestionsResult extends Component {
@@ -32,7 +29,6 @@ class QuestionsResult extends Component {
     this.state = {
       audio: totalScore >= question.passing_score ? question.passing_audio : question.failing_audio,
       message: totalScore >= question.passing_score ? question.passing_message : question.failing_message,
-      audioPlayer: null,
     };
   }
 
@@ -53,23 +49,16 @@ class QuestionsResult extends Component {
 
           <View style={[Style.container, Style.card, {flexDirection: 'row'}]}>
             <Text style={{flex: 1}}>{this.state.message}</Text>
-
-            <PlaySound
-              filePath={this.state.audio}
-              buttonAudioStyle={{ backgroundColor: Color.pink }}
-              iconStyle={{ tintColor: Color.white }}
-              audioPlayer={this.state.audioPlayer}
-              updateMainAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
+            <CustomAudioPlayerComponent
+              itemUuid={`question_result`}
+              audio={this.state.audio}
+              buttonBackgroundColor={Color.pink}
+              isOutline={true}
             />
           </View>
         </ScrollView>
 
-        <NextButton
-          onPress={() => this._onPressNext() }
-          audioPlayer={this.state.audioPlayer}
-          updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
-          buttonColor={this.props.buttonColor}
-        />
+        <NextButton onPress={() => this._onPressNext() } buttonColor={this.props.buttonColor} />
       </View>
     );
   }

@@ -18,8 +18,8 @@ const YourStoryFinishComponent = (props) => {
                 <CustomAudioPlayerComponent
                   itemUuid='your-story-finish-message'
                   audio="congratulation_for_more_knowledge.mp3"
-                  buttonStyle={{backgroundColor: Color.pink}}
-                  iconStyle={{color: Color.white}}
+                  buttonBackgroundColor={Color.pink}
+                  isOutline={true}
                 />
               </View>
 

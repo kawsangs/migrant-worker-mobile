@@ -13,8 +13,9 @@ class NextButton extends Component {
     return <CustomAudioPlayerComponent
               itemUuid='your-story-btn-next-audio'
               audio='next.mp3'
-              buttonStyle={{backgroundColor: Color.white, marginRight: 8}}
-              iconStyle={{color: Color.pink}}
+              buttonStyle={{marginRight: 8, borderColor: Color.white}}
+              iconStyle={{color: Color.white}}
+              isOutline={true}
            />
   }
 
