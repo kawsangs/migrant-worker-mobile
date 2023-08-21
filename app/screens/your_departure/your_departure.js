@@ -65,7 +65,6 @@ class YourDeparture extends Component {
         image={item.imageSource}
         audio={item.audio}
         onPress={() => this._onPress(item)}
-        audioIconColor={Color.beforeYouGoColor}
       />
     )
   }
