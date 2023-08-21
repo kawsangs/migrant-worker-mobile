@@ -69,7 +69,6 @@ const RegistrationConfirmationComponent = (props) => {
               audio={filePath}
               buttonBackgroundColor={buttonColor}
               iconColor={iconColor}
-              rippled={true}
             />
   }
 
@@ -84,7 +83,7 @@ const RegistrationConfirmationComponent = (props) => {
       title='លក្ខខណ្ឌចុះឈ្មោះប្រើប្រាស់'
       titleIcon={renderIcon()}
       titleStyle={{flex: 1, marginTop: -2, fontSize: titleFontSize}}
-      audioButton={renderAudioBtn('consent-message', 'register.mp3')}
+      audioButton={renderAudioBtn('consent-message', null)}
       titleContainerStyle={{marginBottom: 6, alignItems: 'center'}}
     >
       {renderContent()}

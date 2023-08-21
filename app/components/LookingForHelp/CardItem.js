@@ -29,7 +29,6 @@ class CardItem extends React.Component {
               audio={item.audio}
               buttonBackgroundColor={Color.primary}
               iconColor={Color.white}
-              rippled={true}
             />
   }
 

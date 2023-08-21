@@ -38,7 +38,6 @@ class CardItem extends Component {
             audio={this.props.audio}
             buttonStyle={{backgroundColor: Color.white}}
             iconStyle={{color: bgColor}}
-            rippled={true}
           />
         </View>
 

@@ -20,7 +20,6 @@ const YourStoryFinishComponent = (props) => {
                   audio="congratulation_for_more_knowledge.mp3"
                   buttonStyle={{backgroundColor: Color.pink}}
                   iconStyle={{color: Color.white}}
-                  rippled={true}
                 />
               </View>
 

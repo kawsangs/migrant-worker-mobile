@@ -72,7 +72,6 @@ const RegisterFormComponent = (props) => {
               buttonBackgroundColor={buttonColor}
               iconColor={iconColor}
               buttonStyle={{marginRight: 10}}
-              rippled={true}
             />
   }
 

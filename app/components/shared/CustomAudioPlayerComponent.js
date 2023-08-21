@@ -8,8 +8,6 @@ import {setCurrentPlayingAudio} from '../../actions/currentPlayingAudioAction';
 const CustomAudioPlayerComponent = (props) => {
   const btnSize = 48;
   const rippleProps = props.rippled ? {
-    buttonHeight: btnSize,
-    buttonWidth: btnSize,
     rippleHeight: btnSize,
     rippleWidth: btnSize
   } : {};
@@ -20,7 +18,9 @@ const CustomAudioPlayerComponent = (props) => {
   return <View>
             <AudioPlayerButton
               {...props}
-              {...rippleProps}
+              // {...rippleProps}
+              buttonHeight={btnSize}
+              buttonWidth={btnSize}
               isSpeakerIcon={true}
               iconSize={24}
               iconPrimaryColor={props.iconPrimaryColor || Color.primaryColor}

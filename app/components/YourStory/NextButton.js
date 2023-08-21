@@ -15,7 +15,6 @@ class NextButton extends Component {
               audio='next.mp3'
               buttonStyle={{backgroundColor: Color.white, marginRight: 8}}
               iconStyle={{color: Color.pink}}
-              rippled={true}
            />
   }
 

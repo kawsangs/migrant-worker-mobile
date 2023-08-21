@@ -61,7 +61,6 @@ class HintCard extends Component {
                 audio={this.props.audio}
                 buttonStyle={{backgroundColor: Color.white}}
                 iconStyle={{color: Color.beforeYouGoColor}}
-                rippled={true}
               />
             </View>
           </View>

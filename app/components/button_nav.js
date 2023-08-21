@@ -19,7 +19,6 @@ export default class ButtonNav extends React.Component {
               audio={this.props.audio}
               buttonStyle={{marginRight: 10}}
               iconColor={Color.primary}
-              rippled={true}
             />
   }
 

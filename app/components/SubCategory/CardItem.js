@@ -47,7 +47,6 @@ class SubCategory extends Component {
                 audio={this.props.audio}
                 buttonStyle={{backgroundColor: Color.beforeYouGoColor}}
                 iconStyle={{color: Color.white}}
-                rippled={true}
               />
             </View>
           </View>

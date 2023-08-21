@@ -29,9 +29,9 @@ const SurveyFormButtonComponent = React.forwardRef((props, ref) => {
     return <CustomAudioPlayerComponent
               itemUuid='btn-next-audio'
               audio={props.currentSection != props.sections.length - 1 ? BUTTONS.next.audio : BUTTONS.finish.audio}
-              buttonStyle={{backgroundColor: Color.white, marginRight: 8}}
-              iconStyle={{color: Color.primary}}
-              rippled={true}
+              buttonStyle={{marginRight: 8}}
+              buttonBackgroundColor={Color.white}
+              iconColor={Color.primary}
            />
   }
 

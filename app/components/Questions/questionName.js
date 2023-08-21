@@ -19,7 +19,6 @@ class QuestonName extends Component {
           audio={this.props.audio || question.audio}
           buttonBackgroundColor={Color.pink}
           iconColor={Color.white}
-          rippled={true}
         />
       </View>
     );

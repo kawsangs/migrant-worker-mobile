@@ -27,9 +27,8 @@ const SurveyFormQuestionComponent = (props) => {
                 <CustomAudioPlayerComponent
                   itemUuid={props.question.id}
                   audio={props.question.audio}
-                  buttonStyle={{backgroundColor: !!props.question.audio ? Color.primary : Color.gray}}
-                  iconStyle={{color: 'white'}}
-                  rippled={true}
+                  buttonBackgroundColor={Color.primary}
+                  iconColor={Color.white}
                 />
               </View>
            </View>

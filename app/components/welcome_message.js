@@ -11,7 +11,6 @@ class WelcomeMessage extends Component {
                 audio='about_chc_mobile.mp3'
                 buttonBackgroundColor={Color.primary}
                 iconColor={Color.white}
-                rippled={true}
               />
            </View>
   }

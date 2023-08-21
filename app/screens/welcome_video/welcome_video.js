@@ -32,7 +32,6 @@ class WelcomeVideo extends Component {
               buttonBackgroundColor={Color.white}
               iconColor={Color.primary}
               buttonStyle={{marginRight: 10}}
-              rippled={true}
             />
   }
 
