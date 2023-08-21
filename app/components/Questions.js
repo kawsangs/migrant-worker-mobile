@@ -13,7 +13,7 @@ const Questions = {
   Result,
 };
 
-export default (question={}) => {
+export default (question={}, buttonColor, statisticPrefix='YourStory') => {
   if (!question.type) {
     return null;
   }
@@ -24,7 +24,9 @@ export default (question={}) => {
   if (typeof Questions[type] !== "undefined") {
     return React.createElement(Questions[type], {
       key: uuidv4(),
-      question: question
+      question: question,
+      buttonColor: buttonColor,
+      statisticPrefix: statisticPrefix,
     });
   }
 

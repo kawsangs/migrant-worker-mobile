@@ -4,7 +4,8 @@ import { Image } from 'react-native';
 const AppIcon = (props) => {
   const icons = {
     clap: require('../assets/images/icons/clap.png'),
-    warning: require('../assets/images/icons/info-triangle.png')
+    warning: require('../assets/images/icons/info-triangle.png'),
+    survey: require('../assets/images/icons/safe_migrant.png'),
   }
 
   return (

@@ -1,28 +1,17 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  StatusBar,
-  ToastAndroid,
-} from 'react-native';
-import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
+import { View, FlatList, StatusBar, ToastAndroid } from 'react-native';
+import { Color } from '../../assets/stylesheets/base_style';
 import { withTranslation } from 'react-i18next';
-import i18n from 'i18next';
 
 import CardItem from '../../components/YourSafety/CardItem';
-
 import Form from '../../models/Form';
-import Quiz from '../../models/Quiz';
-import Answer from '../../models/Answer';
-import Sidekiq from '../../models/Sidekiq';
-
 import { connect } from 'react-redux';
 
 import NetInfo from "@react-native-community/netinfo";
 import FormService from '../../services/form_service';
 import uuidv4 from '../../utils/uuidv4';
 import LoadingIndicator from '../../components/loading_indicator';
+import {setCurrentPlayingAudio} from '../../actions/currentPlayingAudioAction';
 
 class YourStory extends Component {
   constructor(props) {
@@ -30,9 +19,8 @@ class YourStory extends Component {
 
     this.state = {
       loading: true,
-      forms: Form.getAll(),
+      forms: Form.getAllYourStory(),
       isFetching: false,
-      audioPlayer: null,
     };
   }
 
@@ -41,19 +29,8 @@ class YourStory extends Component {
     Form.seedData(() => this.setState({loading: false}));
   }
 
-  componentWillUnmount() {
-    this._clearAudioPlayer();
-  }
-
-  _clearAudioPlayer() {
-    if (this.state.audioPlayer) {
-      this.state.audioPlayer.release();
-      this.setState({ audioPlayer: null });
-    }
-  }
-
   _onPress(item) {
-    this._clearAudioPlayer();
+    this.props.setCurrentPlayingAudio(null);
     this.props.navigation.navigate("CreateYourStoryScreen", { title: item.name, form_id: item.id });
   }
 
@@ -61,25 +38,21 @@ class YourStory extends Component {
     return (
       <CardItem
         key={index}
+        uuid={item.id}
         title={item.name}
         audio={item.audio}
         image={item.imageSource}
         onPress={() => this._onPress(item)}
         buttonAudioStyle={{backgroundColor: Color.white}}
-        audioIconStyle={{tintColor: Color.pink}}
-        audioPlayer={this.state.audioPlayer}
-        updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
+        audioIconColor={Color.pink}
       />
     );
   }
 
   _onRefresh() {
-    if (this.state.audioPlayer)
-      this.state.audioPlayer.release();
-
+    this.props.setCurrentPlayingAudio(null);
     this.setState({
       isFetching: true,
-      audioPlayer: null,
     });
 
     NetInfo.fetch().then(state => {
@@ -88,7 +61,7 @@ class YourStory extends Component {
         return ToastAndroid.show("សូមភ្ជាប់បណ្តាញអ៊ិនធឺណេតជាមុនសិន!", ToastAndroid.SHORT);
       }
 
-      FormService.updateForm(() => {
+      new FormService().updateForm(() => {
         this.setState({isFetching: false});
       })
     });
@@ -116,18 +89,13 @@ class YourStory extends Component {
   }
 }
 
-
-function mapStateToProps(state) {
-  return {
-  };
-}
-
 function mapDispatchToProps(dispatch) {
   return {
+    setCurrentPlayingAudio: (uuid) => dispatch(setCurrentPlayingAudio(uuid))
   };
 }
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps,
 )(withTranslation()(YourStory));

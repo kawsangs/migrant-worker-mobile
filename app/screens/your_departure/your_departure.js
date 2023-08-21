@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import {
   View,
-  Text,
   StatusBar,
   FlatList,
   ToastAndroid,
 } from 'react-native';
 
-import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
+import { Color } from '../../assets/stylesheets/base_style';
 import { addStatistic } from '../../utils/statistic';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
@@ -19,6 +18,7 @@ import CategoryService from '../../services/category_service';
 import { connect } from 'react-redux';
 import NetInfo from "@react-native-community/netinfo";
 import LoadingIndicator from '../../components/loading_indicator';
+import {setCurrentPlayingAudio} from '../../actions/currentPlayingAudioAction';
 
 class YourDeparture extends Component {
   constructor(props) {
@@ -28,7 +28,6 @@ class YourDeparture extends Component {
       categories: Departure.getRoots(),
       isFetching: false,
       loading: true,
-      audioPlayer: null,
     };
   }
 
@@ -42,10 +41,8 @@ class YourDeparture extends Component {
   }
 
   _clearAudioPlayer() {
-    if (this.state.audioPlayer){
-      this.state.audioPlayer.release();
-      this.setState({ audioPlayer: null });
-    }
+    if (!!this.props.currentPlayingAudio)
+      this.props.setCurrentPlayingAudio(null)
   }
 
   _onPress(item) {
@@ -62,15 +59,13 @@ class YourDeparture extends Component {
     return (
       <CardItem
         key={index}
-        item={item}
+        uuid={item.uuid}
         backgroundColor={Color.red}
         title={item.name}
         image={item.imageSource}
         audio={item.audio}
         onPress={() => this._onPress(item)}
-        audioPlayer={this.state.audioPlayer}
-        updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
-        audioIconStyle={{tintColor: Color.beforeYouGoColor}}
+        audioIconColor={Color.beforeYouGoColor}
       />
     )
   }
@@ -85,10 +80,7 @@ class YourDeparture extends Component {
 
         return ToastAndroid.show("សូមភ្ជាប់បណ្តាញអ៊ិនធឺណេតជាមុនសិន!", ToastAndroid.SHORT);
       }
-
-      CategoryService.updateDepartures(() => {
-        this.setState({isFetching: false});
-      })
+      new CategoryService().syncDepartures(() => this.setState({isFetching: false}));
     });
   }
 
@@ -115,11 +107,15 @@ class YourDeparture extends Component {
 }
 
 function mapStateToProps(state) {
-  return { };
+  return {
+    currentPlayingAudio: state.currentPlayingAudio
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-  return { };
+  return {
+    setCurrentPlayingAudio: (uuid) => dispatch(setCurrentPlayingAudio(uuid))
+  };
 }
 
 export default connect(

@@ -41,6 +41,15 @@ class NotificationItem extends React.Component {
     )
   }
 
+  openNotification = () => {
+    const data = !!this.props.notification.data ? JSON.parse(this.props.notification.data) : null;
+
+    if (!!data.form_id)
+      return this.props.navigation.navigate('SurveyFormScreen', { uuid: this.props.notification.uuid, form_id: data.form_id, title: this.props.notification.title })
+
+    this.props.navigation.navigate('NotificationDetailScreen', { uuid: this.props.notification.uuid })
+  }
+
   render() {
     return (
       <Swipeable
@@ -49,7 +58,7 @@ class NotificationItem extends React.Component {
         renderRightActions={this.renderDeleteAction}
         containerStyle={{elevation: 0, padding: 0, padding: 2}}
       >
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('NotificationDetailScreen', { uuid: this.props.notification.uuid })}
+        <TouchableOpacity onPress={() => this.openNotification()}
           style={[Style.card, { marginBottom: 10 }]}
         >
           <View style={{flexDirection: 'row', marginBottom: 5}}>

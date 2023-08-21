@@ -37,6 +37,7 @@ import WelcomeVideoScreen from '../screens/welcome_video/welcome_video';
 
 import SubCategoryScreen from '../screens/sub_category/sub_category';
 import LeafCategoryScreen from '../screens/leaf_category/leaf_category';
+import SurveyFormScreen from '../screens/survey_forms/SurveyFormScreen';
 import BottomTabNavigator from './bottom_tab_navigator';
 import HomeButton from '../components/Toolbar/HomeButton';
 import DeleteNotificationButton from '../components/Toolbar/deleteNotificationButton';
@@ -243,6 +244,13 @@ class AppNavigator extends Component {
             title: this.props.t('NotificationDetailScreen.HeaderTitle'),
             headerStyle: { backgroundColor: Color.primary },
             headerRight: (props) => (<DeleteNotificationButton navigation={navigation} uuid={route.params.uuid} />),
+          })}
+        />
+
+        <Stack.Screen name="SurveyFormScreen" component={SurveyFormScreen}
+          options={({route, navigation}) => ({
+            title: route.params.title || "ការស្ទង់មតិ",
+            headerStyle: { backgroundColor: Color.primary },
           })}
         />
       </>

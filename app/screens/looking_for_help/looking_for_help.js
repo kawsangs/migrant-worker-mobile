@@ -7,19 +7,20 @@ import {
   FlatList,
   ToastAndroid,
 } from 'react-native';
+import {connect} from 'react-redux';
 
-import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
+import { Color, FontFamily } from '../../assets/stylesheets/base_style';
 import NetInfo from "@react-native-community/netinfo";
 import { withTranslation } from 'react-i18next';
 import EmptyResult from './empty_result';
 import Country from '../../models/Country';
 import CountryInstitution from '../../models/CountryInstitution';
 import InstitutionService from '../../services/institution_service'
-import Flag from '../../components/LookingForHelp/Flag';
 import CardItem from '../../components/LookingForHelp/CardItem';
 import Filter from '../../components/LookingForHelp/Filter';
 import CountryImage from '../../components/CountryImage';
 import countryHelper from '../../helpers/country_helper';
+import {setCurrentPlayingAudio} from '../../actions/currentPlayingAudioAction';
 
 class LookingForHelp extends React.Component {
   constructor(props) {
@@ -31,7 +32,6 @@ class LookingForHelp extends React.Component {
       country: country,
       isFetching: false,
       institutions: [],
-      audioPlayer: null,
     }
   }
 
@@ -39,12 +39,20 @@ class LookingForHelp extends React.Component {
     this.loadLocalInstitution();
   }
 
+  componentWillUnmount() {
+    this._clearAudioPlayer();
+  }
+
+  _clearAudioPlayer() {
+    if (!!this.props.currentPlayingAudio)
+      this.props.setCurrentPlayingAudio(null);
+  }
 
   loadLocalInstitution() {
     const countryInstitutions = CountryInstitution.findByCountryCode(this.props.route.params.code);
 
     this.setState({
-      institutions: InstitutionService.getInstitutionByCountry(countryInstitutions)
+      institutions: new InstitutionService().getInstitutionByCountry(countryInstitutions)
     });
   }
 
@@ -66,15 +74,13 @@ class LookingForHelp extends React.Component {
   }
 
   loadInstitution() {
-    if (this.state.audioPlayer)
-      this.state.audioPlayer.release()
+    this._clearAudioPlayer();
 
     this.setState({
       isFetching: true,
-      audioPlayer: null,
     });
     this.checkInternet(() => {
-      InstitutionService.fetch(this.state.country.code, (res) => {
+      new InstitutionService().fetch(this.state.country.code, (res) => {
         this.setState({
           institutions: res,
           isFetching: false
@@ -109,15 +115,6 @@ class LookingForHelp extends React.Component {
     });
   }
 
-  _renderCardItem(item) {
-    return (
-      <CardItem institute={item}
-        audioPlayer={this.state.audioPlayer}
-        updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
-      />
-    )
-  }
-
   render() {
     return (
       <SafeAreaView style={{ flex: 1 }}>
@@ -127,7 +124,7 @@ class LookingForHelp extends React.Component {
           data={this.state.institutions}
           ListHeaderComponent={ this._renderHeader() }
           ListHeaderComponentStyle={{ marginVertical: 0 }}
-          renderItem={({ item }) => this._renderCardItem(item)}
+          renderItem={({ item }) => <CardItem institute={item} />}
           keyExtractor={item => item.id.toString()}
           ListEmptyComponent={<EmptyResult message={this.props.t("LookingForHelpScreen.NotFound")} />}
           onRefresh={ () => this.loadInstitution() }
@@ -138,4 +135,19 @@ class LookingForHelp extends React.Component {
   }
 }
 
-export default withTranslation()(LookingForHelp);
+function mapStateToProps(state) {
+  return {
+    currentPlayingAudio: state.currentPlayingAudio
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setCurrentPlayingAudio: (uuid) => dispatch(setCurrentPlayingAudio(uuid))
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTranslation()(LookingForHelp));

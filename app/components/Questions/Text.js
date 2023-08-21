@@ -1,17 +1,10 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  TextInput,
-} from 'react-native';
+import { View, ScrollView, TextInput } from 'react-native';
 
-import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
+import { Color, Style } from '../../assets/stylesheets/base_style';
 import uuidv4 from '../../utils/uuidv4';
 
-import i18n from 'i18next';
 import { withTranslation } from 'react-i18next';
-
 import Question from '../../models/Question';
 import Answer from '../../models/Answer';
 
@@ -20,8 +13,8 @@ import QuestionName from './questionName';
 
 import { connect } from 'react-redux';
 import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexAction';
+import { setCurrentPlayingAudio } from '../../actions/currentPlayingAudioAction';
 import { addStatistic } from '../../utils/statistic';
-
 import Audio from '../Register/Audio';
 
 let _this = null;
@@ -38,6 +31,14 @@ class QuestionsText extends Component {
     };
 
     _this = this;
+    this.audioRef = React.createRef()
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!!this.props.currentPlayingAudio && !!this.state.audioPlayer) {
+      this.audioRef.current?._stopPlaying();
+      this.setState({audioPlayer: null});
+    }
   }
 
   _renderInputField() {
@@ -70,7 +71,21 @@ class QuestionsText extends Component {
     }
 
     Answer.upsert(data);
-    addStatistic(`YourStory_${this.props.question.name}`, {answer: this.state.answer});
+    addStatistic(`${this.props.statisticPrefix}_${this.props.question.name}`, {answer: this.state.answer});
+  }
+
+  renderAudioRecorder() {
+    return <Audio
+              ref={this.audioRef}
+              uuid={this.state.uuid}
+              callback={(path) => this.setState({ voice: path })}
+              audioPath={this.state.voice}
+              audioPlayer={this.state.audioPlayer}
+              updateAudioPlayer={(sound) => {
+                _this.props.setCurrentPlayingAudio(null);
+                _this.setState({ audioPlayer: sound });
+              }}
+            />
   }
 
   render() {
@@ -79,33 +94,16 @@ class QuestionsText extends Component {
         <ScrollView
           style={{ flex: 1 }}
           contentContainerStyle={{ flexGrow: 1 }}
-          showsVerticalScrollIndicator={false}>
-
+          showsVerticalScrollIndicator={false}
+        >
           <View style={[Style.container, Style.card]}>
-            <QuestionName
-              question={this.props.question }
-              audioPlayer={this.state.audioPlayer}
-              updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
-            />
-
+            <QuestionName question={this.props.question } />
             { this._renderInputField() }
-
-            <Audio
-              uuid={this.state.uuid}
-              callback={(path) => this.setState({ voice: path })}
-              audioPath={this.state.voice}
-              audioPlayer={this.state.audioPlayer}
-              updateAudioPlayer={(sound) => _this.setState({ audioPlayer: sound })}
-            />
+            { this.renderAudioRecorder() }
           </View>
         </ScrollView>
 
-        <NextButton
-          disabled={!this.state.answer && !this.state.voice}
-          onPress={() => this._onPressNext() }
-          audioPlayer={this.state.audioPlayer}
-          updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
-        />
+        <NextButton disabled={!this.state.answer && !this.state.voice} onPress={() => this._onPressNext() } />
       </View>
     );
   }
@@ -116,12 +114,14 @@ function mapStateToProps(state) {
     questions: state.questions,
     currentIndex: state.currentQuestionIndex,
     currentQuiz: state.currentQuiz,
+    currentPlayingAudio: state.currentPlayingAudio,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    setCurrentIndex: (index) => dispatch(setCurrentQuestionIndex(index))
+    setCurrentIndex: (index) => dispatch(setCurrentQuestionIndex(index)),
+    setCurrentPlayingAudio: (uuid) => dispatch(setCurrentPlayingAudio(uuid))
   };
 }
 

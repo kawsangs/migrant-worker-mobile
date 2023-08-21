@@ -9,7 +9,7 @@ export default class AnswerWorker {
     }
 
     queue.addWorker(new Worker('uploadAnswer', (payload) => {
-      AnswerService.upload(payload.uuid);
+      new AnswerService().upload(payload.uuid);
     }));
   }
 

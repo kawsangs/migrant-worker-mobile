@@ -3,6 +3,8 @@ import Option from './Option';
 import Answer from './Answer';
 import Criteria from './Criteria';
 
+const MODEL = 'Question';
+
 const Question = (() => {
   return {
     getAll,
@@ -14,22 +16,24 @@ const Question = (() => {
     byForm,
     findIndexNextQuestion,
     find,
+    update,
+    findBySectionId,
   }
 
   function byForm(form_id) {
-    return realm.objects('Question').filtered(`form_id=${form_id} SORT(display_order ASC)`);
+    return realm.objects(MODEL).filtered(`form_id=${form_id} SORT(display_order ASC)`);
   }
 
   function find(id) {
-    return realm.objects('Question').filtered(`id=${id}`)[0];
+    return realm.objects(MODEL).filtered(`id=${id}`)[0];
   }
 
   function getAll() {
-    return realm.objects('Question').filtered("SORT(display_order ASC)");
+    return realm.objects(MODEL).filtered("SORT(display_order ASC)");
   }
 
   function deleteAll() {
-    let collection = realm.objects('Question');
+    let collection = realm.objects(MODEL);
 
     if (collection.length > 0) {
       realm.write(() => {
@@ -59,11 +63,17 @@ const Question = (() => {
 
   function upsert(item) {
     realm.write(() => {
-      realm.create('Question', _buildData(item), 'modified');
+      realm.create(MODEL, _buildData(item), 'modified');
     });
 
     Option.upsertCollection(item.options, item.code);
     Criteria.upsertCollection(item.criterias);
+  }
+
+  function update(id, data) {
+    realm.write(() => {
+      realm.create(MODEL, Object.assign(data, { id: id }), 'modified')
+    });
   }
 
   // Private
@@ -88,6 +98,7 @@ const Question = (() => {
       failing_audio: item.failing_audio,
       failing_audio_url: item.failing_audio_url,
       form_id: item.form_id,
+      section_id: item.section_id || null
     });
   }
 
@@ -104,11 +115,15 @@ const Question = (() => {
   }
 
   function byPending(option="", type='audio') {
-    let data = realm.objects('Question').filtered(option);
+    let data = realm.objects(MODEL).filtered(option);
 
     return data.map(item => {
       return { uuid: item.id, url: item[`${type}_url`], type: type, obj: item };
     })
+  }
+
+  function findBySectionId(id) {
+    return realm.objects(MODEL).filtered(`section_id = '${id}'`)
   }
 
   // -------------------------------Skip Logic start

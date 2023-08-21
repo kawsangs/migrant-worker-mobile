@@ -1,18 +1,19 @@
-import webService from './web_service';
+import WebService from './web_service';
 import {itemsPerPage} from '../constants/sync_data_constant';
 import Video from '../models/Video';
+import endpointHelper from '../helpers/endpoint_helper';
 
-const videoService = (() => {
-  return {
-    syncAll,
+class VideoService extends WebService {
+  constructor() {
+    super();
   }
 
-  function syncAll(successCallback, failureCallback) {
-    _syncAndRemoveByPage(1, 1, successCallback, failureCallback)
+  syncAll(successCallback, failureCallback) {
+    this._syncAndRemoveByPage(1, 1, successCallback, failureCallback)
   }
 
   // private method
-  function _syncAndRemoveByPage(page, totalPage, successCallback, failureCallback, prevVideos = []) {
+  _syncAndRemoveByPage(page, totalPage, successCallback, failureCallback, prevVideos = []) {
     if (page > totalPage) {
       Video.deleteAll();
       prevVideos.map(video => Video.create(video));
@@ -20,14 +21,14 @@ const videoService = (() => {
       return
     }
 
-    webService.get(`/videos?page=${page}`)
+    this.get(endpointHelper.pagingEndpoint('videos', page))
       .then(res => JSON.parse(res.data))
       .then(data => {
         const allPage = Math.ceil(data.pagy.count / itemsPerPage)
-        _syncAndRemoveByPage(page+1, allPage, successCallback, failureCallback, [...prevVideos, ...data.videos]);
+        this._syncAndRemoveByPage(page+1, allPage, successCallback, failureCallback, [...prevVideos, ...data.videos]);
       })
       .catch(error => !!failureCallback && failureCallback())
   }
-})();
+}
 
-export default videoService;
+export default VideoService;

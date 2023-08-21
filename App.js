@@ -55,7 +55,7 @@ class App extends React.Component {
   componentDidMount() {
     SplashScreen.hide();
     IndexWorker.init();
-    RegisteredTokenService.handleSyncingToken();
+    new RegisteredTokenService().handleSyncingToken();
     Video.seedData();
   }
 

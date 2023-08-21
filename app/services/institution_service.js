@@ -3,21 +3,21 @@ import CountryInstitution from '../models/CountryInstitution';
 import FileDownloader from '../downloaders/file_downloader'
 import uuidv4 from '../utils/uuidv4';
 import institutionHelper from '../helpers/institution_helper';
-import webService from '../services/web_service';
+import endpointHelper from '../helpers/endpoint_helper';
+import WebService from '../services/web_service';
 
 import RNFS from 'react-native-fs';
 
 import institutions from '../data/json/institutions'
 
-const InstitutionService = (() => {
-  return {
-    fetch,
-    getInstitutionByCountry,
-    getNameKhmer,
+class InstitutionService extends WebService {
+  constructor() {
+    super();
+    _this = this;
   }
 
-  function fetch(countryCode, successCallback, errorCallback) {
-    webService.get(`/countries/${countryCode}/country_institutions`)
+  fetch(countryCode, successCallback, errorCallback) {
+    this.get(endpointHelper.listingNestedEndpoint('countries', countryCode, 'country_institutions'))
       .then(res => JSON.parse(res.data))
       .then(data => {
         data.map((item, index) => {
@@ -54,17 +54,17 @@ const InstitutionService = (() => {
             CountryInstitution.create(countryInstitutionData);
           }
 
-          _downloadFile(institution);
+          this._downloadFile(institution);
         });
 
         setTimeout(() => {
-          successCallback(_getInstitutions(countryCode))
+          successCallback(this._getInstitutions(countryCode))
         }, 1500);
       })
       .catch(error => errorCallback(error))
   }
 
-  function getInstitutionByCountry(countryInstitutions) {
+  getInstitutionByCountry(countryInstitutions) {
     let institutions = [];
 
     countryInstitutions.map(countryInstitution => {
@@ -74,7 +74,7 @@ const InstitutionService = (() => {
     return institutions.sort((a, b) => a.display_order > b.display_order);
   }
 
-  function getNameKhmer(id) {
+  getNameKhmer(id) {
     const institution = institutions.filter(item => item.id == id);
 
     if (institution.length > 0)
@@ -84,42 +84,40 @@ const InstitutionService = (() => {
   }
 
   // private function
-
-  async function downloadAsset(institution, type) {
+  async _downloadAsset(institution, type) {
     const isFileDownloaded = await institutionHelper.isFileDownloaded(institution, type)
     const fileName = institutionHelper.getDownloadFileName(institution, type);
 
     if (!isFileDownloaded) {
       const filePath = type == 'logo' ? institution.logo_url : institution.audio_url;
-
-      FileDownloader.download(fileName, filePath, async function(fileUrl) {
-        _updateFileUrl(institution, type, fileUrl);
+      FileDownloader.download(filePath, async function(fileUrl) {
+        _this._updateFileUrl(institution, type, fileUrl);
       }),
       () => { console.log('error download file') }
     }
     else {
       const filePath = `${RNFS.DocumentDirectoryPath}/${fileName}`;
-      _updateFileUrl(institution, type, filePath);
+      _this._updateFileUrl(institution, type, filePath);
     }
   }
 
-  function _updateFileUrl(institution, type, filePath) {
+  _updateFileUrl(institution, type, filePath) {
     const params = type == 'logo' ? { logo: filePath } : { audio: filePath };
     Institution.update(institution.id, params);
   }
 
-  function _getInstitutions(countryCode) {
+  _getInstitutions(countryCode) {
     const countryInstitutions = CountryInstitution.findByCountryCode(countryCode);
 
-    return getInstitutionByCountry(countryInstitutions)
+    return this.getInstitutionByCountry(countryInstitutions)
   }
 
-  function _downloadFile(institution) {
+  _downloadFile(institution) {
     if (institution.logo_url)
-      downloadAsset(institution, 'logo');
+      _this._downloadAsset(institution, 'logo');
     if (institution.audio_url)
-      downloadAsset(institution, 'audio');
+      _this._downloadAsset(institution, 'audio');
   }
-})()
+}
 
 export default InstitutionService

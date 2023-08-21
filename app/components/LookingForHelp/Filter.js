@@ -23,7 +23,7 @@ class LookingForHelp extends React.Component {
     const countryInstitutions = CountryInstitution.findByCountryCode(props.code)
 
     this.state = {
-      institutions: InstitutionService.getInstitutionByCountry(countryInstitutions),
+      institutions: new InstitutionService().getInstitutionByCountry(countryInstitutions),
       query: "",
     };
   }

@@ -4,15 +4,13 @@ import {
   TouchableOpacity,
   Text,
   StyleSheet,
-  Image,
   ImageBackground
 } from 'react-native';
 
 import { Icon } from 'react-native-material-ui';
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
-import PlaySound from '../../components/play_sound';
+import CustomAudioPlayerComponent from '../../components/shared/CustomAudioPlayerComponent';
 import Images from '../../utils/images';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
 import { StackActions } from '@react-navigation/native';
@@ -20,7 +18,6 @@ import { StackActions } from '@react-navigation/native';
 class SubCategory extends Component {
   render() {
     let image = this.props.image || Images.default;
-
     return (
       <TouchableOpacity
         style={[Style.card, { padding: 0 }]}
@@ -45,15 +42,12 @@ class SubCategory extends Component {
                 </View>
               </View>
 
-              <View>
-                <PlaySound
-                  filePath={this.props.audio}
-                  buttonAudioStyle={{backgroundColor: Color.beforeYouGoColor}}
-                  iconStyle={{tintColor: Color.white}}
-                  audioPlayer={this.props.audioPlayer}
-                  updateMainAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}
-                />
-              </View>
+              <CustomAudioPlayerComponent
+                itemUuid={this.props.uuid}
+                audio={this.props.audio}
+                buttonStyle={{backgroundColor: Color.beforeYouGoColor}}
+                iconStyle={{color: Color.white}}
+              />
             </View>
           </View>
         </ImageBackground>
@@ -63,7 +57,6 @@ class SubCategory extends Component {
           { !this.props.hideArrow &&
             <Icon name='keyboard-arrow-right' size={24} />
           }
-
         </View>
       </TouchableOpacity>
     )

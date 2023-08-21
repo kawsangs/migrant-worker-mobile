@@ -1,23 +1,24 @@
 import NetInfo from "@react-native-community/netinfo";
-import webService from './web_service';
+import WebService from './web_service';
 import RNFetchBlob from 'rn-fetch-blob'
 import Sidekiq from '../models/Sidekiq';
 import User from '../models/User';
+import endpointHelper from '../helpers/endpoint_helper';
 
-export default class UserService  {
-  static async upload(uuid) {
+export default class UserService extends WebService {
+  upload(uuid) {
     NetInfo.fetch().then(state => {
       if (!state.isConnected) { return; }
       let user = User.find(uuid);
 
       if(!user) return;
 
-      webService.post('users', this._buildData(user))
+      this.post(endpointHelper.listingEndpoint('users'), this._buildData(user))
         .then(res => Sidekiq.destroy(uuid))
     });
   }
 
-  static _buildData(user) {
+  _buildData(user) {
     let attributes = {
       uuid: user.uuid,
       full_name: user.name,

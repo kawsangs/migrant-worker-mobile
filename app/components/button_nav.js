@@ -9,16 +9,23 @@ import {
 
 import { Icon } from 'react-native-material-ui';
 import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
-import PlaySound from '../components/play_sound';
+import CustomAudioPlayerComponent from './shared/CustomAudioPlayerComponent';
 import Images from '../utils/images';
 
 export default class ButtonNav extends React.Component {
+  renderAudioPlayer() {
+    return <CustomAudioPlayerComponent
+              itemUuid={this.props.audioUuid}
+              audio={this.props.audio}
+              buttonStyle={{marginRight: 10}}
+              iconColor={Color.primary}
+            />
+  }
+
   render() {
     let textColor = this.props.active ? Color.white : Color.primary;
     let buttonColor = this.props.active ? this.props.buttonColor ? this.props.buttonColor : Color.primary : Color.white;
     let borderColor = this.props.buttonColor ? this.props.buttonColor : Color.primary;
-
-    let iconTintColor = this.props.active ? Color.primary : Color.pink;
 
     return (
       <View style={[styles.buttonWrapper, Style.boxShadow, { borderColor: borderColor, backgroundColor: buttonColor }, this.props.buttonWrapperStyle]}>
@@ -32,14 +39,7 @@ export default class ButtonNav extends React.Component {
           <Text style={[styles.buttonText, { color: textColor }, this.props.textStyle]}>{this.props.title}</Text>
         </TouchableOpacity>
 
-        <PlaySound
-          style={[styles.buttonAudioWrapper, this.props.audioWrapperStyle]}
-          buttonAudioStyle={[{ backgroundColor: textColor}, this.props.playSoundSize]}
-          iconStyle={[{ tintColor: iconTintColor }, this.props.playSoundSize]}
-          filePath={this.props.audio}
-          audioPlayer={this.props.audioPlayer}
-          updateMainAudioPlayer={(sound) => this.props.updateAudioPlayer(sound)}
-        />
+        {this.renderAudioPlayer()}
       </View>
     )
   }
@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderWidth: 3,
     alignItems: 'center',
+    height: 66
   },
   buttonTextWrapper: {
     flexDirection: 'row',

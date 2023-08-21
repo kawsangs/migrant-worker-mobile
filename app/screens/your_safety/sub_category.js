@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { FlatList, Text } from 'react-native';
+import { FlatList } from 'react-native';
+import { connect } from 'react-redux';
 
 import { StackActions } from '@react-navigation/native';
-import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
+import { Color } from '../../assets/stylesheets/base_style';
 import { addStatistic } from '../../utils/statistic';
 import { withTranslation } from 'react-i18next';
-import i18n from 'i18next';
 
 import Safety from '../../models/Safety';
 import CardItem from '../../components/YourSafety/CardItem';
+import {setCurrentPlayingAudio} from '../../actions/currentPlayingAudioAction';
 
 class YourSafetySubCategory extends Component {
   constructor(props) {
@@ -16,15 +17,12 @@ class YourSafetySubCategory extends Component {
 
     this.state = {
       categories: Safety.getChildren(props.route.params['parent_id']),
-      audioPlayer: null,
     };
   }
 
   _onPress(item) {
-    if (this.state.audioPlayer) {
-      this.state.audioPlayer.release();
-      this.setState({ audioPlayer: null });
-    }
+    if (!!this.props.currentPlayingAudio)
+      this.props.setCurrentPlayingAudio(null)
 
     if (item.leaf) {
       return this.props.navigation.navigate("YourSafetyLeafCategoryScreen", {title: item.name, parent_id: item.id});
@@ -38,14 +36,13 @@ class YourSafetySubCategory extends Component {
     return (
       <CardItem
         key={index}
+        uuid={item.uuid}
         title={item.name}
         audio={item.audio}
         image={item.imageSource}
         onPress={() => this._onPress(item)}
-        buttonAudioStyle={{backgroundColor: Color.primary}}
-        audioIconStyle={{tintColor: Color.white}}
-        audioPlayer={this.state.audioPlayer}
-        updateAudioPlayer={(sound) => this.setState({ audioPlayer: sound })}
+        audioButtonBackground={Color.primary}
+        audioIconColor={Color.white}
       />
     )
   }
@@ -62,6 +59,19 @@ class YourSafetySubCategory extends Component {
   }
 }
 
-export default withTranslation()(YourSafetySubCategory);
+function mapStateToProps(state) {
+  return {
+    currentPlayingAudio: state.currentPlayingAudio
+  }
+}
 
+function mapDispatchToProps(dispatch) {
+  return {
+    setCurrentPlayingAudio: (uuid) => dispatch(setCurrentPlayingAudio(uuid))
+  };
+}
 
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withTranslation()(YourSafetySubCategory));

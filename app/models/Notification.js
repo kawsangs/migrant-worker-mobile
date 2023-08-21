@@ -63,6 +63,7 @@ const Notification = (() => {
       content: item.body,
       received_date: new Date(),
       is_read: false,
+      data: !!item.data ? JSON.stringify(item.data) : null,
     };
 
     return params;

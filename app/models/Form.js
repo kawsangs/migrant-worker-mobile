@@ -6,9 +6,12 @@ import Criteria from '../models/Criteria';
 import formList from '../db/json/form_stories';
 import DeviceInfo from 'react-native-device-info';
 
+const MODEL = 'Form';
+
 const Form = (() => {
   return {
     getAll,
+    getAllYourStory,
     isDownloaded,
     deleteAllWithDependency,
     deleteAll,
@@ -17,6 +20,11 @@ const Form = (() => {
     upsert,
     seedData,
     findNext,
+    findById,
+  }
+
+  function findById(id) {
+    return realm.objects(MODEL).filtered(`id = ${id}`)[0];
   }
 
   function findNext(formId) {
@@ -31,7 +39,11 @@ const Form = (() => {
   }
 
   function getAll() {
-    return realm.objects('Form');
+    return realm.objects(MODEL);
+  }
+
+  function getAllYourStory() {
+    return realm.objects(MODEL).filtered(`type == 'your_story' || type == ''`);
   }
 
   function isDownloaded() {
@@ -46,7 +58,7 @@ const Form = (() => {
   }
 
   function deleteAll() {
-    let collection = realm.objects('Form');
+    let collection = realm.objects(MODEL);
 
     if (collection.length > 0) {
       realm.write(() => {
@@ -61,12 +73,13 @@ const Form = (() => {
     }
   }
 
-  function upsert(item, appVersion) {
+  function upsert(item, appVersion, autoSaveQuestions = true) {
     realm.write(() => {
-      realm.create('Form', _buildData(item, appVersion), 'modified');
+      realm.create(MODEL, _buildData(item, appVersion), 'modified');
     });
 
-    Question.upsertCollection(item.questions);
+    if (!!autoSaveQuestions)
+      Question.upsertCollection(item.questions);
   }
 
   function _buildData(item, appVersion) {
@@ -76,8 +89,9 @@ const Form = (() => {
       name: item.name,
       audio: item.audio,
       version: item.version,
-      question_count: item.questions.length,
+      question_count: !!item.question_count ? item.question_count : item.questions.length,
       appVersion: appVersion,
+      type: item.type || 'your_story',
     };
 
     if (!!item.offline && !!item.image_url) {

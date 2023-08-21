@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
 import { View, Text, ScrollView, ToastAndroid } from 'react-native';
 import { useTranslation } from "react-i18next";
+import {useDispatch, useSelector} from 'react-redux';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Color } from '../../assets/stylesheets/base_style';
@@ -9,16 +10,18 @@ import RegisterTextInputComponent from './RegisterTextInputComponent';
 import RegisterVoiceRecorderComponent from './RegisterVoiceRecorderComponent';
 import RegistrationConfirmationComponent from '../shared/RegistrationConfirmationComponent';
 import SectionSeparatorComponent from '../shared/SectionSeparatorComponent';
-import PlaySound from '../play_sound';
+import CustomAudioPlayerComponent from '../shared/CustomAudioPlayerComponent';
 import SexOption from '../sex_option';
 import uuidv4 from '../../utils/uuidv4';
 import styles from '../../styles/registerScreenStyle';
 import registerHelper from '../../helpers/register_helper';
 import User from '../../models/User';
+import {setCurrentPlayingAudio} from '../../actions/currentPlayingAudioAction';
 
 const RegisterFormComponent = (props) => {
   const { t } = useTranslation();
   const currentUser = props.currentUser || {};
+  const dispatch = useDispatch();
   const [state, setState] = useReducer((prev, next) => {
     return {...prev, ...next}
   }, {
@@ -29,8 +32,8 @@ const RegisterFormComponent = (props) => {
     voiceRecord: props.currentUser.voiceRecord || "",
     errors: {},
     isFormValid: false,
-    audioPlayer: null,
   })
+  const currentPlayingAudio = useSelector(state => state.currentPlayingAudio);
 
   useEffect(() => {
     let isValid = false;
@@ -39,6 +42,10 @@ const RegisterFormComponent = (props) => {
 
     setState({ isFormValid: isValid })
   }, [state.name, state.sex, state.age, state.voiceRecord]);
+
+  useEffect(() => {
+    return () => !!currentPlayingAudio && dispatch(setCurrentPlayingAudio(null))
+  }, [])
 
   const updateState = (stateName, value) => {
     let obj = {};
@@ -54,23 +61,18 @@ const RegisterFormComponent = (props) => {
               iconName={item.iconName}
               onChange={value => updateState(item.stateName, value)}
               textContainerStyle={registerHelper.validationBorder(state[item.stateName], item.stateName, state.isFormValid)}
-              audio={item.audioFilename}
-              audioPlayer={state.audioPlayer}
-              updateAudioPlayer={(sound) => setState({ audioPlayer: sound })}
+              audioButton={() => renderAudioBtn(`${item.stateName}-input`, item.audioFilename)}
            />
   }
 
-  const renderAudioBtn = (audio, active) => {
-    return (
-      <PlaySound
-        style={styles.buttonAudioWrapper}
-        buttonAudioStyle={{ backgroundColor: active ? Color.white : Color.primary }}
-        iconStyle={{ tintColor: active ? Color.primary : Color.white }}
-        filePath={audio}
-        audioPlayer={state.audioPlayer}
-        updateMainAudioPlayer={(sound) => setState({ audioPlayer: sound })}
-      />
-    )
+  const renderAudioBtn = (uuid, audio, buttonColor = Color.primary, iconColor = Color.white) => {
+    return <CustomAudioPlayerComponent
+              itemUuid={uuid}
+              audio={audio}
+              buttonBackgroundColor={buttonColor}
+              iconColor={iconColor}
+              buttonStyle={{marginRight: 10}}
+            />
   }
 
   const renderSexOption = () => {
@@ -78,7 +80,9 @@ const RegisterFormComponent = (props) => {
       <View style={[{ marginBottom: 24 }, registerHelper.validationBorder(state.sex, 'sex', state.isFormValid)]}>
         <View style={{ marginBottom: 10, flexDirection: 'row' }}>
           <Text style={{ flex: 1 }}>{t('RegisterScreen.ChooseGender')}</Text>
-          {renderAudioBtn('choose_gender.mp3')}
+          <View style={{marginRight: !!state.sex ? 2 : -4}}>
+            {renderAudioBtn('gender-picker', 'choose_gender.mp3')}
+          </View>
         </View>
         <SexOption sex={state.sex} onPress={(value) => setState({sex: value})} />
       </View>
@@ -89,10 +93,9 @@ const RegisterFormComponent = (props) => {
     return <RegisterVoiceRecorderComponent
               currentUser={currentUser}
               voiceRecord={state.voiceRecord}
-              audioPlayer={state.audioPlayer}
               isFormValid={state.isFormValid}
               updateVoiceRecord={(audioPath) => setState({voiceRecord: audioPath})}
-              updateAudioPlayer={(audioPlayer) => setState(audioPlayer)}
+              audioButton={() => renderAudioBtn('voice-record', 'record_your_voice.mp3')}
            />
   }
 
@@ -146,7 +149,7 @@ const RegisterFormComponent = (props) => {
     return <BigButtonComponent
               label={button[props.action].label}
               disabled={!state.isFormValid}
-              rightComponent={renderAudioBtn(button[props.action].audio, true)}
+              rightComponent={renderAudioBtn('save-button', button[props.action].audio, Color.white, Color.primary)}
               onPress={() => props.action == 'register' ? showConsentForm() : submit()}
               onDisabledPress={() => ToastAndroid.show(t("RegisterScreen.WarningFillRequiredInfo"), ToastAndroid.SHORT)}
            />

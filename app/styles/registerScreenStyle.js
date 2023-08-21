@@ -21,7 +21,10 @@ const registerScreenStyles = StyleSheet.create({
     width: 58,
   },
   textInputWrapper: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: '100%',
+    width: '100%'
   },
   textInput: {
     height: 52,
@@ -36,7 +39,7 @@ const registerScreenStyles = StyleSheet.create({
   },
   inputIcon: {
     position: 'absolute',
-    top: 14,
+    top: 18,
     left: 10
   },
   voiceRecord: {

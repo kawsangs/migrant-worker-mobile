@@ -8,11 +8,17 @@ import { defaultContentHeight } from '../../constants/modal_constant';
 import {isLowPixelDensityDevice} from '../../utils/responsive_util';
 
 const BottomSheetModalMainComponent = (props) => {
+  const headerHeight = !!props.audioButton ? isLowPixelDensityDevice() ? 52 : 56 : isLowPixelDensityDevice() ? 48 : 50;
+
   const renderHeader = () => {
-    return <View style={[{height: isLowPixelDensityDevice() ? 48 : 50, paddingTop: 6, flexDirection: 'row', paddingHorizontal: 16}, props.titleContainerStyle]}>
+    return <View style={[{height: headerHeight, paddingTop: 6, flexDirection: 'row', paddingHorizontal: 16}, props.titleContainerStyle]}>
               {!!props.titleIcon && props.titleIcon}
               <Text color='#fff' style={[{fontFamily: FontFamily.title, fontSize: 17 }, props.titleStyle]}>{props.title}</Text>
-              {!!props.audioButton && props.audioButton}
+              {!!props.audioButton &&
+                <View style={{borderWidth: 0, marginTop: -2}}>
+                  {props.audioButton}
+                </View>
+              }
            </View>
   }
 

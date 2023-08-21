@@ -283,7 +283,7 @@ export default class Audio extends Component {
 
   _renderButtonPlay() {
     return (
-      <View style={[Style.boxShadow, {marginTop: 13, marginHorizontal: 0, flexDirection: 'row', alignItems: 'center', padding: 10, backgroundColor: '#fff', borderRadius: 8}]}>
+      <View style={[Style.boxShadow, {marginTop: 13, marginHorizontal: 0, flexDirection: 'row', alignItems: 'center', padding: 10, backgroundColor: '#fff', borderRadius: 8}, this.props.buttonPlayStyle]}>
         <TouchableOpacity onPress={() => this._handlePlaying()}>
           { this.state.isPlaying &&
             <View style={{backgroundColor: Color.delete, width: 32, height: 32, borderRadius: 50, justifyContent: 'center', alignItems: 'center', marginHorizontal: 3}}>
@@ -296,7 +296,6 @@ export default class Audio extends Component {
         </TouchableOpacity>
 
         <View style={{flex: 1, paddingHorizontal: 10}}>
-          <Text>លេង</Text>
           <Text>{ this._renderTime(this.state.playSeconds) }</Text>
         </View>
 
@@ -309,7 +308,7 @@ export default class Audio extends Component {
 
   render() {
     return (
-      <View style={{height: 180}}>
+      <View style={[{height: 180}, this.props.containerStyle]}>
         { this.state.visiblePlayButton && this._renderButtonPlay() }
         { this.state.visibleProgressBar && this._renderProgressBar() }
 

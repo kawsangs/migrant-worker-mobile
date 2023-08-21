@@ -9,7 +9,7 @@ export default class UserWorker {
     }
 
     queue.addWorker(new Worker("uploadUser", (payload) => {
-      UserService.upload(payload.uuid);
+      new UserService().upload(payload.uuid);
     }));
   }
 

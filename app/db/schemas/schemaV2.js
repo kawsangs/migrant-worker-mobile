@@ -16,7 +16,7 @@ const schemaV2 = {
       const newObjects = newRealm.objects('Institution');
 
       for (let i = 0; i< oldObjects.length; i++) {
-        newObjects[i].name_km = !oldObjects[i].name_km ? InstitutionService.getNameKhmer(oldObjects[i].id) : oldObjects[i].name_km;
+        newObjects[i].name_km = !oldObjects[i].name_km ? new InstitutionService().getNameKhmer(oldObjects[i].id) : oldObjects[i].name_km;
       }
     }
   },

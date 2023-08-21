@@ -15,11 +15,11 @@ const BigButtonComponent = (props) => {
   return (
       <TouchableOpacity
         onPress={() => onPress()}
-        style={[styles.button, !!props.rightComponent && {paddingRight: 4}, props.disabled ? { backgroundColor: Color.gray } : {}, props.buttonStyle]}
+        style={[styles.button, !!props.rightComponent && {paddingRight: 4}, props.buttonStyle, props.disabled ? { backgroundColor: Color.gray } : {}]}
       >
         {!!props.rightComponent && <View style={{ width: 58 }} /> }
         <View style={styles.labelContainer}>
-          <Text style={[styles.label, props.disabled ? { color: 'black' } : {}]}>{props.label}</Text>
+          <Text style={[styles.label, props.disabled ? { color: Color.textBlack } : {}]}>{props.label}</Text>
         </View>
         {!!props.rightComponent && props.rightComponent}
       </TouchableOpacity>
@@ -28,7 +28,7 @@ const BigButtonComponent = (props) => {
 
 const styles = StyleSheet.create({
   button: {
-    height: 60,
+    height: 66,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
   label: {
     color: Color.white,
     fontFamily: FontFamily.title,
+    fontSize: 18
   },
   labelContainer: {
     flex: 1,
