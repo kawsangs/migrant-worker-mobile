@@ -28,7 +28,7 @@ const SurveyFormQuestionComponent = (props) => {
                   itemUuid={props.question.id}
                   audio={props.question.audio}
                   buttonBackgroundColor={Color.primary}
-                  iconColor={Color.white}
+                  isOutline={true}
                 />
               </View>
            </View>
