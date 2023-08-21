@@ -70,7 +70,7 @@ const RegisterFormComponent = (props) => {
               itemUuid={uuid}
               audio={audio}
               buttonBackgroundColor={buttonColor}
-              iconColor={iconColor}
+              isOutline={true}
               buttonStyle={{marginRight: 10}}
             />
   }

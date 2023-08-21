@@ -46,7 +46,7 @@ const RegistrationConfirmationComponent = (props) => {
     return <BigButtonComponent
               label="យល់ព្រម"
               buttonStyle={{marginTop: 6, paddingRight: 16}}
-              rightComponent={renderAudioBtn('confirm-button', 'confirm.mp3', Color.white, Color.primary)}
+              rightComponent={renderAudioBtn('confirm-button', 'confirm.mp3', Color.white)}
               onPress={() => props.onPress()}
            />
   }
@@ -63,12 +63,12 @@ const RegistrationConfirmationComponent = (props) => {
            </React.Fragment>
   }
 
-  const renderAudioBtn = (uuid, filePath, buttonColor = Color.primary, iconColor = Color.white) => {
+  const renderAudioBtn = (uuid, filePath, buttonColor = Color.primary) => {
     return <CustomAudioPlayerComponent
               itemUuid={uuid}
               audio={filePath}
               buttonBackgroundColor={buttonColor}
-              iconColor={iconColor}
+              isOutline={true}
             />
   }
 
@@ -83,7 +83,7 @@ const RegistrationConfirmationComponent = (props) => {
       title='លក្ខខណ្ឌចុះឈ្មោះប្រើប្រាស់'
       titleIcon={renderIcon()}
       titleStyle={{flex: 1, marginTop: -2, fontSize: titleFontSize}}
-      audioButton={renderAudioBtn('consent-message', null)}
+      audioButton={renderAudioBtn('consent-message', null, Color.primary)}
       titleContainerStyle={{marginBottom: 6, alignItems: 'center'}}
     >
       {renderContent()}
