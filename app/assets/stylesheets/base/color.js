@@ -15,5 +15,6 @@ export default Color = {
 
   gray: '#9a9a9a',
   green: '#009e69',
-  beforeYouGoColor: '#bf2c19'
+  beforeYouGoColor: '#bf2c19',
+  divideLineColor: '#e6e7e9',
 };

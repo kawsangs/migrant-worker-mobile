@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { View } from 'react-native';
 import { Checkbox } from 'react-native-material-ui';
 import {useSelector} from 'react-redux';
+import { Color } from '../../assets/stylesheets/base_style';
 
 const SurveyFormSelectMultipleComponent = (props) => {
   const {options} = props;
@@ -40,7 +41,7 @@ const SurveyFormSelectMultipleComponent = (props) => {
 
   const renderOptions = () => {
     return options.map(option => {
-      return <View key={option.id} style={{minHeight: 48, marginVertical: 5}}>
+      return <View key={option.id} style={{minHeight: 48, paddingVertical: 6, borderBottomWidth: 1, borderColor: Color.divideLineColor}}>
                 <Checkbox
                   label={option.name}
                   value={option.id.toString()}
