@@ -18,7 +18,7 @@ const Form = (() => {
     getPendingDownload,
     upsertCollection,
     upsert,
-    seedData,
+    seedYourStoryData,
     findNext,
     findById,
   }
@@ -101,16 +101,18 @@ const Form = (() => {
     return params;
   }
 
-  function seedData(callback) {
+  function seedYourStoryData(callback) {
     let appVersion = DeviceInfo.getVersion();
-    let collection = getAll().filter(o => o.appVersion == appVersion);
+    let collection = getAllYourStory().filter(o => o.appVersion == appVersion);
     if (!!collection.length) {
       !!callback && callback();
       return;
     }
 
     setTimeout(() => {
-      deleteAll();
+      realm.write(() => {
+        realm.delete(collection);
+      });
       upsertCollection(formList, appVersion);
       !!callback && callback();
     }, 200);

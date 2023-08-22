@@ -34,7 +34,6 @@ const CustomAudioPlayerComponent = (props) => {
               allowPause={true}
               playingUuid={currentPlayingAudio}
               updatePlayingUuid={(uuid) => dispatch(setCurrentPlayingAudio(uuid))}
-              // buttonStyle={[{backgroundColor: !props.audio ? Color.lightGray : props.buttonBackgroundColor || Color.white}, props.buttonStyle]}
               buttonStyle={[props.isOutline ? outlineStyle : {backgroundColor: buttonColor}, props.buttonStyle]}
               iconStyle={[props.isOutline ? {color: buttonColor} : (!!props.iconColor && !!props.audio) && {color: props.iconColor}, props.iconStyle]}
               isFromAppBundle={true}

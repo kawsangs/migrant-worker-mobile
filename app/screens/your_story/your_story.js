@@ -26,7 +26,7 @@ class YourStory extends Component {
 
   componentDidMount() {
     // Form.deleteAllWithDependency();
-    Form.seedData(() => this.setState({loading: false}));
+    Form.seedYourStoryData(() => this.setState({loading: false}));
   }
 
   _onPress(item) {
