@@ -29,7 +29,7 @@ const SurveyFormButtonComponent = React.forwardRef((props, ref) => {
     return <CustomAudioPlayerComponent
               itemUuid='btn-next-audio'
               audio={props.currentSection != props.sections.length - 1 ? BUTTONS.next.audio : BUTTONS.finish.audio}
-              buttonStyle={{marginRight: 8, borderColor: Color.white}}
+              buttonStyle={{borderColor: Color.white}}
               iconStyle={{color: Color.white}}
               isOutline={true}
            />
@@ -39,6 +39,7 @@ const SurveyFormButtonComponent = React.forwardRef((props, ref) => {
             <BigButtonComponent
               disabled={!isValid}
               label={props.currentSection != props.sections.length - 1 ? BUTTONS.next.label : BUTTONS.finish.label}
+              buttonStyle={{paddingRight: 16}}
               rightComponent={renderAudioBtn()}
               onPress={() => props.onPress()}
             />
