@@ -14,6 +14,12 @@ const CustomAudioPlayerComponent = (props) => {
 
   const dispatch = useDispatch();
   const currentPlayingAudio = useSelector(state => state.currentPlayingAudio);
+  const buttonColor = !props.audio ? props.isOutline ? Color.gray : Color.lightGray : props.buttonBackgroundColor || Color.white;
+  const outlineStyle = {
+    backgroundColor: 'none',
+    borderColor: buttonColor,
+    borderWidth: 2,
+  }
 
   return <View>
             <AudioPlayerButton
@@ -28,8 +34,8 @@ const CustomAudioPlayerComponent = (props) => {
               allowPause={true}
               playingUuid={currentPlayingAudio}
               updatePlayingUuid={(uuid) => dispatch(setCurrentPlayingAudio(uuid))}
-              buttonStyle={[{backgroundColor: !props.audio ? Color.lightGray : props.buttonBackgroundColor || Color.white}, props.buttonStyle]}
-              iconStyle={[(!!props.iconColor && !!props.audio) && {color: props.iconColor}, props.iconStyle]}
+              buttonStyle={[props.isOutline ? outlineStyle : {backgroundColor: buttonColor}, props.buttonStyle]}
+              iconStyle={[props.isOutline ? {color: buttonColor} : (!!props.iconColor && !!props.audio) && {color: props.iconColor}, props.iconStyle]}
               isFromAppBundle={true}
             />
          </View>

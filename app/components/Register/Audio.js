@@ -232,14 +232,13 @@ export default class Audio extends Component {
     return (
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
         { this.state.showHint && <Text style={styles.hint}>ចុចនិងសង្កត់ដើម្បីថតសម្លេង</Text> }
-
         <TouchableOpacity
-          style={[styles.button]}
+          style={[styles.button, {borderWidth: 3, borderColor: Color.primary, backgroundColor: Color.white}]}
           onPress={() => this._onPress()}
           onLongPress={() => this._onLongPress()}
           onPressOut={() => this._onPressOut()}
         >
-          <AwesomeIcon name={'microphone'} color='#fff' size={36} />
+          <AwesomeIcon name={'microphone'} color={Color.primary} size={36} style={{marginRight: 1}} />
         </TouchableOpacity>
       </View>
     )
@@ -285,13 +284,8 @@ export default class Audio extends Component {
     return (
       <View style={[Style.boxShadow, {marginTop: 13, marginHorizontal: 0, flexDirection: 'row', alignItems: 'center', padding: 10, backgroundColor: '#fff', borderRadius: 8}, this.props.buttonPlayStyle]}>
         <TouchableOpacity onPress={() => this._handlePlaying()}>
-          { this.state.isPlaying &&
-            <View style={{backgroundColor: Color.delete, width: 32, height: 32, borderRadius: 50, justifyContent: 'center', alignItems: 'center', marginHorizontal: 3}}>
-              <MaterialIcon style={styles.icon} name='stop' size={20} color='white'/>
-            </View>
-          }
-          { !this.state.isPlaying &&
-            <MaterialIcon style={styles.icon} name='play-circle-filled' size={38} color={Color.primary}/>
+          { this.state.isPlaying ? <MaterialIcon style={styles.icon} name='pause-circle-outline' size={42} color={Color.delete}/>
+            : <MaterialIcon style={styles.icon} name='play-circle-outline' size={42} color={Color.primary}/>
           }
         </TouchableOpacity>
 
@@ -300,7 +294,7 @@ export default class Audio extends Component {
         </View>
 
         <TouchableOpacity onPress={ () => this._onDeleteRecord() }>
-          <MaterialIcon style={styles.icon} name='delete' size={40} color='rgb(228, 74, 74)'/>
+          <AwesomeIcon name="trash-o" size={34} color='rgb(228, 74, 74)' style={{marginRight: 6}} />
         </TouchableOpacity>
       </View>
     )

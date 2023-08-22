@@ -2,6 +2,7 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import {View} from 'react-native';
 import RadioButton from '../Questions/radioButton';
+import { Color } from '../../assets/stylesheets/base_style';
 
 const SurveyFormSelectOneComponent = (props) => {
   const {options} = props;
@@ -25,7 +26,7 @@ const SurveyFormSelectOneComponent = (props) => {
   }
 
   return options.map(option => {
-    return <View key={option.id} style={{minHeight: 48, marginVertical: 5}}>
+    return <View key={option.id} style={{minHeight: 48, paddingVertical: 6, borderBottomWidth: 1, borderColor: Color.divideLineColor}}>
               <RadioButton
                 label={option.name}
                 checked={ !!selectedOption ? option.id.toString() == selectedOption.id : false }

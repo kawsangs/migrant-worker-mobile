@@ -30,7 +30,7 @@ class WelcomeVideo extends Component {
               itemUuid='skip-button'
               audio='skip.mp3'
               buttonBackgroundColor={Color.white}
-              iconColor={Color.primary}
+              isOutline={true}
               buttonStyle={{marginRight: 10}}
             />
   }

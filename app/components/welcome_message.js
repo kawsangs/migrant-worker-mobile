@@ -10,7 +10,7 @@ class WelcomeMessage extends Component {
                 itemUuid='welcome-message-audio'
                 audio='about_chc_mobile.mp3'
                 buttonBackgroundColor={Color.primary}
-                iconColor={Color.white}
+                isOutline={true}
               />
            </View>
   }

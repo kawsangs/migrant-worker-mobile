@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, View, Modal, Text, StyleSheet } from 'react-native';
+import { View, Modal, Text, StyleSheet } from 'react-native';
 
-import { Color } from '../assets/stylesheets/base_style';
 import OutlineInfoIcon from './OutlineInfoIcon';
+import AlertActionButtonsComponent from './shared/AlertActionButtonsComponent';
 
 class ConfirmModal extends Component {
   render() {
@@ -18,14 +18,11 @@ class ConfirmModal extends Component {
               <Text style={{flex: 1}}>{this.props.message}</Text>
             </View>
 
-            <View style={{flexDirection: 'row', paddingTop: 20, paddingBottom: 0, alignSelf: 'flex-end'}}>
-              <TouchableOpacity onPress={() => this.props.cancel()} style={{paddingHorizontal: 5, marginRight: 5}}>
-                <Text style={{color: Color.primary, fontSize: 14}}>បោះបង់</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => this.props.confirm()} style={{paddingLeft: 5, paddingRight: 0}}>
-                <Text style={{color: Color.primary, fontSize: 14}}>បាទ/ចាស</Text>
-              </TouchableOpacity>
-            </View>
+            <AlertActionButtonsComponent
+              leftLabel='បោះបង់' onPressLeft={() => this.props.cancel()}
+              rightLabel='បាទ/ចាស' onPressRight={() => this.props.confirm()}
+              containerStyle={{alignSelf: 'flex-end', paddingRight: 0, paddingBottom: 0}}
+            />
           </View>
         </View>
       </Modal>
@@ -34,12 +31,6 @@ class ConfirmModal extends Component {
 }
 
 const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22
-  },
   modalView: {
     margin: 20,
     backgroundColor: "white",

@@ -26,8 +26,8 @@ class CardItem extends Component {
               <CustomAudioPlayerComponent
                 itemUuid={this.props.uuid}
                 audio={this.props.audio}
-                buttonStyle={{backgroundColor: this.props.audioButtonBackground || Color.white}}
-                iconStyle={{color: this.props.audioIconColor || Color.primary}}
+                isOutline={true}
+                buttonBackgroundColor={this.props.audioButtonBackground}
               />
             </View>
           </View>

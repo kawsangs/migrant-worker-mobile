@@ -18,7 +18,7 @@ export default class ButtonNav extends React.Component {
               itemUuid={this.props.audioUuid}
               audio={this.props.audio}
               buttonStyle={{marginRight: 10}}
-              iconColor={Color.primary}
+              isOutline={true}
             />
   }
 

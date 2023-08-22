@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 
 import { Color, FontFamily } from '../assets/stylesheets/base_style';
@@ -9,6 +9,7 @@ import AppIcon from './AppIcon';
 
 import { withTranslation } from 'react-i18next';
 import CustomAudioPlayerComponent from './shared/CustomAudioPlayerComponent';
+import AlertActionButtonsComponent from './shared/AlertActionButtonsComponent';
 import { setCurrentPlayingAudio } from '../actions/currentPlayingAudioAction';
 
 class AlertMessage extends Component {
@@ -27,9 +28,16 @@ class AlertMessage extends Component {
     return <CustomAudioPlayerComponent
               itemUuid='alert-dialog'
               audio={this.props.audio}
-              buttonStyle={{backgroundColor: Color.red}}
-              iconStyle={{color: Color.white}}
+              buttonBackgroundColor={Color.red}
+              isOutline={true}
             />
+  }
+
+  renderButtons() {
+    return <AlertActionButtonsComponent
+              leftLabel='បោះបង់' onPressLeft={() => this.props.onPressCancel()} hideLeftButton={!this.props.onPressCancel}
+              rightLabel='បាទ/ចាស' onPressRight={() => this.props.onPressAction()}
+           />
   }
 
   render() {
@@ -60,12 +68,7 @@ class AlertMessage extends Component {
           </Dialog.Content>
 
           <Dialog.Actions>
-            <View style={{flexDirection: 'row', padding: 16, justifyContent: 'flex-end'}}>
-              { !!this.props.onPressCancel &&
-                <TouchableOpacity onPress={() => this.props.onPressCancel()} style={{paddingHorizontal: 5, marginRight: 5}}><Text style={{color: Color.primary, fontSize: 14}}>បោះបង់</Text></TouchableOpacity>
-              }
-              <TouchableOpacity onPress={() => this.props.onPressAction()} style={{paddingLeft: 5, paddingRight: 0}}><Text style={{color: Color.primary, fontSize: 14}}>បាទ/ចាស</Text></TouchableOpacity>
-            </View>
+            {this.renderButtons()}
           </Dialog.Actions>
         </Dialog>
       </View>
