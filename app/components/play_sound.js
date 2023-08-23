@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 import Sound from 'react-native-sound';
-import { Icon } from 'react-native-material-ui';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { Color } from '../assets/stylesheets/base_style';
 import Images from '../utils/images';
 
@@ -63,7 +63,7 @@ export default class PlaySound extends Component {
     return (
       <View style={this.props.style}>
         <View style={[styles.buttonAudio, {backgroundColor: Color.gray}]}>
-          <Icon name={"md-volume-off"} color={"#fff"} iconSet={"Ionicons"} />
+          <Icon name={"md-volume-off"} color={"#fff"} />
         </View>
       </View>
     )

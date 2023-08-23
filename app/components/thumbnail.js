@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 import { Color } from '../assets/stylesheets/base_style';
-import { Icon } from 'react-native-material-ui';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { getVideoId } from '../utils/youtube.js';
 
 export default class Thumbnail extends React.Component {
@@ -66,7 +66,7 @@ export default class Thumbnail extends React.Component {
                   justifyContent: 'center',
                   alignItems: 'center'
                 }}>
-                  <Icon name='play-arrow' size={30} color={Color.white} iconSet='MaterialIcons' />
+                  <Icon name='play-arrow' size={30} color={Color.white} />
                 </View>
               </View>
             ) : (

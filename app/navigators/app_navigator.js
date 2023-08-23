@@ -8,7 +8,6 @@ import i18n from 'i18next';
 import { StatusBar } from 'react-native';
 
 import { Color, FontFamily, FontSize } from '../assets/stylesheets/base_style';
-import { Icon } from 'react-native-material-ui';
 
 import { connect } from 'react-redux';
 import { setCurrentUser } from '../actions/currentUserAction';
@@ -35,8 +34,8 @@ import YourDepartureScreen from '../screens/your_departure/your_departure';
 // import NotificationDetailScreen from '../screens/notification_detail/notification_detail';
 // import WelcomeVideoScreen from '../screens/welcome_video/welcome_video';
 
-// import SubCategoryScreen from '../screens/sub_category/sub_category';
-// import LeafCategoryScreen from '../screens/leaf_category/leaf_category';
+import SubCategoryScreen from '../screens/sub_category/sub_category';
+import LeafCategoryScreen from '../screens/leaf_category/leaf_category';
 // import SurveyFormScreen from '../screens/survey_forms/SurveyFormScreen';
 import BottomTabNavigator from './bottom_tab_navigator';
 import HomeButton from '../components/Toolbar/HomeButton';
@@ -133,21 +132,21 @@ class AppNavigator extends Component {
           })}
         />
 
-        {/* <Stack.Screen name="SubCategoryScreen" component={SubCategoryScreen}
+        <Stack.Screen name="SubCategoryScreen" component={SubCategoryScreen}
           options={({route, navigation}) => ({
             title: route.params.title,
             headerStyle: { backgroundColor: Color.beforeYouGoColor },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
-        /> */}
+        />
 
-        {/* <Stack.Screen name="LeafCategoryScreen" component={LeafCategoryScreen}
+        <Stack.Screen name="LeafCategoryScreen" component={LeafCategoryScreen}
           options={({route, navigation}) => ({
             title: route.params.title,
             headerStyle: { backgroundColor: Color.beforeYouGoColor },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
-        /> */}
+        />
 
         {/* <Stack.Screen name="YourSafetyLeafCategoryScreen" component={LeafCategoryScreen}
           options={({route, navigation}) => ({

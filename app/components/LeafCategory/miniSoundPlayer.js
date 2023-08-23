@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
-import { Icon } from 'react-native-material-ui';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { FontFamily } from '../../assets/stylesheets/base_style';
 
@@ -27,7 +27,7 @@ class MiniSoundPlayer extends Component {
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => this.props.playAudio()}>
-          <Icon name={icon} size={20} iconSet="FontAwesome" style={[{paddingHorizontal: 10, color: 'black'}, this.props.disabledColor]} />
+          <Icon name={icon} size={20} style={[{paddingHorizontal: 10, color: 'black'}, this.props.disabledColor]} />
         </TouchableOpacity>
       </View>
     )

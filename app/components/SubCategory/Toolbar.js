@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, Toolbar } from 'react-native-material-ui';
+import { Toolbar } from 'react-native-material-ui';
 import { StackActions } from '@react-navigation/native';
 import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
 

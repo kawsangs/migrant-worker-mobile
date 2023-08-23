@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, ImageBackground } from 'react-native';
-
-// import { Icon } from 'react-native-material-ui';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
 import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
 import CustomAudioPlayerComponent from '../shared/CustomAudioPlayerComponent';
 

@@ -14,7 +14,7 @@ import { withTranslation } from 'react-i18next';
 import CountryInstitution from '../../models/CountryInstitution';
 import InstitutionService from '../../services/institution_service';
 import institutionHelper from '../../helpers/institution_helper';
-import { Icon } from 'react-native-material-ui';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 class LookingForHelp extends React.Component {
   constructor(props) {

@@ -9,7 +9,8 @@ import {
 } from 'react-native';
 
 import ButtonNav from '../components/button_nav';
-import { Icon } from 'react-native-material-ui';
+// import { Icon } from 'react-native-material-ui';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Color, FontFamily, FontSize, Style } from '../assets/stylesheets/base_style';
 import Images from '../utils/images';
 import Sound from 'react-native-sound';

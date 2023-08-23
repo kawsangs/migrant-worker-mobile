@@ -1377,6 +1377,11 @@
   "resolved" "https://registry.npmjs.org/@react-native-community/netinfo/-/netinfo-6.0.5.tgz"
   "version" "6.0.5"
 
+"@react-native-community/slider@^4.4.3":
+  "integrity" "sha512-WdjvGtqJfqcCiLwtbzie53Z/H6w6dIfRHhlW832D89ySAdE5DxLAsqRhDOG0eacuAxxEB+T9sGCkVMD0fa3aBg=="
+  "resolved" "https://registry.npmjs.org/@react-native-community/slider/-/slider-4.4.3.tgz"
+  "version" "4.4.3"
+
 "@react-native-firebase/analytics@^18.2.0":
   "integrity" "sha512-Edua3uemAbInuUQLSKgK531aoPmgyGuBLrwM4ZHaNBNtgdRdATXluk8qHKu+b+/BkEuNqA4DEtXe8wl0DED1Aw=="
   "resolved" "https://registry.npmjs.org/@react-native-firebase/analytics/-/analytics-18.2.0.tgz"
@@ -6971,7 +6976,7 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-"prop-types@*", "prop-types@^15.5.10", "prop-types@^15.5.6", "prop-types@^15.5.7", "prop-types@^15.6.2", "prop-types@^15.7.2", "prop-types@^15.8.1":
+"prop-types@*", "prop-types@^15.5.10", "prop-types@^15.5.7", "prop-types@^15.6.2", "prop-types@^15.7.2", "prop-types@^15.8.1":
   "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   "version" "15.8.1"
@@ -7256,13 +7261,6 @@
   dependencies:
     "react-freeze" "^1.0.0"
     "warn-once" "^0.1.0"
-
-"react-native-slider@^0.11.0":
-  "integrity" "sha512-jV9K87eu9uWr0uJIyrSpBLnCKvVlOySC2wynq9TFCdV9oGgjt7Niq8Q1A8R8v+5GHsuBw/s8vEj1AAkkUi+u+w=="
-  "resolved" "https://registry.npmjs.org/react-native-slider/-/react-native-slider-0.11.0.tgz"
-  "version" "0.11.0"
-  dependencies:
-    "prop-types" "^15.5.6"
 
 "react-native-sound@0.11.0":
   "integrity" "sha512-4bGAZfni6E2L695NQjOZwNLBQGXgBGYC4Sy+h99K5h0HqNZjCqR0+aLel+ezASxEJDpaH83gylNObXpiqJgdwg=="

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
-import { Icon } from 'react-native-material-ui';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const NoConnection = (props) => {
   return (
