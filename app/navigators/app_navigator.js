@@ -23,13 +23,13 @@ import ListVideosScreen from '../screens/list_videos';
 
 import YourDepartureScreen from '../screens/your_departure/your_departure';
 
-// import YourSafetyScreen from '../screens/your_safety/your_safety';
-// import YourSafetySubCategoryScreen from '../screens/your_safety/sub_category';
+import YourSafetyScreen from '../screens/your_safety/your_safety';
+import YourSafetySubCategoryScreen from '../screens/your_safety/sub_category';
 
 // import YourStoryScreen from '../screens/your_story/your_story';
 // import CreateYourStoryScreen from '../screens/your_story/create_your_story';
-// import LookingForHelpScreen from '../screens/looking_for_help/looking_for_help';
-// import CountriesListingScreen from '../screens/looking_for_help/countries_listing';
+import LookingForHelpScreen from '../screens/looking_for_help/looking_for_help';
+import CountriesListingScreen from '../screens/looking_for_help/countries_listing';
 // import NotificationListScreen from '../screens/notification_list/notification_list';
 // import NotificationDetailScreen from '../screens/notification_detail/notification_detail';
 // import WelcomeVideoScreen from '../screens/welcome_video/welcome_video';
@@ -148,13 +148,13 @@ class AppNavigator extends Component {
           })}
         />
 
-        {/* <Stack.Screen name="YourSafetyLeafCategoryScreen" component={LeafCategoryScreen}
+        <Stack.Screen name="YourSafetyLeafCategoryScreen" component={LeafCategoryScreen}
           options={({route, navigation}) => ({
             title: route.params.title,
             headerStyle: { backgroundColor: Color.primary },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
-        /> */}
+        />
 
         {/* <Stack.Screen name="ImageViewScreen" component={ImageViewScreen}
           options={({route, navigation}) => ({
@@ -164,21 +164,21 @@ class AppNavigator extends Component {
           })}
         /> */}
 
-        {/* <Stack.Screen name="YourSafetyScreen" component={YourSafetyScreen}
+        <Stack.Screen name="YourSafetyScreen" component={YourSafetyScreen}
           options={({route, navigation}) => ({
             title: this.props.t('YourSafetyScreen.HeaderTitle'),
             headerStyle: { backgroundColor: Color.primary },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
-        /> */}
+        />
 
-        {/* <Stack.Screen name="YourSafetySubCategoryScreen" component={YourSafetySubCategoryScreen}
+        <Stack.Screen name="YourSafetySubCategoryScreen" component={YourSafetySubCategoryScreen}
           options={({route, navigation}) => ({
             title: route.params.title,
             headerStyle: { backgroundColor: Color.primary },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
-        /> */}
+        />
 
         {/* <Stack.Screen name="YourSafetyVideosScreen" component={ListVideosScreen}
           initialParams={{ category: 'your_safety' }}
@@ -221,19 +221,19 @@ class AppNavigator extends Component {
         /> */}
         {/* <Stack.Screen name="UserFormScreen" component={RegisterScreen} options={{ title: "កែតម្រូវគណនី" }} /> */}
 
-        {/* <Stack.Screen name="LookingForHelpScreen" component={LookingForHelpScreen}
+        <Stack.Screen name="LookingForHelpScreen" component={LookingForHelpScreen}
           options={({route, navigation}) => ({
             title: 'ស្វែងរកជំនួយ',
             headerStyle: { backgroundColor: Color.yellow, elevation: 0 },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
-          })} /> */}
+          })} />
 
-        {/* <Stack.Screen name="CountriesListingScreen" component={CountriesListingScreen}
+        <Stack.Screen name="CountriesListingScreen" component={CountriesListingScreen}
           options={({route, navigation}) => ({
             title: 'ជ្រើសរើសប្រទេសចំណាកស្រុក',
             headerStyle: { backgroundColor: Color.yellow },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
-          })} /> */}
+          })} />
 
         {/* <Stack.Screen name="NotificationListScreen" component={NotificationListScreen}
           options={({route, navigation}) => ({

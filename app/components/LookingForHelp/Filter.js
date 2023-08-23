@@ -43,7 +43,7 @@ class LookingForHelp extends React.Component {
 
           <View style={styles.searchContainer}>
             <TouchableOpacity>
-              <Icon name="search" style={{ marginLeft: 15 }} />
+              <Icon name="search" size={24} color={Color.gray} style={{ marginLeft: 15 }} />
             </TouchableOpacity>
 
             <TextInput
