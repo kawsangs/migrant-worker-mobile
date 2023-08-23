@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Image, ImageBackground, Dimensions, PixelRatio } from 'react-native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Images from '../../utils/images';
 
@@ -52,7 +53,7 @@ class WelcomeSmallScreenContent extends Component {
           active={true}
           title={"បន្តចូលមើល ជាភ្ញៀវ"}
           image={"head_profile"}
-          iconSet={'MaterialCommunityIcons'}
+          iconSet={<MaterialCommunityIcon/>}
           audio={"login_as_guest.mp3"}
           onPress={() => this.showConsentForm()}
           buttonColor="#e44977"
