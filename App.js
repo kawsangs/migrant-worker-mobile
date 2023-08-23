@@ -62,13 +62,19 @@ class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <ThemeContext.Provider value={getTheme(uiTheme)}>
+        {/* <GestureHandlerRootView style={{flex: 1}}>
+          <BottomSheetModalProvider>
+            <AppNavigator/>
+          </BottomSheetModalProvider>
+        </GestureHandlerRootView> */}
+
+        {/* <ThemeContext.Provider value={getTheme(uiTheme)}> */}
           <GestureHandlerRootView style={{flex: 1}}>
             <BottomSheetModalProvider>
               <AppNavigator/>
             </BottomSheetModalProvider>
           </GestureHandlerRootView>
-        </ThemeContext.Provider>
+        {/* </ThemeContext.Provider> */}
       </Provider>
     )
   }

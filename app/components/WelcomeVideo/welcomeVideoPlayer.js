@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Dimensions } from 'react-native';
-import Video from 'react-native-video';
+import { Dimensions, Text } from 'react-native';
+// import Video from 'react-native-video';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 class WelcomeVideoPlayer extends Component {
@@ -26,20 +26,22 @@ class WelcomeVideoPlayer extends Component {
   }
 
   render() {
-    return (
-      <Video
-        source={require('../../assets/videos/MYJOURNEY_LAUNCH_FILM_small.mp4')}
-        style={{ width: '100%', height: wp('56%')}}
-        controls={true}
-        resizeMode='contain'
-        fullscreenOrientation='all'
-        fullscreenAutorotate={true}
-        onEnd={() => this.onVideoEnd()}
-        fullscreen={this.state.isFullScreen}
-        onTouchEnd={() => this.setState({ isFullScreen: true })}
-        onFullscreenPlayerDidDismiss={() => this.setState({isFullScreen: false})}
-      />
-    )
+    return <Text>Welcome video player</Text>
+
+    // return (
+    //   <Video
+    //     source={require('../../assets/videos/MYJOURNEY_LAUNCH_FILM_small.mp4')}
+    //     style={{ width: '100%', height: wp('56%')}}
+    //     controls={true}
+    //     resizeMode='contain'
+    //     fullscreenOrientation='all'
+    //     fullscreenAutorotate={true}
+    //     onEnd={() => this.onVideoEnd()}
+    //     fullscreen={this.state.isFullScreen}
+    //     onTouchEnd={() => this.setState({ isFullScreen: true })}
+    //     onFullscreenPlayerDidDismiss={() => this.setState({isFullScreen: false})}
+    //   />
+    // )
   }
 }
 

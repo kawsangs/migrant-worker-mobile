@@ -17,27 +17,27 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // screens
 import WelcomeScreen from '../screens/welcome';
 import RegisterScreen from '../screens/register';
-import AboutScreen from '../screens/about';
-import ViewVideoScreen from '../screens/view_video';
-import ImageViewScreen from '../screens/image_view';
+// import AboutScreen from '../screens/about';
+// import ViewVideoScreen from '../screens/view_video';
+// import ImageViewScreen from '../screens/image_view';
 import ListVideosScreen from '../screens/list_videos';
 
 import YourDepartureScreen from '../screens/your_departure/your_departure';
 
-import YourSafetyScreen from '../screens/your_safety/your_safety';
-import YourSafetySubCategoryScreen from '../screens/your_safety/sub_category';
+// import YourSafetyScreen from '../screens/your_safety/your_safety';
+// import YourSafetySubCategoryScreen from '../screens/your_safety/sub_category';
 
-import YourStoryScreen from '../screens/your_story/your_story';
-import CreateYourStoryScreen from '../screens/your_story/create_your_story';
-import LookingForHelpScreen from '../screens/looking_for_help/looking_for_help';
-import CountriesListingScreen from '../screens/looking_for_help/countries_listing';
-import NotificationListScreen from '../screens/notification_list/notification_list';
-import NotificationDetailScreen from '../screens/notification_detail/notification_detail';
-import WelcomeVideoScreen from '../screens/welcome_video/welcome_video';
+// import YourStoryScreen from '../screens/your_story/your_story';
+// import CreateYourStoryScreen from '../screens/your_story/create_your_story';
+// import LookingForHelpScreen from '../screens/looking_for_help/looking_for_help';
+// import CountriesListingScreen from '../screens/looking_for_help/countries_listing';
+// import NotificationListScreen from '../screens/notification_list/notification_list';
+// import NotificationDetailScreen from '../screens/notification_detail/notification_detail';
+// import WelcomeVideoScreen from '../screens/welcome_video/welcome_video';
 
-import SubCategoryScreen from '../screens/sub_category/sub_category';
-import LeafCategoryScreen from '../screens/leaf_category/leaf_category';
-import SurveyFormScreen from '../screens/survey_forms/SurveyFormScreen';
+// import SubCategoryScreen from '../screens/sub_category/sub_category';
+// import LeafCategoryScreen from '../screens/leaf_category/leaf_category';
+// import SurveyFormScreen from '../screens/survey_forms/SurveyFormScreen';
 import BottomTabNavigator from './bottom_tab_navigator';
 import HomeButton from '../components/Toolbar/HomeButton';
 import DeleteNotificationButton from '../components/Toolbar/deleteNotificationButton';
@@ -109,7 +109,12 @@ class AppNavigator extends Component {
   _appStack() {
     return (
       <>
-        <Stack.Screen name="HomeScreen" component={BottomTabNavigator} options={{ headerShown: false }} />
+        {/* <Stack.Screen name="HomeScreen" component={BottomTabNavigator} options={{ headerShown: false }} /> */}
+        <Stack.Screen name="MainScreen" component={BottomTabNavigator}
+          options={{
+            header: () => null,
+          }}
+        />
         <Stack.Screen name="YourDepartureScreen" component={YourDepartureScreen}
           options={({route, navigation}) => ({
             title: this.props.t("BeforeYouGoScreen.HeaderTitle"),
@@ -128,55 +133,55 @@ class AppNavigator extends Component {
           })}
         />
 
-        <Stack.Screen name="SubCategoryScreen" component={SubCategoryScreen}
+        {/* <Stack.Screen name="SubCategoryScreen" component={SubCategoryScreen}
           options={({route, navigation}) => ({
             title: route.params.title,
             headerStyle: { backgroundColor: Color.beforeYouGoColor },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
-        />
+        /> */}
 
-        <Stack.Screen name="LeafCategoryScreen" component={LeafCategoryScreen}
+        {/* <Stack.Screen name="LeafCategoryScreen" component={LeafCategoryScreen}
           options={({route, navigation}) => ({
             title: route.params.title,
             headerStyle: { backgroundColor: Color.beforeYouGoColor },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
-        />
+        /> */}
 
-        <Stack.Screen name="YourSafetyLeafCategoryScreen" component={LeafCategoryScreen}
+        {/* <Stack.Screen name="YourSafetyLeafCategoryScreen" component={LeafCategoryScreen}
           options={({route, navigation}) => ({
             title: route.params.title,
             headerStyle: { backgroundColor: Color.primary },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
-        />
+        /> */}
 
-        <Stack.Screen name="ImageViewScreen" component={ImageViewScreen}
+        {/* <Stack.Screen name="ImageViewScreen" component={ImageViewScreen}
           options={({route, navigation}) => ({
             title: route.params.title,
             headerStyle: { backgroundColor: Color.red },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
-        />
+        /> */}
 
-        <Stack.Screen name="YourSafetyScreen" component={YourSafetyScreen}
+        {/* <Stack.Screen name="YourSafetyScreen" component={YourSafetyScreen}
           options={({route, navigation}) => ({
             title: this.props.t('YourSafetyScreen.HeaderTitle'),
             headerStyle: { backgroundColor: Color.primary },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
-        />
+        /> */}
 
-        <Stack.Screen name="YourSafetySubCategoryScreen" component={YourSafetySubCategoryScreen}
+        {/* <Stack.Screen name="YourSafetySubCategoryScreen" component={YourSafetySubCategoryScreen}
           options={({route, navigation}) => ({
             title: route.params.title,
             headerStyle: { backgroundColor: Color.primary },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
-        />
+        /> */}
 
-        <Stack.Screen name="YourSafetyVideosScreen" component={ListVideosScreen}
+        {/* <Stack.Screen name="YourSafetyVideosScreen" component={ListVideosScreen}
           initialParams={{ category: 'your_safety' }}
           options={({route, navigation}) => ({
             title: this.props.t("VideosScreen.HeaderTitle"),
@@ -184,75 +189,75 @@ class AppNavigator extends Component {
             headerStyle: { backgroundColor: Color.white, elevation: 0 },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
-        />
+        /> */}
 
-        <Stack.Screen name="YourStoryScreen" component={YourStoryScreen}
+        {/* <Stack.Screen name="YourStoryScreen" component={YourStoryScreen}
           options={({route, navigation}) => ({
             title: this.props.t('YourStoryScreen.HeaderTitle'),
             headerStyle: { backgroundColor: Color.pink },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
-        />
+        /> */}
 
-        <Stack.Screen name="CreateYourStoryScreen" component={CreateYourStoryScreen}
+        {/* <Stack.Screen name="CreateYourStoryScreen" component={CreateYourStoryScreen}
           options={({route, navigation}) => ({
             title: this.props.t('CreateYourStoryScreen.HeaderTitle'),
             headerStyle: { backgroundColor: Color.pink, elevation: 0 },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
-        />
+        /> */}
 
-        <Stack.Screen name="AboutScreen" component={AboutScreen}
+        {/* <Stack.Screen name="AboutScreen" component={AboutScreen}
           options={({route, navigation}) => ({
             title: route.params.title || "អំពី",
             headerStyle: { backgroundColor: Color.primary },
           })}
-        />
-        <Stack.Screen name="ViewVideoScreen" component={ViewVideoScreen}
+        /> */}
+        {/* <Stack.Screen name="ViewVideoScreen" component={ViewVideoScreen}
           options={({route, navigation}) => ({
             title: "វីដេអូ",
             headerStyle: { backgroundColor: Color.primary },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
-        />
-        <Stack.Screen name="UserFormScreen" component={RegisterScreen} options={{ title: "កែតម្រូវគណនី" }} />
+        /> */}
+        {/* <Stack.Screen name="UserFormScreen" component={RegisterScreen} options={{ title: "កែតម្រូវគណនី" }} /> */}
 
-        <Stack.Screen name="LookingForHelpScreen" component={LookingForHelpScreen}
+        {/* <Stack.Screen name="LookingForHelpScreen" component={LookingForHelpScreen}
           options={({route, navigation}) => ({
             title: 'ស្វែងរកជំនួយ',
             headerStyle: { backgroundColor: Color.yellow, elevation: 0 },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
-          })} />
+          })} /> */}
 
-        <Stack.Screen name="CountriesListingScreen" component={CountriesListingScreen}
+        {/* <Stack.Screen name="CountriesListingScreen" component={CountriesListingScreen}
           options={({route, navigation}) => ({
             title: 'ជ្រើសរើសប្រទេសចំណាកស្រុក',
             headerStyle: { backgroundColor: Color.yellow },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
-          })} />
+          })} /> */}
 
-        <Stack.Screen name="NotificationListScreen" component={NotificationListScreen}
+        {/* <Stack.Screen name="NotificationListScreen" component={NotificationListScreen}
           options={({route, navigation}) => ({
             title: this.props.t('NotificationListScreen.HeaderTitle'),
             headerStyle: { backgroundColor: Color.primary },
             headerRight: (props) => (<HomeButton navigation={navigation}/>),
           })}
-        />
+        /> */}
 
-        <Stack.Screen name="NotificationDetailScreen" component={NotificationDetailScreen}
+        {/* <Stack.Screen name="NotificationDetailScreen" component={NotificationDetailScreen}
           options={({route, navigation}) => ({
             title: this.props.t('NotificationDetailScreen.HeaderTitle'),
             headerStyle: { backgroundColor: Color.primary },
             headerRight: (props) => (<DeleteNotificationButton navigation={navigation} uuid={route.params.uuid} />),
           })}
-        />
+        /> */}
 
-        <Stack.Screen name="SurveyFormScreen" component={SurveyFormScreen}
+        {/* <Stack.Screen name="SurveyFormScreen" component={SurveyFormScreen}
           options={({route, navigation}) => ({
             title: route.params.title || "ការស្ទង់មតិ",
             headerStyle: { backgroundColor: Color.primary },
           })}
-        />
+        /> */}
       </>
     )
   }

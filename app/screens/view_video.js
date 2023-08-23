@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Dimensions, StyleSheet } from 'react-native';
-import YoutubePlayer from "react-native-youtube-iframe";
-import Video from 'react-native-video';
+// import YoutubePlayer from "react-native-youtube-iframe";
+// import Video from 'react-native-video';
 
 import {isSmallScreenDevice} from '../utils/responsive_util';
 
@@ -18,7 +18,7 @@ const ViewVideo = ({ route, navigation }) => {
 
   return (
     <View style={{ backgroundColor: '#000', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      { isLocalVideo ?
+      {/* { isLocalVideo ?
         <Video
           source={videoId}
           style={styles.videoPlayer}
@@ -35,7 +35,7 @@ const ViewVideo = ({ route, navigation }) => {
           play={true}
           videoId={videoId}
         />
-      } 
+      }  */}
     </View>
   );
 };

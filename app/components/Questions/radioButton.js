@@ -1,66 +1,66 @@
 /* eslint-disable import/no-unresolved, import/extensions */
-import { StyleSheet, Text, View, ViewPropTypes as RNViewPropTypes, Image } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 /* eslint-enable import/no-unresolved, import/extensions */
 import { IconToggle, RippleFeedback } from 'react-native-material-ui';
 import withTheme from 'react-native-material-ui/src/styles/withTheme';
 import { Color } from '../../assets/stylesheets/base_style';
 import uuidv4 from '../../utils/uuidv4';
 
-const propTypes = {
-  /**
-   * Text will be shown after Icon
-   */
-  label: PropTypes.string.isRequired,
-  /**
-   * Value will be returned when onCheck is fired
-   */
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  /**
-   * True if it's check
-   */
-  checked: PropTypes.bool,
-  /**
-   * Is checkbox active
-   */
-  disabled: PropTypes.bool,
-  /**
-   * Will be shown when checked is false
-   */
-  uncheckedIcon: PropTypes.string,
-  /**
-   * Will be shown when checked is true
-   */
-  checkedIcon: PropTypes.string,
-  /**
-   * Event that is called when state is changed
-   */
-  // onCheck: PropTypes.func.isRequired,
-  /**
-   * Name of Icon set that should be use. From react-native-vector-icons
-   */
-  iconSet: PropTypes.string,
-  style: PropTypes.shape({
-    container: {},
-    // FIXME:
-    icon: PropTypes.any, // eslint-disable-line
-    label: Text.propTypes.style, // eslint-disable-line
-  }),
-  /**
-   * Size of icon
-   */
-  size: PropTypes.number,
-};
-const defaultProps = {
-  checked: false,
-  checkedIcon: 'radio-button-checked',
-  uncheckedIcon: 'radio-button-unchecked',
-  disabled: false,
-  style: {},
-  size: 24,
-  iconSet: null,
-};
+// const propTypes = {
+//   /**
+//    * Text will be shown after Icon
+//    */
+//   label: PropTypes.string.isRequired,
+//   /**
+//    * Value will be returned when onCheck is fired
+//    */
+//   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+//   /**
+//    * True if it's check
+//    */
+//   checked: PropTypes.bool,
+//   /**
+//    * Is checkbox active
+//    */
+//   disabled: PropTypes.bool,
+//   /**
+//    * Will be shown when checked is false
+//    */
+//   uncheckedIcon: PropTypes.string,
+//   /**
+//    * Will be shown when checked is true
+//    */
+//   checkedIcon: PropTypes.string,
+//   /**
+//    * Event that is called when state is changed
+//    */
+//   // onCheck: PropTypes.func.isRequired,
+//   /**
+//    * Name of Icon set that should be use. From react-native-vector-icons
+//    */
+//   iconSet: PropTypes.string,
+//   style: PropTypes.shape({
+//     container: {},
+//     // FIXME:
+//     icon: PropTypes.any, // eslint-disable-line
+//     label: Text.propTypes.style, // eslint-disable-line
+//   }),
+//   /**
+//    * Size of icon
+//    */
+//   size: PropTypes.number,
+// };
+// const defaultProps = {
+//   checked: false,
+//   checkedIcon: 'radio-button-checked',
+//   uncheckedIcon: 'radio-button-unchecked',
+//   disabled: false,
+//   style: {},
+//   size: 24,
+//   iconSet: null,
+// };
 
 function getStyles(props) {
   const { disabled, theme } = props;
@@ -142,7 +142,7 @@ class RadioButton extends Component {
   }
 }
 
-RadioButton.propTypes = propTypes;
-RadioButton.defaultProps = defaultProps;
+// RadioButton.propTypes = propTypes;
+// RadioButton.defaultProps = defaultProps;
 
 export default withTheme(RadioButton);

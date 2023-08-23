@@ -1,8 +1,9 @@
 'use strict';
 
+import Realm from 'realm';
 import formList from '../../json/form_stories';
 
-class Form {
+class Form extends Realm.Object {
   get imageSource() {
     if (!this.image) { return "" }
 

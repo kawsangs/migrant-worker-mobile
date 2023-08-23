@@ -1,9 +1,10 @@
 'use strict';
 
+import Realm from 'realm';
 import categoryList from '../../json/categories';
 const categoryImages = categoryList.reduce((sum, item) => sum.concat(item.category_images), []);
 
-class CategoryImage {
+class CategoryImage extends Realm.Object {
   get offlineSource() {
     return categoryImages.filter(cate => cate.id == this.id)[0].image;
   }
