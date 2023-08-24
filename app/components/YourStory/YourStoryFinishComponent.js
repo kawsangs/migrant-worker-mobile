@@ -38,7 +38,7 @@ const YourStoryFinishComponent = (props) => {
                   <View style={{flex: 1}}/>
                   <Text style={{fontFamily: FontFamily.title, color: '#fff', textAlign: 'center'}}>ចូលទៅសាច់រឿង "{props.nextForm.name}"</Text>
                   <View style={{flex: 1, alignItems: 'flex-end'}}>
-                    <Icon name={'arrow-forward'} style={{color: '#fff'}}/>
+                    <Icon name={'arrow-forward'} size={24} style={{color: '#fff', marginTop: 2}}/>
                   </View>
                 </TouchableOpacity>
               }
@@ -49,7 +49,7 @@ const YourStoryFinishComponent = (props) => {
                 onPress={() => navigation.goBack()}
               >
                 <View style={{flex: 1, alignItems: 'flex-start'}}>
-                  <Icon name={'arrow-back'} style={{color: '#fff'}}/>
+                  <Icon name={'arrow-back'} size={24} style={{color: '#fff', marginTop: 2}}/>
                 </View>
                 <Text style={{fontFamily: FontFamily.title, color: '#fff', textAlign: 'center'}}>ត្រឡប់ទៅកាន់ "សាច់រឿងរបស់អ្នក"</Text>
                 <View style={{flex: 1}}/>

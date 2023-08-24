@@ -50,6 +50,7 @@ const registerScreenStyles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 15,
     paddingVertical: 6,
+    paddingBottom: 12,
     marginBottom: 34,
   },
 });

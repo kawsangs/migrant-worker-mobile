@@ -23,6 +23,10 @@ const SurveyFormContentComponent = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (<HeaderBackButton tintColor={"#fff"} onPress={() => alertRef.current?.setAlertVisibility(true)}/>)
+    });
+
     let formattedAnswers = {};
     sections.map((section, index) => {
       formattedAnswers[index] = {};
@@ -35,10 +39,6 @@ const SurveyFormContentComponent = (props) => {
     })
     return () => !!backHandler && backHandler.remove()
   }, [])
-
-  navigation.setOptions({
-    headerLeft: () => (<HeaderBackButton tintColor={"#fff"} onPress={() => alertRef.current?.setAlertVisibility(true)}/>)
-  });
 
   const updateAnswers = (key, answer) => {
     let newAnswers = answers;

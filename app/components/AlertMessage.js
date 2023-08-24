@@ -55,7 +55,7 @@ class AlertMessage extends Component {
   render() {
     return (
       <Portal>
-        <Dialog visible={this.props.show} style={{borderRadius: 8, backgroundColor: Color.white}}>
+        <Dialog visible={this.props.show} style={{borderRadius: 2, backgroundColor: Color.white}}>
           <Dialog.Content style={{marginTop: 16}}>
             {this.renderTitle()}
             <Text style={{marginTop: 16}}>{ this.props.message }</Text>
