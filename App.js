@@ -4,7 +4,7 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 import { setCustomText} from 'react-native-global-props';
 import SplashScreen from 'react-native-splash-screen';
-import { PaperProvider } from 'react-native-paper';
+import { PaperProvider, DefaultTheme } from 'react-native-paper';
 import AppNavigator from './app/navigators/app_navigator';
 import IndexWorker from './app/workers/index_worker';
 import { Color, FontFamily, FontSize } from './app/assets/stylesheets/base_style';
@@ -29,6 +29,13 @@ const customTextProps = {
   }
 };
 
+const paperTheme = {
+  ...DefaultTheme,
+  colors: {
+    primary: Color.primary,
+  }
+}
+
 const store = configureStore();
 
 setCustomText(customTextProps);
@@ -50,7 +57,7 @@ class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <PaperProvider>
+        <PaperProvider theme={paperTheme}>
           <GestureHandlerRootView style={{flex: 1}}>
             <BottomSheetModalProvider>
               <AppNavigator/>

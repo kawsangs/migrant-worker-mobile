@@ -37,9 +37,9 @@ class QuestionsSelectOne extends Component {
         {
           this.state.options.map((item, index) => {
             return <RadioButtonComponent key={`radio-${index}`} label={item.name} value={item.id.toString()} image={item.imageSource}
-                      onPress={() => {
-                        const option = this.state.options.filter(o => o.id.toString() == item.id.toString())[0];
-                        this.setState({answer: item.id.toString(), selectedOption: option});
+                      onPress={(value) => {
+                        const option = this.state.options.filter(o => o.id.toString() == value)[0];
+                        this.setState({answer: value, selectedOption: option});
                       }}
                    />
           })
