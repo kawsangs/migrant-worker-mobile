@@ -1134,6 +1134,11 @@
   "resolved" "https://registry.npmjs.org/@jsamr/react-native-li/-/react-native-li-2.3.1.tgz"
   "version" "2.3.1"
 
+"@miblanchard/react-native-slider@^2.3.1":
+  "integrity" "sha512-J/hZDBWmXq8fJeOnTVHqIUVDHshqMSpJVxJ4WqwuCBKl5Rke9OBYXIdkSlgi75OgtScAr8FKK5KNkDKHUf6JIg=="
+  "resolved" "https://registry.npmjs.org/@miblanchard/react-native-slider/-/react-native-slider-2.3.1.tgz"
+  "version" "2.3.1"
+
 "@native-html/css-processor@1.11.0":
   "integrity" "sha512-NnhBEbJX5M2gBGltPKOetiLlKhNf3OHdRafc8//e2ZQxXN8JaSW/Hy8cm94pnIckQxwaMKxrtaNT3x4ZcffoNQ=="
   "resolved" "https://registry.npmjs.org/@native-html/css-processor/-/css-processor-1.11.0.tgz"
@@ -1384,11 +1389,6 @@
   "integrity" "sha512-742sh+NMbPo59MaLRXBWwkT5K6HQPrmoS0pg0z9QuXshXieQIOTkqEEDMkQZS0QnS8fPFr8MxMPw/TAxH9b8Ig=="
   "resolved" "https://registry.npmjs.org/@react-native-community/netinfo/-/netinfo-6.2.1.tgz"
   "version" "6.2.1"
-
-"@react-native-community/slider@^4.4.3":
-  "integrity" "sha512-WdjvGtqJfqcCiLwtbzie53Z/H6w6dIfRHhlW832D89ySAdE5DxLAsqRhDOG0eacuAxxEB+T9sGCkVMD0fa3aBg=="
-  "resolved" "https://registry.npmjs.org/@react-native-community/slider/-/slider-4.4.3.tgz"
-  "version" "4.4.3"
 
 "@react-native-firebase/analytics@^18.2.0":
   "integrity" "sha512-Edua3uemAbInuUQLSKgK531aoPmgyGuBLrwM4ZHaNBNtgdRdATXluk8qHKu+b+/BkEuNqA4DEtXe8wl0DED1Aw=="
