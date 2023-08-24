@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import { Dialog, Portal } from 'react-native-paper';
 import { connect } from 'react-redux';
 
 import { Color, FontFamily } from '../assets/stylesheets/base_style';
-import { Dialog } from 'react-native-material-ui';
 import OutlineInfoIcon from './OutlineInfoIcon';
 import AppIcon from './AppIcon';
 
@@ -40,39 +40,33 @@ class AlertMessage extends Component {
            />
   }
 
-  render() {
-    if (!this.props.show) {
-      return (null);
-    }
-
-    return (
-      <View style={{position: 'absolute', width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.3)', alignItems: 'center', justifyContent: 'center', zIndex: 10, elevation: 3}}>
-        <Dialog>
-          <Dialog.Content>
-            <View style={{marginHorizontal: -10}}>
-              <View style={{flexDirection: 'row'}}>
-                {this.renderIcon()}
-
-                <View style={{flex: 1, paddingRight: 5, justifyContent: 'center'}}>
-                  { this.props.title ?
-                    <Text style={{fontFamily: FontFamily.title}}>{this.props.title}</Text>
-                    :
-                    <Text style={{fontFamily: FontFamily.title}}>សូមចំណាំ</Text>
-                  }
-                </View>
-                { !this.props.hideAudio && this.renderAudioPlayer() }
-              </View>
+  renderTitle() {
+    return <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              {this.renderIcon()}
+              { this.props.title ?
+                <Text style={{fontFamily: FontFamily.title, flex: 1}}>{this.props.title}</Text>
+                :
+                <Text style={{fontFamily: FontFamily.title, flex: 1}}>សូមចំណាំ</Text>
+              }
+              { !this.props.hideAudio && this.renderAudioPlayer() }
             </View>
+  }
 
-            <Text style={{marginTop: 10}}>{ this.props.message }</Text>
+  render() {
+    return (
+      <Portal>
+        <Dialog visible={this.props.show} style={{borderRadius: 8, backgroundColor: Color.white}}>
+          <Dialog.Content style={{marginTop: 16}}>
+            {this.renderTitle()}
+            <Text style={{marginTop: 16}}>{ this.props.message }</Text>
           </Dialog.Content>
 
-          <Dialog.Actions>
+          <Dialog.Actions style={{paddingBottom: 18, paddingRight: 18}}>
             {this.renderButtons()}
           </Dialog.Actions>
         </Dialog>
-      </View>
-    );
+      </Portal>
+    )
   }
 }
 

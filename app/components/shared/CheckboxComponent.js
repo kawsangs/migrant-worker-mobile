@@ -5,7 +5,7 @@ import {Color} from '../../assets/stylesheets/base_style';
 
 const RadioButtonComponent = (props) => {
   return (
-    <TouchableOpacity onPress={() => props.onPress()}
+    <TouchableOpacity onPress={() => props.onPress(props.value)}
       style={{flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderColor: Color.divideLineColor, paddingVertical: 6}}
     >
       <Checkbox.Item status={props.selected ? 'checked' : 'unchecked'} value={props.value} style={{paddingLeft: 0}} />

@@ -32,8 +32,9 @@ const customTextProps = {
 const paperTheme = {
   ...DefaultTheme,
   colors: {
+    ...DefaultTheme.colors,
     primary: Color.primary,
-  }
+  },
 }
 
 const store = configureStore();

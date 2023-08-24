@@ -1,9 +1,7 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
-import {View} from 'react-native';
-// import RadioButton from '../Questions/radioButton';
+import { RadioButton } from 'react-native-paper';
 import RadioButtonComponent from '../shared/RadioButtonComponent';
-import { Color } from '../../assets/stylesheets/base_style';
 
 const SurveyFormSelectOneComponent = (props) => {
   const {options} = props;
@@ -26,24 +24,21 @@ const SurveyFormSelectOneComponent = (props) => {
     props.updateAnswer(answerParams);
   }
 
-  return options.map(option => {
-    return <RadioButtonComponent
-              key={option.id}
-              label={option.name}
-              value={option.id.toString()}
-              onPress={(value) => onSelect(value)}
-           />
-
-    // return <View key={option.id} style={{minHeight: 48, paddingVertical: 6, borderBottomWidth: 1, borderColor: Color.divideLineColor}}>
-    //           <RadioButton
-    //             label={option.name}
-    //             checked={ !!selectedOption ? option.id.toString() == selectedOption.id : false }
-    //             value={option.id.toString()}
-    //             onSelect={id => onSelect(id)}
-    //             avata={option.imageSource}
-    //           />
-    //        </View>
-  })
+  return (
+    <RadioButton.Group value={!!selectedOption ? selectedOption.id.toString() : null}>
+      {
+        options.map(option => {
+          return <RadioButtonComponent
+                    key={option.id}
+                    label={option.name}
+                    value={option.id.toString()}
+                    onPress={(value) => onSelect(value)}
+                    selectedValue={selectedOption}
+                 />
+        })
+      }
+    </RadioButton.Group>
+  )
 }
 
 export default SurveyFormSelectOneComponent;

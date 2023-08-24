@@ -60,7 +60,7 @@ class QuestionsMultiple extends Component {
           label={item.name}
           value={value}
           selected={answers.includes(value)}
-          onPress={() => self._onCheckOption(value)}
+          onPress={(val) => self._onCheckOption(val)}
         />
       );
     })

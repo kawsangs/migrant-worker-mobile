@@ -23,7 +23,7 @@ const SurveyFormAlertMessageComponent = React.forwardRef((props, ref) => {
   const exitSurvey = () => {
     setVisible(false);
     dispatch(setCurrentPlayingAudio(null));
-    navigation.reset({ index: 1, routes: [{name: 'HomeScreen'}, { name: 'NotificationListScreen' }]});
+    navigation.reset({ index: 1, routes: [{name: 'BottomTab'}, { name: 'NotificationListScreen' }]});
   }
 
   return <AlertMessage

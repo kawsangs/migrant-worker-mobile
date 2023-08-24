@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {ScrollView, BackHandler} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { HeaderBackButton } from '@react-navigation/stack';
+import { HeaderBackButton } from '@react-navigation/elements';
 
 import SurveyFormQuestionComponent from './SurveyFormQuestionComponent';
 import SurveyFormButtonComponent from './SurveyFormButtonComponent';
@@ -70,7 +70,7 @@ const SurveyFormContentComponent = (props) => {
     }
     else if (currentSection == sections.length - 1) {
       new SurveyFormService().submitSurvey(answers, currentQuiz.uuid);
-      navigation.reset({ index: 1, routes: [{name: 'HomeScreen'}, { name: 'NotificationListScreen' }]});
+      navigation.reset({ index: 1, routes: [{name: 'BottomTab'}, { name: 'NotificationListScreen' }]});
     }
   }
 
