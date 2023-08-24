@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, ScrollView } from 'react-native';
+import {Checkbox} from 'react-native-paper';
 
 import { Style } from '../../assets/stylesheets/base_style';
 import uuidv4 from '../../utils/uuidv4';
@@ -11,7 +12,7 @@ import Question from '../../models/Question';
 import Answer from '../../models/Answer';
 import Option from '../../models/Option';
 
-import { Checkbox } from 'react-native-material-ui'
+// import { Checkbox } from 'react-native-material-ui'
 import NextButton from '../../components/YourStory/NextButton';
 import QuestionName from './questionName';
 import AlertMessage from '../../components/AlertMessage';
@@ -57,11 +58,17 @@ class QuestionsMultiple extends Component {
 
       return (
         <View style={{borderBottomWidth: 1, borderColor: '#e6e7e9', paddingVertical: 6}} key={index}>
-          <Checkbox
+          <Checkbox.Item
+            status={answers.includes(value)}
+            label={item.name}
+            onPress={() => self._onCheckOption(value)}
+          />
+
+          {/* <Checkbox
             label={item.name}
             value={value}
             checked={answers.includes(value)}
-            onCheck={(checked, value) => self._onCheckOption(value)} />
+            onCheck={(checked, value) => self._onCheckOption(value)} /> */}
         </View>
       );
     })

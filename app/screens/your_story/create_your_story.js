@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, StatusBar, BackHandler } from 'react-native';
+import { View, StatusBar, BackHandler, Text } from 'react-native';
+import {HeaderBackButton} from '@react-navigation/elements';
 
 import { Color } from '../../assets/stylesheets/base_style';
 
@@ -23,8 +24,8 @@ import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexActio
 import AlertMessage from '../../components/AlertMessage';
 import { setCurrentQuiz } from '../../actions/currentQuizAction';
 import uuidv4 from '../../utils/uuidv4';
-import { HeaderBackButton } from '@react-navigation/stack';
 import HomeButton from '../../components/Toolbar/HomeButton';
+
 
 class CreateYourStory extends Component {
   state = {loading: true};

@@ -1,15 +1,10 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
-import { ThemeContext, getTheme } from 'react-native-material-ui';
 import { setCustomText} from 'react-native-global-props';
 import SplashScreen from 'react-native-splash-screen';
+import { PaperProvider } from 'react-native-paper';
 import AppNavigator from './app/navigators/app_navigator';
 import IndexWorker from './app/workers/index_worker';
 import { Color, FontFamily, FontSize } from './app/assets/stylesheets/base_style';
@@ -34,13 +29,6 @@ const customTextProps = {
   }
 };
 
-const uiTheme = {
-  fontFamily: FontFamily.body,
-  palette: {
-    primaryColor: Color.primary
-  },
-};
-
 const store = configureStore();
 
 setCustomText(customTextProps);
@@ -62,19 +50,13 @@ class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        {/* <GestureHandlerRootView style={{flex: 1}}>
-          <BottomSheetModalProvider>
-            <AppNavigator/>
-          </BottomSheetModalProvider>
-        </GestureHandlerRootView> */}
-
-        {/* <ThemeContext.Provider value={getTheme(uiTheme)}> */}
+        <PaperProvider>
           <GestureHandlerRootView style={{flex: 1}}>
             <BottomSheetModalProvider>
               <AppNavigator/>
             </BottomSheetModalProvider>
           </GestureHandlerRootView>
-        {/* </ThemeContext.Provider> */}
+        </PaperProvider>
       </Provider>
     )
   }
