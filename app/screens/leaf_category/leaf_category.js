@@ -20,6 +20,7 @@ const tagsStyles = {
     fontFamily: FontFamily.title,
     fontWeight: "400",
     fontSize: 18,
+    lineHeight: 34
   },
   div: {
     fontFamily: FontFamily.body,
@@ -33,7 +34,7 @@ const tagsStyles = {
     lineHeight: 30,
   },
   li: {
-    marginTop: -4
+    marginLeft: 6
   },
 }
 

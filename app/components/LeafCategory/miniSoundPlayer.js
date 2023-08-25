@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import { FontFamily } from '../../assets/stylesheets/base_style';
+import { Color, FontFamily } from '../../assets/stylesheets/base_style';
 
 class MiniSoundPlayer extends Component {
   constructor(props) {
@@ -10,8 +10,6 @@ class MiniSoundPlayer extends Component {
   }
 
   render() {
-    const icon = this.props.playing ? 'pause' : 'play';
-
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={() => this.props.openModal()} style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
@@ -27,7 +25,7 @@ class MiniSoundPlayer extends Component {
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => this.props.playAudio()}>
-          <Icon name={icon} size={20} style={[{paddingHorizontal: 10, color: 'black'}, this.props.disabledColor]} />
+          <Icon name={!!this.props.countInterval ? 'pause' : 'play'} size={20} style={[{paddingHorizontal: 10, color: 'black'}, !this.props.audio && { color: Color.lightGray }]} />
         </TouchableOpacity>
       </View>
     )
