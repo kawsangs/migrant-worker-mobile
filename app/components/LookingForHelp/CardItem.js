@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
-import { Icon } from 'react-native-material-ui';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { withTranslation } from 'react-i18next';
 import contactHelper from '../../helpers/contact_helper';
 import CustomAudioPlayerComponent from '../shared/CustomAudioPlayerComponent';
@@ -91,7 +91,7 @@ class CardItem extends React.Component {
         { borderBottomWidth: is_last_item ? 0 : 1, }]} key={index}
         onPress={() => this.callOrOpenLink(contactInfo)}  
       >
-        <Icon iconSet="FontAwesome"
+        <Icon
           name={contactInfo.type.toLowerCase() == 'website' ? 'globe' : contactInfo.type.toLowerCase()}
           size={24}
           color={Color.yellow}

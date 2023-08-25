@@ -1,6 +1,7 @@
+import Realm from 'realm';
 import institutions from '../../../data/json/institutions'
 
-class Institution {
+class Institution extends Realm.Object {
   get imageSource() {
     if (!this.logo) { return "" }
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions } from 'react-native';
+import { Dimensions, Text } from 'react-native';
 import Video from 'react-native-video';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 

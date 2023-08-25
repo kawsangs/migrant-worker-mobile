@@ -7,7 +7,7 @@ import {
   ImageBackground
 } from 'react-native';
 
-import { Icon } from 'react-native-material-ui';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
 import CustomAudioPlayerComponent from '../../components/shared/CustomAudioPlayerComponent';
 import Images from '../../utils/images';
@@ -75,9 +75,8 @@ const styles = StyleSheet.create({
   },
   cardNumber: {
     fontFamily: FontFamily.title,
-    fontSize: FontSize.title + 15,
+    fontSize: FontSize.title,
     color: Color.red,
-    marginTop: 3
   },
   title: {
     flex: 1,

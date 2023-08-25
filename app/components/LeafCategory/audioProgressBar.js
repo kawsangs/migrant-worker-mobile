@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-
-import Slider from "react-native-slider";
+import Slider from '@react-native-community/slider';
 
 import { Color, FontFamily } from '../../assets/stylesheets/base_style';
 

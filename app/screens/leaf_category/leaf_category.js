@@ -8,7 +8,6 @@ import HTML from 'react-native-render-html';
 import { StackActions } from '@react-navigation/native';
 import { withTranslation } from 'react-i18next';
 import i18n from 'i18next';
-import * as Progress from 'react-native-progress';
 
 import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
 import Images from '../../utils/images';

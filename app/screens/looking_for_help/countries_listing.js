@@ -8,10 +8,9 @@ import {
   View,
   TextInput,
   StyleSheet,
-  Image
 } from 'react-native';
 import { Color, FontFamily, } from '../../assets/stylesheets/base_style';
-import { Icon } from 'react-native-material-ui';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { withTranslation } from 'react-i18next';
 import EmptyResult from './empty_result'
 import ViewedCountry from './viewed_country'
@@ -76,7 +75,7 @@ class CountriesListing extends React.Component {
 
         <View style={styles.searchContainer}>
           <TouchableOpacity onPress={this.onSubmit}>
-            <Icon name="search" style={styles.ml1em} />
+            <Icon name="search" style={styles.ml1em} size={24} color={Color.gray} />
           </TouchableOpacity>
 
           <TextInput

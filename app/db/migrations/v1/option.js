@@ -1,10 +1,11 @@
 'use strict';
 
+import Realm from 'realm';
 import formList from '../../json/form_stories';
 const questionList = formList.reduce((sum, item) => sum.concat(item.questions), []);
 const optionList = questionList.reduce((sum, item) => sum.concat(item.options), []);
 
-class Option {
+class Option extends Realm.Object {
   get imageSource() {
     if (!this.image) { return "" }
 

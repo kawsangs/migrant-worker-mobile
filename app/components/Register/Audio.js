@@ -238,7 +238,7 @@ export default class Audio extends Component {
           onLongPress={() => this._onLongPress()}
           onPressOut={() => this._onPressOut()}
         >
-          <AwesomeIcon name={'microphone'} color={Color.primary} size={36} style={{marginRight: 1}} />
+          <AwesomeIcon name={'microphone'} color={Color.primary} size={36} style={{marginRight: 1, height: 36}} />
         </TouchableOpacity>
       </View>
     )

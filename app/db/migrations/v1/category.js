@@ -1,8 +1,9 @@
 'use strict';
 
+import Realm from 'realm';
 import categoryList from '../../json/categories';
 
-class Category {
+class Category extends Realm.Object {
   get imageSource() {
     if (!this.image) { return "" }
 

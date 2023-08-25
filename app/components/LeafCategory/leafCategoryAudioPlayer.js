@@ -8,8 +8,7 @@ import {
   Dimensions,
 } from 'react-native';
 import Sound from 'react-native-sound';
-import { Icon } from 'react-native-material-ui';
-import * as Progress from 'react-native-progress';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { environment } from '../../config/environment';
 import { Color, FontFamily } from '../../assets/stylesheets/base_style';
@@ -129,16 +128,16 @@ export default class LeafCategoryAudioPlayer extends Component {
     return (
       <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 40, width: 200, alignSelf: 'center'}}>
         <TouchableOpacity onPress={() => this.forwardRewindAudio('backward')} hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}>
-          <Icon name='backward' size={20} iconSet="FontAwesome" style={[styles.iconStyle, this.disabledColor()]} />
+          <Icon name='backward' size={20} style={[styles.iconStyle, this.disabledColor()]} />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => this._playAudio()} hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}>
-          <Icon name={icon} iconSet="FontAwesome" size={this.props.iconSize}
+          <Icon name={icon} size={this.props.iconSize}
             style={[styles.iconStyle, this.props.iconStyle, this.disabledColor()]}/>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => this.forwardRewindAudio('forward')} hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}>
-          <Icon name='forward' size={20} iconSet="FontAwesome" style={[styles.iconStyle, this.disabledColor()]} />
+          <Icon name='forward' size={20} style={[styles.iconStyle, this.disabledColor()]} />
         </TouchableOpacity>
       </View>
     );

@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
-import { useNavigation } from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 import AlertMessage from '../AlertMessage';
 import {setCurrentPlayingAudio} from '../../actions/currentPlayingAudioAction';
 
 const {useImperativeHandle} = React;
 
-const SurveyFormAlertMessageComponent = React.forwardRef((props, ref) => {
+const YourStoryFormAlertMessageComponent = React.forwardRef((props, ref) => {
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -20,21 +20,21 @@ const SurveyFormAlertMessageComponent = React.forwardRef((props, ref) => {
     setVisible(status)
   }
 
-  const exitSurvey = () => {
+  const exitYourStory = () => {
     setVisible(false);
     dispatch(setCurrentPlayingAudio(null));
-    navigation.reset({ index: 1, routes: [{name: 'BottomTab'}, { name: 'NotificationListScreen' }]});
+    navigation.goBack();
   }
 
   return <AlertMessage
             show={visible}
             warning={false}
-            title={"ចាកចេញពីការស្ទង់មតិ"}
-            message={"តើអ្នក​ពិតជា​ចង់​ចាកចេញ​ពី​ការស្ទង់​មតិ​នេះ​មែន​ទេ?"}
-            onPressAction={() => exitSurvey()}
+            title={"ចាកចេញពីសាច់រឿង"}
+            message={"តើអ្នកប្រាកដថាចង់ចាកចេញពីហ្គេមនេះដែរឬទេ?"}
+            onPressAction={() => exitYourStory()}
             onPressCancel={() => setVisible(false)}
-            hideAudio={true}
+            audio={'exit_game.mp3'}
           />
 })
 
-export default SurveyFormAlertMessageComponent;
+export default YourStoryFormAlertMessageComponent;

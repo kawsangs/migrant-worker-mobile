@@ -87,6 +87,7 @@ const BottomTabNavigator = () => {
         component={HomeTab}
         options={{
           tabBarLabel: 'Home',
+          headerShown: false
         }}
       />
       <BottomTab.Screen
@@ -94,6 +95,7 @@ const BottomTabNavigator = () => {
         component={VideoTab}
         options={{
           tabBarLabel: 'Videos',
+          headerShown: false
         }}
       />
       <BottomTab.Screen
@@ -101,6 +103,7 @@ const BottomTabNavigator = () => {
         component={MoreTab}
         options={{
           tabBarLabel: 'More',
+          headerShown: false
         }}
       />
 

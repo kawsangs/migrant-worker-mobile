@@ -1,7 +1,7 @@
 import React from 'react';
 import {ActivityIndicator, Button, View, Text} from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Icon } from 'react-native-material-ui';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const VideoListNoInternetMessageComponent = (props) => {
   const { t } = useTranslation();

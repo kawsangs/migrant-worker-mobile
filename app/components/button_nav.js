@@ -6,8 +6,8 @@ import {
   TouchableOpacity,
   Image
 } from 'react-native';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
-import { Icon } from 'react-native-material-ui';
 import { Color, FontFamily, Style } from '../assets/stylesheets/base_style';
 import CustomAudioPlayerComponent from './shared/CustomAudioPlayerComponent';
 import Images from '../utils/images';
@@ -22,6 +22,12 @@ export default class ButtonNav extends React.Component {
             />
   }
 
+  renderIcon(textColor) {
+    return React.cloneElement(this.props.iconSet || <MaterialIcon/>, {
+              name: this.props.icon, size: this.props.iconSize, color: textColor,
+           })
+  }
+
   render() {
     let textColor = this.props.active ? Color.white : Color.primary;
     let buttonColor = this.props.active ? this.props.buttonColor ? this.props.buttonColor : Color.primary : Color.white;
@@ -33,7 +39,7 @@ export default class ButtonNav extends React.Component {
           onPress={() => this.props.onPress()}
           style={[styles.buttonTextWrapper, this.props.textWrapperStyle]}
         >
-          { !!this.props.icon && <Icon name={this.props.icon} color={textColor} size={this.props.iconSize} iconSet={this.props.iconSet || "MaterialIcons"} />}
+          { !!this.props.icon && this.renderIcon(textColor) }
           { !!this.props.image && <Image source={Images[this.props.image]} color={textColor} size={this.props.iconSize} style={this.props.imageStyle} />}
 
           <Text style={[styles.buttonText, { color: textColor }, this.props.textStyle]}>{this.props.title}</Text>

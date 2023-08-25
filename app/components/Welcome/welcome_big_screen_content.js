@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Image, ImageBackground, Dimensions } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Images from '../../utils/images';
 import { backgroundImageTopPosition } from '../../utils/image_style';
@@ -48,7 +49,7 @@ class WelcomeBigScreenContent extends Component {
           active={true}
           title={"បន្តចូលមើល ជាភ្ញៀវ"}
           image={"head_profile"}
-          iconSet={'MaterialCommunityIcons'}
+          iconSet={<MaterialCommunityIcon/>}
           audio={"login_as_guest.mp3"}
           onPress={() => this.showConsentForm()}
           buttonColor="#e44977"

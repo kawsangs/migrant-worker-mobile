@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, StatusBar, BackHandler } from 'react-native';
+import {HeaderBackButton} from '@react-navigation/elements';
 
 import { Color } from '../../assets/stylesheets/base_style';
 
@@ -15,16 +16,16 @@ import Form from '../../models/Form';
 import ProgressHeader from '../../components/YourStory/ProgressHeader';
 import Questions from '../../components/Questions';
 import YourStoryFinishComponent from '../../components/YourStory/YourStoryFinishComponent';
+import YourStoryAlertMessageComponent from '../../components/YourStory/YourStoryAlertMessageComponent';
 
 // Redux
 import { connect } from 'react-redux';
 import { setQuestions } from '../../actions/questionAction';
 import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexAction';
-import AlertMessage from '../../components/AlertMessage';
 import { setCurrentQuiz } from '../../actions/currentQuizAction';
 import uuidv4 from '../../utils/uuidv4';
-import { HeaderBackButton } from '@react-navigation/stack';
 import HomeButton from '../../components/Toolbar/HomeButton';
+
 
 class CreateYourStory extends Component {
   state = {loading: true};
@@ -34,14 +35,15 @@ class CreateYourStory extends Component {
 
     props.navigation.setOptions({
       headerLeft: () => (<HeaderBackButton tintColor={"#fff"} onPress={() => {
-        this.setState({action: 'Back'});
-        this._handleBack();
+        this.alertRef.current?.setAlertVisibility(true);
       }}/>),
       headerRight: () => (<HomeButton onPress={() => {
         this.setState({action: 'Home'});
         this._handleBack()
       }}/>),
     });
+
+    this.alertRef = React.createRef(null);
   }
 
   componentDidMount() {
@@ -50,8 +52,7 @@ class CreateYourStory extends Component {
     this.backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
       () => {
-        this.setState({action: 'Back'});
-        this._handleBack();
+        this.alertRef.current?.setAlertVisibility(true);
         return true;
       }
     );
@@ -59,22 +60,6 @@ class CreateYourStory extends Component {
 
   componentWillUnmount() {
     this.backHandler.remove();
-  }
-
-  _handleBack() {
-    if (this.props.currentIndex > -1) {
-      return this.setState({showAlert: true});
-    }
-
-    this._handleBackHome();
-  }
-
-  _handleBackHome() {
-    if (this.state.action == 'Back') {
-      return this.props.navigation.goBack();
-    }
-
-    this.props.navigation.popToTop();
   }
 
   _setForm(form_id) {
@@ -106,15 +91,6 @@ class CreateYourStory extends Component {
            />
   }
 
-  _closeAlertMessage() {
-    this.setState({showAlert: false});
-  }
-
-  _handleHideMessage() {
-    this._closeAlertMessage();
-    this._handleBackHome();
-  }
-
   render() {
     const { questions, currentIndex } = this.props;
     const currentQuestion = questions[currentIndex];
@@ -128,15 +104,7 @@ class CreateYourStory extends Component {
         { !this.state.loading && !!currentQuestion && Questions(currentQuestion) }
         { !this.state.loading && !currentQuestion && this.renderEnd() }
 
-        <AlertMessage
-          show={this.state.showAlert}
-          warning={false}
-          title={"ចាកចេញពីសាច់រឿង"}
-          message={"តើអ្នកប្រាកដថាចង់ចាកចេញពីហ្គេមនេះដែរឬទេ?"}
-          onPressAction={() => this._handleHideMessage()}
-          onPressCancel={() => this._closeAlertMessage()}
-          audio={"exit_game.mp3"}
-        />
+        <YourStoryAlertMessageComponent ref={this.alertRef} />
       </View>
     );
   }

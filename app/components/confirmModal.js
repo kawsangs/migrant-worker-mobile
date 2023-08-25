@@ -11,7 +11,7 @@ class ConfirmModal extends Component {
         transparent={true}
         visible={this.props.showModal}
       >
-        <View style={{flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0,0,0,0.3)'}}>
+        <View style={{flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0,0,0,0.3)', borderWidth: 1}}>
           <View style={styles.modalView}>
             <View style={{flexDirection: 'row', alignContent: 'flex-start'}}>
               <OutlineInfoIcon/>
@@ -21,7 +21,7 @@ class ConfirmModal extends Component {
             <AlertActionButtonsComponent
               leftLabel='បោះបង់' onPressLeft={() => this.props.cancel()}
               rightLabel='បាទ/ចាស' onPressRight={() => this.props.confirm()}
-              containerStyle={{alignSelf: 'flex-end', paddingRight: 0, paddingBottom: 0}}
+              containerStyle={{alignSelf: 'flex-end', paddingTop: 16, paddingRight: 0, paddingBottom: 0}}
             />
           </View>
         </View>

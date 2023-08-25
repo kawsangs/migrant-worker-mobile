@@ -10,11 +10,10 @@ import { withTranslation } from 'react-i18next';
 import Question from '../../models/Question';
 import Answer from '../../models/Answer';
 import Option from '../../models/Option';
-
-import { Checkbox } from 'react-native-material-ui'
 import NextButton from '../../components/YourStory/NextButton';
 import QuestionName from './questionName';
 import AlertMessage from '../../components/AlertMessage';
+import CheckboxComponent from '../shared/CheckboxComponent';
 
 import { connect } from 'react-redux';
 import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexAction';
@@ -56,13 +55,13 @@ class QuestionsMultiple extends Component {
       let value = item.id.toString();
 
       return (
-        <View style={{borderBottomWidth: 1, borderColor: '#e6e7e9', paddingVertical: 6}} key={index}>
-          <Checkbox
-            label={item.name}
-            value={value}
-            checked={answers.includes(value)}
-            onCheck={(checked, value) => self._onCheckOption(value)} />
-        </View>
+        <CheckboxComponent
+          key={`checkbox-${index}`}
+          label={item.name}
+          value={value}
+          selected={answers.includes(value)}
+          onPress={(val) => self._onCheckOption(val)}
+        />
       );
     })
   }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, ScrollView } from 'react-native';
+import { RadioButton } from 'react-native-paper';
 
 import { Style } from '../../assets/stylesheets/base_style';
 import uuidv4 from '../../utils/uuidv4';
@@ -10,10 +11,10 @@ import Question from '../../models/Question';
 import Answer from '../../models/Answer';
 import Option from '../../models/Option';
 
-import RadioButton from './radioButton';
 import NextButton from '../../components/YourStory/NextButton';
 import QuestionName from './questionName';
 import AlertMessage from '../../components/AlertMessage';
+import RadioButtonComponent from '../shared/RadioButtonComponent';
 
 import { connect } from 'react-redux';
 import { setCurrentQuestionIndex } from '../../actions/currentQuestionIndexAction';
@@ -31,20 +32,20 @@ class QuestionsSelectOne extends Component {
   }
 
   _renderInputField() {
-    return this.state.options.map((item, index) =>
-      <View style={{borderBottomWidth: 1, borderColor: '#e6e7e9', paddingVertical: 6}} key={uuidv4()}>
-        <RadioButton
-          label={item.name}
-          checked={item.id.toString() == this.state.answer}
-          value={item.id.toString()}
-          onSelect={id => {
-            let option = this.state.options.filter(o => o.id.toString() == id)[0];
-            this.setState({answer: id, selectedOption: option});
-          }}
-          avata={item.imageSource}
-        />
-      </View>
-    );
+    return (
+      <RadioButton.Group value={this.state.answer}>
+        {
+          this.state.options.map((item, index) => {
+            return <RadioButtonComponent key={`radio-${index}`} label={item.name} value={item.id.toString()} image={item.imageSource}
+                      onPress={(value) => {
+                        const option = this.state.options.filter(o => o.id.toString() == value)[0];
+                        this.setState({answer: value, selectedOption: option});
+                      }}
+                   />
+          })
+        }
+      </RadioButton.Group>
+    )
   }
 
   _saveAnswer() {

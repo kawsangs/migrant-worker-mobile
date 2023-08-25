@@ -8,7 +8,6 @@ import i18n from 'i18next';
 import { StatusBar } from 'react-native';
 
 import { Color, FontFamily, FontSize } from '../assets/stylesheets/base_style';
-import { Icon } from 'react-native-material-ui';
 
 import { connect } from 'react-redux';
 import { setCurrentUser } from '../actions/currentUserAction';
@@ -109,7 +108,7 @@ class AppNavigator extends Component {
   _appStack() {
     return (
       <>
-        <Stack.Screen name="HomeScreen" component={BottomTabNavigator} options={{ headerShown: false }} />
+        <Stack.Screen name="BottomTab" component={BottomTabNavigator} options={{ headerShown: false }} />
         <Stack.Screen name="YourDepartureScreen" component={YourDepartureScreen}
           options={({route, navigation}) => ({
             title: this.props.t("BeforeYouGoScreen.HeaderTitle"),

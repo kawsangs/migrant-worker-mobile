@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TextInput } from 'react-native';
-import { Icon } from 'react-native-material-ui';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import styles from '../../styles/registerScreenStyle';
 import { Style } from '../../assets/stylesheets/base_style';
