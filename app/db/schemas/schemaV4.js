@@ -1,4 +1,5 @@
 import Institution from '../migrations/v3/institution'
+import User from '../migrations/v4/user';
 import Form from '../migrations/v4/form'
 import Notification from '../migrations/v4/notification';
 import Video from '../migrations/v4/video'
@@ -6,6 +7,7 @@ import Question from '../migrations/v4/question'
 import helper from './helper';
 
 const changedSchemas = [
+  { label: 'User', data: User },
   { label: 'Institution', data: Institution },
   { label: 'Form', data: Form },
   { label: 'Notification', data: Notification },
@@ -34,6 +36,12 @@ const schemaV4 = {
       const newNotifications = newRealm.objects('Notification');
       for (let i = 0; i < oldNotifications.length; i++) {
         newNotifications[i].data = !oldNotifications[i].data ? null : oldNotifications[i].data;
+      }
+
+      const oldUsers = oldRealm.objects('User');
+      const newUsers = newRealm.objects('User');
+      for (let i = 0; i < oldUsers.length; i++) {
+        newUsers[i].id = !oldUsers[i].id ? null : oldUsers[i].id;
       }
     }
   }

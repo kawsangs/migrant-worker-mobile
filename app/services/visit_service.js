@@ -1,35 +1,34 @@
 import DeviceInfo from 'react-native-device-info';
 import WebService from './web_service';
 import endpointHelper from '../helpers/endpoint_helper';
+import Visit from '../models/Visit';
+import User from '../models/User';
+import Sidekiq from '../models/Sidekiq';
 
 class VisitService extends WebService {
-  async create(currentUser, data) {
-    const params = await this._buildParams(currentUser, data);
-    this.post(endpointHelper.listingEndpoint('visits'), params)
-      .then(response => JSON.parse(response.data))
-      .then(data => {
-        console.log('=== send visit request success = ', data)
+  async upload(uuid) {
+    this.post(endpointHelper.listingEndpoint('visits'), JSON.stringify(await this._buildParams(uuid)), 'application/json')
+      .then(res => {
+        Sidekiq.destroy(uuid);
+        Visit.deleteByUuid(uuid);
       })
-      .catch(error => {
-        console.log('=== send visit request error = ', error)
-      })
-
-    // this.post(endpointHelper.listingEndpoint('visits'), JSON.stringify(params), 'application/json')
   }
 
   // private method
-  async _buildParams(currentUser, data) {
+  async _buildParams(uuid) {
+    const visit = Visit.find(uuid);
+    const user = User.find(visit.user_uuid);
     return {
       visit: {
-        user_id: currentUser.uuid,
-        visit_date: new Date(),
-        pageable_id: data.pageableId,
-        pageable_type: data.pageableType,
+        user_id: !!user ? user.id : null,
+        visit_date: visit.visit_date,
+        pageable_id: visit.pageable_id,
+        pageable_type: visit.pageable_type,
         device_id: await DeviceInfo.getUniqueId(),
         page_attributes: {
-          code: data.code,
-          name: data.name,
-          parent_code: data.parentCode
+          code: visit.code,
+          name: visit.name,
+          parent_code: visit.parent_code
         }
       }
     }

@@ -8,7 +8,7 @@ const notificationService = (() => {
   function create(remoteMessage) {
     let data = null;
     if (Object.keys(remoteMessage.data).length > 0)
-      data = JSON.parse(remoteMessage.data.payload).data || null;
+      data = JSON.parse(remoteMessage.data.payload) || null;
 
     Notification.create({...remoteMessage.notification, data: data})
   }
