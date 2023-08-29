@@ -46,13 +46,13 @@ class CardItem extends React.Component {
             style={[Style.card, {flex: 1}]}
           >
             <View style={{flex: 1, flexDirection: 'row'}}>
-              { this._renderLogo(item) }
+              {/* { this._renderLogo(item) } */}
 
               <View style={styles.institutionNameContainer}>
                 <Text style={{fontFamily: FontFamily.title, fontSize: 15}}>{institutionName}</Text>
               </View>
 
-              {this.renderAudioPlayer(item)}
+              { !!item.audio && this.renderAudioPlayer(item)}
             </View>
             <View style={{flex: 1}}>
               {list_phone_number && list_phone_number.map((item, index) => {
