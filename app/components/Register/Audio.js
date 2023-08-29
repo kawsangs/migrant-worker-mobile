@@ -8,11 +8,11 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
+import RNFS from 'react-native-fs';
 
 import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Sound from 'react-native-sound';
-import { AudioUtils } from 'react-native-audio';
 import {Recorder} from '@react-native-community/audio-toolkit';
 
 import * as Progress from 'react-native-progress';
@@ -22,8 +22,7 @@ export default class Audio extends Component {
   constructor(props) {
     super(props);
 
-    let audioPath = props.audioPath || (AudioUtils.DocumentDirectoryPath + '/' + props.uuid + '.aac');
-
+    let audioPath = props.audioPath || (RNFS.DocumentDirectoryPath + '/' + props.uuid + '.aac');
     this.state = {
       recordedTime: 0.0,
       recording: false,
