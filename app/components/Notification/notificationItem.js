@@ -14,6 +14,7 @@ import OutlineInfoIcon from '../OutlineInfoIcon';
 import notificationHelper from '../../helpers/notification_helper';
 import uuidv4 from '../../utils/uuidv4';
 import { getDeviceStyle } from '../../utils/responsive_util';
+import Visit from '../../models/Visit';
 
 class NotificationItem extends React.Component {
   constructor(props) {
@@ -43,9 +44,15 @@ class NotificationItem extends React.Component {
 
   openNotification = () => {
     const data = !!this.props.notification.data ? JSON.parse(this.props.notification.data) : null;
-
-    if (!!data.form_id)
+    if (!!data && !!data.form_id) {
+      Visit.upload({
+        pageable_type: 'NotificationOccurrence',
+        pageable_id: data.notification_occurrence_id,
+        code: 'open_in_app_notification',
+        name: 'Open in-app notification',
+      });
       return this.props.navigation.navigate('SurveyFormScreen', { uuid: this.props.notification.uuid, form_id: data.form_id, title: this.props.notification.title })
+    }
 
     this.props.navigation.navigate('NotificationDetailScreen', { uuid: this.props.notification.uuid })
   }

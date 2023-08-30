@@ -1,7 +1,7 @@
 import RNFetchBlob from 'rn-fetch-blob'
 import { environment } from '../config/environment';
 
-const authorizationToken = `Bearer ${environment.access_token}`;
+const authorizationToken = `Token ${environment.access_token}`;
 
 class WebService {
   get(endpoint) {

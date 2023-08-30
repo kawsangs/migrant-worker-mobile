@@ -2,6 +2,7 @@ import realm from '../db/schema';
 import UserWorker from '../workers/user_worker';
 import QuizWorker from '../workers/quiz_worker';
 import AnswerWorker from '../workers/answer_worker';
+import VisitWorker from '../workers/visit_worker';
 
 const Sidekiq = (() => {
   return {
@@ -40,6 +41,7 @@ const Sidekiq = (() => {
       User: UserWorker,
       Quiz: QuizWorker,
       Answer: AnswerWorker,
+      Visit: VisitWorker,
     }
 
     let data = getAll();

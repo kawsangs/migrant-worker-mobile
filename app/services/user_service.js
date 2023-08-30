@@ -9,12 +9,15 @@ export default class UserService extends WebService {
   upload(uuid) {
     NetInfo.fetch().then(state => {
       if (!state.isConnected) { return; }
-      let user = User.find(uuid);
+      const user = User.find(uuid);
 
       if(!user) return;
 
       this.post(endpointHelper.listingEndpoint('users'), this._buildData(user))
-        .then(res => Sidekiq.destroy(uuid))
+        .then(res => {
+          User.upsert({uuid: uuid, id: JSON.parse(res.data).id});
+          Sidekiq.destroy(uuid)
+        })
     });
   }
 

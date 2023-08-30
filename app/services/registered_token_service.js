@@ -1,3 +1,5 @@
+import {Platform} from 'react-native';
+import DeviceInfo from 'react-native-device-info';
 import messaging from '@react-native-firebase/messaging';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
@@ -35,7 +37,16 @@ class RegisteredTokenService extends WebService {
   }
 
   async _sendToken(token, id) {
-    let data =  { registered_token: {token: token, id: id} };
+    let data =  {
+      registered_token: {
+        token: token,
+        id: id,
+        device_id: await DeviceInfo.getUniqueId(),
+        device_os: (Platform.OS != 'android' && Platform.OS != 'ios') ? 'other' : Platform.OS,
+        device_type: DeviceInfo.isTablet() ? 'tablet' : 'mobile',
+        app_version: DeviceInfo.getVersion(),
+      }
+    };
     this.put(endpointHelper.listingEndpoint('registered_tokens'), JSON.stringify(data), 'application/json')
       .then(res => {
         if(res.respInfo.status == 200) {

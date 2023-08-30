@@ -6,6 +6,7 @@ import Sidekiq from '../models/Sidekiq';
 import User from '../models/Sidekiq';
 import Quiz from '../models/Quiz';
 import Answer from '../models/Answer';
+import Visit from '../models/Visit';
 
 const sessionHelper = (() => {
   return {
@@ -26,6 +27,7 @@ const sessionHelper = (() => {
     User.deleteAll();
     Quiz.deleteAll();
     Answer.deleteAll();
+    Visit.deleteAll();
   }
 })();
 
