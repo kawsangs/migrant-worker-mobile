@@ -10,8 +10,12 @@ const endpointHelper = (() => {
     isUrlWithHostname,
   }
 
+  function getFormattedUrl(url) {
+    return `${url}${new RegExp(/\/$/).test(url) ? '' : '/'}`;
+  }
+
   function listingEndpoint(model) {
-    return `${environment.apiUrl}/${model}`;
+    return `${getFormattedUrl(environment.apiUrl)}${model}`;
   }
 
   function listingNestedEndpoint(responsibleModel, id, subModel) {
@@ -19,7 +23,7 @@ const endpointHelper = (() => {
   }
 
   function pagingEndpoint(model, page) {
-    return `${environment.apiUrl}/${model}?page=${page}`;
+    return `${getFormattedUrl(environment.apiUrl)}${model}?page=${page}`;
   }
 
   function detailEndpoint(model, id) {
@@ -29,7 +33,7 @@ const endpointHelper = (() => {
   function getAbsoluteEndpoint(relativeUrl) {
     if (!relativeUrl) return null;
 
-    return environment.domain + relativeUrl;
+    return getFormattedUrl(environment.serverUrl) + relativeUrl;
   }
 
   function isUrlWithHostname(url) {
