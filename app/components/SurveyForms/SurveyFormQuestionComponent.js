@@ -21,8 +21,13 @@ const SurveyFormQuestionComponent = (props) => {
   };
 
   const renderTitle = () => {
-    return <View style={{flexDirection: 'row'}}>
-              <Text style={{flex: 1, fontFamily: FontFamily.title}}>{props.question.name}</Text>
+    console.log('Question = ', props.question)
+
+    return <View style={{flexDirection: 'row', marginBottom: 8}}>
+              <View style={{flex: 1}}>
+                <Text style={{fontFamily: FontFamily.title}}>{props.question.name}</Text>
+                { props.question.hint && <Text style={{fontSize: 13, color: Color.gray, marginTop: 6}}>{props.question.hint}</Text> }
+              </View>
               <View style={{marginLeft: 4}}>
                 <CustomAudioPlayerComponent
                   itemUuid={props.question.id}
