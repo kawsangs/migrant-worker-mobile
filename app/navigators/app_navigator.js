@@ -246,12 +246,7 @@ class AppNavigator extends Component {
           })}
         />
 
-        <Stack.Screen name="SurveyFormScreen" component={SurveyFormScreen}
-          options={({route, navigation}) => ({
-            title: route.params.title || "ការស្ទង់មតិ",
-            headerStyle: { backgroundColor: Color.primary },
-          })}
-        />
+        <Stack.Screen name="SurveyFormScreen" component={SurveyFormScreen} options={{ headerShown: false }} />
       </>
     )
   }

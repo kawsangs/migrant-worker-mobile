@@ -34,7 +34,7 @@ const SurveyFormSelectOneComponent = (props) => {
                     value={option.id.toString()}
                     onPress={(value) => onSelect(value)}
                     selectedValue={selectedOption}
-                 />
+                />
         })
       }
     </RadioButton.Group>
