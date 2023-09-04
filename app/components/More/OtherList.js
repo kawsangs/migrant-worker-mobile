@@ -7,6 +7,7 @@ import i18n from 'i18next';
 import TranslationHelper from '../../translations';
 import { withTranslation } from 'react-i18next';
 import { environment } from '../../config/environment';
+import endpointHelper from '../../helpers/endpoint_helper';
 
 import ListItem from './ListItem';
 
@@ -14,8 +15,8 @@ class Other extends Component {
   onShare = async () => {
     try {
       const result = await Share.share({
-        message: environment.domain,
-        url: environment.domain,
+        message: environment.serverUrl,
+        url: environment.serverUrl,
       });
 
       if (result.action === Share.sharedAction) {
@@ -60,13 +61,13 @@ class Other extends Component {
         <ListItem
           title={"គោលការណ៍អំពីឯកជនភាព"}
           avata={Images.doc}
-          onPress={() => this.openLink(`${environment.domain}/privacy-policy`)}
+          onPress={() => this.openLink(endpointHelper.getAbsoluteEndpoint('privacy-policy'))}
         />
 
         <ListItem
           title={"គោលការណ៍ និងលក្ខខណ្ឌ"}
           avata={Images.doc}
-          onPress={() => this.openLink(`${environment.domain}/terms-and-conditions`)}
+          onPress={() => this.openLink(endpointHelper.getAbsoluteEndpoint('terms-and-conditions'))}
         />
       </View>
     );

@@ -5,7 +5,7 @@ import endpointHelper from '../helpers/endpoint_helper';
 
 class CountryService extends WebService {
   fetch() {
-    this.get(endpointHelper.listingEndpoint('/countries'))
+    this.get(endpointHelper.listingEndpoint('countries'))
       .then(res => JSON.parse(res.data))
       .then(data => {
         const newCountries = reject(data, c => contains(this._existingCodes(), c.id))
