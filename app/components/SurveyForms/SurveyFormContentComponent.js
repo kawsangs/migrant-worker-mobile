@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {ScrollView, BackHandler} from 'react-native';
+import {ScrollView} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { HeaderBackButton } from '@react-navigation/elements';
 
 import SurveyFormQuestionComponent from './SurveyFormQuestionComponent';
 import SurveyFormButtonComponent from './SurveyFormButtonComponent';
-import SurveyFormAlertMessageComponent from './SurveyFormAlertMessageComponent';
 import Section from '../../models/Section';
 import Question from '../../models/Question';
 import SurveyFormService from '../../services/survey_form_service';
@@ -19,25 +17,14 @@ const SurveyFormContentComponent = (props) => {
   const [currentSection, setCurrentSection] = useState(0);
   const [answers, setAnswers] = useState({});
   const buttonRef = React.useRef(null);
-  const alertRef = React.useRef(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => (<HeaderBackButton tintColor={"#fff"} onPress={() => alertRef.current?.setAlertVisibility(true)}/>)
-    });
-
     let formattedAnswers = {};
     sections.map((section, index) => {
       formattedAnswers[index] = {};
     });
     setAnswers(formattedAnswers)
-
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-      alertRef.current?.setAlertVisibility(true)
-      return true;
-    })
-    return () => !!backHandler && backHandler.remove()
   }, [])
 
   const updateAnswers = (key, answer) => {
@@ -89,7 +76,6 @@ const SurveyFormContentComponent = (props) => {
         { renderQuestionsOfSection() }
       </ScrollView>
       { renderButton() }
-      <SurveyFormAlertMessageComponent ref={alertRef} />
     </React.Fragment>
   )
 }
