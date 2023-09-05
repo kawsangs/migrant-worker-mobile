@@ -8,6 +8,7 @@ import { addStatistic } from '../../utils/statistic';
 import { withTranslation } from 'react-i18next';
 
 import Safety from '../../models/Safety';
+import Visit from '../../models/Visit';
 import CardItem from '../../components/YourSafety/CardItem';
 import {setCurrentPlayingAudio} from '../../actions/currentPlayingAudioAction';
 
@@ -21,6 +22,7 @@ class YourSafetySubCategory extends Component {
   }
 
   _onPress(item) {
+    Visit.uploadSafetyDetailVisit(item.id, item.name);
     if (!!this.props.currentPlayingAudio)
       this.props.setCurrentPlayingAudio(null)
 

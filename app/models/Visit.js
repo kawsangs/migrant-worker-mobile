@@ -15,7 +15,7 @@ const Visit = (() => {
     upload,
     uploadPageVisit,
     uploadDepartureDetailVisit,
-    uploadYourSafetyVisit,
+    uploadSafetyDetailVisit,
   }
 
   function find(uuid) {
@@ -70,9 +70,9 @@ const Visit = (() => {
     // upload(_getVisitCategoryData('departure', pageableId, name));
   }
 
-  function uploadYourSafetyVisit(pageableId, name) {
+  function uploadSafetyDetailVisit(pageableId, name) {
     console.log(`== safety visit = ${pageableId} | ${name}`);
-    upload(_getVisitCategoryData('safety', pageableId, name));
+    // upload(_getVisitCategoryData('safety', pageableId, name));
   }
 
   // private method
