@@ -13,6 +13,7 @@ import i18n from 'i18next';
 
 import CardItem from '../../components/YourSafety/CardItem';
 import Departure from '../../models/Departure';
+import Visit from '../../models/Visit';
 
 import CategoryService from '../../services/category_service';
 import { connect } from 'react-redux';
@@ -47,11 +48,11 @@ class YourDeparture extends Component {
 
   _onPress(item) {
     this._clearAudioPlayer();
+    Visit.uploadDepartureDetailVisit(item.id, item.name);
 
     if(!!item.video) {
       return this.props.navigation.navigate("YourDepartureVideoScreen");
     }
-
     this.props.navigation.navigate("SubCategoryScreen", { title: item.name, parent_id: item.id });
   }
 

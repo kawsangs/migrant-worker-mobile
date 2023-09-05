@@ -14,7 +14,7 @@ const Visit = (() => {
     deleteAll,
     upload,
     uploadPageVisit,
-    uploadYourDepartureVisit,
+    uploadDepartureDetailVisit,
     uploadYourSafetyVisit,
   }
 
@@ -65,9 +65,9 @@ const Visit = (() => {
   }
 
   // pageableId is the category's ID
-  function uploadYourDepartureVisit(pageableId, name) {
+  function uploadDepartureDetailVisit(pageableId, name) {
     console.log(`== departure visit = ${pageableId} | ${name}`);
-    upload(_getVisitCategoryData('departure', pageableId, name));
+    // upload(_getVisitCategoryData('departure', pageableId, name));
   }
 
   function uploadYourSafetyVisit(pageableId, name) {
