@@ -17,6 +17,7 @@ const Visit = (() => {
     uploadDepartureDetailVisit,
     uploadSafetyDetailVisit,
     uploadFindHelpDetailVisit,
+    uploadYourStoryDetailVisit,
   }
 
   function find(uuid) {
@@ -67,15 +68,15 @@ const Visit = (() => {
 
   // pageableId is the category's ID
   function uploadDepartureDetailVisit(pageableId, name) {
-    console.log(`== departure visit = ${pageableId} | ${name}`);
-    // upload(_getVisitCategoryData('departure', pageableId, name));
+    upload(_getVisitCategoryData('departure', pageableId, name));
   }
 
+  // pageableId is the category's ID
   function uploadSafetyDetailVisit(pageableId, name) {
-    console.log(`== safety visit = ${pageableId} | ${name}`);
-    // upload(_getVisitCategoryData('safety', pageableId, name));
+    upload(_getVisitCategoryData('safety', pageableId, name));
   }
 
+  // pageableId is the country's ID or institution's ID
   function uploadFindHelpDetailVisit(pageableType, pageableId, name) {
     upload({
       pageable_type: pageableType,
@@ -83,6 +84,17 @@ const Visit = (() => {
       code: 'find_help_detail',
       name: name,
       parent_code: 'find_help'
+    });
+  }
+
+  // pageableId is the form's ID
+  function uploadYourStoryDetailVisit(pageableId, name) {
+    upload({
+      pageable_type: 'Form',
+      pageable_id: pageableId,
+      code: 'your_story_detail',
+      name: name,
+      parent_code: 'your_story'
     });
   }
 

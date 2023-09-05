@@ -5,6 +5,7 @@ import { withTranslation } from 'react-i18next';
 
 import CardItem from '../../components/YourSafety/CardItem';
 import Form from '../../models/Form';
+import Visit from '../../models/Visit';
 import { connect } from 'react-redux';
 
 import NetInfo from "@react-native-community/netinfo";
@@ -30,6 +31,7 @@ class YourStory extends Component {
   }
 
   _onPress(item) {
+    Visit.uploadYourStoryDetailVisit(item.id, item.name);
     this.props.setCurrentPlayingAudio(null);
     this.props.navigation.navigate("CreateYourStoryScreen", { title: item.name, form_id: item.id });
   }
