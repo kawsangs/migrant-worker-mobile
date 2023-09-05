@@ -13,6 +13,9 @@ const Visit = (() => {
     deleteByUuid,
     deleteAll,
     upload,
+    uploadPageVisit,
+    uploadYourDepartureVisit,
+    uploadYourSafetyVisit,
   }
 
   function find(uuid) {
@@ -51,6 +54,39 @@ const Visit = (() => {
   function uploadAsync(uuid) {
     Sidekiq.upsert({paramUuid: uuid, tableName: MODEL, version: '1'});
     VisitWorker.performAsync(uuid);
+  }
+
+  function uploadPageVisit(code, name) {
+    upload({
+      pageable_type: 'Page',
+      code: code,
+      name: name,
+    });
+  }
+
+  // pageableId is the category's ID
+  function uploadYourDepartureVisit(pageableId, name) {
+    console.log(`== departure visit = ${pageableId} | ${name}`);
+    upload(_getVisitCategoryData('departure', pageableId, name));
+  }
+
+  function uploadYourSafetyVisit(pageableId, name) {
+    console.log(`== safety visit = ${pageableId} | ${name}`);
+    upload(_getVisitCategoryData('safety', pageableId, name));
+  }
+
+  // private method
+  function _getVisitCategoryData(type, pageableId, name) {
+    const params = {
+      pageable_type: 'Category',
+      pageable_id: pageableId,
+      name: name,
+    }
+
+    if (type == 'departure')
+      return {...params, code: 'your_departure_detail', parent_code: 'your_departure'};
+
+    return {...params, code: 'your_safety_detail', parent_code: 'your_safety'};
   }
 })()
 
