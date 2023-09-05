@@ -35,7 +35,7 @@ class YourSafety extends Component {
 
   _onPress(item) {
     this._clearAudioPlayer();
-    Visit.uploadSafetyDetailVisit(item.id, item.name);
+    Visit.uploadSafetyDetailVisit(item.id);
 
     if(!!item.video) {
       return this.props.navigation.navigate("YourSafetyVideosScreen");

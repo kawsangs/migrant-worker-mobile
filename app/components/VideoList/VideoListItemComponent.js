@@ -7,6 +7,7 @@ import Thumbnail from '../thumbnail';
 import { FontFamily, Style } from '../../assets/stylesheets/base_style';
 import { addStatistic } from '../../utils/statistic';
 import { getVideoId } from '../../utils/youtube';
+import Visit from '../../models/Visit';
 
 const VideoListItemComponent = (props) => {
   const { i18n } = useTranslation();
@@ -14,6 +15,7 @@ const VideoListItemComponent = (props) => {
 
   const onPressItem = (video) => {
     addStatistic('ViewVideo', { videoId: getVideoId(video.url), title: video[`title_${i18n.language}`] });
+    Visit.uploadVideoDetailVisit(video.id);
     navigation.navigate('ViewVideoScreen', { videoId: getVideoId(video.url), isLocalVideo: false });
   }
 

@@ -22,7 +22,7 @@ class YourSafetySubCategory extends Component {
   }
 
   _onPress(item) {
-    Visit.uploadSafetyDetailVisit(item.id, item.name);
+    Visit.uploadSafetyDetailVisit(item.id);
     if (!!this.props.currentPlayingAudio)
       this.props.setCurrentPlayingAudio(null)
 

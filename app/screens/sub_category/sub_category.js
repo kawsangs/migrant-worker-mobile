@@ -36,7 +36,7 @@ class SubCategory extends Component {
 
   _onPress(item) {
     this._clearAudioPlayer();
-    Visit.uploadDepartureDetailVisit(item.id, item.name)
+    Visit.uploadDepartureDetailVisit(item.id)
 
     if (item.leaf) { 
       const pushAction = StackActions.push('LeafCategoryScreen', { title: item.name, parent_id: item.id });

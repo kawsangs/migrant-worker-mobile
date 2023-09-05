@@ -14,7 +14,7 @@ class ViewedCountry extends React.Component {
   gotoHelp = () => {
     let { navigation, country } = this.props
 
-    Visit.uploadFindHelpDetailVisit('Country', country.id, country.name)
+    Visit.uploadFindHelpDetailVisit('Country', country.id)
     navigation.navigate('LookingForHelpScreen', { code: country.code })
   }
 

@@ -48,7 +48,7 @@ class YourDeparture extends Component {
 
   _onPress(item) {
     this._clearAudioPlayer();
-    Visit.uploadDepartureDetailVisit(item.id, item.name);
+    Visit.uploadDepartureDetailVisit(item.id);
 
     if(!!item.video) {
       return this.props.navigation.navigate("YourDepartureVideoScreen");

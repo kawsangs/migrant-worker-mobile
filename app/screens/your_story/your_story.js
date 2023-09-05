@@ -31,7 +31,7 @@ class YourStory extends Component {
   }
 
   _onPress(item) {
-    Visit.uploadYourStoryDetailVisit(item.id, item.name);
+    Visit.uploadYourStoryDetailVisit(item.id);
     this.props.setCurrentPlayingAudio(null);
     this.props.navigation.navigate("CreateYourStoryScreen", { title: item.name, form_id: item.id });
   }

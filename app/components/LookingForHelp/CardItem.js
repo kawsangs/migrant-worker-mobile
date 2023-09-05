@@ -68,7 +68,7 @@ class CardItem extends React.Component {
   }
 
   callOrOpenLink(item) {
-    Visit.uploadFindHelpDetailVisit('Institution', this.props.institute.id, this.props.institute.name);
+    Visit.uploadFindHelpDetailVisit('Institution', this.props.institute.id);
     Linking.openURL(contactHelper.getContactLink(item.type, item.value));
   }
 
