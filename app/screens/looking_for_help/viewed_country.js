@@ -8,11 +8,13 @@ import {
 import Flag from '../../components/LookingForHelp/Flag';
 import CountryImage from '../../components/CountryImage';
 import countryHelper from '../../helpers/country_helper';
+import Visit from '../../models/Visit';
 
 class ViewedCountry extends React.Component {
   gotoHelp = () => {
     let { navigation, country } = this.props
 
+    Visit.uploadFindHelpDetailVisit('Country', country.id, country.name)
     navigation.navigate('LookingForHelpScreen', { code: country.code })
   }
 

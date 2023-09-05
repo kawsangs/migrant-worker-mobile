@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { withTranslation } from 'react-i18next';
 import contactHelper from '../../helpers/contact_helper';
 import CustomAudioPlayerComponent from '../shared/CustomAudioPlayerComponent';
+import Visit from '../../models/Visit';
 
 const mapping = {
   colors: {
@@ -67,6 +68,7 @@ class CardItem extends React.Component {
   }
 
   callOrOpenLink(item) {
+    Visit.uploadFindHelpDetailVisit('Institution', this.props.institute.id, this.props.institute.name);
     Linking.openURL(contactHelper.getContactLink(item.type, item.value));
   }
 
