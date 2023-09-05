@@ -16,6 +16,7 @@ import * as Sentry from '@sentry/react-native';
 import TranslationHelper from './app/translations';
 import RegisteredTokenService from './app/services/registered_token_service';
 import Video from './app/models/Video';
+import Visit from './app/models/Visit';
 
 Sentry.init({
   dsn: 'https://b0b7fac69a6d45abb446ccfdc6e15423@o357910.ingest.sentry.io/5257533',
@@ -53,6 +54,11 @@ class App extends React.Component {
     IndexWorker.init();
     new RegisteredTokenService().handleSyncingToken();
     Video.seedData();
+    Visit.upload({
+      pageable_type: 'Page',
+      code: 'app_visit',
+      name: 'App visit',
+    });
   }
 
   render() {
