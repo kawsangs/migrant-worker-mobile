@@ -49,6 +49,11 @@ const RegisterFormComponent = (props) => {
 
   const updateState = (stateName, value) => {
     let obj = {};
+    if (stateName == 'age' && !parseInt(value)) {
+      setState({age: ''})
+      return;
+    }
+
     obj[stateName] = value;
     setState(obj);
   }
@@ -62,6 +67,7 @@ const RegisterFormComponent = (props) => {
               onChange={value => updateState(item.stateName, value)}
               textContainerStyle={registerHelper.validationBorder(state[item.stateName], item.stateName, state.isFormValid)}
               audioButton={() => renderAudioBtn(`${item.stateName}-input`, item.audioFilename)}
+              maxLength={item.maxLength || null}
            />
   }
 
@@ -157,7 +163,7 @@ const RegisterFormComponent = (props) => {
 
   const list = [
     { stateName: 'name', iconName: 'person', placeholder: 'EnterYourName', audioFilename: 'insert_your_name.mp3' },
-    { stateName: 'age', iconName: 'person', placeholder: 'EnterYourAge', audioFilename: 'insert_your_age.mp3', keyboardType: 'number-pad' },
+    { stateName: 'age', iconName: 'person', placeholder: 'EnterYourAge', audioFilename: 'insert_your_age.mp3', keyboardType: 'number-pad', maxLength: 2 },
   ]
 
   return (
