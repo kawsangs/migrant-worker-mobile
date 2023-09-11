@@ -12,6 +12,7 @@ import HomeScreen from '../screens/home';
 
 import HomeButton from '../components/Toolbar/HomeButton';
 import { Color, FontFamily, FontSize } from '../assets/stylesheets/base_style';
+import Visit from '../models/Visit';
 
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -97,6 +98,11 @@ const BottomTabNavigator = () => {
           tabBarLabel: 'Videos',
           headerShown: false
         }}
+        listeners={({navigation}) => ({
+          tabPress: (e) => {
+            Visit.uploadPageVisit('video', 'វីដេអូ');
+          }
+        })}
       />
       <BottomTab.Screen
         name="MoreScreen"

@@ -11,6 +11,7 @@ import CardItem from '../../components/SubCategory/CardItem';
 import HintCard from '../../components/SubCategory/HintCard';
 import ArrowDown from '../../components/SubCategory/ArrowDown';
 import Departure from '../../models/Departure';
+import Visit from '../../models/Visit';
 import {setCurrentPlayingAudio} from '../../actions/currentPlayingAudioAction';
 
 class SubCategory extends Component {
@@ -35,6 +36,8 @@ class SubCategory extends Component {
 
   _onPress(item) {
     this._clearAudioPlayer();
+    Visit.uploadDepartureDetailVisit(item.id)
+
     if (item.leaf) { 
       const pushAction = StackActions.push('LeafCategoryScreen', { title: item.name, parent_id: item.id });
       return this.props.navigation.dispatch(pushAction);

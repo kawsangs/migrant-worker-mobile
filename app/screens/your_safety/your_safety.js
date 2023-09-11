@@ -6,6 +6,7 @@ import { addStatistic } from '../../utils/statistic';
 import { withTranslation } from 'react-i18next';
 import CardItem from '../../components/YourSafety/CardItem';
 import Safety from '../../models/Safety';
+import Visit from '../../models/Visit';
 import NetInfo from "@react-native-community/netinfo";
 import CategoryService from '../../services/category_service';
 import uuidv4 from '../../utils/uuidv4';
@@ -34,6 +35,7 @@ class YourSafety extends Component {
 
   _onPress(item) {
     this._clearAudioPlayer();
+    Visit.uploadSafetyDetailVisit(item.id);
 
     if(!!item.video) {
       return this.props.navigation.navigate("YourSafetyVideosScreen");

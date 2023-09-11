@@ -10,7 +10,8 @@ export default [
     imageWidth: '480',
     imageHeight: '360',
     audio: 'your_migration_02.mp3',
-    backgroundColor: Color.beforeYouGoColor
+    backgroundColor: Color.beforeYouGoColor,
+    code: 'your_departure',
   },
   {
     title_en: 'Your Safety',
@@ -21,7 +22,8 @@ export default [
     imageWidth: '300',
     imageHeight: '372',
     audio: 'your_safety_03.mp3',
-    backgroundColor: Color.primary
+    backgroundColor: Color.primary,
+    code: 'your_safety',
   },
   {
     title_en: 'Looking for help?',
@@ -32,7 +34,8 @@ export default [
     imageWidth: '440',
     imageHeight: '344',
     audio: 'looking_for_help_05.mp3',
-    backgroundColor: Color.yellow
+    backgroundColor: Color.yellow,
+    code: 'find_help',
   },
   {
     title_en: 'Your Story',
@@ -43,6 +46,7 @@ export default [
     imageWidth: '440',
     imageHeight: '344',
     audio: 'your_story_04.mp3',
-    backgroundColor: Color.pink
+    backgroundColor: Color.pink,
+    code: 'your_story',
   },
 ]

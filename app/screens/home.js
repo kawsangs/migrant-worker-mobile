@@ -11,6 +11,7 @@ import uuidv4 from '../utils/uuidv4';
 import CardItem from '../components/Home/CardItem';
 import homeMenuList from '../db/json/home_menu';
 import {setCurrentPlayingAudio} from '../actions/currentPlayingAudioAction';
+import Visit from '../models/Visit';
 
 class Home extends Component {
   state = {};
@@ -28,10 +29,11 @@ class Home extends Component {
     this.unsubscribe();
   }
 
-  _goTo(screenName) {
+  _goTo(item) {
     this.props.setCurrentPlayingAudio(null);
-    addStatistic(`goTo${screenName.split('Screen')[0]}`);
-    this.props.navigation.navigate(screenName);
+    addStatistic(`goTo${item.screenName.split('Screen')[0]}`);
+    Visit.uploadPageVisit(item.code, item.name);
+    this.props.navigation.navigate(item.screenName);
   }
 
   _renderCardItem(item) {
@@ -41,7 +43,7 @@ class Home extends Component {
         item={item}
         image={item.image}
         backgroundColor={item.backgroundColor}
-        onPress={ () => this._goTo(item.screenName) }
+        onPress={ () => this._goTo(item) }
         audio={item.audio}
       />
     )

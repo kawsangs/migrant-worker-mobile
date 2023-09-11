@@ -13,6 +13,12 @@ const Visit = (() => {
     deleteByUuid,
     deleteAll,
     upload,
+    uploadPageVisit,
+    uploadDepartureDetailVisit,
+    uploadSafetyDetailVisit,
+    uploadFindHelpDetailVisit,
+    uploadYourStoryDetailVisit,
+    uploadVideoDetailVisit,
   }
 
   function find(uuid) {
@@ -51,6 +57,68 @@ const Visit = (() => {
   function uploadAsync(uuid) {
     Sidekiq.upsert({paramUuid: uuid, tableName: MODEL, version: '1'});
     VisitWorker.performAsync(uuid);
+  }
+
+  function uploadPageVisit(code, name) {
+    upload({
+      pageable_type: 'Page',
+      code: code,
+      name: name,
+    });
+  }
+
+  // pageableId is the category's ID
+  function uploadDepartureDetailVisit(pageableId) {
+    upload({
+      pageable_type: 'Category',
+      pageable_id: pageableId.toString(),
+      code: 'your_departure_detail',
+      name: 'ដំណើរឆ្លងដែនរបស់អ្នក',
+      parent_code: 'your_departure'
+    });
+  }
+
+  // pageableId is the category's ID
+  function uploadSafetyDetailVisit(pageableId) {
+    upload({
+      pageable_type: 'Category',
+      pageable_id: pageableId.toString(),
+      code: 'your_safety_detail',
+      name: 'សុវត្តិភាពរបស់អ្នក',
+      parent_code: 'your_safety'
+    });
+  }
+
+  // pageableId is the country's ID or institution's ID
+  function uploadFindHelpDetailVisit(pageableType, pageableId) {
+    upload({
+      pageable_type: pageableType,
+      pageable_id: pageableId.toString(),
+      code: 'find_help_detail',
+      name: 'ស្វែងរកជំនួយ',
+      parent_code: 'find_help'
+    });
+  }
+
+  // pageableId is the form's ID
+  function uploadYourStoryDetailVisit(pageableId) {
+    upload({
+      pageable_type: 'Form',
+      pageable_id: pageableId.toString(),
+      code: 'your_story_detail',
+      name: 'សាច់រឿងរបស់អ្នក',
+      parent_code: 'your_story'
+    });
+  }
+
+  function uploadVideoDetailVisit(pageableId) {
+    upload({
+      pageable_type: 'Video',
+      pageable_id: pageableId.toString(),
+      code: 'video_detail',
+      name: 'វីដេអូ',
+      parent_code: 'video'
+    });
   }
 })()
 
