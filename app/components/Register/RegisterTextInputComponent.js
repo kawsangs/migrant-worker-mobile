@@ -17,6 +17,7 @@ const RegisterTextInputComponent = (props) => {
             keyboardType={props.keyboardType || 'default'}
             onChangeText={value => props.onChange(value)}
             value={props.value}
+            maxLength={props.maxLength || null}
           />
           <View style={{justifyContent: 'center', marginRight: 2}}>
             { props.audioButton() }
