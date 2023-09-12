@@ -21,6 +21,7 @@ class VisitService extends WebService {
     return {
       visit: {
         user_id: !!user ? user.id : null,
+        user_uuid: visit.user_uuid,
         visit_date: visit.visit_date,
         pageable_id: visit.pageable_id,
         pageable_type: visit.pageable_type,
