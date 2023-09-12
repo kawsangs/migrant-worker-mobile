@@ -39,7 +39,7 @@ class CreateYourStory extends Component {
       }}/>),
       headerRight: () => (<HomeButton onPress={() => {
         this.setState({action: 'Home'});
-        this._handleBack()
+        this.alertRef.current?.setAlertVisibility(true);
       }}/>),
     });
 
