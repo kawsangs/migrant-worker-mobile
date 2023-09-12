@@ -26,7 +26,8 @@ const Sidekiq = (() => {
   function destroy(paramUuid) {
     realm.write(() => {
       let obj = realm.objects('Sidekiq').filtered('paramUuid="' + paramUuid + '"')[0];
-      realm.delete(obj);
+      if (!!obj)
+        realm.delete(obj);
     });
   }
 

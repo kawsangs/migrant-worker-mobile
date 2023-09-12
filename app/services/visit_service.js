@@ -2,7 +2,6 @@ import DeviceInfo from 'react-native-device-info';
 import WebService from './web_service';
 import endpointHelper from '../helpers/endpoint_helper';
 import Visit from '../models/Visit';
-import User from '../models/User';
 import Sidekiq from '../models/Sidekiq';
 
 class VisitService extends WebService {
@@ -17,10 +16,8 @@ class VisitService extends WebService {
   // private method
   async _buildParams(uuid) {
     const visit = Visit.find(uuid);
-    const user = User.find(visit.user_uuid);
     return {
       visit: {
-        user_id: !!user ? user.id : null,
         user_uuid: visit.user_uuid,
         visit_date: visit.visit_date,
         pageable_id: visit.pageable_id,
