@@ -1,4 +1,3 @@
-import {Platform} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import messaging from '@react-native-firebase/messaging';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -41,8 +40,6 @@ class RegisteredTokenService extends WebService {
       registered_token: {
         token: token,
         id: id,
-        device_id: await DeviceInfo.getUniqueId(),
-        device_os: (Platform.OS != 'android' && Platform.OS != 'ios') ? 'other' : Platform.OS,
         device_type: DeviceInfo.isTablet() ? 'tablet' : 'mobile',
         app_version: DeviceInfo.getVersion(),
       }
