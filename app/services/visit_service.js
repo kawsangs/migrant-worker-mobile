@@ -1,4 +1,3 @@
-import DeviceInfo from 'react-native-device-info';
 import WebService from './web_service';
 import endpointHelper from '../helpers/endpoint_helper';
 import Visit from '../models/Visit';
@@ -22,7 +21,6 @@ class VisitService extends WebService {
         visit_date: visit.visit_date,
         pageable_id: visit.pageable_id,
         pageable_type: visit.pageable_type,
-        device_id: await DeviceInfo.getUniqueId(),
         page_attributes: {
           code: visit.code,
           name: visit.name,
