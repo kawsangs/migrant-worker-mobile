@@ -120,7 +120,7 @@ class CountriesListing extends React.Component {
     NetInfo.fetch().then(state => {
       if (!state.isConnected) {
         this.setState({isFetching: false});
-        alert("No internet connection");
+        alert(this.props.t("InternetConnection.NoInternetConnection"));
         return
       }
 

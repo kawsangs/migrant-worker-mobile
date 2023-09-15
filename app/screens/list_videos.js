@@ -73,7 +73,8 @@ export default function ListVideos() {
   const scenMap = () => {
     let obj = {};
     for (let i = 0; i < routes.length; i++) {
-      obj[routes[i].key] = screenList
+      if (!!routes[i])
+        obj[routes[i].key] = screenList
     }
     return obj;
   }
