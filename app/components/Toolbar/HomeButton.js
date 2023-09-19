@@ -14,7 +14,7 @@ class HomeButton extends Component {
   render() {
     return (
       <TouchableOpacity
-        style={{padding: 16}}
+        style={{width: 48}}
         onPress={() => this.onPress()}>
 
         <Icon name={'home'} size={30} style={{color: '#fff'}}/>

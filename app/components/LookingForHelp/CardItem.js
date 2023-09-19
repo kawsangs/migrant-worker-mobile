@@ -67,9 +67,14 @@ class CardItem extends React.Component {
     )
   }
 
-  callOrOpenLink(item) {
+  callOrOpenLink(url) {
     Visit.uploadFindHelpDetailVisit('Institution', this.props.institute.id);
-    Linking.openURL(contactHelper.getContactLink(item.type, item.value));
+    Linking.canOpenURL(url).then(supported => {
+      if (supported)
+        Linking.openURL(url);
+      else
+        alert(`មិនអាចបើកតំណនេះ`);
+    });
   }
 
   _renderLogo(item) {
@@ -91,7 +96,7 @@ class CardItem extends React.Component {
       <TouchableOpacity style={[
         styles.contactContainer,
         { borderBottomWidth: is_last_item ? 0 : 1, }]} key={index}
-        onPress={() => this.callOrOpenLink(contactInfo)}  
+        onPress={() => this.callOrOpenLink(contactHelper.getContactLink(contactInfo.type, contactInfo.value))}  
       >
         <Icon
           name={contactInfo.type.toLowerCase() == 'website' ? 'globe' : contactInfo.type.toLowerCase()}

@@ -40,7 +40,7 @@ class Other extends Component {
       if (supported) {
         Linking.openURL(url);
       } else {
-        alert("Don't know how to open URI: " + url);
+        alert(`មិនអាចបើកតំណនេះ (${url})`);
       }
     });
   }
