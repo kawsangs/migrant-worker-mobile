@@ -1,7 +1,6 @@
 import DeviceInfo from 'react-native-device-info';
 import realm from '../db/schema'
 import countries from '../data/json/countries'
-import Institution from './Institution';
 
 const MODEL_NAME = 'Country'
 const Country = (() => {
@@ -14,7 +13,6 @@ const Country = (() => {
     deleteBatch,
     reloadBatch,
     createBatch,
-    loadIfNotExists,
     seedData,
     filterByName,
   }
@@ -59,23 +57,12 @@ const Country = (() => {
     callback();
   }
 
-  function loadIfNotExists(callback) {
-    if( !isExist() || !Institution.hasDisplayOrder() ) {
-      createBatch(countries)
-      callback()
-    }
-  }
-
   function seedData(callback) {
     const countries = all().filter(c => c.app_version == DeviceInfo.getVersion())
-    if (countries.length  == 0)
+    if (countries.length  > 0)
       return
 
     reloadBatch(callback);
-  }
-
-  function isExist() {
-    return all().length > 0
   }
 
   function filterByName(query) {
