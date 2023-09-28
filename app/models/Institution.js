@@ -21,7 +21,7 @@ const Institution = (() => {
   }
 
   function createBatch() {
-    return _.map( institutions, (serializer, index) => create(serializer, index))
+    return _.map( institutions, (serializer, index) => create({...serializer, offline: true}, index))
   }
 
   function where(field, query) {

@@ -102,6 +102,7 @@ class CardItem extends React.Component {
           name={contactInfo.type.toLowerCase() == 'website' ? 'globe' : contactInfo.type.toLowerCase()}
           size={24}
           color={Color.yellow}
+          style={{width: 25}}
         />
 
         <Text style={styles.contact}>
@@ -138,7 +139,8 @@ const styles = StyleSheet.create({
   contact: {
     color: Color.yellow,
     marginLeft: 15,
-    fontWeight: '700'
+    fontWeight: '700',
+    flex: 1
   }
 });
 
