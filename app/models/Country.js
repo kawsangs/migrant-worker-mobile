@@ -59,7 +59,7 @@ const Country = (() => {
 
   function seedData(callback) {
     const countries = all().filter(c => c.app_version == DeviceInfo.getVersion())
-    if (countries.length  > 0)
+    if (countries.length > 0)
       return
 
     reloadBatch(callback);
