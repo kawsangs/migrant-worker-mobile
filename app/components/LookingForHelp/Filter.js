@@ -30,7 +30,7 @@ class LookingForHelp extends React.Component {
 
   onChangeQuery = (query) => {
     this.setState({query: query});
-    this.props.onChangeQuery(institutionHelper.getFilteredInstitutions(this.state.institutions, query));
+    this.props.onChangeQuery(institutionHelper.getFilteredInstitutions(this.state.institutions, query), query);
   }
 
   render() {

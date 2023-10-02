@@ -32,6 +32,7 @@ class LookingForHelp extends React.Component {
       country: country,
       isFetching: false,
       institutions: [],
+      searchedText: '',
     }
   }
 
@@ -61,7 +62,7 @@ class LookingForHelp extends React.Component {
       <View>
         <Filter
           code={this.props.route.params.code}
-          onChangeQuery={(result) => this.setState({institutions: result})}/>
+          onChangeQuery={(result, searchedText) => this.setState({institutions: result, searchedText, searchedText})}/>
 
         <View style={{flexDirection: 'row', marginHorizontal: 16, marginBottom: 16, alignItems: 'center'}}>
           { !countryHelper.isAllCountries(this.state.country.name) &&
@@ -124,7 +125,7 @@ class LookingForHelp extends React.Component {
           data={this.state.institutions}
           ListHeaderComponent={ this._renderHeader() }
           ListHeaderComponentStyle={{ marginVertical: 0 }}
-          renderItem={({ item }) => <CardItem institute={item} />}
+          renderItem={({ item }) => <CardItem institute={item} searchedText={this.state.searchedText} />}
           keyExtractor={item => item.id.toString()}
           ListEmptyComponent={<EmptyResult message={this.props.t("LookingForHelpScreen.NotFound")} />}
           onRefresh={ () => this.loadInstitution() }

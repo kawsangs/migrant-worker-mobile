@@ -1,14 +1,12 @@
 import React from 'react';
-import {
-  TouchableOpacity,
-  Text,
-  View,
-} from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
+import TextHighlight from 'react-native-text-highlighter';
 
 import Flag from '../../components/LookingForHelp/Flag';
 import CountryImage from '../../components/CountryImage';
 import countryHelper from '../../helpers/country_helper';
 import Visit from '../../models/Visit';
+import { FontFamily } from '../../assets/stylesheets/base_style';
 
 class ViewedCountry extends React.Component {
   gotoHelp = () => {
@@ -30,9 +28,10 @@ class ViewedCountry extends React.Component {
           :
           <View style={{marginLeft: 16}}/>
         }
-        <Text style={{marginVertical: 16}}>
-          { country.name_km || country.name }
-        </Text>
+        <TextHighlight textToHighlight={country.name_km || country.name} searchWords={[this.props.searchedText]}
+          fontSize={16} fontFamily={FontFamily.body}
+          containerStyle={{marginVertical: 16}}
+        />
       </TouchableOpacity>
     )
   }

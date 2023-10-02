@@ -7,6 +7,7 @@ import {
   Image,
   Linking,
 } from 'react-native';
+import TextHighlight from 'react-native-text-highlighter';
 
 import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -50,7 +51,7 @@ class CardItem extends React.Component {
               {/* { this._renderLogo(item) } */}
 
               <View style={styles.institutionNameContainer}>
-                <Text style={{fontFamily: FontFamily.title, fontSize: 15}}>{institutionName}</Text>
+                <TextHighlight textToHighlight={institutionName} searchWords={[this.props.searchedText]} fontSize={15} fontFamily={FontFamily.title} />
               </View>
 
               { !!item.audio && this.renderAudioPlayer(item)}
