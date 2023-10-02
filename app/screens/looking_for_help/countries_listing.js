@@ -96,7 +96,7 @@ class CountriesListing extends React.Component {
         <View style={styles.countriesContainer}>
           <FlatList
             data={countries}
-            renderItem={(country, i) => <ViewedCountry navigation={navigation} country={country.item} /> }
+            renderItem={(country, i) => <ViewedCountry navigation={navigation} country={country.item} searchedText={this.state.query} /> }
             keyExtractor={country => uuidv4()}
             ListEmptyComponent={<EmptyResult message={t("CountriesListingScreen.NoCountry")} />}
             contentContainerStyle={{padding: 8, alignSelf: 'stretch'}}
@@ -156,7 +156,8 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     marginVertical: 5,
     paddingVertical: 10,
-    fontFamily: FontFamily.body
+    fontFamily: FontFamily.body,
+    fontSize: 16,
   },
   searchContainer: {
     display: 'flex',
