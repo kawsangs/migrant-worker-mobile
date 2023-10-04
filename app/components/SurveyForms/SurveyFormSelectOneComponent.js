@@ -34,6 +34,7 @@ const SurveyFormSelectOneComponent = (props) => {
                     value={option.id.toString()}
                     onPress={(value) => onSelect(value)}
                     selectedValue={selectedOption}
+                    isSelected={!!props.currentAnswer && props.currentAnswer.value == option.value}
                 />
         })
       }

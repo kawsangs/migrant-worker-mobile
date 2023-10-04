@@ -27,8 +27,8 @@ const SurveyFormContentComponent = (props) => {
     setAnswers(formattedAnswers)
   }, [])
 
-  const updateAnswers = (key, answer) => {
-    let newAnswers = answers;
+  const updateAnswers = (key, answer, type) => {
+    let newAnswers = {...answers};
     if (!!answer)
       newAnswers[currentSection][key] = answer;
     else
@@ -43,9 +43,15 @@ const SurveyFormContentComponent = (props) => {
       const key = `section_${currentSection}_q_${index}`;
       return <SurveyFormQuestionComponent
                 key={key}
+                currentSection={currentSection}
+                questionIndex={index}
                 question={question}
+                answers={answers}
+                currentAnswer={(!!answers[currentSection] && !!answers[currentSection][key]) ? answers[currentSection][key] : null}
                 updateAnswers={(answer) => updateAnswers(key, answer)}
-             />
+                beforeAnswer={(currentSection > 0 && !!answers[currentSection] && !!answers[currentSection][key]) ? answers[currentSection][key] : null}
+                isVisible={new SurveyFormService().isQuestionMatchCriterias(question, answers)}
+            />
     })
   }
 

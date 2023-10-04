@@ -12,7 +12,6 @@ import Option from '../../models/Option';
 
 const SurveyFormQuestionComponent = (props) => {
   const type = props.question.type.split('::')[1];
-
   const QuestionComponents = {
     SelectOne: SurveyFormSelectOneComponent,
     SelectMultiple: SurveyFormSelectMultipleComponent,
@@ -45,17 +44,21 @@ const SurveyFormQuestionComponent = (props) => {
                 options: Option.byQuestion(props.question.id),
                 buttonColor: Color.primary,
                 statisticPrefix: 'Survey',
+                currentAnswer: props.currentAnswer,
                 updateAnswer: (answer) => props.updateAnswers(answer),
             })
     }
   }
 
-  return (
-    <View style={{padding: 16, marginTop: 16, borderWidth: 1.5, borderColor: '#dbdbdb', borderRadius: 10, backgroundColor: Color.white}}>
-      { renderTitle() }
-      { renderQuestion() }
-    </View>
-  )
+  if (props.isVisible) {
+    return (
+      <View style={{padding: 16, marginTop: 16, borderWidth: 1.5, borderColor: '#dbdbdb', borderRadius: 10, backgroundColor: Color.white}}>
+        { renderTitle() }
+        { renderQuestion() }
+      </View>
+    )
+  }
+  return;
 }
 
 export default SurveyFormQuestionComponent;

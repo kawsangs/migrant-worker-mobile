@@ -51,7 +51,8 @@ class NotificationItem extends React.Component {
         code: 'open_in_app_notification',
         name: 'Open in-app notification',
       });
-      return this.props.navigation.navigate('SurveyFormScreen', { uuid: this.props.notification.uuid, form_id: data.form_id, title: this.props.notification.title })
+      // return this.props.navigation.navigate('SurveyFormScreen', { uuid: this.props.notification.uuid, form_id: data.form_id, title: this.props.notification.title })
+      return this.props.navigation.navigate('SurveyFormScreen', { uuid: this.props.notification.uuid, form_id: 15, title: this.props.notification.title })
     }
 
     this.props.navigation.navigate('NotificationDetailScreen', { uuid: this.props.notification.uuid })

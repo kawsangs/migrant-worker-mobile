@@ -7,8 +7,15 @@ import Form from '../models/Form';
 import Section from '../models/Section';
 import Question from '../models/Question';
 import Quiz from '../models/Quiz';
+import Criteria from '../models/Criteria';
 import Answer from '../models/Answer';
 import uuidv4 from '../utils/uuidv4';
+import surveyLogicUtil from '../utils/survey_logic_util';
+
+const OPERATORS = {
+  'AND': '&&',
+  'OR': '||',
+}
 
 class SurveyFormService extends WebService {
   constructor() {
@@ -19,6 +26,19 @@ class SurveyFormService extends WebService {
     this.get(endpointHelper.detailEndpoint('survey_forms', id))
       .then(response => JSON.parse(response.data))
       .then(data => {
+        // data.sections.map(section => {
+        //   section.questions.map(question => {
+        //     console.log('question = ', question)
+        //     console.log('+++++++++++++++++++++++++++')
+        //     question.criterias.map((criteria, index) => {
+        //       console.log(`= criteria ${index} = `, criteria)
+        //     })
+        //     console.log('===================================')
+        //   });
+        // })
+
+        // // !!callback && callback();
+
         this._saveForm(data);
         this._saveSectionsAndQuestions(data.sections, id, callback);
       })
@@ -29,6 +49,42 @@ class SurveyFormService extends WebService {
     this._saveAnswer(answers, () => {
       Quiz.setFinished(quizUuid);
     });
+  }
+
+  isQuestionMatchCriterias(question, answers) {
+    const criterias = Criteria.byQuestion(question.id);
+    if (criterias.length == 0)
+      return true;
+
+    let query = '';
+    criterias.map((criteria, criteriaIndex) => {
+      for (let section in answers) {
+        if ( Object.keys(answers[section]).length == 0)
+          continue;
+
+        let answer = null;
+        for (let index in answers[section]) {
+          if (answers[section][index].question_code == criteria.question_code)
+            answer = answers[section][index];
+        }
+
+        if (!!answer) {
+          if (criteria.operator == 'in')
+            query += surveyLogicUtil.getMatchAnyQuery(answer.value, criteria.response_value);
+          else if (criteria.operator == 'match_all')
+            query += surveyLogicUtil.getMatchAllQuery(answer.value, criteria.response_value);
+          else
+            query += `('${answer.value}' ${criteria.operator == '=' ? '==' : criteria.operator} '${criteria.response_value}')`;
+        }
+      }
+
+      if (criteriaIndex < criterias.length - 1)
+        query += OPERATORS[question.relevant];
+    });
+    if (eval(query))
+      return true
+
+    return false
   }
 
   // private method
