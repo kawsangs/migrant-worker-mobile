@@ -27,11 +27,11 @@ const SurveyFormScreen = ({route, navigation}) => {
     Notification.update(route.params.uuid, { is_read: true });
     dispatch(setNotifications(Notification.all()));
 
-    // new SurveyFormService().findAndSave(route.params.form_id, () => setForm());
-    if (!Form.findById(route.params.form_id))
-      new SurveyFormService().findAndSave(route.params.form_id, () => setForm());
-    else
-      setForm()
+    new SurveyFormService().findAndSave(route.params.form_id, () => setForm());
+    // if (!Form.findById(route.params.form_id))
+    //   new SurveyFormService().findAndSave(route.params.form_id, () => setForm());
+    // else
+    //   setForm()
 
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
       alertRef.current?.setAlertVisibility(true)

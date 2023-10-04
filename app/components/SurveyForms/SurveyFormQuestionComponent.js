@@ -5,13 +5,14 @@ import SurveyFormSelectOneComponent from './SurveyFormSelectOneComponent';
 import SurveyFormSelectMultipleComponent from './SurveyFormSelectMultipleComponent';
 import SurveyFormTextComponent from './SurveyFormTextComponent';
 import SurveyFormVoiceRecordComponent from './SurveyFormVoiceRecordComponent';
+import SurveyFormNoteComponent from './SurveyFormNoteComponent';
 import CustomAudioPlayerComponent from '../shared/CustomAudioPlayerComponent';
 import { Color, FontFamily } from '../../assets/stylesheets/base_style';
 import uuidv4 from '../../utils/uuidv4';
 import Option from '../../models/Option';
 
 const SurveyFormQuestionComponent = (props) => {
-  console.log('== question = ', props.question)
+  // console.log('== question = ', props.question)
 
   const type = props.question.type.split('::')[1];
   const QuestionComponents = {
@@ -19,6 +20,7 @@ const SurveyFormQuestionComponent = (props) => {
     SelectMultiple: SurveyFormSelectMultipleComponent,
     Text: SurveyFormTextComponent,
     VoiceRecording: SurveyFormVoiceRecordComponent,
+    Note: SurveyFormNoteComponent,
   };
 
   const renderTitle = () => {

@@ -24,6 +24,7 @@ import NotificationSchema from '../migrations/v1/notification';
 import VideoSchema from '../migrations/v4/video';
 import SectionSchema from '../migrations/v4/section';
 import VisitSchema from '../migrations/v4/visit';
+import DownloadedImageSchema from '../migrations/v6/downloaded_image';
 
 const schemaNames = [
   "User",
@@ -44,6 +45,7 @@ const schemaNames = [
   "Video",
   "Section",
   "Visit",
+  "DownloadedImage",
 ]
 
 const schemaHelper = (() => {
@@ -71,6 +73,7 @@ const schemaHelper = (() => {
       VideoSchema,
       SectionSchema,
       VisitSchema,
+      DownloadedImageSchema,
     ];
 
     changedSchemas.map((schema) => {
