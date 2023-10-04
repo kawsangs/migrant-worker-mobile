@@ -26,16 +26,16 @@ class SurveyFormService extends WebService {
     this.get(endpointHelper.detailEndpoint('survey_forms', id))
       .then(response => JSON.parse(response.data))
       .then(data => {
-        // data.sections.map(section => {
-        //   section.questions.map(question => {
-        //     console.log('question = ', question)
-        //     console.log('+++++++++++++++++++++++++++')
-        //     question.criterias.map((criteria, index) => {
-        //       console.log(`= criteria ${index} = `, criteria)
-        //     })
-        //     console.log('===================================')
-        //   });
-        // })
+        data.sections.map(section => {
+          section.questions.map(question => {
+            console.log('question = ', question)
+            console.log('+++++++++++++++++++++++++++')
+            question.criterias.map((criteria, index) => {
+              console.log(`= criteria ${index} = `, criteria)
+            })
+            console.log('===================================')
+          });
+        })
 
         // // !!callback && callback();
 
