@@ -66,6 +66,7 @@ const Option = (() => {
       recursive: !!item.recursive,
       question_id: item.question_id,
       question_code: question_code,
+      icon: item.icon || null
     };
 
     if (!!item.offline && !!item.image_url) {

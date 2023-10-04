@@ -1,5 +1,7 @@
 import Option from '../models/Option';
+import DownloadedImage from '../models/DownloadedImage';
 import FileDownloader from '../downloaders/file_downloader';
+import fileUtil from '../utils/file_util';
 
 const optionService = (() => {
   return {
@@ -16,15 +18,15 @@ const optionService = (() => {
     if(index == items.length)
       return;
 
-    let item = items[index];
-
-    FileDownloader.download(item.url, (fileUrl) => {
-      // realm.write(() => {
-      //   item.obj[item.type] = fileUrl
-      // });
-
-      _download(index + 1, items);
-    })
+    const item = items[index];
+    if (!!item.icon && !DownloadedImage.isFileNameExisted(item.icon)) {
+      FileDownloader.download(item.icon, (fileUrl) => {
+        DownloadedImage.create({name: fileUtil.getFilenameFromUrl(item.icon)})
+        _download(index + 1, items)
+      }, () => _download(index + 1, items))
+    }
+    else
+      _download(index + 1, items)
   }
 })();
 
