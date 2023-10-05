@@ -9,7 +9,6 @@ import SurveyFormService from '../../services/survey_form_service';
 import Notification from '../../models/Notification';
 import Form from '../../models/Form';
 import Quiz from '../../models/Quiz';
-import Criteria from '../../models/Criteria';
 import uuidv4 from '../../utils/uuidv4';
 import { Color } from '../../assets/stylesheets/base_style';
 import { setCurrentQuiz } from '../../actions/currentQuizAction';
@@ -22,12 +21,9 @@ const SurveyFormScreen = ({route, navigation}) => {
   const alertRef = React.useRef(null);
 
   useEffect(() => {
-    // Criteria.deleteAll()
-
     Notification.update(route.params.uuid, { is_read: true });
     dispatch(setNotifications(Notification.all()));
 
-    // new SurveyFormService().findAndSave(route.params.form_id, () => setForm());
     if (!Form.findById(route.params.form_id))
       new SurveyFormService().findAndSave(route.params.form_id, () => setForm());
     else

@@ -5,6 +5,8 @@ const surveyLogicUtil = (() => {
   }
 
   function getMatchAnyQuery(answer, responseValue) {
+    if (!answer) return 'false';
+
     let query = '';
     const answers = answer.split(',');
     for (let i = 0; i < answers.length; i++) {
@@ -20,7 +22,8 @@ const surveyLogicUtil = (() => {
     let query = '';
     const responseValues = responseValue.split(',');
     for (let i = 0; i < responseValues.length; i++) {
-      query += answer.indexOf(responseValues[i]) > -1 ? 'true' : 'false';
+      // query += answer.indexOf(responseValues[i]) > -1 ? 'true' : 'false';
+      query += !answer ? 'false' : answer.indexOf(responseValues[i]) > -1 ? 'true' : 'false';
       if (i < responseValues.length - 1)
         query += ' && ';
     }

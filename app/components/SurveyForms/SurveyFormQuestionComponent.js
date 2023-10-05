@@ -12,8 +12,6 @@ import uuidv4 from '../../utils/uuidv4';
 import Option from '../../models/Option';
 
 const SurveyFormQuestionComponent = (props) => {
-  // console.log('== question = ', props.question)
-
   const type = props.question.type.split('::')[1];
   const QuestionComponents = {
     SelectOne: SurveyFormSelectOneComponent,
@@ -62,6 +60,7 @@ const SurveyFormQuestionComponent = (props) => {
       </View>
     )
   }
+
   return;
 }
 

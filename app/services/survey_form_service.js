@@ -26,19 +26,6 @@ class SurveyFormService extends WebService {
     this.get(endpointHelper.detailEndpoint('survey_forms', id))
       .then(response => JSON.parse(response.data))
       .then(data => {
-        data.sections.map(section => {
-          section.questions.map(question => {
-            console.log('question = ', question)
-            console.log('+++++++++++++++++++++++++++')
-            question.criterias.map((criteria, index) => {
-              console.log(`= criteria ${index} = `, criteria)
-            })
-            console.log('===================================')
-          });
-        })
-
-        // // !!callback && callback();
-
         this._saveForm(data);
         this._saveSectionsAndQuestions(data.sections, id, callback);
       })
@@ -51,37 +38,44 @@ class SurveyFormService extends WebService {
     });
   }
 
-  isQuestionMatchCriterias(question, answers) {
+  isQuestionMatchCriterias(question, answers, currentSection) {
     const criterias = Criteria.byQuestion(question.id);
     if (criterias.length == 0)
       return true;
 
-    let query = '';
-    criterias.map((criteria, criteriaIndex) => {
+    let queries = [];
+    criterias.map((criteria, index) => {
+      let matchedAnswer = null;
       for (let section in answers) {
-        if ( Object.keys(answers[section]).length == 0)
-          continue;
+        if (Object.keys(answers[section]).length == 0 || section > currentSection)
+          break;
 
-        let answer = null;
-        for (let index in answers[section]) {
-          if (answers[section][index].question_code == criteria.question_code)
-            answer = answers[section][index];
-        }
+        for (let answerIndex in answers[section]) {
+          if (answers[section][answerIndex].question_code == criteria.question_code) {
+            matchedAnswer = answers[section][answerIndex];
+            if (criteria.operator == 'in')
+              query = surveyLogicUtil.getMatchAnyQuery(matchedAnswer.value, criteria.response_value);
+            else if (criteria.operator == 'match_all')
+              query = surveyLogicUtil.getMatchAllQuery(matchedAnswer.value, criteria.response_value);
+            else
+              query = `('${matchedAnswer.value}' ${criteria.operator == '=' ? '==' : criteria.operator} '${criteria.response_value}')`;
 
-        if (!!answer) {
-          if (criteria.operator == 'in')
-            query += surveyLogicUtil.getMatchAnyQuery(answer.value, criteria.response_value);
-          else if (criteria.operator == 'match_all')
-            query += surveyLogicUtil.getMatchAllQuery(answer.value, criteria.response_value);
-          else
-            query += `('${answer.value}' ${criteria.operator == '=' ? '==' : criteria.operator} '${criteria.response_value}')`;
+            queries.push(query)
+            break;
+          }
         }
       }
-
-      if (criteriaIndex < criterias.length - 1)
-        query += OPERATORS[question.relevant];
     });
-    if (eval(query))
+
+    if (queries.length < criterias.length && question.relevant == "AND")   // when there is no answer to compare with the criteria then mark it as false (for AND condition only)
+      queries.push('false')
+
+    let mainQuery = ''
+    queries.map((qu, index) => {
+      mainQuery += `${qu} ${index < queries.length - 1 ? OPERATORS[question.relevant] : ''}`
+    })
+
+    if (eval(mainQuery))
       return true
 
     return false

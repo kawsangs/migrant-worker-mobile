@@ -10,6 +10,8 @@ import Question from '../../models/Question';
 import SurveyFormService from '../../services/survey_form_service';
 import {setCurrentPlayingAudio} from '../../actions/currentPlayingAudioAction';
 
+let visibleQuestions = [];
+
 const SurveyFormContentComponent = (props) => {
   const navigation = useNavigation();
   const currentQuiz = useSelector(state => state.currentQuiz)
@@ -25,9 +27,11 @@ const SurveyFormContentComponent = (props) => {
       formattedAnswers[index] = {};
     });
     setAnswers(formattedAnswers)
+    
+    return () => visibleQuestions = [];
   }, [])
 
-  const updateAnswers = (key, answer, type) => {
+  const updateAnswers = (key, answer) => {
     let newAnswers = {...answers};
     if (!!answer)
       newAnswers[currentSection][key] = answer;
@@ -35,12 +39,44 @@ const SurveyFormContentComponent = (props) => {
       delete newAnswers[currentSection][key];
 
     setAnswers(newAnswers);
-    buttonRef.current?.validateForm(currentSection);
+    setTimeout(() => {
+      buttonRef.current?.validateForm(currentSection, visibleQuestions);
+    }, 200)
+  }
+
+  const handleSkipLogic = (key, index, isQuestionVisible, numOfQuestion, questionType) => {
+    if (isQuestionVisible) {
+      visibleQuestions[index] = true;
+      // Enable the bottom button if it is the note question
+      if (questionType == 'Note' && index == numOfQuestion - 1)
+        setTimeout(() => {
+          buttonRef.current?.updateValidStatus(true);
+        }, 200);
+    }
+    else {
+      // reset the answer of the question that is not visible
+      visibleQuestions[index] = false;
+      let newAnswers = {...answers};
+      if (!!newAnswers[currentSection] && !!newAnswers[currentSection][key]) {
+        delete newAnswers[currentSection][key];
+        setAnswers(newAnswers)
+      }
+    }
+
+    // Move to next section if the currenct section has no question matched with the criteria
+    if (visibleQuestions.filter(q => q == true).length == 0 && index == numOfQuestion - 1) {
+      visibleQuestions = [];
+      if (currentSection < sections.length - 1 )
+        setCurrentSection(currentSection + 1);
+    }
   }
 
   const renderQuestionsOfSection = () => {
-    return Question.findBySectionId(sections[currentSection].id).map((question, index) => {
+    const questions = Question.findBySectionId(sections[currentSection].id);
+    return questions.map((question, index) => {
       const key = `section_${currentSection}_q_${index}`;
+      const isQuestionVisible = new SurveyFormService().isQuestionMatchCriterias(question, answers, currentSection);
+      handleSkipLogic(key, index, isQuestionVisible, questions.length, question.type.split('::')[1]);
       return <SurveyFormQuestionComponent
                 key={key}
                 currentSection={currentSection}
@@ -50,7 +86,7 @@ const SurveyFormContentComponent = (props) => {
                 currentAnswer={(!!answers[currentSection] && !!answers[currentSection][key]) ? answers[currentSection][key] : null}
                 updateAnswers={(answer) => updateAnswers(key, answer)}
                 beforeAnswer={(currentSection > 0 && !!answers[currentSection] && !!answers[currentSection][key]) ? answers[currentSection][key] : null}
-                isVisible={new SurveyFormService().isQuestionMatchCriterias(question, answers)}
+                isVisible={isQuestionVisible}
             />
     })
   }
@@ -58,7 +94,8 @@ const SurveyFormContentComponent = (props) => {
   const goNextOrFinish = () => {
     dispatch(setCurrentPlayingAudio(null));
     if (currentSection < sections.length - 1) {
-      buttonRef.current?.validateForm(currentSection + 1);
+      visibleQuestions = [];
+      buttonRef.current?.updateValidStatus(false);
       setCurrentSection(currentSection + 1);
     }
     else if (currentSection == sections.length - 1) {
