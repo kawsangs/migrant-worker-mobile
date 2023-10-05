@@ -20,14 +20,16 @@ const SurveyFormButtonComponent = React.forwardRef((props, ref) => {
     updateValidStatus,
   }))
 
-  const validateForm = (currentSection, questionVisibleStatuses) => {
+  const validateForm = (currentSection, questionVisibleStatuses, questions) => {
     let query = '';
     for (let index in questionVisibleStatuses) {
       if (!!questionVisibleStatuses[index]) {
         if (!!query)
           query += ' && ';
 
-        query += `${!!props.answers[currentSection][`section_${currentSection}_q_${index}`] && !!props.answers[currentSection][`section_${currentSection}_q_${index}`].value}`;
+        const questionType = questions[index].type.split('::')[1].toLowerCase();
+        query += questionType == 'note' ? 'true'
+                 : `${!!props.answers[currentSection][`section_${currentSection}_q_${index}`] && !!props.answers[currentSection][`section_${currentSection}_q_${index}`].value}`;
       }
     }
     setIsValid(eval(query));

@@ -31,7 +31,7 @@ const SurveyFormContentComponent = (props) => {
     return () => visibleQuestions = [];
   }, [])
 
-  const updateAnswers = (key, answer) => {
+  const updateAnswers = (key, answer, questions) => {
     let newAnswers = {...answers};
     if (!!answer)
       newAnswers[currentSection][key] = answer;
@@ -40,17 +40,17 @@ const SurveyFormContentComponent = (props) => {
 
     setAnswers(newAnswers);
     setTimeout(() => {
-      buttonRef.current?.validateForm(currentSection, visibleQuestions);
+      buttonRef.current?.validateForm(currentSection, visibleQuestions, questions);
     }, 200)
   }
 
-  const handleSkipLogic = (key, index, isQuestionVisible, numOfQuestion, questionType) => {
+  const handleSkipLogic = (key, index, isQuestionVisible, questionType, questions) => {
     if (isQuestionVisible) {
       visibleQuestions[index] = true;
       // Enable the bottom button if it is the note question
-      if (questionType == 'Note' && index == numOfQuestion - 1)
+      if (questionType.toLowerCase() == 'note' && index == questions.length - 1)
         setTimeout(() => {
-          buttonRef.current?.updateValidStatus(true);
+          buttonRef.current?.validateForm(currentSection, visibleQuestions, questions);
         }, 200);
     }
     else {
@@ -64,7 +64,7 @@ const SurveyFormContentComponent = (props) => {
     }
 
     // Move to next section if the currenct section has no question matched with the criteria
-    if (visibleQuestions.filter(q => q == true).length == 0 && index == numOfQuestion - 1) {
+    if (visibleQuestions.filter(q => q == true).length == 0 && index == questions.length - 1) {
       visibleQuestions = [];
       if (currentSection < sections.length - 1 )
         setCurrentSection(currentSection + 1);
@@ -76,7 +76,7 @@ const SurveyFormContentComponent = (props) => {
     return questions.map((question, index) => {
       const key = `section_${currentSection}_q_${index}`;
       const isQuestionVisible = new SurveyFormService().isQuestionMatchCriterias(question, answers, currentSection);
-      handleSkipLogic(key, index, isQuestionVisible, questions.length, question.type.split('::')[1]);
+      handleSkipLogic(key, index, isQuestionVisible, question.type.split('::')[1], questions);
       return <SurveyFormQuestionComponent
                 key={key}
                 currentSection={currentSection}
@@ -84,7 +84,7 @@ const SurveyFormContentComponent = (props) => {
                 question={question}
                 answers={answers}
                 currentAnswer={(!!answers[currentSection] && !!answers[currentSection][key]) ? answers[currentSection][key] : null}
-                updateAnswers={(answer) => updateAnswers(key, answer)}
+                updateAnswers={(answer) => updateAnswers(key, answer, questions)}
                 beforeAnswer={(currentSection > 0 && !!answers[currentSection] && !!answers[currentSection][key]) ? answers[currentSection][key] : null}
                 isVisible={isQuestionVisible}
             />
