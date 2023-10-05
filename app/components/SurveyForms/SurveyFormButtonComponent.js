@@ -9,7 +9,7 @@ const {useImperativeHandle} = React;
 
 const BUTTONS = {
   next: {label: 'បន្ទាប់', audio: 'next.mp3'},
-  finish: {label: 'បញ្ចប់', audio: null}
+  finish: {label: 'បញ្ចប់', audio: 'finish_20230929.mp3'}
 }
 
 const SurveyFormButtonComponent = React.forwardRef((props, ref) => {
