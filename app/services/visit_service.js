@@ -17,7 +17,7 @@ class VisitService extends WebService {
     const visit = Visit.find(uuid);
     return {
       visit: {
-        user_uuid: visit.user_uuid,
+        user_uuid: visit.user_uuid || null,
         visit_date: visit.visit_date,
         pageable_id: visit.pageable_id,
         pageable_type: visit.pageable_type,
