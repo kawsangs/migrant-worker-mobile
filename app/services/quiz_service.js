@@ -15,7 +15,7 @@ export default class QuizService extends WebService {
 
       if(!quiz || !!quiz.uploaded_id || !answers.length) return;
 
-      this.post(endpointHelper.listingEndpoint('quizzes'), JSON.stringify(this._buildParams(quiz, answers)), 'application/json')
+      this.post(endpointHelper.listingEndpoint('surveys'), JSON.stringify(this._buildParams(quiz, answers)), 'application/json')
         .then(response => JSON.parse(response.data))
         .then(data => {
           Answer.uploadVoiceAnsync(uuid);
@@ -26,7 +26,7 @@ export default class QuizService extends WebService {
   }
 
   _buildParams(quiz, answers) {
-    let answers_attributes = answers.map(answer => {
+    let survey_answers_attributes = answers.map(answer => {
       return {
         uuid: answer.uuid,
         question_id: answer.question_id,
@@ -44,7 +44,7 @@ export default class QuizService extends WebService {
       user_uuid: quiz.user_uuid,
       form_id: quiz.form_id,
       quizzed_at: quiz.quizzed_at,
-      answers_attributes: answers_attributes
+      survey_answers_attributes: survey_answers_attributes
     }
   }
 }

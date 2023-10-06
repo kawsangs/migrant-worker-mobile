@@ -1,18 +1,31 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import CheckboxComponent from '../shared/CheckboxComponent';
 
 const SurveyFormSelectMultipleComponent = (props) => {
   const {options} = props;
   const [answers, setAnswers] = useState([])
-  const [reload, setReload] = useState(false)
   const currentUser = useSelector(state => state.currentUser)
   const currentQuiz = useSelector(state => state.currentQuiz)
 
-  const onCheckOption = (option, value) => {
-    let newAnswers = answers || [];
-    let index = newAnswers.indexOf(value);
+  useEffect(() => {
+    setAnswers(getSelectedId())
+  }, []);
 
+  const getSelectedId = () => {
+    let selectedIds = [];
+    if (!!props.currentAnswer && !!props.currentAnswer.value) {
+      props.currentAnswer.value.split(',').map(value => {
+        const filteredOption = options.filter(option => option.value == value)[0]
+        selectedIds.push(filteredOption.id)
+      });
+    }
+    return selectedIds
+  }
+
+  const onCheckOption = (option, value) => {
+    let newAnswers = getSelectedId();
+    let index = newAnswers.indexOf(parseInt(value));
     if (index > -1)
       newAnswers.splice(index, 1);
     else
@@ -29,11 +42,12 @@ const SurveyFormSelectMultipleComponent = (props) => {
     }
 
     if (newAnswers.length > 0) {
-      const answeredOptions = options.filter(option => newAnswers.includes(option.id.toString()));
+      let answeredOptions = [];
+      newAnswers.map(newAnswer => {
+        answeredOptions.push(options.filter(option => newAnswer == option.id.toString())[0])
+      });
       answerParams.value = answeredOptions.map(o => o.value).join(',');
     }
-
-    setReload(!reload)
     props.updateAnswer(answerParams);
   }
 
@@ -43,7 +57,7 @@ const SurveyFormSelectMultipleComponent = (props) => {
                 key={option.id}
                 label={option.name}
                 value={option.id.toString()}
-                selected={answers.includes(option.id.toString())}
+                selected={answers.includes(option.id)}
                 onPress={(value) => onCheckOption(option, value)}
               />
     });

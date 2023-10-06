@@ -6,7 +6,6 @@ import uuidv4 from '../../utils/uuidv4';
 import {setCurrentPlayingAudio} from '../../actions/currentPlayingAudioAction';
 
 const SurveyFormVoiceRecordComponent = (props) => {
-  const [voice, setVoice] = useState('');
   const [audioPlayer, setAudioPlayer] = useState(null)
   const currentUser = useSelector(state => state.currentUser)
   const currentQuiz = useSelector(state => state.currentQuiz)
@@ -22,7 +21,6 @@ const SurveyFormVoiceRecordComponent = (props) => {
   }, [currentPlayingAudio])
 
   const onVoiceChange = (audioPath) => {
-    setVoice(audioPath);
     if (!audioPath) return props.updateAnswer(null);
 
     const answerParams = {
@@ -45,7 +43,7 @@ const SurveyFormVoiceRecordComponent = (props) => {
             ref={audioRef}
             uuid={uuidv4()}
             callback={(path) => onVoiceChange(path)}
-            audioPath={voice}
+            audioPath={!!props.currentAnswer ? props.currentAnswer.value : ''}
             audioPlayer={audioPlayer}
             updateAudioPlayer={(sound) => updateAudioPlayer(sound)}
             containerStyle={{height: 140}}

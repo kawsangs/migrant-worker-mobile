@@ -2,6 +2,7 @@ import realm from '../db/schema';
 import Option from './Option';
 import Answer from './Answer';
 import Criteria from './Criteria';
+import optionService from '../services/option_service';
 
 const MODEL = 'Question';
 
@@ -66,7 +67,7 @@ const Question = (() => {
       realm.create(MODEL, _buildData(item), 'modified');
     });
 
-    Option.upsertCollection(item.options, item.code);
+    optionService.saveOptions(item.options, item.code);
     Criteria.upsertCollection(item.criterias);
   }
 

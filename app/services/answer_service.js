@@ -14,7 +14,7 @@ export default class AnswerService extends WebService {
 
       if(!answer || !answer.voice) return;
 
-      this.put(endpointHelper.detailEndpoint('answers', uuid), this._buildParam(answer))
+      this.put(endpointHelper.detailEndpoint('survey_answers', uuid), this._buildParam(answer))
         .then(res => Sidekiq.destroy(uuid))
     });
   }
