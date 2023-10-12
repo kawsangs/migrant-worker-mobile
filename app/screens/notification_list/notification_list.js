@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, Image } from 'react-native';
 
+import Form from '../../models/Form';
 import Notification from '../../models/Notification';
 import NotificationItem from '../../components/Notification/notificationItem';
 import ConfirmModal from '../../components/confirmModal';
@@ -36,6 +37,7 @@ class NotificationList extends Component {
 
   deleteNotification = () => {
     Notification.destroy(this.state.selectedUuid);
+    Form.deleteAllWithDependency()
 
     this.setState({
       showModal: false,

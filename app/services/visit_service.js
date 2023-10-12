@@ -5,6 +5,9 @@ import Sidekiq from '../models/Sidekiq';
 
 class VisitService extends WebService {
   async upload(uuid) {
+    if (!Visit.find(uuid))
+      return;
+
     this.post(endpointHelper.listingEndpoint('visits'), JSON.stringify(await this._buildParams(uuid)), 'application/json')
       .then(res => {
         Sidekiq.destroy(uuid);
@@ -17,7 +20,7 @@ class VisitService extends WebService {
     const visit = Visit.find(uuid);
     return {
       visit: {
-        user_uuid: visit.user_uuid || null,
+        user_uuid: !!visit.user_uuid ? visit.user_uuid : null,
         visit_date: visit.visit_date,
         pageable_id: visit.pageable_id,
         pageable_type: visit.pageable_type,

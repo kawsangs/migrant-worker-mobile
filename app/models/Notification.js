@@ -6,6 +6,7 @@ const Notification = (() => {
   return {
     all,
     find,
+    findById,
     create,
     update,
     hasUnread,
@@ -19,6 +20,10 @@ const Notification = (() => {
 
   function find(uuid) {
     return realm.objects(MODEL_NAME).filtered(`uuid = '${uuid}'`)[0];
+  }
+
+  function findById(id) {
+    return realm.objects(MODEL_NAME).filtered(`id = ${id}`)[0];
   }
 
   function create(item) {
@@ -59,6 +64,7 @@ const Notification = (() => {
   function _buildData(item) {
     let params = {
       uuid: uuidv4(),
+      id: item.id,
       title: item.title,
       content: item.body,
       received_date: new Date(),
