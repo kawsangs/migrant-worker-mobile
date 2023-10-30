@@ -9,12 +9,12 @@ import {
 } from 'react-native';
 import TextHighlight from 'react-native-text-highlighter';
 
-import { Color, FontFamily, Style } from '../../assets/stylesheets/base_style';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Color, FontFamily, FontSize, Style } from '../../assets/stylesheets/base_style';
 import { withTranslation } from 'react-i18next';
 import contactHelper from '../../helpers/contact_helper';
 import CustomAudioPlayerComponent from '../shared/CustomAudioPlayerComponent';
 import Visit from '../../models/Visit';
+import ContactIcon from './ContactIcon';
 
 const mapping = {
   colors: {
@@ -97,20 +97,15 @@ class CardItem extends React.Component {
       <TouchableOpacity style={[
         styles.contactContainer,
         { borderBottomWidth: is_last_item ? 0 : 1, }]} key={index}
-        onPress={() => this.callOrOpenLink(contactHelper.getContactLink(contactInfo.type, contactInfo.value))}  
+        onPress={() => this.callOrOpenLink(contactHelper.getContactLink(contactInfo.type, contactInfo.value))}
       >
-        <Icon
-          name={contactInfo.type.toLowerCase() == 'website' ? 'globe' : contactInfo.type.toLowerCase()}
-          size={24}
-          color={Color.yellow}
-          style={{width: 25}}
-        />
+        <ContactIcon type={contactInfo.type} />
 
-        <Text style={styles.contact}>
-          { contactInfo.type.toLowerCase() == 'facebook' ?
-            institutionName
-            :
+        <Text style={[styles.contact, contactInfo.type.toLowerCase() == 'phone' && {fontWeight: '700', fontSize: FontSize.body}]}>
+          { contactInfo.type.toLowerCase() == 'phone' || contactInfo.type.toLowerCase() == 'website' ?
             contactInfo.value
+            :
+            institutionName
           }
         </Text>
       </TouchableOpacity>
@@ -140,7 +135,8 @@ const styles = StyleSheet.create({
   contact: {
     color: Color.yellow,
     marginLeft: 15,
-    fontWeight: '700',
+    fontFamily: FontFamily.title,
+    fontSize: FontSize.small,
     flex: 1
   }
 });
