@@ -53,25 +53,15 @@ class LookingForHelp extends React.Component {
     const countryInstitutions = CountryInstitution.findByCountryCode(this.props.route.params.code);
 
     this.setState({
-      institutions: new InstitutionService().getInstitutionByCountry(countryInstitutions)
+      institutions: [{id: 'country', label: 'country'}, ... new InstitutionService().getInstitutionByCountry(countryInstitutions)]
     });
   }
 
   _renderHeader() {
-    return (
-      <View>
-        <Filter
-          code={this.props.route.params.code}
-          onChangeQuery={(result, searchedText) => this.setState({institutions: result, searchedText, searchedText})}/>
-
-        <View style={{flexDirection: 'row', marginHorizontal: 16, marginBottom: 16, alignItems: 'center'}}>
-          { !countryHelper.isAllCountries(this.state.country.name) &&
-            <CountryImage countryCode={this.state.country.code} customStyle={{marginLeft: 0}} />
-          }
-          <Text style={{fontFamily: FontFamily.title}}>{this.state.country.name_km || this.state.country.name}</Text>
-        </View>
-      </View>
-    )
+    return <Filter
+              code={this.props.route.params.code}
+              onChangeQuery={(result, searchedText) => this.setState({institutions: [{id: 'country', label: 'country'}, ...result], searchedText, searchedText})}
+           />
   }
 
   loadInstitution() {
@@ -83,7 +73,7 @@ class LookingForHelp extends React.Component {
     this.checkInternet(() => {
       new InstitutionService().fetch(this.state.country.code, (res) => {
         this.setState({
-          institutions: res,
+          institutions: [{id: 'country', label: 'country'}, ...res],
           isFetching: false
         });
 
@@ -116,6 +106,18 @@ class LookingForHelp extends React.Component {
     });
   }
 
+  renderItem(item, index) {
+    if (index == 0)
+      return <View style={{flexDirection: 'row', alignItems: 'center', backgroundColor: '#f3f3f3', padding: 16}}>
+                { !countryHelper.isAllCountries(this.state.country.name) &&
+                  <CountryImage countryCode={this.state.country.code} customStyle={{marginLeft: 0}} />
+                }
+                <Text style={{fontFamily: FontFamily.title}}>{this.state.country.name_km || this.state.country.name}</Text>
+             </View>
+
+    return <CardItem institute={item} searchedText={this.state.searchedText} />
+  }
+
   render() {
     return (
       <SafeAreaView style={{ flex: 1 }}>
@@ -125,11 +127,12 @@ class LookingForHelp extends React.Component {
           data={this.state.institutions}
           ListHeaderComponent={ this._renderHeader() }
           ListHeaderComponentStyle={{ marginVertical: 0 }}
-          renderItem={({ item }) => <CardItem institute={item} searchedText={this.state.searchedText} />}
+          renderItem={({ item, index }) => this.renderItem(item, index)}
           keyExtractor={item => item.id.toString()}
           ListEmptyComponent={<EmptyResult message={this.props.t("LookingForHelpScreen.NotFound")} />}
           onRefresh={ () => this.loadInstitution() }
           refreshing={ this.state.isFetching }
+          stickyHeaderIndices={[0, 1]}
         />
       </SafeAreaView>
     )
