@@ -15,6 +15,7 @@ const Institution = (() => {
     update,
     isExist,
     deleteBatch,
+    deleteItem,
     createBatch,
     reloadBatch,
     hasDisplayOrder,
@@ -41,15 +42,17 @@ const Institution = (() => {
       realm.create(MODEL_NAME, _buildData(item, index), 'modified');
     });
 
-    item.country_institutions.map(countryInstitution => {
-      const data = {
-        uuid: uuidv4(),
-        country_code: countryInstitution.country_code,
-        institution_id: parseInt(item.id)
-      };
+    if (item.country_institutions) {
+      item.country_institutions.map(countryInstitution => {
+        const data = {
+          uuid: uuidv4(),
+          country_code: countryInstitution.country_code,
+          institution_id: parseInt(item.id)
+        };
 
-      CountryInstitution.create(data);
-    });
+        CountryInstitution.create(data);
+      });
+    }
   }
 
   function update(id, params) {
@@ -65,6 +68,12 @@ const Institution = (() => {
   function deleteBatch() {
     realm.write(() => {
       realm.delete(all())
+    })
+  }
+
+  function deleteItem(item) {
+    realm.write(() => {
+      realm.delete(item)
     })
   }
 

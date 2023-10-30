@@ -8,6 +8,7 @@ const CountryInstitution = (() => {
     create,
     isExist,
     deleteBatch,
+    deleteByCountryCode,
   }
 
   function findByCountryCode(countryCode) {
@@ -28,6 +29,13 @@ const CountryInstitution = (() => {
     realm.write(() => {
       realm.delete(realm.objects(MODEL_NAME))
     })
+  }
+
+  function deleteByCountryCode(countryCode) {
+    const items = this.findByCountryCode(countryCode);
+    realm.write(() => {
+      realm.delete(items)
+    });
   }
 })();
 

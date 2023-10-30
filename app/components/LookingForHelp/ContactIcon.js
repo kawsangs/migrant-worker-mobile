@@ -18,7 +18,7 @@ const ContactIcon = (props) => {
 
   return React.createElement(iconComponents[contactIcon.type], {
           name: contactIcon.name,
-          size: 24,
+          size: contactIcon.size || 24,
           color: Color.yellow,
           style: {width: 25}
         });

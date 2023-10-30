@@ -21,6 +21,7 @@ import Filter from '../../components/LookingForHelp/Filter';
 import CountryImage from '../../components/CountryImage';
 import countryHelper from '../../helpers/country_helper';
 import {setCurrentPlayingAudio} from '../../actions/currentPlayingAudioAction';
+import uuidv4 from '../../utils/uuidv4';
 
 class LookingForHelp extends React.Component {
   constructor(props) {
@@ -128,7 +129,7 @@ class LookingForHelp extends React.Component {
           ListHeaderComponent={ this._renderHeader() }
           ListHeaderComponentStyle={{ marginVertical: 0 }}
           renderItem={({ item, index }) => this.renderItem(item, index)}
-          keyExtractor={item => item.id.toString()}
+          keyExtractor={item => uuidv4()}
           ListEmptyComponent={<EmptyResult message={this.props.t("LookingForHelpScreen.NotFound")} />}
           onRefresh={ () => this.loadInstitution() }
           refreshing={ this.state.isFetching }
