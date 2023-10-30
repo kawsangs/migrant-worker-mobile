@@ -1,4 +1,4 @@
-import { PHONE, FACEBOOK, WHATSAPP } from '../constants/contact_constant';
+import { PHONE, FACEBOOK } from '../constants/contact_constant';
 
 const contactHelper = (() => {
   return {
@@ -11,8 +11,6 @@ const contactHelper = (() => {
         return `tel:${value}`;
       case FACEBOOK:
         return value;
-      case WHATSAPP:
-        return `https://api.whatsapp.com/send?phone=${value}`;
       default:
         return value.replace(/\s/g, '');
     }

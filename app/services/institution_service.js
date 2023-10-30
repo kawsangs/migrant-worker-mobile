@@ -20,40 +20,20 @@ class InstitutionService extends WebService {
     this.get(endpointHelper.listingNestedEndpoint('countries', countryCode, 'country_institutions'))
       .then(res => JSON.parse(res.data))
       .then(data => {
+        const prevCountryInstitutions = CountryInstitution.findByCountryCode(countryCode);
+        prevCountryInstitutions.map(prevCountryInstitution => {
+          Institution.deleteItem(Institution.find(prevCountryInstitution.institution_id));
+        })
+        CountryInstitution.deleteByCountryCode(countryCode);
         data.map((item, index) => {
           let institution = item.institution;
-
-          if (Institution.isExist(institution.id)) {
-            // If institution is exist in realm -> update the existing data
-            let contacts = [];
-            institution.contacts.map(contact => {
-              contacts.push(JSON.stringify(contact))
-            });
-
-            institution.contacts = contacts;
-            Institution.update(institution.id, institution);
-
-            if (!CountryInstitution.isExist(countryCode, institution.id)) {
-              const params = {
-                uuid: uuidv4(),
-                country_code: countryCode,
-                institution_id: institution.id
-              };
-              CountryInstitution.create(params);
-            }
-          }
-          else {
-            // If institution is not exist in realm -> create new record in realm
-            Institution.create(institution, index);
-
-            const countryInstitutionData = {
-              uuid: uuidv4(),
-              country_code: countryCode,
-              institution_id: institution.id
-            };
-            CountryInstitution.create(countryInstitutionData);
-          }
-
+          Institution.create(institution, index);
+          const countryInstitutionData = {
+            uuid: uuidv4(),
+            country_code: countryCode,
+            institution_id: institution.id
+          };
+          CountryInstitution.create(countryInstitutionData);
           this._downloadFile(institution);
         });
 
