@@ -6,7 +6,7 @@ import NetInfo from "@react-native-community/netinfo";
 import { Color, FontFamily, FontSize } from '../../assets/stylesheets/base_style';
 import SurveyFormService from '../../services/survey_form_service';
 
-const noInternetMessage = 'មិនមានកម្រងសំណួរនៃការស្ទង់មតិដែលអាចបណ្ដាលមកពីមិនមានប្រព័ន្ធអ៊ីនធឺណិត។ សូមចុចប៊ូតុងខាងក្រោមដើម្បីទាញយកកម្រងសំណួរនៃការស្ទង់មតិ។';
+const noInternetMessage = 'មិនមានកម្រងសំណួរនៃការស្ទង់មតិ! បញ្ហាអាចបណ្ដាលមកពីមិនមានប្រព័ន្ធអ៊ីនធឺណិត។ សូមចុចប៊ូតុងខាងក្រោមដើម្បីទាញយកកម្រងសំណួរនៃការស្ទង់មតិ។';
 
 const SurveyFormRedownloadButtonComponent = (props) => {
   const [message, setMessage] = useState(noInternetMessage);
@@ -21,7 +21,7 @@ const SurveyFormRedownloadButtonComponent = (props) => {
           props.setForm()
           setIsLoading(false);
         }, (error) => {
-          setMessage('មានបញ្ហារអាក់រអួលក្នុងការទាញយកការស្ទង់មតិ។ សូមពិនិត្យមើលប្រព័ន្ធអ៊ីនធឺណិតរបស់អ្នកហើយព្យាយាមម្តងទៀត។');
+          setMessage('មានបញ្ហារអាក់រអួលក្នុងការទាញយកកម្រងសំណួរនៃការស្ទង់មតិ។ សូមពិនិត្យមើលប្រព័ន្ធអ៊ីនធឺណិតរបស់អ្នកហើយព្យាយាមម្តងទៀត។');
           setIcon('info');
           setIsLoading(false);
         });
@@ -43,7 +43,7 @@ const SurveyFormRedownloadButtonComponent = (props) => {
           style={{borderRadius: 6, height: 48, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', backgroundColor: Color.primary, paddingHorizontal: 16}}
         >
           <Icon name='download' size={20} color={Color.white} />
-          <Text style={{fontFamily: FontFamily.body, fontSize: FontSize.body, color: Color.white, lineHeight: 28, marginLeft: 8}}>ទាញយកការស្ទង់មតិ</Text>
+          <Text style={{fontFamily: FontFamily.body, fontSize: FontSize.body, color: Color.white, lineHeight: 28, marginLeft: 8}}>ទាញយកកម្រងសំណួរ</Text>
         </TouchableOpacity>
       </React.Fragment>
     )
