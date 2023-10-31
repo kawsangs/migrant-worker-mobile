@@ -22,14 +22,14 @@ class SurveyFormService extends WebService {
     super();
   }
 
-  findAndSave(id, callback) {
+  findAndSave(id, successCallback, failureCallback) {
     this.get(endpointHelper.detailEndpoint('survey_forms', id))
       .then(response => JSON.parse(response.data))
       .then(data => {
         this._saveForm(data);
-        this._saveSectionsAndQuestions(data.sections, id, callback);
+        this._saveSectionsAndQuestions(data.sections, id, successCallback);
       })
-      .catch(error => console.log('survey form error = ', error))
+      .catch(error => !!failureCallback && failureCallback(error))
   }
 
   submitSurvey(answers, quizUuid) {
@@ -79,6 +79,19 @@ class SurveyFormService extends WebService {
       return true
 
     return false
+  }
+
+  isExist(formId) {
+    const sections = Section.findByFormId(formId)
+    if (!Form.findById(formId) || sections.length == 0)
+      return false;
+
+    Section.findByFormId(formId).map(section => {
+      if (!Question.findBySectionId(section.id))
+        return false
+    });
+
+    return true;
   }
 
   // private method

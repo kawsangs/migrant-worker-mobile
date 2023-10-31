@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {View, ActivityIndicator, BackHandler} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import NetInfo from "@react-native-community/netinfo";
 
 import SurveyFormNavHeaderComponent from '../../components/SurveyForms/SurveyFormNavHeaderComponent';
 import SurveyFormContentComponent from '../../components/SurveyForms/SurveyFormContentComponent';
 import SurveyFormAlertMessageComponent from '../../components/SurveyForms/SurveyFormAlertMessageComponent';
+import SurveyFormRedownloadButtonComponent from '../../components/SurveyForms/SurveyFormRedownloadButtonComponent';
 import SurveyFormService from '../../services/survey_form_service';
 import Notification from '../../models/Notification';
-import Form from '../../models/Form';
 import Quiz from '../../models/Quiz';
 import uuidv4 from '../../utils/uuidv4';
 import { Color } from '../../assets/stylesheets/base_style';
@@ -18,13 +19,20 @@ const SurveyFormScreen = ({route, navigation}) => {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.currentUser)
   const [isLoading, setIsLoading] = useState(true);
+  const [hasForm, setHasForm] = useState(false);
+  const [hasInternet, setHasInternet] = useState(false);
   const alertRef = React.useRef(null);
 
   useEffect(() => {
+    NetInfo.fetch().then(state => {
+      setHasInternet(state.isConnected);
+    });
+
     Notification.update(route.params.uuid, { is_read: true });
     dispatch(setNotifications(Notification.all()));
-
-    if (!Form.findById(route.params.form_id))
+    const isFormExist = new SurveyFormService().isExist(route.params.form_id);
+    setHasForm(isFormExist);
+    if (!isFormExist)
       new SurveyFormService().findAndSave(route.params.form_id, () => setForm());
     else
       setForm()
@@ -37,6 +45,7 @@ const SurveyFormScreen = ({route, navigation}) => {
   }, [])
 
   const setForm = () => {
+    setHasForm(true);
     let uuid = uuidv4();
     Quiz.upsert({
       uuid: uuid,
@@ -50,11 +59,21 @@ const SurveyFormScreen = ({route, navigation}) => {
     setIsLoading(false);
   }
 
+  const renderSurvey = () => {
+    return !isLoading ? <SurveyFormContentComponent formId={route.params.form_id} />
+      : <View style={{flex: 1, justifyContent: 'center'}}><ActivityIndicator size="large" color={Color.primary} /></View>
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <SurveyFormNavHeaderComponent title={route.params.title} onPressBack={() => alertRef.current?.setAlertVisibility(true)} />
-      { !isLoading ? <SurveyFormContentComponent formId={route.params.form_id} />
-        : <View style={{flex: 1, justifyContent: 'center'}}><ActivityIndicator size="large" color={Color.primary} /></View>
+
+      { (!hasInternet && !hasForm)
+        ? <SurveyFormRedownloadButtonComponent
+            formId={route.params.form_id}
+            setForm={() => setForm()} 
+          />
+        : renderSurvey()
       }
       <SurveyFormAlertMessageComponent ref={alertRef} />
     </View>
