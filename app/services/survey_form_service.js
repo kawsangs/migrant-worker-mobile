@@ -86,12 +86,13 @@ class SurveyFormService extends WebService {
     if (!Form.findById(formId) || sections.length == 0)
       return false;
 
+    let hasQuestion = true;
     Section.findByFormId(formId).map(section => {
       if (!Question.findBySectionId(section.id))
-        return false
+        hasQuestion = false
     });
 
-    return true;
+    return hasQuestion;
   }
 
   // private method
