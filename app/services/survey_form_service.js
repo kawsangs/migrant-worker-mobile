@@ -82,12 +82,12 @@ class SurveyFormService extends WebService {
   }
 
   isExist(formId) {
-    const sections = Section.findByFormId(formId)
+    const sections = [...Section.findByFormId(formId)]
     if (!Form.findById(formId) || sections.length == 0)
       return false;
 
     let hasQuestion = true;
-    Section.findByFormId(formId).map(section => {
+    sections.map(section => {
       if (Question.findBySectionId(section.id).length == 0)
         hasQuestion = false
     });
