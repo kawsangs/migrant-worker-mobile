@@ -2,7 +2,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import messaging from '@react-native-firebase/messaging';
 import Notification from '../models/Notification';
 import Visit from '../models/Visit';
-import Form from '../models/Form';
 import SurveyFormService from './survey_form_service';
 import * as RootNavigation from '../navigators/app_navigator';
 
@@ -51,8 +50,9 @@ const notificationService = (() => {
       if (!Notification.findById(data.notification_id))
         Notification.create({...remoteMessage.notification, id: data.notification_id, data: data})
 
-      if (!!data.form_id && !Form.findById(data.form_id))
-        new SurveyFormService().findAndSave(data.form_id);
+      const surveyFormService = new SurveyFormService();
+      if (!!data.form_id && !surveyFormService.isExist(data.form_id))
+        surveyFormService.findAndSave(data.form_id);
     }
   }
 
