@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import SurveyFormQuestionComponent from './SurveyFormQuestionComponent';
 import SurveyFormButtonComponent from './SurveyFormButtonComponent';
+import SurveyFormEndMessageComponent from './SurveyFormEndMessageComponent';
 import Section from '../../models/Section';
 import Question from '../../models/Question';
 import SurveyFormService from '../../services/survey_form_service';
@@ -109,6 +110,7 @@ const SurveyFormContentComponent = (props) => {
               answers={answers}
               sections={sections}
               currentSection={currentSection}
+              visibleQuestions={visibleQuestions}
               onPress={() => goNextOrFinish()}
            />
   }
@@ -116,6 +118,9 @@ const SurveyFormContentComponent = (props) => {
   return (
     <React.Fragment>
       <ScrollView contentContainerStyle={{flexGrow: 1, paddingHorizontal: 16, paddingBottom: 26}}>
+        {currentSection == sections.length - 1 &&
+          <SurveyFormEndMessageComponent visibleQuestions={visibleQuestions}/>
+        }
         { renderQuestionsOfSection() }
       </ScrollView>
       { renderButton() }

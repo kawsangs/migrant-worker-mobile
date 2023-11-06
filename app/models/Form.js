@@ -15,6 +15,7 @@ const Form = (() => {
     isDownloaded,
     deleteAllWithDependency,
     deleteAll,
+    deleteByIdWithDependency,
     getPendingDownload,
     upsertCollection,
     upsert,
@@ -63,6 +64,20 @@ const Form = (() => {
     if (collection.length > 0) {
       realm.write(() => {
         realm.delete(collection);
+      });
+    }
+  }
+
+  function deleteByIdWithDependency(id) {
+    const form = findById(id);
+    if (!!form) {
+      Question.byForm(id).map(question => {
+        Option.deleteAllByQuestionId(question.id);
+        Criteria.deleteAllByQuestionId(question.id);
+      });
+      Question.deleteAllByFormId(id);
+      realm.write(() => {
+        realm.delete(form);
       });
     }
   }

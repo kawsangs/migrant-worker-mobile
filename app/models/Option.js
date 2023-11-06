@@ -4,6 +4,7 @@ const Option = (() => {
   return {
     getAll,
     deleteAll,
+    deleteAllByQuestionId,
     isDownloaded,
     getPendingDownload,
     upsertCollection,
@@ -25,6 +26,15 @@ const Option = (() => {
     if (collection.length > 0) {
       realm.write(() => {
         realm.delete(collection);
+      });
+    }
+  }
+
+  function deleteAllByQuestionId(questionId) {
+    const options = byQuestion(questionId);
+    if (options.length > 0) {
+      realm.write(() => {
+        realm.delete(options);
       });
     }
   }

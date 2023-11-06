@@ -19,6 +19,7 @@ class NotificationList extends Component {
       selectedUuid: null,
       showModal: false,
     };
+    this.selectedNotification = null;
   }
 
   componentDidMount() {
@@ -36,9 +37,11 @@ class NotificationList extends Component {
   }
 
   deleteNotification = () => {
-    Notification.destroy(this.state.selectedUuid);
-    Form.deleteAllWithDependency()
+    const data = !!this.selectedNotification ? JSON.parse(this.selectedNotification.data) : null;
+    if (!!data && !!data.form_id)
+      Form.deleteByIdWithDependency(data.form_id);
 
+    Notification.destroy(this.state.selectedUuid);
     this.setState({
       showModal: false,
       notifications: Notification.all(),
@@ -46,11 +49,12 @@ class NotificationList extends Component {
     })
   }
 
-  showDeleteModal = (uuid) => {
+  showDeleteModal = (notification) => {
     this.setState({
       showModal: true,
-      selectedUuid: uuid
+      selectedUuid: notification.uuid
     })
+    this.selectedNotification = notification;
   }
 
   renderEmptyMessage = () => {

@@ -4,6 +4,7 @@ const Criteria = (() => {
   return {
     getAll,
     deleteAll,
+    deleteAllByQuestionId,
     upsertCollection,
     upsert,
     byQuestion,
@@ -23,6 +24,15 @@ const Criteria = (() => {
     if (collection.length > 0) {
       realm.write(() => {
         realm.delete(collection);
+      });
+    }
+  }
+
+  function deleteAllByQuestionId(questionId) {
+    const criterias = byQuestion(questionId);
+    if (criterias.length > 0) {
+      realm.write(() => {
+        realm.delete(criterias);
       });
     }
   }

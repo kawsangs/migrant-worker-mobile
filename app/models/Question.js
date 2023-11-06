@@ -10,6 +10,7 @@ const Question = (() => {
   return {
     getAll,
     deleteAll,
+    deleteAllByFormId,
     isDownloaded,
     getPendingDownload,
     upsertCollection,
@@ -39,6 +40,15 @@ const Question = (() => {
     if (collection.length > 0) {
       realm.write(() => {
         realm.delete(collection);
+      });
+    }
+  }
+
+  function deleteAllByFormId(formId) {
+    const questions = byForm(formId);
+    if (questions.length > 0) {
+      realm.write(() => {
+        realm.delete(questions);
       });
     }
   }
