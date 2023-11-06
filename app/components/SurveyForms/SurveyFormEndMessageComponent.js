@@ -1,20 +1,18 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import { Color, FontFamily } from '../../assets/stylesheets/base_style';
 
 const SurveyFormEndMessageComponent = (props) => {
-  return (
-    <View style={[{paddingTop: 12, justifyContent: 'center'}, props.visibleQuestions.filter(q => q == true).length == 0 && {flex: 1}]}>
-      <Text style={{fontFamily: FontFamily.title}}>អរគុណសម្រាប់ការចូលរួមការស្ទង់មតិ</Text>
+  const hasNoQuestion = props.visibleQuestions.filter(q => q == true).length == 0;
 
-      <View style={{flexDirection: 'row', paddingHorizontal: 12, paddingVertical: 16, borderWidth: 1.5, borderColor: '#dbdbdb', borderRadius: 10, marginTop: 10, backgroundColor: Color.white}}>
-        <Icon name='info' size={24} color={Color.primary} />
-        <View style={{fontFamily: FontFamily.body, marginLeft: 12}}>
-          <Text>ដើម្បីចាក់ចេញពីការស្ទង់មតិ សូមចុចលើប៊ូតុង <Text style={{fontFamily: FontFamily.title}}>"បញ្ចប់"</Text>។</Text>
-        </View>
-      </View>
+  return (
+    <View style={[{paddingTop: 12, alignItems: 'center', justifyContent: 'center'}, hasNoQuestion && {flex: 1}]}>
+      <Icon name='checkmark-circle-outline' size={hasNoQuestion ? 100 : 70} color='#55d806' />
+      <Text style={{fontFamily: FontFamily.body, marginLeft: 12}}>
+        អរគុណសម្រាប់ការចូលរួមការស្ទង់មតិ
+      </Text>
     </View>
   )
 }

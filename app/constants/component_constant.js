@@ -1,0 +1,1 @@
+export const bigPressableSize = 64;

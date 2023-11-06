@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/Feather'
 
 import { Color, FontFamily, FontSize } from '../../assets/stylesheets/base_style';
 import DownloadedImage from '../../models/DownloadedImage';
+import {bigPressableSize} from '../../constants/component_constant';
 
 const SurveyFormNoteComponent = (props) => {
   const onPress = (url) => {
@@ -21,7 +22,7 @@ const SurveyFormNoteComponent = (props) => {
       return (
         <TouchableOpacity key={option.id}
           onPress={() => onPress(option.value)}
-          style={{borderBottomWidth: 1, borderBottomColor: Color.divideLineColor, flexDirection: 'row', minHeight: 56, alignItems: 'center', paddingVertical: 8}}
+          style={{borderBottomWidth: 1, borderBottomColor: Color.divideLineColor, flexDirection: 'row', minHeight: bigPressableSize, alignItems: 'center'}}
         >
           { icon &&
             <Image source={!!icon ? {uri: icon} : null} resizeMode='contain'
