@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 
 import BigButtonComponent from '../shared/BigButtonComponent';
@@ -14,6 +14,11 @@ const BUTTONS = {
 
 const SurveyFormButtonComponent = React.forwardRef((props, ref) => {
   const [isValid, setIsValid] = useState(false);
+
+  useEffect(() => {
+    if (props.visibleQuestions.filter(q => q == true).length == 0 && props.currentSection == props.sections.length - 1)
+      setIsValid(true);
+  }, [props.currentSection]);
 
   useImperativeHandle(ref, () => ({
     validateForm,

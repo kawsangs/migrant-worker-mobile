@@ -24,7 +24,7 @@ class NotificationItem extends React.Component {
   }
 
   deleteNotification = () => {
-    this.props.showDeleteModal(this.props.notification.uuid);
+    this.props.showDeleteModal(this.props.notification);
     this.itemRef.close();
   }
 

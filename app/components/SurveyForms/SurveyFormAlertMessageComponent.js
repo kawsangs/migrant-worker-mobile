@@ -33,6 +33,7 @@ const SurveyFormAlertMessageComponent = React.forwardRef((props, ref) => {
             message={"តើអ្នក​ពិតជា​ចង់​ចាកចេញ​ពី​ការស្ទង់​មតិ​នេះ​មែន​ទេ?"}
             onPressAction={() => exitSurvey()}
             onPressCancel={() => setVisible(false)}
+            onDismiss={() => setVisible(false)}
             audio='exit_survey_20230929.mp3'
           />
 })

@@ -45,6 +45,9 @@ class SurveyFormService extends WebService {
 
     let queries = [];
     criterias.map((criteria, index) => {
+      if (!criteria.response_value && !criteria.question_code)
+        queries.push('true')
+
       let matchedAnswer = null;
       for (let section in answers) {
         if (Object.keys(answers[section]).length == 0 || section > currentSection)
